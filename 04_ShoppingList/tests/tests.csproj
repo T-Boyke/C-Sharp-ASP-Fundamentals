@@ -19,7 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Unit_04_Unit_Template\Unit_04_Unit_Template.csproj" />
+    <ProjectReference Include="..\src\04_ShoppingList\04_ShoppingList.csproj" />
   </ItemGroup>
 
 </Project>
+

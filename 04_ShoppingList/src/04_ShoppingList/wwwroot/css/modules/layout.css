@@ -1,0 +1,25 @@
+/* 
+ * ==========================================
+ * IHK-Dokumentation: Layout-Komponenten 
+ * ==========================================
+ * Datei: layout.css
+ * Zweck: Styles für Layout-Container, Formulare und übergreifende Strukturen.
+ * Besonderheiten: Verwendet Backdrop-Filter für den modernen "Glassmorphismus"-Effekt.
+ * ==========================================
+ */
+
+/* 
+ * UI-Card: Container für Formulare und Listen. Verwendet transparenten Hintergrund 
+ * mit Blur-Effekt (Glassmorphismus) für ein Premium-Design. 
+ */
+@utility card {
+    @apply bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-8;
+}
+
+/* 
+ * Input-Feld: Einheitliches Design für Texteingaben und Number-Inputs. 
+ * Beinhaltet Hover/Focus-States zur Verbesserung der UX.
+ */
+@utility input-field {
+    @apply mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm px-4 py-3 bg-white/50 transition-all duration-200 outline-none;
+}

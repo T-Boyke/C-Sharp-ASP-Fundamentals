@@ -1,0 +1,17 @@
+/* 
+ * ==========================================
+ * IHK-Dokumentation: Theme-Konfiguration 
+ * ==========================================
+ * Datei: theme.css
+ * Zweck: Zentrale Definition der Corporate Design (CD) Farben und globaler 
+ *        Tailwind 4.2 Variablen mittels der @theme Direktive.
+ * Besonderheiten: Ersetzt die alte tailwind.config.js Struktur für Tailwind 4+.
+ * Autor: Senior Web-Entwickler
+ * ==========================================
+ */
+
+@theme {
+    /* Primäre Markenfarbe (Violett-Nuancen) */
+    --color-brand-500: #8b5cf6;
+    --color-brand-600: #7c3aed;
+}

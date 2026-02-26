@@ -4,7 +4,8 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>_04_Unit_Template</RootNamespace>
+    <RootNamespace>_04_ShoppingList</RootNamespace>
   </PropertyGroup>
 
 </Project>
+
