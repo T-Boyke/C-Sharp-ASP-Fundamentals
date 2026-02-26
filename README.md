@@ -63,8 +63,8 @@ We adhere to the following architectural pillars:
 
 | Unit | Title | Description | Link |
 | :--- | :--- | :--- | :--- |
-| 01 | [Project Setup](./01_Unit_Template) | Initial configuration and SDK verification. | [View](./01_Unit_Template) |
-| 02 | [Hello MVC](./02_Unit_Template) | First steps with ASP.NET Core MVC. | [View](./02_Unit_Template) |
+| 01 | [Project Setup](./01_Project_Setup) | Initial configuration and SDK verification. | [View](./01_Project_Setup) |
+| 02 | [Hello MVC](./02_Hello_MVC) | First steps with ASP.NET Core MVC. | [View](./02_Hello_MVC) |
 | 03 | [Unit 03](./03_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./03_Unit_Template) |
 | 04 | [Unit 04](./04_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./04_Unit_Template) |
 | 05 | [Unit 05](./05_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./05_Unit_Template) |
