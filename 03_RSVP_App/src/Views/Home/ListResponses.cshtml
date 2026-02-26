@@ -1,0 +1,30 @@
+@model IEnumerable<Unit_03_RSVP_App.Models.GuestResponse>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Guest List";
+}
+
+<div class="container mt-4">
+    <h2>Here is the list of people attending the party:</h2>
+    <table class="table table-striped table-hover mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>@r.Name</td>
+                    <td>@r.Email</td>
+                    <td>@r.Phone</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-primary" asp-action="Index">Back to Home</a>
+</div>

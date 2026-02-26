@@ -1,0 +1,21 @@
+@model Unit_03_RSVP_App.Models.GuestResponse
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Thank You";
+}
+
+<div class="container mt-5 text-center">
+    <h1>Thank you, @Model.Name!</h1>
+    <div class="alert alert-info mt-4">
+        @if (Model.WillAttend == true)
+        {
+            <p class="fs-4">It's great that you're coming. The drinks are already in the fridge!</p>
+        }
+        else
+        {
+            <p class="fs-4">Sorry to hear you can't make it, but thanks for letting us know.</p>
+        }
+    </div>
+    <p>Click <a asp-action="ListResponses">here</a> to see who else is coming.</p>
+</div>

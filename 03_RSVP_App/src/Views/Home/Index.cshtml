@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "RSVP App";
+}
+
+<div class="text-center">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <h1 class="display-5 fw-bold">Party Invitation!</h1>
+        <p class="fs-4">@ViewBag.Greeting! We're having a party and you're invited.</p>
+        <hr class="my-4">
+        <p>Would you like to join us?</p>
+        <a class="btn btn-primary btn-lg" asp-action="RsvpForm">RSVP Now</a>
+    </div>
+</div>
