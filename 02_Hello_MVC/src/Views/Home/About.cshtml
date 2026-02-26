@@ -1,0 +1,41 @@
+@model Unit_02_Hello_MVC.Models.WelcomeViewModel
+
+@{
+    ViewData["Title"] = "About MVC";
+}
+
+<div class="container mt-5">
+    <div class="jumbotron shadow-lg p-5 mb-4 bg-white rounded">
+        <h1 class="display-4 text-primary">@Model.Message</h1>
+        <p class="lead">This page demonstrates the flow of data from the **Controller** to the **View** using a strongly-typed **Model**.</p>
+        <hr class="my-4">
+        
+        <div class="row">
+            <div class="col-md-6">
+                <h4>📊 Model Data</h4>
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Generated At:</strong> @Model.GeneratedAt.ToString("f")</li>
+                    <li class="list-group-item">
+                        <strong>Priority:</strong> 
+                        @if (Model.IsPriority)
+                        {
+                            <span class="badge bg-danger">High Priority</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Standard</span>
+                        }
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 border-start">
+                <h4>🧠 MVC Concept</h4>
+                <p>
+                    In this example, the <code>HomeController</code> instantiated a <code>WelcomeViewModel</code>, 
+                    populated it with data, and passed it to this view. Razor syntax (the <code>@@</code> symbol) 
+                    is used to render that data into HTML.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
