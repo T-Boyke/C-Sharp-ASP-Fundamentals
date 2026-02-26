@@ -4,10 +4,49 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Unit_03_RSVP_App</title>
-    <script type="importmap"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-brand-primary: #3b82f6;
+            --color-brand-success: #10b981;
+        }
+
+        /* OOCSS: Structure Objects */
+        .o-card {
+            @apply rounded-xl p-8 overflow-hidden transition-all duration-300;
+        }
+        .o-field-group {
+            @apply mb-6 flex flex-col gap-2;
+        }
+        .o-input {
+            @apply w-full px-4 py-3 rounded-lg border-2 outline-none transition-colors;
+        }
+        .o-btn {
+            @apply px-6 py-3 rounded-lg font-bold transition-all transform active:scale-95 cursor-pointer;
+        }
+
+        /* OOCSS: Skin Modifiers (Tailwind 4.1: text-shadow, drop-shadow) */
+        .s-card--primary {
+            @apply bg-white border-brand-primary/20 border shadow-2xl drop-shadow-brand-primary/20;
+        }
+        .s-card--success {
+            @apply bg-white border-brand-success/20 border shadow-2xl drop-shadow-brand-success/20;
+        }
+        .s-input--standard {
+            @apply border-gray-200 focus:border-brand-primary bg-gray-50/50;
+        }
+        .s-btn--primary {
+            @apply bg-brand-primary text-white hover:bg-blue-600 shadow-lg text-shadow-sm;
+        }
+        .s-btn--success {
+            @apply bg-brand-success text-white hover:bg-emerald-600 shadow-lg text-shadow-sm;
+        }
+        .s-text--hero {
+            @apply text-shadow-lg font-black tracking-tight;
+        }
+    </style>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Unit_03_RSVP_App.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>

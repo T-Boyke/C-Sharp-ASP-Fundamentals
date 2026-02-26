@@ -3,12 +3,16 @@
     ViewData["Title"] = "RSVP App";
 }
 
-<div class="text-center">
-    <div class="p-5 mb-4 bg-light rounded-3">
-        <h1 class="display-5 fw-bold">Party Invitation!</h1>
-        <p class="fs-4">@ViewBag.Greeting! We're having a party and you're invited.</p>
-        <hr class="my-4">
-        <p>Would you like to join us?</p>
-        <a class="btn btn-primary btn-lg" asp-action="RsvpForm">RSVP Now</a>
+<div class="flex items-center justify-center min-h-[60vh]">
+    <div class="o-card s-card--primary max-w-2xl text-center">
+        <h1 class="s-text--hero text-5xl mb-6 text-brand-primary">Party Invitation!</h1>
+        <p class="text-xl text-gray-600 mb-8 italic">
+            @ViewBag.Greeting! We're having a party and you're invited.
+        </p>
+        <div class="w-full bg-linear-to-r from-brand-primary to-blue-400 h-1 rounded-full mb-8 opacity-20"></div>
+        <p class="text-lg mb-8 font-medium">Would you like to join us?</p>
+        <a class="o-btn s-btn--primary inline-block text-lg" asp-action="RsvpForm">
+            RSVP Now
+        </a>
     </div>
 </div>
