@@ -1,56 +1,47 @@
 @model Unit_03_RSVP_App.Models.GuestResponse
 
 @{
-    Layout = "_Layout";
     ViewData["Title"] = "RSVP Form";
 }
 
-<div class="container py-12 flex justify-center">
-    <div class="o-card s-card--primary w-full max-w-xl">
-        <div class="mb-8">
-            <h2 class="text-3xl font-bold text-gray-800 s-text--hero">RSVP Form</h2>
-            <p class="text-gray-500">Please fill out the details below to confirm your attendance.</p>
+<div class="max-w-xl mx-auto">
+    <div class="card">
+        <div class="card-header">
+            Confirm Your Attendance
         </div>
+        <div class="card-body">
+            <form asp-action="RsvpForm" method="post">
+                <div asp-validation-summary="ModelOnly" class="mb-6 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm"></div>
 
-        <form asp-action="RsvpForm" method="post">
-            <div asp-validation-summary="All" class="rounded-lg bg-red-50 p-4 text-red-600 text-sm mb-6 border border-red-100"></div>
-            
-            <div class="o-field-group">
-                <label asp-for="Name" class="font-semibold text-gray-700">Full Name</label>
-                <input asp-for="Name" class="o-input s-input--standard" placeholder="Enter your name..." />
-                <span asp-validation-for="Name" class="text-xs text-red-500 font-medium"></span>
-            </div>
-            
-            <div class="o-field-group">
-                <label asp-for="Email" class="font-semibold text-gray-700">Email Address</label>
-                <input asp-for="Email" class="o-input s-input--standard" placeholder="Enter your email..." />
-                <span asp-validation-for="Email" class="text-xs text-red-500 font-medium"></span>
-            </div>
-            
-            <div class="o-field-group">
-                <label asp-for="Phone" class="font-semibold text-gray-700">Phone Number</label>
-                <input asp-for="Phone" class="o-input s-input--standard" placeholder="Phone number..." />
-                <span asp-validation-for="Phone" class="text-xs text-red-500 font-medium"></span>
-            </div>
-            
-            <div class="o-field-group">
-                <label class="font-semibold text-gray-700">Will you attend?</label>
-                <select asp-for="WillAttend" class="o-input s-input--standard appearance-none">
-                    <option value="">Choose an option</option>
-                    <option value="true">Yes, I'll be there</option>
-                    <option value="false">No, I can't come</option>
-                </select>
-                <span asp-validation-for="WillAttend" class="text-xs text-red-500 font-medium"></span>
-            </div>
-            
-            <div class="mt-8 flex gap-4">
-                <button type="submit" class="o-btn s-btn--primary flex-1">
-                    Submit RSVP
-                </button>
-                <a class="o-btn bg-gray-100 text-gray-600 hover:bg-gray-200" asp-action="Index">
-                    Cancel
-                </a>
-            </div>
-        </form>
+                @* SFC: Using Partial Views as Components *@
+                @await Html.PartialAsync("Components/_FormControl", new { Label = "Your Name", Property = "Name", ErrorMessage = "We need your name!" })
+                
+                @await Html.PartialAsync("Components/_FormControl", new { Label = "Email Address", Property = "Email", Type = "email", ErrorMessage = "Please provide a valid email." })
+
+                @await Html.PartialAsync("Components/_FormControl", new { Label = "Phone Number", Property = "Phone", Type = "tel", ErrorMessage = "A contact number is required." })
+
+                @await Html.PartialAsync("Components/_FormControl", new { 
+                    Label = "Will you attend?", 
+                    Property = "WillAttend", 
+                    Type = "select", 
+                    ErrorMessage = "Tell us if you're coming!",
+                    Options = new HtmlString(@"
+                        <option value=''>Choose an option</option>
+                        <option value='true'>Yes, count me in!</option>
+                        <option value='false'>No, I can't make it</option>
+                    ")
+                })
+
+                <div class="flex flex-col sm:flex-row gap-4 mt-8 pt-6 border-t border-slate-100">
+                    @await Html.PartialAsync("Components/_Button", new { Text = "Submit RSVP", IsPrimary = true })
+                    <a asp-action="Index" class="btn btn-secondary text-center">Back to Home</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

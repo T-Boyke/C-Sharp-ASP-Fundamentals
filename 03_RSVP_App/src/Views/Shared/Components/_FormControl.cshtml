@@ -1,0 +1,23 @@
+@model dynamic
+@{
+    string label = Model.Label;
+    string propertyName = Model.Property;
+    string type = Model.Type ?? "text";
+}
+
+<div class="mb-6">
+    <label for="@propertyName" class="label-text">@label</label>
+    @if (type == "select")
+    {
+        <select name="@propertyName" id="@propertyName" class="input-field" 
+                data-val="true" data-val-required="@Model.ErrorMessage">
+            @Model.Options
+        </select>
+    }
+    else
+    {
+        <input type="@type" name="@propertyName" id="@propertyName" class="input-field" placeholder="Enter your @label.ToLower()..."
+               data-val="true" data-val-required="@Model.ErrorMessage" />
+    }
+    <span class="text-xs text-red-500 mt-1 block" data-valmsg-for="@propertyName" data-valmsg-replace="true"></span>
+</div>

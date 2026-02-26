@@ -1,37 +1,38 @@
 @model Unit_03_RSVP_App.Models.GuestResponse
 
 @{
-    Layout = "_Layout";
     ViewData["Title"] = "Thank You";
 }
 
-<div class="container py-12 flex justify-center">
-    <div class="o-card s-card--success w-full max-w-2xl text-center">
-        <h1 class="s-text--hero text-4xl text-brand-success mb-6">
-            Thank you, @Model.Name!
-        </h1>
+<div class="max-w-xl mx-auto text-center">
+    <div class="card p-12">
+        <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-8">
+            ✓
+        </div>
+        <h1 class="text-4xl font-bold text-slate-900 mb-4">Thank you, @Model.Name!</h1>
         
-        <div class="rounded-2xl bg-emerald-50 p-8 mb-8 border border-emerald-100 italic text-xl text-emerald-900 shadow-inner">
+        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 mb-8">
             @if (Model.WillAttend == true)
             {
-                <span class="drop-shadow-sm">It's great that you're coming! The drinks are already in the fridge! 🍹</span>
+                <p class="text-lg text-slate-600">
+                    It's great that you're coming! 🎈 <br/>
+                    We've already saved a spot for you.
+                </p>
             }
             else
             {
-                <span class="drop-shadow-sm">Sorry to hear you can't make it, but thanks for letting us know. ✉️</span>
+                <p class="text-lg text-slate-600">
+                    Sorry to hear you can't make it, but we appreciate you letting us know.
+                </p>
             }
         </div>
-        
-        <p class="text-gray-600 mb-8">
-            Want to see who else is joining the party?
-        </p>
-        
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a class="o-btn s-btn--success" asp-action="ListResponses">
-                View Guest List
+
+        <div class="flex flex-col gap-4">
+            <a asp-action="ListResponses" class="btn btn-primary">
+                View Who Else is Attending
             </a>
-            <a class="o-btn border-2 border-gray-200 text-gray-600 hover:bg-gray-50" asp-action="Index">
-                Back to Home
+            <a asp-action="Index" class="text-brand font-semibold hover:underline">
+                Return to Home
             </a>
         </div>
     </div>

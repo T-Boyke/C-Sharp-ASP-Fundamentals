@@ -3,90 +3,60 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Unit_03_RSVP_App</title>
+    <title>@ViewData["Title"] - RSVP Premium</title>
+    <!-- Tailwind CSS 4 -->
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <style type="text/tailwindcss">
+    <style type="text/css">
+        @* OOCSS Base Objects & Skins *@
         @theme {
-            --color-brand-primary: #3b82f6;
-            --color-brand-success: #10b981;
+            --color-brand: oklch(0.6 0.18 260);
+            --color-brand-hover: oklch(0.5 0.18 260);
         }
 
-        /* OOCSS: Structure Objects */
-        .o-card {
-            @apply rounded-xl p-8 overflow-hidden transition-all duration-300;
-        }
-        .o-field-group {
-            @apply mb-6 flex flex-col gap-2;
-        }
-        .o-input {
-            @apply w-full px-4 py-3 rounded-lg border-2 outline-none transition-colors;
-        }
-        .o-btn {
-            @apply px-6 py-3 rounded-lg font-bold transition-all transform active:scale-95 cursor-pointer;
-        }
-
-        /* OOCSS: Skin Modifiers (Tailwind 4.1: text-shadow, drop-shadow) */
-        .s-card--primary {
-            @apply bg-white border-brand-primary/20 border shadow-2xl drop-shadow-brand-primary/20;
-        }
-        .s-card--success {
-            @apply bg-white border-brand-success/20 border shadow-2xl drop-shadow-brand-success/20;
-        }
-        .s-input--standard {
-            @apply border-gray-200 focus:border-brand-primary bg-gray-50/50;
-        }
-        .s-btn--primary {
-            @apply bg-brand-primary text-white hover:bg-blue-600 shadow-lg text-shadow-sm;
-        }
-        .s-btn--success {
-            @apply bg-brand-success text-white hover:bg-emerald-600 shadow-lg text-shadow-sm;
-        }
-        .s-text--hero {
-            @apply text-shadow-lg font-black tracking-tight;
+        @layer components {
+            .app-container { @apply min-h-screen bg-slate-50 font-sans text-slate-900; }
+            .card { @apply bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100; }
+            .card-header { @apply bg-brand p-6 text-white text-xl font-bold; }
+            .card-body { @apply p-8; }
+            .btn { @apply px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-flex items-center justify-center; }
+            .btn-primary { @apply bg-brand text-white hover:bg-brand-hover hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-brand/20; }
+            .btn-secondary { @apply bg-slate-200 text-slate-700 hover:bg-slate-300; }
+            .input-field { @apply w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-brand/10 focus:border-brand outline-none transition-all; }
+            .label-text { @apply block text-sm font-medium text-slate-600 mb-2; }
         }
     </style>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body>
+<body class="app-container">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Unit_03_RSVP_App</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="RsvpForm">RSVP</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ListResponses">Guest List</a>
-                        </li>
-                    </ul>
+        <nav class="bg-white border-b border-slate-100 shadow-sm sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center text-white font-bold text-sm">RSVP</div>
+                        <a class="text-xl font-bold tracking-tight text-slate-800" asp-area="" asp-controller="Home" asp-action="Index">Party Planner</a>
+                    </div>
+                    <div class="flex gap-6">
+                        <a class="text-sm font-medium text-slate-600 hover:text-brand transition-colors" asp-action="Index">Home</a>
+                        <a class="text-sm font-medium text-slate-600 hover:text-brand transition-colors" asp-action="RsvpForm">RSVP</a>
+                        <a class="text-sm font-medium text-slate-600 hover:text-brand transition-colors" asp-action="ListResponses">Guest List</a>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <main role="main" class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="animate-in fade-in duration-700">
             @RenderBody()
-        </main>
-    </div>
+        </div>
+    </main>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - Unit_03_RSVP_App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="mt-auto border-t border-slate-100 py-8 text-center text-slate-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            &copy; 2026 - Modern RSVP App - Driven by SOLID & Tailwind 4
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

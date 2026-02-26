@@ -1,18 +1,40 @@
 ﻿@{
-    Layout = "_Layout";
-    ViewData["Title"] = "RSVP App";
+    ViewData["Title"] = "Welcome";
 }
 
-<div class="flex items-center justify-center min-h-[60vh]">
-    <div class="o-card s-card--primary max-w-2xl text-center">
-        <h1 class="s-text--hero text-5xl mb-6 text-brand-primary">Party Invitation!</h1>
-        <p class="text-xl text-gray-600 mb-8 italic">
-            @ViewBag.Greeting! We're having a party and you're invited.
-        </p>
-        <div class="w-full bg-linear-to-r from-brand-primary to-blue-400 h-1 rounded-full mb-8 opacity-20"></div>
-        <p class="text-lg mb-8 font-medium">Would you like to join us?</p>
-        <a class="o-btn s-btn--primary inline-block text-lg" asp-action="RsvpForm">
+<div class="max-w-4xl mx-auto text-center py-12">
+    <h1 class="text-6xl font-extrabold tracking-tight text-slate-900 mb-6 drop-shadow-sm">
+        @ViewBag.Greeting!
+    </h1>
+    <p class="text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+        We're throwing a celebration and your presence would make it truly special. 
+        Please let us know if you'll be joining the party.
+    </p>
+    
+    <div class="flex flex-col sm:flex-row justify-center gap-6">
+        <a asp-action="RsvpForm" class="btn btn-primary text-lg px-12 py-4">
             RSVP Now
         </a>
+        <a asp-action="ListResponses" class="btn btn-secondary text-lg px-12 py-4">
+            View Guest List
+        </a>
+    </div>
+    
+    <div class="mt-24 grid grid-cols-1 sm:grid-cols-3 gap-8">
+        <div class="card p-8">
+            <div class="text-brand text-3xl mb-4">📍</div>
+            <h3 class="font-bold mb-2">Location</h3>
+            <p class="text-slate-500 text-sm">Tech Hub, Berlin</p>
+        </div>
+        <div class="card p-8">
+            <div class="text-brand text-3xl mb-4">📅</div>
+            <h3 class="font-bold mb-2">When</h3>
+            <p class="text-slate-500 text-sm">March 15th, 19:00</p>
+        </div>
+        <div class="card p-8">
+            <div class="text-brand text-3xl mb-4">🍕</div>
+            <h3 class="font-bold mb-2">Food</h3>
+            <p class="text-slate-500 text-sm">Drinks & Catering included</p>
+        </div>
     </div>
 </div>

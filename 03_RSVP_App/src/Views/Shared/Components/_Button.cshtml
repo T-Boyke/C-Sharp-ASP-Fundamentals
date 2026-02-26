@@ -1,0 +1,10 @@
+@model dynamic
+@{
+    string type = Model.Type ?? "submit";
+    string styleClass = Model.IsPrimary == true ? "btn-primary" : "btn-secondary";
+    string text = Model.Text;
+}
+
+<button type="@type" class="btn @styleClass w-full sm:w-auto">
+    @text
+</button>
