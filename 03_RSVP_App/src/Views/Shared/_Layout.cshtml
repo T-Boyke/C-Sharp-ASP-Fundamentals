@@ -11,6 +11,16 @@
         @theme {
             --color-brand: oklch(0.6 0.18 260);
             --color-brand-hover: oklch(0.5 0.18 260);
+            
+            --animate-dance: dance 3s ease-in-out infinite;
+
+            @keyframes dance {
+                0%, 100% { transform: translateY(0) rotate(0); }
+                20% { transform: translateY(-12px) rotate(-8deg) scale(1.05); }
+                40% { transform: translateY(0) rotate(8deg) scale(0.95); }
+                60% { transform: translateY(-6px) rotate(-4deg) scale(1.02); }
+                80% { transform: translateY(0) rotate(4deg) scale(0.98); }
+            }
         }
 
         @layer components {
