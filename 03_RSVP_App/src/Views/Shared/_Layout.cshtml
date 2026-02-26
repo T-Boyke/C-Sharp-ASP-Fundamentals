@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RSVP Premium</title>
+    <title>@ViewData["Title"] - RSVP App</title>
     <!-- Tailwind CSS 4 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -16,12 +16,30 @@
         }
 
         @@keyframes dance {
-            0%, 100% { transform: translateY(0) rotate(0) scale(1); }
-            15% { transform: translateY(-15px) rotate(-10deg) scale(1.1); }
-            30% { transform: translateY(0) rotate(8deg) scale(0.95); }
-            45% { transform: translateY(-10px) rotate(-5deg) scale(1.05); }
-            60% { transform: translateY(0) rotate(4deg) scale(0.98); }
-            75% { transform: translateY(-5px) rotate(-2deg) scale(1.02); }
+            /* Grundposition */
+            0%, 100% {
+                transform: translateY(0) rotate(0) scale(1);
+            }
+            /* Erster Sprung nach links */
+            15% {
+                transform: translateY(-15px) rotate(-15deg) scale(1.1);
+            }
+            /* Landung und Vorbereitung */
+            30% {
+                transform: translateY(0) rotate(10deg) scale(0.95);
+            }
+            /* Zweiter Sprung nach rechts */
+            45% {
+                transform: translateY(-10px) rotate(-10deg) scale(1.05);
+            }
+            /* Zwischenlandung */
+            60% {
+                transform: translateY(0) rotate(5deg) scale(0.98);
+            }
+            /* Kleiner Abschlusssprung */
+            75% {
+                transform: translateY(-5px) rotate(-5deg) scale(1.02);
+            }
         }
 
         .animate-dance {
@@ -112,7 +130,7 @@
 
     <footer class="mt-auto border-t border-slate-100 py-8 text-center text-slate-400 text-sm">
         <div class="max-w-7xl mx-auto px-4">
-            &copy; 2026 - Modern RSVP App - Driven by SOLID & Tailwind 4
+            &copy; 2026 - First RSVP App - Tobias Boyke
         </div>
     </footer>
 
