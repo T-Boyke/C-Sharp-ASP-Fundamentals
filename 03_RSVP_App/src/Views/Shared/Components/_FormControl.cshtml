@@ -1,12 +1,14 @@
-@model dynamic
+@model Unit_03_RSVP_App.Models.ComponentModel
 @{
     string label = Model.Label;
     string propertyName = Model.Property;
-    string type = Model.Type ?? "text";
+    string type = Model.Type;
 }
 
 <div class="mb-6">
-    <label for="@propertyName" class="label-text">@label</label>
+    <label for="@propertyName" class="label-text">
+        <i class="fa-solid fa-caret-right mr-1 text-brand/50"></i> @label
+    </label>
     @if (type == "select")
     {
         <select name="@propertyName" id="@propertyName" class="input-field" 
@@ -19,5 +21,5 @@
         <input type="@type" name="@propertyName" id="@propertyName" class="input-field" placeholder="Enter your @label.ToLower()..."
                data-val="true" data-val-required="@Model.ErrorMessage" />
     }
-    <span class="text-xs text-red-500 mt-1 block" data-valmsg-for="@propertyName" data-valmsg-replace="true"></span>
+    <span class="text-xs text-red-500 mt-1 font-bold" data-valmsg-for="@propertyName" data-valmsg-replace="true"></span>
 </div>

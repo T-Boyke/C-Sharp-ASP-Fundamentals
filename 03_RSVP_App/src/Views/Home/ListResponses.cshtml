@@ -1,3 +1,4 @@
+@using Unit_03_RSVP_App.Models
 @model IEnumerable<Unit_03_RSVP_App.Models.GuestResponse>
 
 @{
@@ -47,6 +48,11 @@
     </div>
 
     <div class="mt-8 text-center">
-        @await Html.PartialAsync("Components/_Button", new { Text = "Add More RSVPs", IsPrimary = true, Icon = "fa-solid fa-plus" })
+        @* Add More RSVPs should be a link, but we use the Button component for consistency *@
+        <form asp-action="RsvpForm" method="get" class="inline">
+            @await Html.PartialAsync("Components/_Button", new ComponentModel { 
+                Text = "Add More RSVPs", IsPrimary = true, Icon = "fa-solid fa-plus", Type = "submit" 
+            })
+        </form>
     </div>
 </div>

@@ -1,8 +1,9 @@
+@model Unit_03_RSVP_App.Models.ComponentModel
 @{
-    string type = Model.Type ?? "submit";
-    string styleClass = Model.IsPrimary == true ? "btn-primary" : "btn-secondary";
+    string type = Model.Type;
+    string styleClass = Model.IsPrimary ? "btn-primary" : "btn-secondary";
     string text = Model.Text;
-    string icon = Model.Icon;
+    string? icon = Model.Icon;
 }
 
 <button type="@type" class="btn @styleClass w-full sm:w-auto">

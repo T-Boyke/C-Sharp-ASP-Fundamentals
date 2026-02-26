@@ -1,4 +1,5 @@
 @using Microsoft.AspNetCore.Html
+@using Unit_03_RSVP_App.Models
 @model Unit_03_RSVP_App.Models.GuestResponse
 
 @{
@@ -15,14 +16,20 @@
             <form asp-action="RsvpForm" method="post">
                 <div asp-validation-summary="ModelOnly" class="mb-6 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm"></div>
 
-                @* SFC: Using Partial Views as Components *@
-                @await Html.PartialAsync("Components/_FormControl", new { Label = "Your Name", Property = "Name", ErrorMessage = "We need your name!" })
+                @* SFC: Using ComponentModel for stability *@
+                @await Html.PartialAsync("Components/_FormControl", new ComponentModel { 
+                    Label = "Your Name", Property = "Name", ErrorMessage = "We need your name!" 
+                })
                 
-                @await Html.PartialAsync("Components/_FormControl", new { Label = "Email Address", Property = "Email", Type = "email", ErrorMessage = "Please provide a valid email." })
+                @await Html.PartialAsync("Components/_FormControl", new ComponentModel { 
+                    Label = "Email Address", Property = "Email", Type = "email", ErrorMessage = "Please provide a valid email." 
+                })
 
-                @await Html.PartialAsync("Components/_FormControl", new { Label = "Phone Number", Property = "Phone", Type = "tel", ErrorMessage = "A contact number is required." })
+                @await Html.PartialAsync("Components/_FormControl", new ComponentModel { 
+                    Label = "Phone Number", Property = "Phone", Type = "tel", ErrorMessage = "A contact number is required." 
+                })
 
-                @await Html.PartialAsync("Components/_FormControl", new { 
+                @await Html.PartialAsync("Components/_FormControl", new ComponentModel { 
                     Label = "Will you attend?", 
                     Property = "WillAttend", 
                     Type = "select", 
@@ -35,7 +42,9 @@
                 })
 
                 <div class="flex flex-col sm:flex-row gap-4 mt-8 pt-6 border-t border-slate-100">
-                    @await Html.PartialAsync("Components/_Button", new { Text = "Submit RSVP", IsPrimary = true, Icon = "fa-solid fa-paper-plane" })
+                    @await Html.PartialAsync("Components/_Button", new ComponentModel { 
+                        Text = "Submit RSVP", IsPrimary = true, Icon = "fa-solid fa-paper-plane" 
+                    })
                     <a asp-action="Index" class="btn btn-secondary text-center">
                         <i class="fa-solid fa-arrow-left mr-2"></i> Back to Home
                     </a>
