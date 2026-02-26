@@ -1,22 +1,26 @@
-# 🌐 Unit 02: Hello MVC
+# 🛠️ Unit 02: Hello MVC - Source Code (`/src`)
 
-This unit introduces the Model-View-Controller pattern, the cornerstone of ASP.NET Core web development.
+This directory contains the source code for the "Hello MVC" application, demonstrating the classic MVC pattern in ASP.NET Core 10.
 
-## 🎯 Learning Objectives
-- **Controllers**: Handling incoming HTTP requests.
-- **Views**: Rendering dynamic HTML using Razor.
-- **Models**: Bridging data between the logic and the UI.
-- **Routing**: Mapping URLs to specific controller actions.
+## 🎯 Implementation Details
 
-## 📐 Architecture & Design
-- **Separation of Concerns**: UI (Views) is strictly separated from logic (Controllers).
-- **Dependency Injection**: Using services to provide data to controllers.
+### 🏗️ MVC Components
+- **Models**: `ErrorViewModel.cs` handles diagnostic data for views.
+- **Views**: Razor templates (`.cshtml`) implementing the user interface.
+- **Controllers**: `HomeController.cs` manages the interaction between models and views.
 
-## 🛡️ Quality Standards
-- **TDD for Controllers**: Testing actions for correct return types (ViewResult, RedirectResult).
-- **Zero Compromise**: 1 Class per File, even for simple models.
+### 🌐 Routing Logic
+The default routing is configured in `Program.cs`:
+```csharp
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+```
+This ensures the `Index` action of `HomeController` is the entry point.
 
 ## 🚀 How to Run
+From the root of the unit (`02_Hello_MVC/src`):
 ```bash
 dotnet run
 ```
+Then visit `https://localhost:[port]/` to see the application landing page.

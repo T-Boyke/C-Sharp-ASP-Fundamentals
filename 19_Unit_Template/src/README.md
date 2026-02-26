@@ -1,22 +1,14 @@
-﻿# ðŸ“š 19_Unit_Template
+# 🛠️ 19_Unit_Template - Source Code (/src)
 
-## ðŸŽ¯ Learning Objectives
-- Understanding the core concepts of this unit.
-- Implementing architectural patterns (DDD, Clean Architecture).
-- Writing testable and maintainable code with TDD.
+This directory contains the primary ASP.NET Core 10 application for this unit.
 
-## ðŸ“ Architecture & Design
-This project follows:
-- **DDD**: Domain Driven Design principles.
-- **SOLID**: Scalable and modular system foundation.
-- **Clean Architecture**: Separation of concerns.
+## 🏗️ Technical Overview
+- **Framework**: .NET 10
+- **Primary Pattern**: MVC / Clean Architecture
+- **Namespace**: Unit_19_Unit_Template
 
-## ðŸ›¡ï¸ Quality Standards
-- **TDD**: Red-Green-Refactor cycle.
-- **100% Coverage Target**: Unit, Integration, and E2E tests.
-- **DRY/KISS**: Keeping the codebase clean and simple.
-
-## ðŸš€ How to Run
+## 🚀 How to Run
+From this directory:
 `ash
 dotnet run
 `
