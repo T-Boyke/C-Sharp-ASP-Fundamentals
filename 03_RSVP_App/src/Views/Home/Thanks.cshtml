@@ -7,7 +7,7 @@
 <div class="max-w-xl mx-auto text-center">
     <div class="card p-12">
         <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-8">
-            ✓
+            <i class="fa-solid fa-check"></i>
         </div>
         <h1 class="text-4xl font-bold text-slate-900 mb-4">Thank you, @Model.Name!</h1>
         
@@ -29,10 +29,10 @@
 
         <div class="flex flex-col gap-4">
             <a asp-action="ListResponses" class="btn btn-primary">
-                View Who Else is Attending
+                <i class="fa-solid fa-users mr-2"></i> View Guest List
             </a>
-            <a asp-action="Index" class="text-brand font-semibold hover:underline">
-                Return to Home
+            <a asp-action="Index" class="text-brand font-semibold hover:underline flex items-center justify-center gap-2">
+                <i class="fa-solid fa-house"></i> Return to Home
             </a>
         </div>
     </div>

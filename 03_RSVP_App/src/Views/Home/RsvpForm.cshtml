@@ -7,7 +7,8 @@
 
 <div class="max-w-xl mx-auto">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header flex items-center gap-3">
+            <i class="fa-solid fa-file-signature"></i>
             Confirm Your Attendance
         </div>
         <div class="card-body">
@@ -34,8 +35,10 @@
                 })
 
                 <div class="flex flex-col sm:flex-row gap-4 mt-8 pt-6 border-t border-slate-100">
-                    @await Html.PartialAsync("Components/_Button", new { Text = "Submit RSVP", IsPrimary = true })
-                    <a asp-action="Index" class="btn btn-secondary text-center">Back to Home</a>
+                    @await Html.PartialAsync("Components/_Button", new { Text = "Submit RSVP", IsPrimary = true, Icon = "fa-solid fa-paper-plane" })
+                    <a asp-action="Index" class="btn btn-secondary text-center">
+                        <i class="fa-solid fa-arrow-left mr-2"></i> Back to Home
+                    </a>
                 </div>
             </form>
         </div>

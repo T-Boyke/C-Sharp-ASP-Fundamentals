@@ -5,9 +5,11 @@ This unit implements a complete **RSVP Application**, refactored to demonstrate 
 ## 🎯 Learning Objectives
 - [x] **Model Binding & Validation**: End-to-end form handling with Data Annotations.
 - [x] **Tailwind CSS 4**: Implementing high-performance, utility-first styling.
-- [x] **OOCSS (Object-Oriented CSS)**: Separating structure (layout) from skin (visuals).
-- [x] **SFC (Single File Components)**: Using Razor Partial Views as modular UI components.
-- [x] **SOLID & DRY**: Ensuring single responsibility and zero code duplication.
+- [x] **Font Awesome 7**: Integrating modern, scalable icons for enhanced UX.
+- [x] **OOCSS (Object-Oriented CSS)**: Separating structure from skin.
+- [x] **SFC (Single File Components)**: Modular UI components via Razor.
+- [x] **IHK Documentation (KDoc)**: Comprehensive XML documentation for exam compliance.
+- [x] **SOLID & DRY**: Ensuring high code quality and zero duplication.
 
 ## 📂 Folder Structure
 - [**`/src`**](./src/README.md): Detailed explanation of the modern frontend architecture and components.

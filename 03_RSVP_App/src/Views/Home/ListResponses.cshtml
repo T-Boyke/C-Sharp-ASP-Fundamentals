@@ -6,9 +6,11 @@
 
 <div class="max-w-4xl mx-auto">
     <div class="flex items-center justify-between mb-8">
-        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Confirmed Guests</h2>
-        <span class="px-4 py-1 bg-brand/10 text-brand rounded-full text-sm font-bold">
-            @Model.Count() Attending
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">
+            <i class="fa-solid fa-clipboard-list mr-3 text-brand"></i> Confirmed Guests
+        </h2>
+        <span class="px-4 py-1 bg-brand/10 text-brand rounded-full text-sm font-bold shadow-sm border border-brand/5">
+            <i class="fa-solid fa-user-check mr-1"></i> @Model.Count() Attending
         </span>
     </div>
 
@@ -45,6 +47,6 @@
     </div>
 
     <div class="mt-8 text-center">
-        <a asp-action="RsvpForm" class="btn btn-primary">Add More RSVPs</a>
+        @await Html.PartialAsync("Components/_Button", new { Text = "Add More RSVPs", IsPrimary = true, Icon = "fa-solid fa-plus" })
     </div>
 </div>
