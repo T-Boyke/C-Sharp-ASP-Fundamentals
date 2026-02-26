@@ -8,13 +8,13 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <style type="text/css">
         @* OOCSS Base Objects & Skins *@
-        @theme {
+        @@theme {
             --color-brand: oklch(0.6 0.18 260);
             --color-brand-hover: oklch(0.5 0.18 260);
             
             --animate-dance: dance 3s ease-in-out infinite;
 
-            @keyframes dance {
+            @@keyframes dance {
                 0%, 100% { transform: translateY(0) rotate(0); }
                 20% { transform: translateY(-12px) rotate(-8deg) scale(1.05); }
                 40% { transform: translateY(0) rotate(8deg) scale(0.95); }
@@ -23,16 +23,16 @@
             }
         }
 
-        @layer components {
-            .app-container { @apply min-h-screen bg-slate-50 font-sans text-slate-900; }
-            .card { @apply bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100; }
-            .card-header { @apply bg-brand p-6 text-white text-xl font-bold; }
-            .card-body { @apply p-8; }
-            .btn { @apply px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-flex items-center justify-center; }
-            .btn-primary { @apply bg-brand text-white hover:bg-brand-hover hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-brand/20; }
-            .btn-secondary { @apply bg-slate-200 text-slate-700 hover:bg-slate-300; }
-            .input-field { @apply w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-brand/10 focus:border-brand outline-none transition-all; }
-            .label-text { @apply block text-sm font-medium text-slate-600 mb-2; }
+        @@layer components {
+            .app-container { @@apply min-h-screen bg-slate-50 font-sans text-slate-900; }
+            .card { @@apply bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100; }
+            .card-header { @@apply bg-brand p-6 text-white text-xl font-bold; }
+            .card-body { @@apply p-8; }
+            .btn { @@apply px-6 py-3 rounded-lg font-semibold transition-all duration-200 inline-flex items-center justify-center; }
+            .btn-primary { @@apply bg-brand text-white hover:bg-brand-hover hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-brand/20; }
+            .btn-secondary { @@apply bg-slate-200 text-slate-700 hover:bg-slate-300; }
+            .input-field { @@apply w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-brand/10 focus:border-brand outline-none transition-all; }
+            .label-text { @@apply block text-sm font-medium text-slate-600 mb-2; }
         }
     </style>
 </head>
