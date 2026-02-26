@@ -1,55 +1,77 @@
 # Architektur Einkaufsliste
 
-Hier ist die grafische Übersicht der MVC-Architektur für die Einkaufsliste (ASP.NET Core).
+Hier ist die vereinfachte grafische Übersicht der MVC-Architektur für die Einkaufsliste (ASP.NET Core). Um maximale Übersichtlichkeit zu gewährleisten, ist die Darstellung in zwei Diagramme unterteilt: Ein grobes **Blockdiagramm** (Komponenten & Schichten) und ein präzises **Ablaufdiagramm** (Data Flow).
+
+## 1. Blockdiagramm (Schichten-Architektur)
+
+Dieses Diagramm zeigt die strikte Trennung (Separation of Concerns) zwischen UI, Steuerung und Datenhaltung.
 
 ```mermaid
-graph TD
-    %% Controllers & Actions
-    subgraph HomeController [HomeController (Controller)]
-        IndexAction[Index Action<br/>GET /] 
-        ArtikelFormAction[ArtikelForm Action<br/>GET /Home/ArtikelForm]
-        ArtikelFormPostAction[ArtikelForm Action<br/>POST /Home/ArtikelForm]
-        AngelegtAction[Angelegt Action<br/>GET /Home/Angelegt]
-        ArtikelAnsehenAction[ArtikelAnsehen Action<br/>GET /Home/ArtikelAnsehen]
+flowchart TD
+    %% Styling
+    classDef ui fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff
+    classDef controller fill:#8b5cf6,stroke:#6d28d9,stroke-width:2px,color:#fff
+    classDef data fill:#10b981,stroke:#047857,stroke-width:2px,color:#fff
+
+    User((👤 Client / Browser))
+
+    subgraph Presentation ["Presentation Layer (Views)"]
+        UI["CSS Module (Tailwind 4.2)<br>Razor Views (.cshtml)"]:::ui
     end
+
+    subgraph Application ["Application Layer (Controller)"]
+        HC["HomeController.cs<br>(Routing & Actions)"]:::controller
+    end
+
+    subgraph Domain ["Domain Layer (Models)"]
+        PM["Position.cs<br>(Entity)"]:::data
+        Repo[("Repository.cs<br>(In-Memory Store)")]:::data
+    end
+
+    User <--> Presentation
+    Presentation <--> Application
+    Application --> PM
+    Application <--> Repo
+```
+
+## 2. Ablauf- und Architekturdiagramm (Data Flow)
+
+Dieses Diagramm verdeutlicht den konkreten Datenfluss und die Navigation zwischen den Views und Controller-Actions.
+
+```mermaid
+flowchart LR
+    %% Styling
+    classDef view fill:#eff6ff,stroke:#3b82f6,stroke-width:1px
+    classDef action fill:#f5f3ff,stroke:#8b5cf6,stroke-width:1px
+    classDef db fill:#ecfdf5,stroke:#10b981,stroke-width:1px
+
+    %% Controller Actions
+    idx["[GET] Index()"]:::action
+    formGet["[GET] ArtikelForm()"]:::action
+    formPost["[POST] ArtikelForm()"]:::action
+    sehen["[GET] ArtikelAnsehen()"]:::action
 
     %% Views
-    subgraph Views [Views (UI)]
-        IndexView[Index.cshtml<br/>Startseite]
-        ArtikelFormView[ArtikelForm.cshtml<br/>Neuen Artikel anlegen]
-        AngelegtView[Angelegt.cshtml<br/>Bestätigung & Anzahl]
-        ArtikelAnsehenView[ArtikelAnsehen.cshtml<br/>Alle Artikel Liste]
-    end
-    
-    %% Models
-    subgraph Models [Models (Daten)]
-        PositionModel[Position.cs<br/>Name, Anzahl, Geschäft]
-        RepositoryClass[Repository.cs<br/>static List&lt;Position&gt;]
-    end
+    v_idx["Index.cshtml"]:::view
+    v_form["ArtikelForm.cshtml"]:::view
+    v_angelegt["Angelegt.cshtml"]:::view
+    v_sehen["ArtikelAnsehen.cshtml"]:::view
 
-    %% Flow: User to Controller
-    User((User)) -->|Ruft App auf| IndexAction
+    %% Database
+    Database[("💾 Repository")]:::db
+
+    %% Flow
+    idx --> v_idx
     
-    %% Controller to Views
-    IndexAction -->|Gibt View zurück| IndexView
+    v_idx -- "Neu" --> formGet
+    v_idx -- "Liste" --> sehen
     
-    %% View interactions
-    IndexView -->|Klick 'Neuen Artikel hinzufügen'| ArtikelFormAction
-    IndexView -->|Klick 'Artikel ansehen'| ArtikelAnsehenAction
+    formGet --> v_form
+    v_form -- "Speichern" --> formPost
     
-    ArtikelFormAction -->|Gibt View zurück| ArtikelFormView
+    formPost -- "Save()" --> Database
+    formPost --> v_angelegt
     
-    ArtikelFormView -->|Formular Absenden (Post)| ArtikelFormPostAction
-    ArtikelFormView -->|Klick 'Zurück'| IndexAction
-    
-    ArtikelFormPostAction -->|Speichert neue Position| RepositoryClass
-    ArtikelFormPostAction -->|Gibt View zurück| AngelegtView
-    
-    AngelegtView -->|Klick 'Weitere Artikel anlegen'| ArtikelFormAction
-    AngelegtView -->|Klick 'Zurück zur Startseite'| IndexAction
-    
-    ArtikelAnsehenAction -->|Liest Liste| RepositoryClass
-    ArtikelAnsehenAction -->|Gibt View zurück| ArtikelAnsehenView
-    
-    ArtikelAnsehenView -->|Klick 'Zurück zur Startseite'| IndexAction
+    sehen -- "Read()" --> Database
+    sehen --> v_sehen
 ```

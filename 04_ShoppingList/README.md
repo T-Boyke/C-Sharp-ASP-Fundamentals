@@ -20,42 +20,33 @@ Erstellung einer ASP.NET Core-Anwendung zur Verwaltung einer Einkaufsliste. Die 
 
 ### Architekturübersicht
 ```mermaid
-graph TD
-    subgraph HomeController [HomeController]
-        IndexAction[Index Action<br/>GET /] 
-        ArtikelFormAction[ArtikelForm Action<br/>GET /Home/ArtikelForm]
-        ArtikelFormPostAction[ArtikelForm Action<br/>POST /Home/ArtikelForm]
-        AngelegtAction[Angelegt Action<br/>GET /Home/Angelegt]
-        ArtikelAnsehenAction[ArtikelAnsehen Action<br/>GET /Home/ArtikelAnsehen]
+flowchart TD
+    classDef ui fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff
+    classDef controller fill:#8b5cf6,stroke:#6d28d9,stroke-width:2px,color:#fff
+    classDef data fill:#10b981,stroke:#047857,stroke-width:2px,color:#fff
+
+    User((👤 Client / Browser))
+
+    subgraph Presentation ["Presentation Layer (Views)"]
+        UI["CSS Module (Tailwind 4.2)<br>Razor Views (.cshtml)"]:::ui
     end
 
-    subgraph Views [Views]
-        IndexView[Index.cshtml<br/>Startseite]
-        ArtikelFormView[ArtikelForm.cshtml<br/>Nehmen Artikel anlegen]
-        AngelegtView[Angelegt.cshtml<br/>Bestätigung & Anzahl]
-        ArtikelAnsehenView[ArtikelAnsehen.cshtml<br/>Alle Artikel Liste]
-    end
-    
-    subgraph Models [Models]
-        PositionModel[Position.cs]
-        RepositoryClass[Repository.cs<br/>static List]
+    subgraph Application ["Application Layer (Controller)"]
+        HC["HomeController.cs<br>(Routing & Actions)"]:::controller
     end
 
-    User((User)) --> IndexAction
-    IndexAction --> IndexView
-    IndexView -->|Klick 'Neuen Artikel hinzufügen'| ArtikelFormAction
-    IndexView -->|Klick 'Artikel ansehen'| ArtikelAnsehenAction
-    ArtikelFormAction --> ArtikelFormView
-    ArtikelFormView -->|Submit| ArtikelFormPostAction
-    ArtikelFormView -->|Zurück| IndexAction
-    ArtikelFormPostAction -->|Speichern| RepositoryClass
-    ArtikelFormPostAction --> AngelegtView
-    AngelegtView -->|Weitere anlegen| ArtikelFormAction
-    AngelegtView -->|Zurück| IndexAction
-    ArtikelAnsehenAction -->|Lesen| RepositoryClass
-    ArtikelAnsehenAction --> ArtikelAnsehenView
-    ArtikelAnsehenView -->|Zurück| IndexAction
+    subgraph Domain ["Domain Layer (Models)"]
+        PM["Position.cs<br>(Entity)"]:::data
+        Repo[("Repository.cs<br>(In-Memory Store)")]:::data
+    end
+
+    User <--> Presentation
+    Presentation <--> Application
+    Application --> PM
+    Application <--> Repo
 ```
+
+> 💡 **Erweiterte Diagramme:** Detaillierte Sequenz- und Datenfluss-Diagramme finden Sie in der [Architekturdokumentation](./docs/Architektur_Einkaufsliste.md).
 
 ## 📂 Folder Structure
 - [**/src**](./src/README.md): Application source code and implementation details.

@@ -10,34 +10,40 @@ This directory contains the primary ASP.NET Core 10 MVC application "Einkaufslis
 
 ## 📐 Architektur & Datenfluss
 ```mermaid
-graph TD
-    subgraph HomeController [HomeController]
-        IndexAction[Index Action<br/>GET /] 
-        ArtikelFormAction[ArtikelForm Action<br/>GET /Home/ArtikelForm]
-        ArtikelFormPostAction[ArtikelForm Action<br/>POST /Home/ArtikelForm]
-        AngelegtAction[Angelegt Action<br/>GET /Home/Angelegt]
-        ArtikelAnsehenAction[ArtikelAnsehen Action<br/>GET /Home/ArtikelAnsehen]
-    end
+flowchart LR
+    %% Styling
+    classDef view fill:#eff6ff,stroke:#3b82f6,stroke-width:1px
+    classDef action fill:#f5f3ff,stroke:#8b5cf6,stroke-width:1px
+    classDef db fill:#ecfdf5,stroke:#10b981,stroke-width:1px
 
-    subgraph Views [Views]
-        IndexView[Index.cshtml]
-        ArtikelFormView[ArtikelForm.cshtml]
-        AngelegtView[Angelegt.cshtml]
-        ArtikelAnsehenView[ArtikelAnsehen.cshtml]
-    end
-    
-    subgraph Models [Models]
-        PositionModel[Position.cs]
-        RepositoryClass[Repository.cs]
-    end
+    %% Controller Actions
+    idx["[GET] Index()"]:::action
+    formGet["[GET] ArtikelForm()"]:::action
+    formPost["[POST] ArtikelForm()"]:::action
+    sehen["[GET] ArtikelAnsehen()"]:::action
 
-    IndexAction --> IndexView
-    ArtikelFormAction --> ArtikelFormView
-    ArtikelFormPostAction -->|Saves| RepositoryClass
-    ArtikelFormPostAction --> AngelegtView
-    ArtikelAnsehenAction -->|Reads| RepositoryClass
-    ArtikelAnsehenAction --> ArtikelAnsehenView
+    %% Views
+    v_idx["Index.cshtml"]:::view
+    v_form["ArtikelForm.cshtml"]:::view
+    v_angelegt["Angelegt.cshtml"]:::view
+    v_sehen["ArtikelAnsehen.cshtml"]:::view
+
+    %% Database
+    Database[("💾 Repository")]:::db
+
+    %% Flow
+    idx --> v_idx
+    v_idx -- "Neu" --> formGet
+    v_idx -- "Liste" --> sehen
+    formGet --> v_form
+    v_form -- "Speichern" --> formPost
+    formPost -- "Save()" --> Database
+    formPost --> v_angelegt
+    sehen -- "Read()" --> Database
+    sehen --> v_sehen
 ```
+
+> 💡 **Erweiterte Diagramme:** Das detaillierte Layer-Architektur-Zusammenspiel finden Sie in der [Architekturdokumentation](../docs/Architektur_Einkaufsliste.md).
 
 ## 🚀 How to Run
 From this directory:
