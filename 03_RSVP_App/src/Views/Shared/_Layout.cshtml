@@ -13,7 +13,7 @@
             --brand-hover: #1d4ed8;
         }
 
-        @keyframes dance {
+        @@keyframes dance {
             0%, 100% { transform: translateY(0) rotate(0) scale(1); }
             15% { transform: translateY(-15px) rotate(-10deg) scale(1.1); }
             30% { transform: translateY(0) rotate(8deg) scale(0.95); }
@@ -29,7 +29,7 @@
 
         /* OOCSS Components */
         .app-container { min-height: 100vh; background-color: #f8fafc; font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; color: #0f172a; }
-        .card { background-color: white; border-radius: 1.5rem; shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); border: 1px solid #f1f5f9; overflow: hidden; }
+        .card { background-color: white; border-radius: 1.5rem; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); border: 1px solid #f1f5f9; overflow: hidden; }
         .card-header { background-color: var(--brand); padding: 1.5rem; color: white; font-size: 1.25rem; font-weight: 700; }
         .card-body { padding: 2rem; }
         
