@@ -1,22 +1,23 @@
-﻿@{
-    ViewData["Title"] = "Welcome";
-}
-
-<div class="max-w-4xl mx-auto text-center py-12">
-    <h1 class="text-6xl font-extrabold tracking-tight text-slate-900 mb-6 drop-shadow-sm">
+﻿<div class="max-w-4xl mx-auto text-center py-20">
+    <div class="inline-block px-4 py-1.5 mb-6 text-sm font-bold tracking-widest text-blue-600 uppercase bg-blue-50 rounded-full border border-blue-100">
+        You're Invited!
+    </div>
+    <h1 class="text-7xl font-black tracking-tighter text-slate-900 mb-8 leading-none">
         @ViewBag.Greeting!
     </h1>
-    <p class="text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+    <p class="text-2xl text-slate-500 mb-16 max-w-2xl mx-auto leading-relaxed font-medium">
         We're throwing a celebration and your presence would make it truly special. 
         Please let us know if you'll be joining the party.
     </p>
     
-    <div class="flex flex-col sm:flex-row justify-center gap-6">
-        <a asp-action="RsvpForm" class="btn btn-primary text-lg px-12 py-4 animate-dance">
-            <i class="fa-solid fa-calendar-check mr-2"></i> RSVP Now
-        </a>
-        <a asp-action="ListResponses" class="btn btn-secondary text-lg px-12 py-4">
-            <i class="fa-solid fa-list-ul mr-2"></i> View Guest List
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-8">
+        <div class="animate-dance">
+            <a asp-action="RsvpForm" class="btn btn-primary text-xl px-16 py-5 shadow-2xl">
+                <i class="fa-solid fa-calendar-check mr-3"></i> RSVP Now
+            </a>
+        </div>
+        <a asp-action="ListResponses" class="btn btn-secondary text-xl px-16 py-5">
+            <i class="fa-solid fa-list-ul mr-3"></i> View Guest List
         </a>
     </div>
     
