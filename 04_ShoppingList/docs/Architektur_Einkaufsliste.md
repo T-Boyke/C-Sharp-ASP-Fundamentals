@@ -1,6 +1,11 @@
 # Architektur Einkaufsliste
 
-Hier ist die vereinfachte grafische Übersicht der MVC-Architektur für die Einkaufsliste (ASP.NET Core). Um maximale Übersichtlichkeit zu gewährleisten, ist die Darstellung in zwei Diagramme unterteilt: Ein grobes **Blockdiagramm** (Komponenten & Schichten) und ein präzises **Ablaufdiagramm** (Data Flow).
+Hier ist die detaillierte architektonische Dokumentation der MVC-Implementierung für die Einkaufsliste (ASP.NET Core). Um maximale Übersichtlichkeit und Vollständigkeit nach IHK-Standards zu gewährleisten, ist die Dokumentation in vier spezifische UML-Diagramme unterteilt:
+
+- **Blockdiagramm** (Architektur-Schichten vs. Separation of Concerns)
+- **Ablauf- und Architekturdiagramm** (Data Flow / Navigation)
+- **Klassendiagramm** (Domain Model)
+- **Use-Case-Diagramm** (Anwendungsfälle)
 
 ## 1. Blockdiagramm (Schichten-Architektur)
 
@@ -74,4 +79,48 @@ flowchart LR
     
     sehen -- "Read()" --> Database
     sehen --> v_sehen
+```
+
+## 3. Klassendiagramm (Domain Layer)
+
+Veranschaulicht die zugrundeliegende Datenstruktur (`Position`) und den Singleton-In-Memory-Speicher (`Repository`).
+
+```mermaid
+classDiagram
+    direction TB
+    class Position {
+        +Guid Id
+        +string Name
+        +int Anzahl
+        +string Geschaeft
+    }
+    
+    class Repository {
+        -List~Position~ _positions$
+        +IEnumerable~Position~ Positions$
+        +AddResponse(Position position)$ void
+        +Delete(Guid id)$ bool
+        +Clear()$ void
+    }
+    
+    Repository "1" *-- "*" Position : Contains
+```
+
+## 4. Use-Case-Diagramm (Applikationsnutzer)
+
+Definiert die grundlegenden Geschäftsprozesse, die der Nutzer ausführen darf (CRUD auf Item-Ebene).
+
+```mermaid
+flowchart LR
+    User((👤 Anwender))
+    
+    subgraph System ["Einkaufsliste System"]
+        UC1([Position hinzufügen])
+        UC2([Liste ansehen])
+        UC3([Position löschen])
+    end
+    
+    User --> UC1
+    User --> UC2
+    User --> UC3
 ```
