@@ -8,6 +8,9 @@ This directory contains the primary ASP.NET Core 10 MVC application "Einkaufslis
 - **Namespace**: `_04_ShoppingList`
 - **Frontend Architecture**: Ausgelagerte Tailwind-Styling-Module unter `/wwwroot/css/modules/` für sauberes Separation of Concerns.
 
+> [!TIP]
+> **Tailwind v4 CDN Integration:** Wenn Tailwind v4 per Browser-CDN (`@tailwindcss/browser@4`) genutzt wird, müssen externe CSS-Module (`@theme`, `@utility`) als `<link type="text/tailwindcss" href="...">` integriert werden. Razor-`@import` Direktiven im `<style>` Block werden vom Caching-System des CDNs ignoriert.
+
 ## 📐 Architektur & Datenfluss
 ```mermaid
 flowchart LR
