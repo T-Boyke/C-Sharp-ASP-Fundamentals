@@ -6,6 +6,11 @@ namespace _04_ShoppingList.Models;
 public class Position
 {
     /// <summary>
+    /// Eindeutige ID zur Identifikation des Artikels (wichtig zum Löschen).
+    /// </summary>
+    public Guid Id { get; set; } = Guid.NewGuid();
+
+    /// <summary>
     /// Der Name des zu besorgenden Artikels (z.B. "Milch").
     /// </summary>
     public string Name { get; set; } = string.Empty;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace _04_ShoppingList.Models;
 
@@ -22,6 +23,21 @@ public static class Repository
     public static void AddResponse(Position position)
     {
         _positions.Add(position);
+    }
+
+    /// <summary>
+    /// Entfernt eine Position anhand ihrer eindeutigen Id aus der Liste.
+    /// </summary>
+    /// <param name="id">Die Id der zu löschenden Position.</param>
+    /// <returns>True, wenn das Löschen erfolgreich war, ansonsten False.</returns>
+    public static bool Delete(Guid id)
+    {
+        var itemToRemove = _positions.FirstOrDefault(p => p.Id == id);
+        if (itemToRemove != null)
+        {
+            return _positions.Remove(itemToRemove);
+        }
+        return false;
     }
 
     /// <summary>

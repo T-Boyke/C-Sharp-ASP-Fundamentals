@@ -64,6 +64,18 @@ public class HomeController : Controller
         return View(positions);
     }
 
+    /// <summary>
+    /// Löscht einen Artikel anhand der Id und leitet danach zur Listenansicht zurück.
+    /// </summary>
+    /// <param name="id">Die zu behandelnde Guid.</param>
+    /// <returns>Eine Weiterleitung auf ArtikelAnsehen.</returns>
+    [HttpPost]
+    public IActionResult Loeschen(Guid id)
+    {
+        Repository.Delete(id);
+        return RedirectToAction("ArtikelAnsehen");
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
