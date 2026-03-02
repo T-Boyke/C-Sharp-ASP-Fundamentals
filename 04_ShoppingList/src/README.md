@@ -6,10 +6,10 @@ This directory contains the primary ASP.NET Core 10 MVC application "Einkaufslis
 - **Framework**: .NET 10 MVC
 - **Design System**: Tailwind CSS 4.2 (OOCSS, Utility-First) & FontAwesome 7.2
 - **Namespace**: `_04_ShoppingList`
-- **Frontend Architecture**: Ausgelagerte Tailwind-Styling-Module unter `/wwwroot/css/modules/` für sauberes Separation of Concerns.
+- **Frontend Architecture**: Ausgelagerte Tailwind-Styling-Module via Razor Partial View (`_TailwindStyles.cshtml`) für sauberes Separation of Concerns und reibungslose CDN-Verarbeitung.
 
 > [!TIP]
-> **Tailwind v4 CDN Integration:** Wenn Tailwind v4 per Browser-CDN (`@tailwindcss/browser@4`) genutzt wird, müssen externe CSS-Module (`@theme`, `@utility`) als `<link type="text/tailwindcss" href="...">` integriert werden. Razor-`@import` Direktiven im `<style>` Block werden vom Caching-System des CDNs ignoriert.
+> **Tailwind v4 CDN Architektur:** Da das `@tailwindcss/browser@4` CDN externe CSS-Dateien (`<link>` oder `@import`) nur limitiert parst, wurden die Styling-Module (`@theme`, `@utility`) sicher in ein serverseitig geladenes Razor Partial (`_TailwindStyles.cshtml`) abstrahiert. So bleibt die saubere Trennung von HTML und CSS Logik (Separation of Concerns) erhalten.
 
 ## 📐 Architektur & Datenfluss
 ```mermaid
