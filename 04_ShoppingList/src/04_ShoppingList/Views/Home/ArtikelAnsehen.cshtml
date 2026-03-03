@@ -10,7 +10,7 @@
             <p class="mt-2 text-gray-500">Alle Artikel im Überblick sortiert oder gefiltert.</p>
         </div>
         <a asp-action="ArtikelForm" class="btn-primary">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            <i class="fa-solid fa-plus w-5 h-5 mr-2"></i>
             Neuen Artikel
         </a>
     </div>
@@ -20,7 +20,7 @@
         @if (!Model.Any())
         {
             <div class="p-12 text-center text-gray-500">
-                <svg class="mx-auto h-12 w-12 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+                <i class="fa-solid fa-clipboard-list mx-auto text-5xl text-gray-300 mb-4 block"></i>
                 <p class="text-lg">Die Liste ist momentan leer.</p>
             </div>
         }
@@ -58,16 +58,14 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     <div class="flex items-center">
-                                        <svg class="w-4 h-4 mr-1.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                        <i class="fa-solid fa-store w-4 h-4 mr-1.5 text-gray-400"></i>
                                         @position.Geschaeft
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <form asp-action="Loeschen" method="post" class="inline">
                                         <input type="hidden" name="id" value="@position.Id" />
-                                        <button type="submit" class="btn-delete" title="Artikel löschen">
-                                            <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                        </button>
+                                            <i class="fa-solid fa-trash w-5 h-5 group-hover:scale-110 transition-transform"></i>
                                     </form>
                                 </td>
                             </tr>
@@ -80,7 +78,7 @@
 
     <div class="mt-8">
         <a asp-action="Index" class="btn-secondary">
-            <svg class="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            <i class="fa-solid fa-arrow-left w-5 h-5 mr-2 text-gray-500"></i>
             Zurück zur Startseite
         </a>
     </div>
