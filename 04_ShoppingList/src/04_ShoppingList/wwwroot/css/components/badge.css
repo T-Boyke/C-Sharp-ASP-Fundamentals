@@ -1,0 +1,12 @@
+/* wwwroot/css/components/badge.css */
+.badge-count {
+    @apply inline-flex items-center justify-center bg-brand-100 text-brand-800 font-bold px-3 py-1 rounded-full text-lg shadow-sm;
+}
+
+.badge-small {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full font-medium bg-brand-100 text-brand-800;
+}
+
+.badge-hero {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 text-brand-700 text-sm font-semibold tracking-wide border border-brand-100 mb-4 shadow-sm;
+}

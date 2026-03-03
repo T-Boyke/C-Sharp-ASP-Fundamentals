@@ -1,0 +1,88 @@
+/* wwwroot/css/components/animation.css */
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fade-in-up {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in-sm {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes success-pop {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes check {
+    0% {
+        stroke-dasharray: 0, 100;
+        stroke-dashoffset: 0;
+        opacity: 0;
+    }
+
+    100% {
+        stroke-dasharray: 100, 0;
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.4s ease-out forwards;
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-sm {
+    animation: fade-in-sm 0.4s ease-out forwards;
+}
+
+.animate-success-pop {
+    animation: success-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.animate-check {
+    animation: check 0.6s ease-out 0.2s forwards;
+    opacity: 0;
+}

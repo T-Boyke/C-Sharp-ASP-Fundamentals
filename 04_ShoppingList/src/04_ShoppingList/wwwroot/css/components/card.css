@@ -1,0 +1,4 @@
+/* wwwroot/css/components/card.css */
+.card {
+    @apply bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20;
+}

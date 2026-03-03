@@ -3,7 +3,7 @@
     ViewData["Title"] = "Ihre Einkaufsliste";
 }
 
-<div class="list-container animate-fade-in">
+<div class="list-container animate-fade-in-sm">
     <div class="list-header">
         <div>
             <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Einkaufsliste</h1>
@@ -16,7 +16,7 @@
     </div>
 
     <!-- Atomic CSS Card Component -->
-    <div class="list-card">
+    <div class="card overflow-hidden !p-0">
         @if (!Model.Any())
         {
             <div class="p-12 text-center text-gray-500">
@@ -84,5 +84,4 @@
             Zurück zur Startseite
         </a>
     </div>
-</div>
 </div>
