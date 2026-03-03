@@ -3,20 +3,20 @@
     ViewData["Title"] = "Ihre Einkaufsliste";
 }
 
-<div class="max-w-4xl mx-auto animate-fade-in">
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+<div class="list-container animate-fade-in">
+    <div class="list-header">
         <div>
             <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Einkaufsliste</h1>
             <p class="mt-2 text-gray-500">Alle Artikel im Überblick sortiert oder gefiltert.</p>
         </div>
-        <a asp-action="ArtikelForm" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 cursor-pointer bg-brand-500 text-white hover:bg-brand-600 focus:ring-brand-500 hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap">
+        <a asp-action="ArtikelForm" class="btn-primary">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             Neuen Artikel
         </a>
     </div>
 
     <!-- Atomic CSS Card Component -->
-    <div class="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 overflow-hidden !p-0">
+    <div class="list-card">
         @if (!Model.Any())
         {
             <div class="p-12 text-center text-gray-500">
@@ -28,7 +28,7 @@
         {
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50/50">
+                    <thead class="list-table-header">
                         <tr>
                             <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                 Artikelname
@@ -47,12 +47,12 @@
                     <tbody class="bg-transparent divide-y divide-gray-200/50">
                         @foreach (var position in Model)
                         {
-                            <tr class="hover:bg-gray-50/50 transition-colors">
+                            <tr class="list-table-row">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-l-4 border-transparent hover:border-brand-500">
                                     @position.Name
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-medium bg-brand-100 text-brand-800">
+                                    <span class="badge-count">
                                         @position.Anzahl
                                     </span>
                                 </td>
@@ -65,7 +65,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <form asp-action="Loeschen" method="post" class="inline">
                                         <input type="hidden" name="id" value="@position.Id" />
-                                        <button type="submit" class="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors inline-flex items-center group" title="Artikel löschen">
+                                        <button type="submit" class="btn-delete" title="Artikel löschen">
                                             <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                         </button>
                                     </form>
@@ -79,9 +79,10 @@
     </div>
 
     <div class="mt-8">
-        <a asp-action="Index" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 cursor-pointer bg-white text-gray-700 border-gray-300 hover:bg-gray-50 focus:ring-brand-500 hover:shadow-md hover:-translate-y-0.5">
+        <a asp-action="Index" class="btn-secondary">
             <svg class="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             Zurück zur Startseite
         </a>
     </div>
+</div>
 </div>

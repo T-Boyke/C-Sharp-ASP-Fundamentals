@@ -1,11 +1,13 @@
+@using _04_ShoppingList.Models
+@inject IShoppingListRepository Repository
 @{
     ViewData["Title"] = "Erfolgreich Angelegt";
-    var repoCount = _04_ShoppingList.Models.Repository.Positions.Count();
+    var repoCount = Repository.Positions.Count();
 }
 
-<div class="max-w-2xl mx-auto text-center mt-10">
+<div class="success-container">
     <!-- Success Icon Container with Animation -->
-    <div class="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-green-100 mb-8 animate-success-pop shadow-inner">
+    <div class="success-icon-bg animate-success-pop">
         <svg class="h-12 w-12 text-green-600 animate-check" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
         </svg>
@@ -14,37 +16,18 @@
     <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 mb-4">Artikel gespeichert!</h1>
     
     <p class="text-xl text-gray-600 mb-8">
-        Ihre Liste wächst. Aktuell befinden sich <span class="inline-flex items-center justify-center bg-brand-100 text-brand-800 font-bold px-3 py-1 rounded-full text-lg mx-1 shadow-sm">@repoCount</span> Artikel auf Ihrer Einkaufsliste.
+        Ihre Liste wächst. Aktuell befinden sich <span class="count-badge">@repoCount</span> Artikel auf Ihrer Einkaufsliste.
     </p>
 
     <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a asp-action="ArtikelForm" class="btn btn-primary">
+        <a asp-action="ArtikelForm" class="btn-primary">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             Weitere Artikel anlegen
         </a>
-        <a asp-action="Index" class="btn btn-secondary">
+        <a asp-action="Index" class="btn-secondary">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
             Zurück zur Startseite
         </a>
     </div>
 </div>
-
-<style>
-    @@keyframes success-pop {
-        0% { transform: scale(0.5); opacity: 0; }
-        70% { transform: scale(1.1); opacity: 1; }
-        100% { transform: scale(1); opacity: 1; }
-    }
-    .animate-success-pop {
-        animation: success-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    }
-    @@keyframes check {
-        0% { stroke-dasharray: 0, 100; stroke-dashoffset: 0; opacity: 0; }
-        100% { stroke-dasharray: 100, 0; stroke-dashoffset: 0; opacity: 1; }
-    }
-    .animate-check {
-        animation: check 0.6s ease-out 0.2s forwards;
-        opacity: 0;
-    }
-</style>
 

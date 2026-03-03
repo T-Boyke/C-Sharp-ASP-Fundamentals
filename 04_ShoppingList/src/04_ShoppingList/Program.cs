@@ -1,7 +1,10 @@
+using _04_ShoppingList.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IShoppingListRepository, Repository>();
 
 var app = builder.Build();
 

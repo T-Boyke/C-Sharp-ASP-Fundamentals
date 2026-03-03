@@ -4,23 +4,23 @@ using System.Linq;
 namespace _04_ShoppingList.Models;
 
 /// <summary>
-/// Statische Klasse zur in-memory Speicherung aller Positionen der Einkaufsliste.
+/// Repository zur in-memory Speicherung aller Positionen der Einkaufsliste.
 /// Dient als temporäres Repository (Ersatz für eine Datenbank).
 /// </summary>
-public static class Repository
+public class Repository : IShoppingListRepository
 {
-    private static List<Position> _positions = new();
+    private readonly List<Position> _positions = new();
 
     /// <summary>
     /// Gibt eine schreibgeschützte Liste aller bisher gespeicherten Positionen zurück.
     /// </summary>
-    public static IEnumerable<Position> Positions => _positions;
+    public IEnumerable<Position> Positions => _positions;
 
     /// <summary>
     /// Fügt eine neue Position zur Einkaufsliste hinzu.
     /// </summary>
     /// <param name="position">Das hinzuzufügende Position-Objekt.</param>
-    public static void AddResponse(Position position)
+    public void AddResponse(Position position)
     {
         _positions.Add(position);
     }
@@ -30,7 +30,7 @@ public static class Repository
     /// </summary>
     /// <param name="id">Die Id der zu löschenden Position.</param>
     /// <returns>True, wenn das Löschen erfolgreich war, ansonsten False.</returns>
-    public static bool Delete(Guid id)
+    public bool Delete(Guid id)
     {
         var itemToRemove = _positions.FirstOrDefault(p => p.Id == id);
         if (itemToRemove != null)
@@ -41,9 +41,9 @@ public static class Repository
     }
 
     /// <summary>
-    /// Löscht alle gespeicherten Positionen. Nützlich für Unit Tests.
+    /// Löscht alle gespeicherten Positionen.
     /// </summary>
-    public static void Clear()
+    public void Clear()
     {
         _positions.Clear();
     }

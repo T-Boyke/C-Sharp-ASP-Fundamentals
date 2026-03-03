@@ -13,3 +13,39 @@
 .animate-fade-in {
     animation: fade-in 0.4s ease-out forwards;
 }
+
+.list-container {
+    @apply max-w-4xl mx-auto;
+}
+
+.list-header {
+    @apply flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4;
+}
+
+.list-card {
+    @apply bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 overflow-hidden !p-0;
+}
+
+.list-table-header {
+    @apply bg-gray-50/50;
+}
+
+.list-table-row {
+    @apply hover:bg-gray-50/50 transition-colors;
+}
+
+.badge-count {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full font-medium bg-brand-100 text-brand-800;
+}
+
+.btn-delete {
+    @apply text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors inline-flex items-center group;
+}
+
+.btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 cursor-pointer bg-brand-500 text-white hover:bg-brand-600 focus:ring-brand-500 hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap;
+}
+
+.btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 cursor-pointer bg-white text-gray-700 border-gray-300 hover:bg-gray-50 focus:ring-brand-500 hover:shadow-md hover:-translate-y-0.5;
+}

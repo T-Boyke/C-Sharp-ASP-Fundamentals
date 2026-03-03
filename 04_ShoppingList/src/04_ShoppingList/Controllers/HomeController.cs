@@ -10,6 +10,12 @@ namespace _04_ShoppingList.Controllers;
 /// </summary>
 public class HomeController : Controller
 {
+    private readonly IShoppingListRepository _repository;
+
+    public HomeController(IShoppingListRepository repository)
+    {
+        _repository = repository;
+    }
     /// <summary>
     /// Zeigt die Startseite (Index.cshtml) an.
     /// </summary>
@@ -38,7 +44,7 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult ArtikelForm(Position position)
     {
-        Repository.AddResponse(position);
+        _repository.AddResponse(position);
         return View("Angelegt");
     }
 
@@ -60,7 +66,7 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult ArtikelAnsehen()
     {
-        var positions = Repository.Positions;
+        var positions = _repository.Positions;
         return View(positions);
     }
 
@@ -72,7 +78,7 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Loeschen(Guid id)
     {
-        Repository.Delete(id);
+        _repository.Delete(id);
         return RedirectToAction("ArtikelAnsehen");
     }
 
