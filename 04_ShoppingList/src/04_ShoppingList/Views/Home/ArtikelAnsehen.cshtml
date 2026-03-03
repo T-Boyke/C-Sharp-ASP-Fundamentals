@@ -10,9 +10,30 @@
             <p class="mt-2 text-gray-500">Alle Artikel im Überblick sortiert oder gefiltert.</p>
         </div>
         <a asp-action="ArtikelForm" class="btn-primary">
-            <i class="fa-solid fa-plus btn-icon"></i>
+            <fa-icon name="plus" class="btn-icon" />
             Neuen Artikel
         </a>
+    </div>
+
+    <!-- Suchfeld / Search Bar -->
+    <div class="mb-6">
+        <form asp-action="ArtikelAnsehen" method="get" class="flex flex-col sm:flex-row gap-4">
+            <div class="relative flex-1">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <fa-icon name="magnifying-glass" class="text-gray-400 w-5 h-5" />
+                </div>
+                <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="input-field !mt-0" placeholder="Nach Artikel oder Geschäft suchen..." />
+            </div>
+            <div class="flex gap-2">
+                <button type="submit" class="btn-primary sm:w-auto px-6">Suchen</button>
+                @if (ViewData["CurrentFilter"] != null && !string.IsNullOrEmpty(ViewData["CurrentFilter"]?.ToString()))
+                {
+                    <a asp-action="ArtikelAnsehen" class="btn-secondary sm:w-auto px-4 !text-red-500 hover:!text-red-700">
+                        <fa-icon name="xmark" class="w-5 h-5" />
+                    </a>
+                }
+            </div>
+        </form>
     </div>
 
     <!-- Atomic CSS Card Component -->
@@ -20,7 +41,7 @@
         @if (!Model.Any())
         {
             <div class="p-12 text-center text-gray-500">
-                <i class="fa-solid fa-clipboard-list mx-auto text-5xl text-gray-300 mb-4 block"></i>
+                <fa-icon name="clipboard-list" class="mx-auto text-5xl text-gray-300 mb-4 block" />
                 <p class="text-lg">Die Liste ist momentan leer.</p>
             </div>
         }
@@ -58,15 +79,22 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     <div class="flex items-center">
-                                        <i class="fa-solid fa-store w-4 h-4 mr-1.5 text-gray-400"></i>
+                                        <fa-icon name="store" class="w-4 h-4 mr-1.5 text-gray-400" />
                                         @position.Geschaeft
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <form asp-action="Loeschen" method="post" class="inline">
-                                        <input type="hidden" name="id" value="@position.Id" />
-                                            <i class="fa-solid fa-trash btn-icon-delete"></i>
-                                    </form>
+                                    <div class="flex items-center justify-end gap-3">
+                                        <a asp-action="ArtikelBearbeiten" asp-route-id="@position.Id" class="text-brand-400 hover:text-brand-600 transition-colors" title="Bearbeiten">
+                                            <fa-icon name="pen-to-square" class="w-5 h-5 transition-transform hover:scale-110" />
+                                        </a>
+                                        <form asp-action="Loeschen" method="post" class="inline m-0 p-0">
+                                            <input type="hidden" name="id" value="@position.Id" />
+                                            <button type="submit" class="bg-transparent border-none p-0 cursor-pointer text-red-400 hover:text-red-600 focus:outline-none" title="Löschen">
+                                                <fa-icon name="trash" class="btn-icon-delete" />
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         }
@@ -78,7 +106,7 @@
 
     <div class="mt-8">
         <a asp-action="Index" class="btn-secondary">
-            <i class="fa-solid fa-arrow-left btn-icon-secondary"></i>
+            <fa-icon name="arrow-left" class="btn-icon-secondary" />
             Zurück zur Startseite
         </a>
     </div>

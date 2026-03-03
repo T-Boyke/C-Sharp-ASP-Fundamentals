@@ -21,6 +21,16 @@ public interface IShoppingListRepository
     void AddResponse(Position position);
 
     /// <summary>
+    /// Gibt eine spezifische Position anhand ihrer ID zurück.
+    /// </summary>
+    Position? GetById(Guid id);
+
+    /// <summary>
+    /// Aktualisiert eine bestehende Position.
+    /// </summary>
+    bool Update(Position position);
+
+    /// <summary>
     /// Entfernt eine Position anhand ihrer eindeutigen Id aus der Liste.
     /// </summary>
     /// <param name="id">Die Id der zu löschenden Position.</param>

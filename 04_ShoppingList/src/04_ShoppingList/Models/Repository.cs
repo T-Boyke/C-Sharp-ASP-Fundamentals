@@ -26,6 +26,30 @@ public class Repository : IShoppingListRepository
     }
 
     /// <summary>
+    /// Gibt eine spezifische Position anhand ihrer ID zurück.
+    /// </summary>
+    public Position? GetById(Guid id)
+    {
+        return _positions.FirstOrDefault(p => p.Id == id);
+    }
+
+    /// <summary>
+    /// Aktualisiert eine bestehende Position.
+    /// </summary>
+    public bool Update(Position position)
+    {
+        var existing = _positions.FirstOrDefault(p => p.Id == position.Id);
+        if (existing != null)
+        {
+            existing.Name = position.Name;
+            existing.Anzahl = position.Anzahl;
+            existing.Geschaeft = position.Geschaeft;
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
     /// Entfernt eine Position anhand ihrer eindeutigen Id aus der Liste.
     /// </summary>
     /// <param name="id">Die Id der zu löschenden Position.</param>

@@ -61,12 +61,24 @@ public class HomeController : Controller
 
     /// <summary>
     /// Zeigt die Liste aller bisher gespeicherten Artikel (ArtikelAnsehen.cshtml) an.
+    /// Unterstützt das Filtern über einen Suchbegriff.
     /// </summary>
-    /// <returns>Das View-Ergebnis mit allen Artikeln im Modell.</returns>
+    /// <param name="searchString">Der optionale Suchbegriff, um die Liste zu filtern.</param>
+    /// <returns>Das View-Ergebnis mit den gefilterten Artikeln im Modell.</returns>
     [HttpGet]
-    public IActionResult ArtikelAnsehen()
+    public IActionResult ArtikelAnsehen(string searchString)
     {
+        ViewData["CurrentFilter"] = searchString;
+        
         var positions = _repository.Positions;
+        
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            positions = positions.Where(p => 
+                p.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase) || 
+                p.Geschaeft.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+        }
+        
         return View(positions);
     }
 
@@ -79,6 +91,32 @@ public class HomeController : Controller
     public IActionResult Loeschen(Guid id)
     {
         _repository.Delete(id);
+        return RedirectToAction("ArtikelAnsehen");
+    }
+
+    /// <summary>
+    /// Zeigt das Formular zum Bearbeiten eines existierenden Artikels.
+    /// </summary>
+    /// <param name="id">Die Id der zu bearbeitenden Position.</param>
+    [HttpGet]
+    public IActionResult ArtikelBearbeiten(Guid id)
+    {
+        var position = _repository.GetById(id);
+        if (position == null)
+        {
+            return RedirectToAction("ArtikelAnsehen");
+        }
+        return View(position);
+    }
+
+    /// <summary>
+    /// Speichert die Änderungen eines bearbeiteten Artikels.
+    /// </summary>
+    /// <param name="position">Die geänderte Position.</param>
+    [HttpPost]
+    public IActionResult ArtikelBearbeiten(Position position)
+    {
+        _repository.Update(position);
         return RedirectToAction("ArtikelAnsehen");
     }
 
