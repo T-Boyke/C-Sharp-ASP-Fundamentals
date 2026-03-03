@@ -6,10 +6,10 @@ This directory contains the primary ASP.NET Core 10 MVC application "Einkaufslis
 - **Framework**: .NET 10 MVC
 - **Design System**: Tailwind CSS 4.2 (OOCSS, Utility-First) & FontAwesome 7.2
 - **Namespace**: `_04_ShoppingList`
-- **Frontend Architecture**: Ausgelagerte Tailwind-Styling-Module via Razor Partial View (`_TailwindStyles.cshtml`) für sauberes Separation of Concerns und reibungslose CDN-Verarbeitung.
+- **Frontend Architecture**: Lokales Hosting via LibMan (`wwwroot/lib/`) für volle Offline-Fähigkeit. Strikte "Single File Component" (SFC) Architektur durch Verwendung von ASP.NET Core CSS Isolation (`.cshtml.css`). Aufgeräumt durch globale Atomic-Komponenten (`btn.css` etc.) und eigene Tag Helper.
 
 > [!TIP]
-> **Tailwind v4 CDN Architektur:** Da das `@tailwindcss/browser@4` CDN externe CSS-Dateien (`<link>` oder `@import`) nur limitiert parst, wurden die Styling-Module (`@theme`, `@utility`) sicher in ein serverseitig geladenes Razor Partial (`_TailwindStyles.cshtml`) abstrahiert. So bleibt die saubere Trennung von HTML und CSS Logik (Separation of Concerns) erhalten.
+> **Tailwind v4 Local Architecture:** Da das `@tailwindcss/browser@4` Skript lokal eingebunden ist, werden die Seiten clientseitig blitzschnell gerendert. Komplexe Utility-Ketten wurden in `.cshtml.css`-Dateien (`@apply`) ausgelagert, um den HTML-Code (Separation of Concerns) extrem übersichtlich zu halten.
 
 ## 📐 Architektur & Datenfluss
 ```mermaid
@@ -23,16 +23,20 @@ flowchart LR
     idx["[GET] Index()"]:::action
     formGet["[GET] ArtikelForm()"]:::action
     formPost["[POST] ArtikelForm()"]:::action
-    sehen["[GET] ArtikelAnsehen()"]:::action
+    sehen["[GET] ArtikelAnsehen(search)"]:::action
+    editGet["[GET] ArtikelBearbeiten(id)"]:::action
+    editPost["[POST] ArtikelBearbeiten(Position)"]:::action
+    deletePost["[POST] Loeschen(id)"]:::action
 
     %% Views
     v_idx["Index.cshtml"]:::view
     v_form["ArtikelForm.cshtml"]:::view
     v_angelegt["Angelegt.cshtml"]:::view
     v_sehen["ArtikelAnsehen.cshtml"]:::view
+    v_edit["ArtikelBearbeiten.cshtml"]:::view
 
     %% Database
-    Database[("💾 Repository")]:::db
+    Database[("💾 IShoppingListRepository")]:::db
 
     %% Flow
     idx --> v_idx
@@ -40,10 +44,18 @@ flowchart LR
     v_idx -- "Liste" --> sehen
     formGet --> v_form
     v_form -- "Speichern" --> formPost
-    formPost -- "Save()" --> Database
+    formPost -- "Add()" --> Database
     formPost --> v_angelegt
-    sehen -- "Read()" --> Database
+    sehen -- "Read() / Find()" --> Database
     sehen --> v_sehen
+    v_sehen -- "Editieren" --> editGet
+    editGet --> v_edit
+    v_edit -- "Speichern" --> editPost
+    editPost -- "Update()" --> Database
+    editPost --> sehen
+    v_sehen -- "Löschen" --> deletePost
+    deletePost -- "Delete()" --> Database
+    deletePost --> sehen
 ```
 
 > 💡 **Erweiterte Diagramme:** Das detaillierte Layer-Architektur-Zusammenspiel finden Sie in der [Architekturdokumentation](../docs/Architektur_Einkaufsliste.md).

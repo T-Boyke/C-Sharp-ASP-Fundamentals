@@ -30,13 +30,15 @@ flowchart TD
 
     subgraph Domain ["Domain Layer (Models)"]
         PM["Position.cs<br>(Entity)"]:::data
+        IRepo<<"IShoppingListRepository.cs<br>(Interface)">>:::data
         Repo[("Repository.cs<br>(In-Memory Store)")]:::data
     end
 
     User <--> Presentation
     Presentation <--> Application
     Application --> PM
-    Application <--> Repo
+    Application --> IRepo
+    IRepo <.. Repo : Implements
 ```
 
 ## 2. Ablauf- und Architekturdiagramm (Data Flow)
@@ -54,16 +56,20 @@ flowchart LR
     idx["[GET] Index()"]:::action
     formGet["[GET] ArtikelForm()"]:::action
     formPost["[POST] ArtikelForm()"]:::action
-    sehen["[GET] ArtikelAnsehen()"]:::action
+    sehen["[GET] ArtikelAnsehen(search)"]:::action
+    editGet["[GET] ArtikelBearbeiten(id)"]:::action
+    editPost["[POST] ArtikelBearbeiten(Position)"]:::action
+    deletePost["[POST] Loeschen(id)"]:::action
 
     %% Views
     v_idx["Index.cshtml"]:::view
     v_form["ArtikelForm.cshtml"]:::view
     v_angelegt["Angelegt.cshtml"]:::view
     v_sehen["ArtikelAnsehen.cshtml"]:::view
+    v_edit["ArtikelBearbeiten.cshtml"]:::view
 
     %% Database
-    Database[("💾 Repository")]:::db
+    Database[("💾 IShoppingListRepository")]:::db
 
     %% Flow
     idx --> v_idx
@@ -74,11 +80,21 @@ flowchart LR
     formGet --> v_form
     v_form -- "Speichern" --> formPost
     
-    formPost -- "Save()" --> Database
+    formPost -- "Add()" --> Database
     formPost --> v_angelegt
     
-    sehen -- "Read()" --> Database
+    sehen -- "Read() / Find()" --> Database
     sehen --> v_sehen
+
+    v_sehen -- "Editieren" --> editGet
+    editGet --> v_edit
+    v_edit -- "Speichern" --> editPost
+    editPost -- "Update()" --> Database
+    editPost --> sehen
+
+    v_sehen -- "Löschen" --> deletePost
+    deletePost -- "Delete()" --> Database
+    deletePost --> sehen
 ```
 
 ## 3. Klassendiagramm (Domain Layer)
@@ -95,14 +111,27 @@ classDiagram
         +string Geschaeft
     }
     
+    class IShoppingListRepository {
+        <<interface>>
+        +IEnumerable~Position~ Positions$
+        +AddResponse(Position position)$ void
+        +GetById(Guid id)$ Position?
+        +Update(Position position)$ bool
+        +Delete(Guid id)$ bool
+        +Clear()$ void
+    }
+
     class Repository {
         -List~Position~ _positions$
         +IEnumerable~Position~ Positions$
         +AddResponse(Position position)$ void
+        +GetById(Guid id)$ Position?
+        +Update(Position position)$ bool
         +Delete(Guid id)$ bool
         +Clear()$ void
     }
     
+    IShoppingListRepository <|.. Repository : Implements
     Repository "1" *-- "*" Position : Contains
 ```
 
@@ -117,10 +146,14 @@ flowchart LR
     subgraph System ["Einkaufsliste System"]
         UC1([Position hinzufügen])
         UC2([Liste ansehen])
-        UC3([Position löschen])
+        UC3([Position suchen/filtern])
+        UC4([Position bearbeiten])
+        UC5([Position löschen])
     end
     
     User --> UC1
     User --> UC2
     User --> UC3
+    User --> UC4
+    User --> UC5
 ```

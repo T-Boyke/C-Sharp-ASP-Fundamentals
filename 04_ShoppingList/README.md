@@ -13,10 +13,11 @@ Erstellung einer ASP.NET Core-Anwendung zur Verwaltung einer Einkaufsliste. Die 
 
 ### Kernanforderungen (Features)
 - **Model**: Eine Klasse `Position` zur Speicherung von Artikelname, Anzahl und Geschäft.
-- **Repository**: Eine statische Klasse `Repository` (In-Memory Datenspeicher) mit einer `List<Position>`.
-- **Views**: `Index.cshtml`, `ArtikelForm.cshtml`, `Angelegt.cshtml`, `ArtikelAnsehen.cshtml`.
-- **Controller**: Ein `HomeController`, der den Ablauf steuert.
-- **Frontend-Architektur**: Utility-First Ansätze mit Tailwind CSS 4.2. Strikte Separation of Concerns durch modularisierte CSS-Dateien (`theme.css`, `layout.css`, `buttons.css`) basierend auf OOCSS/Atomic-Design Vorgaben inkl. FontAwesome 7.2.
+- **Repository Pattern**: Implementierung eines `IShoppingListRepository` als In-Memory Store via Dependency Injection (Singleton). Dies gewährleistet das Dependency Inversion Principle.
+- **Views**: `Index.cshtml`, `ArtikelForm.cshtml`, `Angelegt.cshtml`, `ArtikelAnsehen.cshtml` und `ArtikelBearbeiten.cshtml`. Aufgeräumt durch Partial Views.
+- **Controller**: Ein `HomeController`, der den Ablauf inkl. vollständigem CRUD und Suche steuert.
+- **Frontend-Architektur**: Local Hosting via LibMan von `Tailwind CSS 4.2` und `FontAwesome 7.2` für volle Offline-Fähigkeit. Strikte "Single File Component" (SFC) Architektur durch Verwendung von ASP.NET Core CSS Isolation (`.cshtml.css`) kombiniert mit globalen Atomic-Komponenten (`btn.css` etc.).
+- **Tag Helpers**: Eigener `IconTagHelper` zur Reduzierung von HTML-Boilerplate (`<fa-icon name="plus" />`).
 
 ### Architekturübersicht
 ```mermaid
@@ -37,13 +38,15 @@ flowchart TD
 
     subgraph Domain ["Domain Layer (Models)"]
         PM["Position.cs<br>(Entity)"]:::data
+        IRepo<<"IShoppingListRepository.cs<br>(Interface)">>:::data
         Repo[("Repository.cs<br>(In-Memory Store)")]:::data
     end
 
     User <--> Presentation
     Presentation <--> Application
     Application --> PM
-    Application <--> Repo
+    Application <--> IRepo
+    IRepo <.. Repo : Implements
 ```
 
 > 💡 **Erweiterte Diagramme:** Detaillierte Sequenz- und Datenfluss-Diagramme finden Sie in der [Architekturdokumentation](./docs/Architektur_Einkaufsliste.md).
