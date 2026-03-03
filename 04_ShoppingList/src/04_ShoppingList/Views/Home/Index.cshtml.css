@@ -33,11 +33,3 @@
 .hero-actions {
     @apply flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-8;
 }
-
-.btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 border border-transparent font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 cursor-pointer bg-brand-500 text-white hover:bg-brand-600 focus:ring-brand-500 hover:shadow-lg hover:-translate-y-0.5 group w-full sm:w-auto text-lg shadow-brand-500/25;
-}
-
-.btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 border border-transparent font-medium rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 cursor-pointer bg-white text-gray-700 border-gray-300 hover:bg-gray-50 focus:ring-brand-500 hover:shadow-md hover:-translate-y-0.5 group w-full sm:w-auto text-lg;
-}
