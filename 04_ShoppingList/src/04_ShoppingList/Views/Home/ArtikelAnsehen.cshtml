@@ -10,7 +10,7 @@
             <p class="mt-2 text-gray-500">Alle Artikel im Überblick sortiert oder gefiltert.</p>
         </div>
         <a asp-action="ArtikelForm" class="btn-primary">
-            <i class="fa-solid fa-plus w-5 h-5 mr-2"></i>
+            <i class="fa-solid fa-plus btn-icon"></i>
             Neuen Artikel
         </a>
     </div>
@@ -65,7 +65,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <form asp-action="Loeschen" method="post" class="inline">
                                         <input type="hidden" name="id" value="@position.Id" />
-                                            <i class="fa-solid fa-trash w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                                            <i class="fa-solid fa-trash btn-icon-delete"></i>
                                     </form>
                                 </td>
                             </tr>
@@ -78,7 +78,7 @@
 
     <div class="mt-8">
         <a asp-action="Index" class="btn-secondary">
-            <i class="fa-solid fa-arrow-left w-5 h-5 mr-2 text-gray-500"></i>
+            <i class="fa-solid fa-arrow-left btn-icon-secondary"></i>
             Zurück zur Startseite
         </a>
     </div>

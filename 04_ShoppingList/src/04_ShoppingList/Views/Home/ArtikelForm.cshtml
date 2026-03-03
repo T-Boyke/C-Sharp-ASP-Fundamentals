@@ -17,7 +17,7 @@
                 <label asp-for="Name" class="label-standard">Artikelname</label>
                 <div class="relative rounded-xl shadow-sm">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <i class="fa-solid fa-cart-shopping w-5 h-5 text-gray-400"></i>
+                        <i class="fa-solid fa-cart-shopping input-icon"></i>
                     </div>
                     <input asp-for="Name" class="input-field" placeholder="z.B. Vollmilch 3.5%" required />
                 </div>
@@ -28,7 +28,7 @@
                     <label asp-for="Anzahl" class="label-standard">Anzahl</label>
                     <div class="relative rounded-xl shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fa-solid fa-hashtag w-5 h-5 text-gray-400"></i>
+                            <i class="fa-solid fa-hashtag input-icon"></i>
                         </div>
                         <input asp-for="Anzahl" type="number" min="1" value="1" class="input-field" required />
                     </div>
@@ -38,7 +38,7 @@
                     <label asp-for="Geschaeft" class="label-standard">Geschäft</label>
                     <div class="relative rounded-xl shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fa-solid fa-store w-5 h-5 text-gray-400"></i>
+                            <i class="fa-solid fa-store input-icon"></i>
                         </div>
                         <input asp-for="Geschaeft" class="input-field" placeholder="z.B. Edeka" required />
                     </div>
@@ -47,7 +47,7 @@
 
             <div class="pt-6 flex flex-col sm:flex-row gap-4 border-t border-gray-100">
                 <button type="submit" class="btn-primary">
-                    <i class="fa-solid fa-floppy-disk w-5 h-5 mr-2 group-hover:-translate-y-1 transition-transform"></i>
+                    <i class="fa-solid fa-floppy-disk btn-icon"></i>
                     Speichern
                 </button>
                 <a asp-action="Index" class="btn-secondary">
