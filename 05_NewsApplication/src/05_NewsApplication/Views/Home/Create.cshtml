@@ -1,0 +1,45 @@
+@using _05_NewsApplication.Models
+@model ArticleCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Article";
+}
+
+<div class="create-container">
+    <h1 class="form-header">New article</h1>
+
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label asp-for="Headline" class="form-label"></label>
+            <input asp-for="Headline" class="form-input" />
+            <span asp-validation-for="Headline" class="validation-message"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Content" class="form-label"></label>
+            <textarea asp-for="Content" class="form-input" rows="10"></textarea>
+            <span asp-validation-for="Content" class="validation-message"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="AuthorId" class="form-label"></label>
+            <select asp-for="AuthorId" asp-items="Model.AuthorsList" class="form-input">
+                <option value="">Autor auswählen</option>
+            </select>
+            <span asp-validation-for="AuthorId" class="validation-message"></span>
+        </div>
+        
+        <div class="button-group">
+            <button type="submit" class="btn-submit">
+                <i class="fa-solid fa-save mr-2"></i> Save
+            </button>
+            <a asp-action="Index" class="btn-cancel">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Back
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

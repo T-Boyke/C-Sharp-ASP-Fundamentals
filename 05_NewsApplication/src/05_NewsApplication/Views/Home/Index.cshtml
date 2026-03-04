@@ -1,8 +1,30 @@
+@using _05_NewsApplication.Models
+@model HomeIndexViewModel
+
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Start";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="article-list-container">
+    <h1 class="article-header">News Application</h1>
+
+    @if (Model.Articles != null && Model.Articles.Any())
+    {
+        foreach (var article in Model.Articles) {
+            <div class="article-card">
+                <h3 class="article-title">@article.Headline.Value</h3>
+                <p class="article-content">@article.Content</p>
+                <div class="article-meta">
+                    <span>@article.CreatedAt.ToString("g")</span>
+                    <span>@article.Author?.Fullname</span>
+                </div>
+            </div>
+        }
+    } else {
+        <p class="text-gray-500 italic">No news articles found.</p>
+    }
+
+    <a asp-action="Create" class="btn-new-article">
+        <i class="fa-solid fa-plus mr-2"></i> New article
+    </a>
 </div>
