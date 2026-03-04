@@ -4,7 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>_05_Unit_Template</RootNamespace>
+    <RootNamespace>_05_NewsApplication</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,3 +12,4 @@
   </ItemGroup>
 
 </Project>
+

@@ -1,6 +1,6 @@
-# 🚀 05_Unit_Template
+# 🚀 05_NewsApplication
 
-Welcome to 05_Unit_Template. This unit is part of the C# ASP.NET Core 10 fundamentals series.
+Welcome to 05_NewsApplication. This unit is part of the C# ASP.NET Core 10 fundamentals series.
 
 ## 🎯 Learning Objectives
 - [ ] Implement core concepts for this unit.
@@ -15,3 +15,4 @@ Welcome to 05_Unit_Template. This unit is part of the C# ASP.NET Core 10 fundame
 ---
 > [!IMPORTANT]
 > Every unit in this repository is designed to be a standalone, fully testable component. Ensure you check both the source and the tests to understand the full context.
+

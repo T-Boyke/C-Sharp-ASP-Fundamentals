@@ -1,4 +1,4 @@
-namespace _05_Unit_Template.Models;
+namespace _05_NewsApplication.Models;
 
 public class ErrorViewModel
 {
@@ -6,3 +6,4 @@ public class ErrorViewModel
 
     public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 }
+

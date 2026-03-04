@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using _05_Unit_Template.Models;
+using _05_NewsApplication.Models;
 
-namespace _05_Unit_Template.Controllers;
+namespace _05_NewsApplication.Controllers;
 
 public class HomeController : Controller
 {
@@ -22,3 +22,4 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
+
