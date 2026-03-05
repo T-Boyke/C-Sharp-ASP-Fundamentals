@@ -1,0 +1,2060 @@
+[
+  {
+    "name": "Ramipril 2,5 mg - 1 A Pharma",
+    "dosage": "2,5mg",
+    "instructions": "Taeglich zur gleichen Zeit einnehmen.",
+    "pzn": "01026491"
+  },
+  {
+    "name": "Ramipril 5 mg - 1 A Pharma",
+    "dosage": "5mg",
+    "instructions": "Taeglich zur gleichen Zeit einnehmen.",
+    "pzn": "01026424"
+  },
+  {
+    "name": "Ramipril 10 mg - 1 A Pharma",
+    "dosage": "10mg",
+    "instructions": "Taeglich zur gleichen Zeit einnehmen.",
+    "pzn": "01026413"
+  },
+  {
+    "name": "Enalapril 5 mg ratiopharm",
+    "dosage": "5mg",
+    "instructions": "Morgens unabhaengig vom Essen.",
+    "pzn": "00987645"
+  },
+  {
+    "name": "Enalapril 10 mg ratiopharm",
+    "dosage": "10mg",
+    "instructions": "Morgens unabhaengig vom Essen.",
+    "pzn": "00987641"
+  },
+  {
+    "name": "Enalapril 20 mg ratiopharm",
+    "dosage": "20mg",
+    "instructions": "Morgens unabhaengig vom Essen.",
+    "pzn": "00987638"
+  },
+  {
+    "name": "Lisinopril 2 mg HEXAL",
+    "dosage": "2mg",
+    "instructions": "Einmal taeglich morgens.",
+    "pzn": "01234527"
+  },
+  {
+    "name": "Lisinopril 4 mg HEXAL",
+    "dosage": "4mg",
+    "instructions": "Einmal taeglich morgens.",
+    "pzn": "01234523"
+  },
+  {
+    "name": "Lisinopril 8 mg HEXAL",
+    "dosage": "8mg",
+    "instructions": "Einmal taeglich morgens.",
+    "pzn": "01234596"
+  },
+  {
+    "name": "Perindopril 6 mg",
+    "dosage": "6mg",
+    "instructions": "Morgens vor dem Fruehstueck.",
+    "pzn": "03456779"
+  },
+  {
+    "name": "Perindopril 12 mg",
+    "dosage": "12mg",
+    "instructions": "Morgens vor dem Fruehstueck.",
+    "pzn": "03456721"
+  },
+  {
+    "name": "Candesartan 4 mg ratiopharm",
+    "dosage": "4mg",
+    "instructions": "Unabhaengig von den Mahlzeiten.",
+    "pzn": "01130385"
+  },
+  {
+    "name": "Candesartan 8 mg ratiopharm",
+    "dosage": "8mg",
+    "instructions": "Unabhaengig von den Mahlzeiten.",
+    "pzn": "01130364"
+  },
+  {
+    "name": "Candesartan 16 mg ratiopharm",
+    "dosage": "16mg",
+    "instructions": "Unabhaengig von den Mahlzeiten.",
+    "pzn": "01130314"
+  },
+  {
+    "name": "Candesartan 32 mg ratiopharm",
+    "dosage": "32mg",
+    "instructions": "Unabhaengig von den Mahlzeiten.",
+    "pzn": "01130313"
+  },
+  {
+    "name": "Valsartan 40 mg HEXAL",
+    "dosage": "40mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "04567821"
+  },
+  {
+    "name": "Valsartan 80 mg HEXAL",
+    "dosage": "80mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "04567837"
+  },
+  {
+    "name": "Valsartan 160 mg HEXAL",
+    "dosage": "160mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "04567839"
+  },
+  {
+    "name": "Telmisartan 20 mg",
+    "dosage": "20mg",
+    "instructions": "Morgens einnehmen.",
+    "pzn": "05678974"
+  },
+  {
+    "name": "Telmisartan 40 mg",
+    "dosage": "40mg",
+    "instructions": "Morgens einnehmen.",
+    "pzn": "05678987"
+  },
+  {
+    "name": "Telmisartan 80 mg",
+    "dosage": "80mg",
+    "instructions": "Morgens einnehmen.",
+    "pzn": "05678913"
+  },
+  {
+    "name": "Losartan 50 mg ratiopharm",
+    "dosage": "50mg",
+    "instructions": "Mit einem Glas Wasser.",
+    "pzn": "06789081"
+  },
+  {
+    "name": "Losartan 100 mg ratiopharm",
+    "dosage": "100mg",
+    "instructions": "Mit einem Glas Wasser.",
+    "pzn": "06789035"
+  },
+  {
+    "name": "Irbesartan 150 mg HEXAL",
+    "dosage": "150mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "07890193"
+  },
+  {
+    "name": "Irbesartan 300 mg HEXAL",
+    "dosage": "300mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "07890199"
+  },
+  {
+    "name": "Bisoprolol 1,25 mg ratiopharm",
+    "dosage": "1,25mg",
+    "instructions": "Morgens einnehmen, Puls kontrollieren.",
+    "pzn": "02143079"
+  },
+  {
+    "name": "Bisoprolol 2,5 mg ratiopharm",
+    "dosage": "2,5mg",
+    "instructions": "Morgens einnehmen, Puls kontrollieren.",
+    "pzn": "02143063"
+  },
+  {
+    "name": "Bisoprolol 5 mg ratiopharm",
+    "dosage": "5mg",
+    "instructions": "Morgens einnehmen, Puls kontrollieren.",
+    "pzn": "02143038"
+  },
+  {
+    "name": "Bisoprolol 10 mg ratiopharm",
+    "dosage": "10mg",
+    "instructions": "Morgens einnehmen, Puls kontrollieren.",
+    "pzn": "02143067"
+  },
+  {
+    "name": "Metoprololsuccinat 23,75 mg",
+    "dosage": "23,75mg",
+    "instructions": "Morgens unzerkaut einnehmen.",
+    "pzn": "00762985"
+  },
+  {
+    "name": "Metoprololsuccinat 47,5 mg",
+    "dosage": "47,5mg",
+    "instructions": "Morgens unzerkaut einnehmen.",
+    "pzn": "00762945"
+  },
+  {
+    "name": "Metoprololsuccinat 95 mg",
+    "dosage": "95mg",
+    "instructions": "Morgens unzerkaut einnehmen.",
+    "pzn": "00762910"
+  },
+  {
+    "name": "Carvedilol 3,125 mg",
+    "dosage": "3,125mg",
+    "instructions": "Zu den Mahlzeiten.",
+    "pzn": "08901230"
+  },
+  {
+    "name": "Carvedilol 6,25 mg",
+    "dosage": "6,25mg",
+    "instructions": "Zu den Mahlzeiten.",
+    "pzn": "08901299"
+  },
+  {
+    "name": "Carvedilol 12,5 mg",
+    "dosage": "12,5mg",
+    "instructions": "Zu den Mahlzeiten.",
+    "pzn": "08901264"
+  },
+  {
+    "name": "Carvedilol 25 mg",
+    "dosage": "25mg",
+    "instructions": "Zu den Mahlzeiten.",
+    "pzn": "08901253"
+  },
+  {
+    "name": "Nebivolol 5 mg",
+    "dosage": "5mg",
+    "instructions": "Taeglich zur gleichen Uhrzeit.",
+    "pzn": "09012345"
+  },
+  {
+    "name": "Nebivolol 10 mg",
+    "dosage": "10mg",
+    "instructions": "Taeglich zur gleichen Uhrzeit.",
+    "pzn": "09012329"
+  },
+  {
+    "name": "Amlodipin 5 mg",
+    "dosage": "5mg",
+    "instructions": "Taeglich 1 Tablette morgens.",
+    "pzn": "04000337"
+  },
+  {
+    "name": "Amlodipin 10 mg",
+    "dosage": "10mg",
+    "instructions": "Taeglich 1 Tablette morgens.",
+    "pzn": "04000353"
+  },
+  {
+    "name": "Lercanidipin 5 mg",
+    "dosage": "5mg",
+    "instructions": "Morgens vor dem Fruehstueck.",
+    "pzn": "10123423"
+  },
+  {
+    "name": "Lercanidipin 10 mg",
+    "dosage": "10mg",
+    "instructions": "Morgens vor dem Fruehstueck.",
+    "pzn": "10123421"
+  },
+  {
+    "name": "Verapamil 120 mg retard",
+    "dosage": "120mg",
+    "instructions": "Unzerkaut schlucken.",
+    "pzn": "11234558"
+  },
+  {
+    "name": "Verapamil 180 mg retard",
+    "dosage": "180mg",
+    "instructions": "Unzerkaut schlucken.",
+    "pzn": "11234522"
+  },
+  {
+    "name": "Verapamil 240 mg retard",
+    "dosage": "240mg",
+    "instructions": "Unzerkaut schlucken.",
+    "pzn": "11234555"
+  },
+  {
+    "name": "Nifedipin 30 mg retard",
+    "dosage": "30mg",
+    "instructions": "Unzerkaut mit Fluessigkeit.",
+    "pzn": "12345654"
+  },
+  {
+    "name": "Nifedipin 60 mg retard",
+    "dosage": "60mg",
+    "instructions": "Unzerkaut mit Fluessigkeit.",
+    "pzn": "12345687"
+  },
+  {
+    "name": "Nifedipin 90 mg retard",
+    "dosage": "90mg",
+    "instructions": "Unzerkaut mit Fluessigkeit.",
+    "pzn": "12345643"
+  },
+  {
+    "name": "Torasemid 5 mg",
+    "dosage": "5mg",
+    "instructions": "Morgens zur Entwaesserung.",
+    "pzn": "04000115"
+  },
+  {
+    "name": "Torasemid 10 mg",
+    "dosage": "10mg",
+    "instructions": "Morgens zur Entwaesserung.",
+    "pzn": "04000168"
+  },
+  {
+    "name": "Torasemid 20 mg",
+    "dosage": "20mg",
+    "instructions": "Morgens zur Entwaesserung.",
+    "pzn": "04000178"
+  },
+  {
+    "name": "Furosemid 20 mg",
+    "dosage": "20mg",
+    "instructions": "Entwaesserungsmittel morgens.",
+    "pzn": "00882625"
+  },
+  {
+    "name": "Furosemid 40 mg",
+    "dosage": "40mg",
+    "instructions": "Entwaesserungsmittel morgens.",
+    "pzn": "00882658"
+  },
+  {
+    "name": "HCT 12,5 mg HEXAL",
+    "dosage": "12,5mg",
+    "instructions": "Morgens mit Wasser.",
+    "pzn": "13456720"
+  },
+  {
+    "name": "HCT 25 mg HEXAL",
+    "dosage": "25mg",
+    "instructions": "Morgens mit Wasser.",
+    "pzn": "13456780"
+  },
+  {
+    "name": "Spironolacton 25 mg",
+    "dosage": "25mg",
+    "instructions": "Zum Fruehstueck einnehmen.",
+    "pzn": "00746647"
+  },
+  {
+    "name": "Spironolacton 50 mg",
+    "dosage": "50mg",
+    "instructions": "Zum Fruehstueck einnehmen.",
+    "pzn": "00746690"
+  },
+  {
+    "name": "Spironolacton 100 mg",
+    "dosage": "100mg",
+    "instructions": "Zum Fruehstueck einnehmen.",
+    "pzn": "00746689"
+  },
+  {
+    "name": "Eplerenon 25 mg",
+    "dosage": "25mg",
+    "instructions": "Unabhaengig von den Mahlzeiten.",
+    "pzn": "15678925"
+  },
+  {
+    "name": "Eplerenon 50 mg",
+    "dosage": "50mg",
+    "instructions": "Unabhaengig von den Mahlzeiten.",
+    "pzn": "15678950"
+  },
+  {
+    "name": "Atorvastatin 10 mg",
+    "dosage": "10mg",
+    "instructions": "Einmal taeglich abends.",
+    "pzn": "02078656"
+  },
+  {
+    "name": "Atorvastatin 20 mg",
+    "dosage": "20mg",
+    "instructions": "Einmal taeglich abends.",
+    "pzn": "02078683"
+  },
+  {
+    "name": "Atorvastatin 40 mg",
+    "dosage": "40mg",
+    "instructions": "Einmal taeglich abends.",
+    "pzn": "02078634"
+  },
+  {
+    "name": "Atorvastatin 80 mg",
+    "dosage": "80mg",
+    "instructions": "Einmal taeglich abends.",
+    "pzn": "02078618"
+  },
+  {
+    "name": "Simvastatin 10 mg",
+    "dosage": "10mg",
+    "instructions": "Abends einnehmen.",
+    "pzn": "00032315"
+  },
+  {
+    "name": "Simvastatin 20 mg",
+    "dosage": "20mg",
+    "instructions": "Abends einnehmen.",
+    "pzn": "00032394"
+  },
+  {
+    "name": "Simvastatin 40 mg",
+    "dosage": "40mg",
+    "instructions": "Abends einnehmen.",
+    "pzn": "00032339"
+  },
+  {
+    "name": "Rosuvastatin 5 mg",
+    "dosage": "5mg",
+    "instructions": "Unabhaengig von den Mahlzeiten.",
+    "pzn": "16789047"
+  },
+  {
+    "name": "Rosuvastatin 10 mg",
+    "dosage": "10mg",
+    "instructions": "Unabhaengig von den Mahlzeiten.",
+    "pzn": "16789020"
+  },
+  {
+    "name": "Rosuvastatin 20 mg",
+    "dosage": "20mg",
+    "instructions": "Unabhaengig von den Mahlzeiten.",
+    "pzn": "16789039"
+  },
+  {
+    "name": "Pravastatin 10 mg",
+    "dosage": "10mg",
+    "instructions": "Abends vor dem Schlafengehen.",
+    "pzn": "17890122"
+  },
+  {
+    "name": "Pravastatin 20 mg",
+    "dosage": "20mg",
+    "instructions": "Abends vor dem Schlafengehen.",
+    "pzn": "17890158"
+  },
+  {
+    "name": "Pravastatin 40 mg",
+    "dosage": "40mg",
+    "instructions": "Abends vor dem Schlafengehen.",
+    "pzn": "17890145"
+  },
+  {
+    "name": "Ezetimib 10 mg",
+    "dosage": "10mg",
+    "instructions": "Unabhaengig von den Mahlzeiten.",
+    "pzn": "18901210"
+  },
+  {
+    "name": "Rivaroxaban 10 mg",
+    "dosage": "10mg",
+    "instructions": "Zum Essen einnehmen.",
+    "pzn": "21234568"
+  },
+  {
+    "name": "Rivaroxaban 15 mg",
+    "dosage": "15mg",
+    "instructions": "Zum Essen einnehmen.",
+    "pzn": "21234591"
+  },
+  {
+    "name": "Rivaroxaban 20 mg",
+    "dosage": "20mg",
+    "instructions": "Zum Essen einnehmen.",
+    "pzn": "21234556"
+  },
+  {
+    "name": "Apixaban 2,5 mg",
+    "dosage": "2,5mg",
+    "instructions": "2x taeglich einnehmen.",
+    "pzn": "22345630"
+  },
+  {
+    "name": "Apixaban 5 mg",
+    "dosage": "5mg",
+    "instructions": "2x taeglich einnehmen.",
+    "pzn": "22345657"
+  },
+  {
+    "name": "Edoxaban 30 mg",
+    "dosage": "30mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "23456755"
+  },
+  {
+    "name": "Edoxaban 60 mg",
+    "dosage": "60mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "23456736"
+  },
+  {
+    "name": "Phenprocoumon 3 mg (Marcumar)",
+    "dosage": "3mg",
+    "instructions": "Laut INR-Wert dosieren.",
+    "pzn": "24567810"
+  },
+  {
+    "name": "Dabigatran 110 mg",
+    "dosage": "110mg",
+    "instructions": "2x taeglich unzerkaut.",
+    "pzn": "25678995"
+  },
+  {
+    "name": "Dabigatran 150 mg",
+    "dosage": "150mg",
+    "instructions": "2x taeglich unzerkaut.",
+    "pzn": "25678944"
+  },
+  {
+    "name": "ASS 100 mg protect",
+    "dosage": "100mg",
+    "instructions": "Morgens zum Fruehstueck.",
+    "pzn": "26789010"
+  },
+  {
+    "name": "Clopidogrel 75 mg",
+    "dosage": "75mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "27890110"
+  },
+  {
+    "name": "Prasugrel 10 mg",
+    "dosage": "10mg",
+    "instructions": "Einmal taeglich zum Essen.",
+    "pzn": "28901210"
+  },
+  {
+    "name": "Ticagrelor 90 mg",
+    "dosage": "90mg",
+    "instructions": "2x taeglich.",
+    "pzn": "29012310"
+  },
+  {
+    "name": "Pantoprazol 20 mg",
+    "dosage": "20mg",
+    "instructions": "Morgens vor dem Essen.",
+    "pzn": "04953499"
+  },
+  {
+    "name": "Pantoprazol 40 mg",
+    "dosage": "40mg",
+    "instructions": "Morgens vor dem Essen.",
+    "pzn": "04953497"
+  },
+  {
+    "name": "Omeprazol 10 mg",
+    "dosage": "10mg",
+    "instructions": "Morgens nuechtern einnehmen.",
+    "pzn": "04414592"
+  },
+  {
+    "name": "Omeprazol 20 mg",
+    "dosage": "20mg",
+    "instructions": "Morgens nuechtern einnehmen.",
+    "pzn": "04414519"
+  },
+  {
+    "name": "Omeprazol 40 mg",
+    "dosage": "40mg",
+    "instructions": "Morgens nuechtern einnehmen.",
+    "pzn": "04414587"
+  },
+  {
+    "name": "Lansoprazol 15 mg",
+    "dosage": "15mg",
+    "instructions": "Morgens vor der Mahlzeit.",
+    "pzn": "30123491"
+  },
+  {
+    "name": "Lansoprazol 30 mg",
+    "dosage": "30mg",
+    "instructions": "Morgens vor der Mahlzeit.",
+    "pzn": "30123431"
+  },
+  {
+    "name": "Esomeprazol 20 mg",
+    "dosage": "20mg",
+    "instructions": "1 Std. vor dem Essen.",
+    "pzn": "31234578"
+  },
+  {
+    "name": "Esomeprazol 40 mg",
+    "dosage": "40mg",
+    "instructions": "1 Std. vor dem Essen.",
+    "pzn": "31234541"
+  },
+  {
+    "name": "Metoclopramid 10 mg",
+    "dosage": "10mg",
+    "instructions": "30 Min. vor den Mahlzeiten.",
+    "pzn": "34567810"
+  },
+  {
+    "name": "Domperidon 10 mg",
+    "dosage": "10mg",
+    "instructions": "Vor den Mahlzeiten.",
+    "pzn": "35678910"
+  },
+  {
+    "name": "Butylscopolamin 10 mg (Buscopan)",
+    "dosage": "10mg",
+    "instructions": "Bei Kraempfen einnehmen.",
+    "pzn": "36789010"
+  },
+  {
+    "name": "Loperamid 2 mg",
+    "dosage": "2mg",
+    "instructions": "Bei Durchfall max. 6/Tag.",
+    "pzn": "37890110"
+  },
+  {
+    "name": "Mesalazin 500 mg",
+    "dosage": "500mg",
+    "instructions": "Bei CED nach Anweisung.",
+    "pzn": "38901210"
+  },
+  {
+    "name": "Macrogol 13,8 g",
+    "dosage": "13,8g",
+    "instructions": "In Wasser aufloesen.",
+    "pzn": "40123410"
+  },
+  {
+    "name": "Ibuprofen 200 mg",
+    "dosage": "200mg",
+    "instructions": "Nach dem Essen mit Wasser.",
+    "pzn": "00951430"
+  },
+  {
+    "name": "Ibuprofen 400 mg",
+    "dosage": "400mg",
+    "instructions": "Nach dem Essen mit Wasser.",
+    "pzn": "00951469"
+  },
+  {
+    "name": "Ibuprofen 600 mg",
+    "dosage": "600mg",
+    "instructions": "Nach dem Essen mit Wasser.",
+    "pzn": "00951458"
+  },
+  {
+    "name": "Ibuprofen 800 mg",
+    "dosage": "800mg",
+    "instructions": "Nach dem Essen mit Wasser.",
+    "pzn": "00951444"
+  },
+  {
+    "name": "Paracetamol 250 mg",
+    "dosage": "250mg",
+    "instructions": "Max. 4x taeglich.",
+    "pzn": "01242391"
+  },
+  {
+    "name": "Paracetamol 500 mg",
+    "dosage": "500mg",
+    "instructions": "Max. 4x taeglich.",
+    "pzn": "01242398"
+  },
+  {
+    "name": "Paracetamol 1000 mg",
+    "dosage": "1000mg",
+    "instructions": "Max. 4x taeglich.",
+    "pzn": "01242381"
+  },
+  {
+    "name": "ASPIRIN 500 mg",
+    "dosage": "500mg",
+    "instructions": "Nach dem Essen mit reichlich Wasser.",
+    "pzn": "01580221"
+  },
+  {
+    "name": "Diclofenac 25 mg",
+    "dosage": "25mg",
+    "instructions": "Nach den Mahlzeiten.",
+    "pzn": "02537438"
+  },
+  {
+    "name": "Diclofenac 50 mg",
+    "dosage": "50mg",
+    "instructions": "Nach den Mahlzeiten.",
+    "pzn": "02537497"
+  },
+  {
+    "name": "Diclofenac 75 mg",
+    "dosage": "75mg",
+    "instructions": "Nach den Mahlzeiten.",
+    "pzn": "02537451"
+  },
+  {
+    "name": "Diclofenac 100 mg",
+    "dosage": "100mg",
+    "instructions": "Nach den Mahlzeiten.",
+    "pzn": "02537417"
+  },
+  {
+    "name": "Naproxen 250 mg",
+    "dosage": "250mg",
+    "instructions": "Zu den Mahlzeiten.",
+    "pzn": "43234539"
+  },
+  {
+    "name": "Naproxen 500 mg",
+    "dosage": "500mg",
+    "instructions": "Zu den Mahlzeiten.",
+    "pzn": "43234514"
+  },
+  {
+    "name": "Novaminsulfon 500 mg Lichtenstein",
+    "dosage": "500mg",
+    "instructions": "Gegen starke Schmerzen/Fieber.",
+    "pzn": "00101650"
+  },
+  {
+    "name": "Novaminsulfon 1000 mg Lichtenstein",
+    "dosage": "1000mg",
+    "instructions": "Gegen starke Schmerzen/Fieber.",
+    "pzn": "00101661"
+  },
+  {
+    "name": "Metamizol 500 mg",
+    "dosage": "500mg",
+    "instructions": "Bei starken Schmerzen.",
+    "pzn": "00101744"
+  },
+  {
+    "name": "Metamizol 1000 mg",
+    "dosage": "1000mg",
+    "instructions": "Bei starken Schmerzen.",
+    "pzn": "00101718"
+  },
+  {
+    "name": "Tramadol 50 mg retard",
+    "dosage": "50mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "03522337"
+  },
+  {
+    "name": "Tramadol 100 mg retard",
+    "dosage": "100mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "03522382"
+  },
+  {
+    "name": "Tramadol 150 mg retard",
+    "dosage": "150mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "03522350"
+  },
+  {
+    "name": "Tramadol 200 mg retard",
+    "dosage": "200mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "03522337"
+  },
+  {
+    "name": "Tramadol Tropfen 100 mg/ml",
+    "dosage": "100mg/ml",
+    "instructions": "20-40 Tropfen bei Bedarf.",
+    "pzn": "43456710"
+  },
+  {
+    "name": "Oxycodon 5 mg retard",
+    "dosage": "5mg",
+    "instructions": "Alle 12 Std., nicht zerkauen!",
+    "pzn": "44567893"
+  },
+  {
+    "name": "Oxycodon 10 mg retard",
+    "dosage": "10mg",
+    "instructions": "Alle 12 Std., nicht zerkauen!",
+    "pzn": "44567873"
+  },
+  {
+    "name": "Oxycodon 20 mg retard",
+    "dosage": "20mg",
+    "instructions": "Alle 12 Std., nicht zerkauen!",
+    "pzn": "44567860"
+  },
+  {
+    "name": "Oxycodon 40 mg retard",
+    "dosage": "40mg",
+    "instructions": "Alle 12 Std., nicht zerkauen!",
+    "pzn": "44567892"
+  },
+  {
+    "name": "Tilidin/Naloxon 50/4 mg retard",
+    "dosage": "50/4mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "45678910"
+  },
+  {
+    "name": "Tilidin/Naloxon 100/8 mg retard",
+    "dosage": "100/8mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "45678920"
+  },
+  {
+    "name": "Tilidin/Naloxon 150/12 mg retard",
+    "dosage": "150/12mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "45678930"
+  },
+  {
+    "name": "Fentanyl 10 mcg/h Pflaster",
+    "dosage": "10mcg/h",
+    "instructions": "Alle 72 Std. wechseln.",
+    "pzn": "46789068"
+  },
+  {
+    "name": "Fentanyl 25 mcg/h Pflaster",
+    "dosage": "25mcg/h",
+    "instructions": "Alle 72 Std. wechseln.",
+    "pzn": "46789028"
+  },
+  {
+    "name": "Fentanyl 50 mcg/h Pflaster",
+    "dosage": "50mcg/h",
+    "instructions": "Alle 72 Std. wechseln.",
+    "pzn": "46789043"
+  },
+  {
+    "name": "Fentanyl 75 mcg/h Pflaster",
+    "dosage": "75mcg/h",
+    "instructions": "Alle 72 Std. wechseln.",
+    "pzn": "46789027"
+  },
+  {
+    "name": "Fentanyl 100 mcg/h Pflaster",
+    "dosage": "100mcg/h",
+    "instructions": "Alle 72 Std. wechseln.",
+    "pzn": "46789041"
+  },
+  {
+    "name": "Morphin 10 mg retard",
+    "dosage": "10mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "47890181"
+  },
+  {
+    "name": "Morphin 30 mg retard",
+    "dosage": "30mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "47890178"
+  },
+  {
+    "name": "Morphin 60 mg retard",
+    "dosage": "60mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "47890143"
+  },
+  {
+    "name": "Morphin 100 mg retard",
+    "dosage": "100mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "47890184"
+  },
+  {
+    "name": "Morphin 200 mg retard",
+    "dosage": "200mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "47890164"
+  },
+  {
+    "name": "Hydromorphon 4 mg retard",
+    "dosage": "4mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "48901284"
+  },
+  {
+    "name": "Hydromorphon 8 mg retard",
+    "dosage": "8mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "48901261"
+  },
+  {
+    "name": "Hydromorphon 16 mg retard",
+    "dosage": "16mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "48901256"
+  },
+  {
+    "name": "Hydromorphon 24 mg retard",
+    "dosage": "24mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "48901238"
+  },
+  {
+    "name": "Tapentadol 50 mg retard",
+    "dosage": "50mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "49012310"
+  },
+  {
+    "name": "Tapentadol 100 mg retard",
+    "dosage": "100mg",
+    "instructions": "Alle 12 Std. unzerkaut.",
+    "pzn": "49012320"
+  },
+  {
+    "name": "Sumatriptan 50 mg",
+    "dosage": "50mg",
+    "instructions": "Bei Migraene einmalig.",
+    "pzn": "50123427"
+  },
+  {
+    "name": "Sumatriptan 100 mg",
+    "dosage": "100mg",
+    "instructions": "Bei Migraene einmalig.",
+    "pzn": "50123475"
+  },
+  {
+    "name": "Rizatriptan 10 mg",
+    "dosage": "10mg",
+    "instructions": "Auf die Zunge legen.",
+    "pzn": "51234510"
+  },
+  {
+    "name": "Citalopram 10 mg",
+    "dosage": "10mg",
+    "instructions": "Einmal taeglich morgens oder abends.",
+    "pzn": "02534873"
+  },
+  {
+    "name": "Citalopram 20 mg",
+    "dosage": "20mg",
+    "instructions": "Einmal taeglich morgens oder abends.",
+    "pzn": "02534821"
+  },
+  {
+    "name": "Citalopram 40 mg",
+    "dosage": "40mg",
+    "instructions": "Einmal taeglich morgens oder abends.",
+    "pzn": "02534816"
+  },
+  {
+    "name": "Escitalopram 5 mg",
+    "dosage": "5mg",
+    "instructions": "Unabhaengig von der Nahrung.",
+    "pzn": "03000524"
+  },
+  {
+    "name": "Escitalopram 10 mg",
+    "dosage": "10mg",
+    "instructions": "Unabhaengig von der Nahrung.",
+    "pzn": "03000529"
+  },
+  {
+    "name": "Escitalopram 20 mg",
+    "dosage": "20mg",
+    "instructions": "Unabhaengig von der Nahrung.",
+    "pzn": "03000590"
+  },
+  {
+    "name": "Sertralin 25 mg",
+    "dosage": "25mg",
+    "instructions": "Morgens oder abends.",
+    "pzn": "02147330"
+  },
+  {
+    "name": "Sertralin 50 mg",
+    "dosage": "50mg",
+    "instructions": "Morgens oder abends.",
+    "pzn": "02147397"
+  },
+  {
+    "name": "Sertralin 100 mg",
+    "dosage": "100mg",
+    "instructions": "Morgens oder abends.",
+    "pzn": "02147364"
+  },
+  {
+    "name": "Fluoxetin 20 mg",
+    "dosage": "20mg",
+    "instructions": "Morgens einnehmen.",
+    "pzn": "53456786"
+  },
+  {
+    "name": "Fluoxetin 40 mg",
+    "dosage": "40mg",
+    "instructions": "Morgens einnehmen.",
+    "pzn": "53456718"
+  },
+  {
+    "name": "Venlafaxin 37,5 mg retard",
+    "dosage": "37,5mg",
+    "instructions": "Immer zur gleichen Tageszeit.",
+    "pzn": "01026559"
+  },
+  {
+    "name": "Venlafaxin 75 mg retard",
+    "dosage": "75mg",
+    "instructions": "Immer zur gleichen Tageszeit.",
+    "pzn": "01026558"
+  },
+  {
+    "name": "Venlafaxin 150 mg retard",
+    "dosage": "150mg",
+    "instructions": "Immer zur gleichen Tageszeit.",
+    "pzn": "01026586"
+  },
+  {
+    "name": "Duloxetin 30 mg",
+    "dosage": "30mg",
+    "instructions": "Einmal taeglich, nicht zerkauen.",
+    "pzn": "56789069"
+  },
+  {
+    "name": "Duloxetin 60 mg",
+    "dosage": "60mg",
+    "instructions": "Einmal taeglich, nicht zerkauen.",
+    "pzn": "56789077"
+  },
+  {
+    "name": "Mirtazapin 15 mg",
+    "dosage": "15mg",
+    "instructions": "Abends vor dem Schlafengehen.",
+    "pzn": "04414142"
+  },
+  {
+    "name": "Mirtazapin 30 mg",
+    "dosage": "30mg",
+    "instructions": "Abends vor dem Schlafengehen.",
+    "pzn": "04414180"
+  },
+  {
+    "name": "Mirtazapin 45 mg",
+    "dosage": "45mg",
+    "instructions": "Abends vor dem Schlafengehen.",
+    "pzn": "04414111"
+  },
+  {
+    "name": "Amitriptylin 25 mg",
+    "dosage": "25mg",
+    "instructions": "Abends einnehmen.",
+    "pzn": "57890197"
+  },
+  {
+    "name": "Amitriptylin 50 mg",
+    "dosage": "50mg",
+    "instructions": "Abends einnehmen.",
+    "pzn": "57890124"
+  },
+  {
+    "name": "Amitriptylin 75 mg",
+    "dosage": "75mg",
+    "instructions": "Abends einnehmen.",
+    "pzn": "57890197"
+  },
+  {
+    "name": "Trimipramin 10 mg",
+    "dosage": "10mg",
+    "instructions": "Abends vor dem Schlafengehen.",
+    "pzn": "58901278"
+  },
+  {
+    "name": "Trimipramin 25 mg",
+    "dosage": "25mg",
+    "instructions": "Abends vor dem Schlafengehen.",
+    "pzn": "58901244"
+  },
+  {
+    "name": "Trimipramin 50 mg",
+    "dosage": "50mg",
+    "instructions": "Abends vor dem Schlafengehen.",
+    "pzn": "58901292"
+  },
+  {
+    "name": "Trimipramin 75 mg",
+    "dosage": "75mg",
+    "instructions": "Abends vor dem Schlafengehen.",
+    "pzn": "58901253"
+  },
+  {
+    "name": "Doxepin 25 mg",
+    "dosage": "25mg",
+    "instructions": "Abends einnehmen.",
+    "pzn": "60123424"
+  },
+  {
+    "name": "Doxepin 50 mg",
+    "dosage": "50mg",
+    "instructions": "Abends einnehmen.",
+    "pzn": "60123447"
+  },
+  {
+    "name": "Opipramol 50 mg",
+    "dosage": "50mg",
+    "instructions": "Gegen Angst und Unruhe.",
+    "pzn": "61234510"
+  },
+  {
+    "name": "Opipramol 100 mg",
+    "dosage": "100mg",
+    "instructions": "Gegen Angst und Unruhe.",
+    "pzn": "61234520"
+  },
+  {
+    "name": "Bupropion 150 mg retard",
+    "dosage": "150mg",
+    "instructions": "Morgens, nicht nach 16 Uhr.",
+    "pzn": "61234565"
+  },
+  {
+    "name": "Bupropion 300 mg retard",
+    "dosage": "300mg",
+    "instructions": "Morgens, nicht nach 16 Uhr.",
+    "pzn": "61234530"
+  },
+  {
+    "name": "Agomelatin 25 mg",
+    "dosage": "25mg",
+    "instructions": "Abends vor dem Schlafengehen.",
+    "pzn": "62345610"
+  },
+  {
+    "name": "Quetiapin 25 mg",
+    "dosage": "25mg",
+    "instructions": "Abends mit einer Mahlzeit.",
+    "pzn": "64567868"
+  },
+  {
+    "name": "Quetiapin 100 mg",
+    "dosage": "100mg",
+    "instructions": "Abends mit einer Mahlzeit.",
+    "pzn": "64567810"
+  },
+  {
+    "name": "Quetiapin 200 mg",
+    "dosage": "200mg",
+    "instructions": "Abends mit einer Mahlzeit.",
+    "pzn": "64567843"
+  },
+  {
+    "name": "Quetiapin 300 mg",
+    "dosage": "300mg",
+    "instructions": "Abends mit einer Mahlzeit.",
+    "pzn": "64567874"
+  },
+  {
+    "name": "Risperidon 2 mg",
+    "dosage": "2mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "65678932"
+  },
+  {
+    "name": "Risperidon 4 mg",
+    "dosage": "4mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "65678974"
+  },
+  {
+    "name": "Risperidon 6 mg",
+    "dosage": "6mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "65678923"
+  },
+  {
+    "name": "Olanzapin 5 mg",
+    "dosage": "5mg",
+    "instructions": "Taeglich mit/ohne Essen.",
+    "pzn": "66789090"
+  },
+  {
+    "name": "Olanzapin 10 mg",
+    "dosage": "10mg",
+    "instructions": "Taeglich mit/ohne Essen.",
+    "pzn": "66789048"
+  },
+  {
+    "name": "Olanzapin 15 mg",
+    "dosage": "15mg",
+    "instructions": "Taeglich mit/ohne Essen.",
+    "pzn": "66789091"
+  },
+  {
+    "name": "Aripiprazol 5 mg",
+    "dosage": "5mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "67890174"
+  },
+  {
+    "name": "Aripiprazol 10 mg",
+    "dosage": "10mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "67890187"
+  },
+  {
+    "name": "Aripiprazol 15 mg",
+    "dosage": "15mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "67890135"
+  },
+  {
+    "name": "Haloperidol 1 mg",
+    "dosage": "1mg",
+    "instructions": "Unter strenger aerztl. Kontrolle.",
+    "pzn": "68901210"
+  },
+  {
+    "name": "Promethazin 25 mg",
+    "dosage": "25mg",
+    "instructions": "Zur Beruhigung.",
+    "pzn": "69012310"
+  },
+  {
+    "name": "Melperon 25 mg",
+    "dosage": "25mg",
+    "instructions": "Zur Nacht bei Unruhe.",
+    "pzn": "70123410"
+  },
+  {
+    "name": "Pipamperon 40 mg",
+    "dosage": "40mg",
+    "instructions": "Abends bei Schlafproblemen.",
+    "pzn": "71234510"
+  },
+  {
+    "name": "Lorazepam 0,5 mg",
+    "dosage": "0,5mg",
+    "instructions": "Bei akuten Angstzustaenden.",
+    "pzn": "00723829"
+  },
+  {
+    "name": "Lorazepam 1 mg",
+    "dosage": "1mg",
+    "instructions": "Bei akuten Angstzustaenden.",
+    "pzn": "00723857"
+  },
+  {
+    "name": "Lorazepam 2,5 mg",
+    "dosage": "2,5mg",
+    "instructions": "Bei akuten Angstzustaenden.",
+    "pzn": "00723830"
+  },
+  {
+    "name": "Diazepam 5 mg",
+    "dosage": "5mg",
+    "instructions": "Abends zur Beruhigung.",
+    "pzn": "01242079"
+  },
+  {
+    "name": "Diazepam 10 mg",
+    "dosage": "10mg",
+    "instructions": "Abends zur Beruhigung.",
+    "pzn": "01242077"
+  },
+  {
+    "name": "Bromazepam 6 mg",
+    "dosage": "6mg",
+    "instructions": "Bei Angstzustaenden.",
+    "pzn": "72345610"
+  },
+  {
+    "name": "Oxazepam 10 mg",
+    "dosage": "10mg",
+    "instructions": "Kurzfristig bei Angst.",
+    "pzn": "73456710"
+  },
+  {
+    "name": "Zopiclon 7,5 mg",
+    "dosage": "7,5mg",
+    "instructions": "Unmittelbar vor dem Schlafengehen.",
+    "pzn": "74567810"
+  },
+  {
+    "name": "Zolpidem 10 mg",
+    "dosage": "10mg",
+    "instructions": "Unmittelbar vor dem Schlafengehen.",
+    "pzn": "75678910"
+  },
+  {
+    "name": "L-Thyroxin 25 Henning",
+    "dosage": "25mcg",
+    "instructions": "30 Min. vor dem Fruehstueck.",
+    "pzn": "01848510"
+  },
+  {
+    "name": "L-Thyroxin 50 Henning",
+    "dosage": "50mcg",
+    "instructions": "30 Min. vor dem Fruehstueck.",
+    "pzn": "01848586"
+  },
+  {
+    "name": "L-Thyroxin 75 Henning",
+    "dosage": "75mcg",
+    "instructions": "30 Min. vor dem Fruehstueck.",
+    "pzn": "01848551"
+  },
+  {
+    "name": "L-Thyroxin 88 Henning",
+    "dosage": "88mcg",
+    "instructions": "30 Min. vor dem Fruehstueck.",
+    "pzn": "01848572"
+  },
+  {
+    "name": "L-Thyroxin 100 Henning",
+    "dosage": "100mcg",
+    "instructions": "30 Min. vor dem Fruehstueck.",
+    "pzn": "01848512"
+  },
+  {
+    "name": "L-Thyroxin 112 Henning",
+    "dosage": "112mcg",
+    "instructions": "30 Min. vor dem Fruehstueck.",
+    "pzn": "01848524"
+  },
+  {
+    "name": "L-Thyroxin 125 Henning",
+    "dosage": "125mcg",
+    "instructions": "30 Min. vor dem Fruehstueck.",
+    "pzn": "01848556"
+  },
+  {
+    "name": "L-Thyroxin 137 Henning",
+    "dosage": "137mcg",
+    "instructions": "30 Min. vor dem Fruehstueck.",
+    "pzn": "01848549"
+  },
+  {
+    "name": "L-Thyroxin 150 Henning",
+    "dosage": "150mcg",
+    "instructions": "30 Min. vor dem Fruehstueck.",
+    "pzn": "01848540"
+  },
+  {
+    "name": "L-Thyroxin 175 Henning",
+    "dosage": "175mcg",
+    "instructions": "30 Min. vor dem Fruehstueck.",
+    "pzn": "01848517"
+  },
+  {
+    "name": "L-Thyroxin 200 Henning",
+    "dosage": "200mcg",
+    "instructions": "30 Min. vor dem Fruehstueck.",
+    "pzn": "01848540"
+  },
+  {
+    "name": "Thiamazol 5 mg",
+    "dosage": "5mg",
+    "instructions": "Schilddruesenregulation.",
+    "pzn": "76789082"
+  },
+  {
+    "name": "Thiamazol 10 mg",
+    "dosage": "10mg",
+    "instructions": "Schilddruesenregulation.",
+    "pzn": "76789020"
+  },
+  {
+    "name": "Thiamazol 20 mg",
+    "dosage": "20mg",
+    "instructions": "Schilddruesenregulation.",
+    "pzn": "76789020"
+  },
+  {
+    "name": "Metformin 500 mg",
+    "dosage": "500mg",
+    "instructions": "Zu oder nach den Mahlzeiten.",
+    "pzn": "03290472"
+  },
+  {
+    "name": "Metformin 850 mg",
+    "dosage": "850mg",
+    "instructions": "Zu oder nach den Mahlzeiten.",
+    "pzn": "03290418"
+  },
+  {
+    "name": "Metformin 1000 mg",
+    "dosage": "1000mg",
+    "instructions": "Zu oder nach den Mahlzeiten.",
+    "pzn": "03290478"
+  },
+  {
+    "name": "Empagliflozin 5 mg",
+    "dosage": "5mg",
+    "instructions": "Einmal taeglich morgens.",
+    "pzn": "78901126"
+  },
+  {
+    "name": "Empagliflozin 10 mg",
+    "dosage": "10mg",
+    "instructions": "Einmal taeglich morgens.",
+    "pzn": "78901126"
+  },
+  {
+    "name": "Empagliflozin 25 mg",
+    "dosage": "25mg",
+    "instructions": "Einmal taeglich morgens.",
+    "pzn": "78901194"
+  },
+  {
+    "name": "Dapagliflozin 5 mg",
+    "dosage": "5mg",
+    "instructions": "Unabhaengig von Mahlzeiten.",
+    "pzn": "79012270"
+  },
+  {
+    "name": "Dapagliflozin 10 mg",
+    "dosage": "10mg",
+    "instructions": "Unabhaengig von Mahlzeiten.",
+    "pzn": "79012280"
+  },
+  {
+    "name": "Sitagliptin 25 mg",
+    "dosage": "25mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "80123331"
+  },
+  {
+    "name": "Sitagliptin 50 mg",
+    "dosage": "50mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "80123343"
+  },
+  {
+    "name": "Sitagliptin 100 mg",
+    "dosage": "100mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "80123377"
+  },
+  {
+    "name": "Glimepirid 1 mg",
+    "dosage": "1mg",
+    "instructions": "Vor dem Fruehstueck.",
+    "pzn": "81234487"
+  },
+  {
+    "name": "Glimepirid 2 mg",
+    "dosage": "2mg",
+    "instructions": "Vor dem Fruehstueck.",
+    "pzn": "81234464"
+  },
+  {
+    "name": "Glimepirid 3 mg",
+    "dosage": "3mg",
+    "instructions": "Vor dem Fruehstueck.",
+    "pzn": "81234437"
+  },
+  {
+    "name": "Glimepirid 4 mg",
+    "dosage": "4mg",
+    "instructions": "Vor dem Fruehstueck.",
+    "pzn": "81234479"
+  },
+  {
+    "name": "Insulin glargin (Lantus)",
+    "dosage": "100E/ml",
+    "instructions": "Einmal taeglich s.c.",
+    "pzn": "83456610"
+  },
+  {
+    "name": "Insulin lispro (Humalog)",
+    "dosage": "100E/ml",
+    "instructions": "Kurzwirksam zu den Mahlzeiten.",
+    "pzn": "84567710"
+  },
+  {
+    "name": "Insulin aspart (NovoRapid)",
+    "dosage": "100E/ml",
+    "instructions": "Kurzwirksam vor dem Essen.",
+    "pzn": "85678810"
+  },
+  {
+    "name": "Semaglutid 0,25 mg (Ozempic)",
+    "dosage": "0,25mg",
+    "instructions": "Einmal woechentlich s.c.",
+    "pzn": "88011298"
+  },
+  {
+    "name": "Semaglutid 0,5 mg (Ozempic)",
+    "dosage": "0,5mg",
+    "instructions": "Einmal woechentlich s.c.",
+    "pzn": "88011235"
+  },
+  {
+    "name": "Semaglutid 1 mg (Ozempic)",
+    "dosage": "1mg",
+    "instructions": "Einmal woechentlich s.c.",
+    "pzn": "88011249"
+  },
+  {
+    "name": "Dulaglutid 1,5 mg (Trulicity)",
+    "dosage": "1,5mg",
+    "instructions": "Einmal woechentlich s.c.",
+    "pzn": "89012210"
+  },
+  {
+    "name": "Salbutamol DA 100 mcg",
+    "dosage": "100mcg",
+    "instructions": "Bei Bedarf 1-2 Huebe.",
+    "pzn": "90123310"
+  },
+  {
+    "name": "Ipratropiumbromid DA 20 mcg",
+    "dosage": "20mcg",
+    "instructions": "3-4x taeglich 2 Huebe.",
+    "pzn": "91234410"
+  },
+  {
+    "name": "Formoterol DA 12 mcg",
+    "dosage": "12mcg",
+    "instructions": "2x taeglich 1 Hub.",
+    "pzn": "92345510"
+  },
+  {
+    "name": "Tiotropiumbromid 18 mcg (Spiriva)",
+    "dosage": "18mcg",
+    "instructions": "Einmal taeglich inhalieren.",
+    "pzn": "94567710"
+  },
+  {
+    "name": "Fluticason 50 mcg DA",
+    "dosage": "50mcg",
+    "instructions": "2x taeglich inhalieren.",
+    "pzn": "95678861"
+  },
+  {
+    "name": "Fluticason 100 mcg DA",
+    "dosage": "100mcg",
+    "instructions": "2x taeglich inhalieren.",
+    "pzn": "95678895"
+  },
+  {
+    "name": "Fluticason 250 mcg DA",
+    "dosage": "250mcg",
+    "instructions": "2x taeglich inhalieren.",
+    "pzn": "95678893"
+  },
+  {
+    "name": "Fluticason 500 mcg DA",
+    "dosage": "500mcg",
+    "instructions": "2x taeglich inhalieren.",
+    "pzn": "95678857"
+  },
+  {
+    "name": "Budesonid 200 mcg DA",
+    "dosage": "200mcg",
+    "instructions": "2x taeglich inhalieren.",
+    "pzn": "96789910"
+  },
+  {
+    "name": "Budesonid 400 mcg DA",
+    "dosage": "400mcg",
+    "instructions": "2x taeglich inhalieren.",
+    "pzn": "96789920"
+  },
+  {
+    "name": "Budesonid/Formoterol (Symbicort)",
+    "dosage": "160/4,5mcg",
+    "instructions": "2x taeglich 1-2 Huebe.",
+    "pzn": "98901110"
+  },
+  {
+    "name": "Fluticason/Salmeterol (Viani)",
+    "dosage": "50/250mcg",
+    "instructions": "2x taeglich inhalieren.",
+    "pzn": "99012210"
+  },
+  {
+    "name": "Montelukast 10 mg",
+    "dosage": "10mg",
+    "instructions": "Abends einnehmen.",
+    "pzn": "10112410"
+  },
+  {
+    "name": "ACC Akut 600",
+    "dosage": "600mg",
+    "instructions": "In einem Glas Wasser aufloesen.",
+    "pzn": "07125301"
+  },
+  {
+    "name": "Ambroxol 75 mg retard",
+    "dosage": "75mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "10212510"
+  },
+  {
+    "name": "Prednisolon 1 mg",
+    "dosage": "1mg",
+    "instructions": "Morgens zwischen 6 und 8 Uhr.",
+    "pzn": "00133266"
+  },
+  {
+    "name": "Prednisolon 5 mg",
+    "dosage": "5mg",
+    "instructions": "Morgens zwischen 6 und 8 Uhr.",
+    "pzn": "00133276"
+  },
+  {
+    "name": "Prednisolon 10 mg",
+    "dosage": "10mg",
+    "instructions": "Morgens zwischen 6 und 8 Uhr.",
+    "pzn": "00133267"
+  },
+  {
+    "name": "Prednisolon 20 mg",
+    "dosage": "20mg",
+    "instructions": "Morgens zwischen 6 und 8 Uhr.",
+    "pzn": "00133225"
+  },
+  {
+    "name": "Prednisolon 50 mg",
+    "dosage": "50mg",
+    "instructions": "Morgens zwischen 6 und 8 Uhr.",
+    "pzn": "00133241"
+  },
+  {
+    "name": "Methylprednisolon 4 mg",
+    "dosage": "4mg",
+    "instructions": "Morgens einnehmen.",
+    "pzn": "10512838"
+  },
+  {
+    "name": "Methylprednisolon 8 mg",
+    "dosage": "8mg",
+    "instructions": "Morgens einnehmen.",
+    "pzn": "10512818"
+  },
+  {
+    "name": "Hydrocortison 10 mg",
+    "dosage": "10mg",
+    "instructions": "Morgens + evtl. mittags.",
+    "pzn": "10612910"
+  },
+  {
+    "name": "Dexamethason 4 mg",
+    "dosage": "4mg",
+    "instructions": "Nach aerztlicher Anweisung.",
+    "pzn": "10412710"
+  },
+  {
+    "name": "Levetiracetam 100 mg",
+    "dosage": "100mg",
+    "instructions": "2x taeglich.",
+    "pzn": "10813153"
+  },
+  {
+    "name": "Levetiracetam 250 mg",
+    "dosage": "250mg",
+    "instructions": "2x taeglich.",
+    "pzn": "10813112"
+  },
+  {
+    "name": "Levetiracetam 500 mg",
+    "dosage": "500mg",
+    "instructions": "2x taeglich.",
+    "pzn": "10813185"
+  },
+  {
+    "name": "Levetiracetam 1000 mg",
+    "dosage": "1000mg",
+    "instructions": "2x taeglich.",
+    "pzn": "10813180"
+  },
+  {
+    "name": "Lamotrigin 25 mg",
+    "dosage": "25mg",
+    "instructions": "Einschleichend dosieren.",
+    "pzn": "10913239"
+  },
+  {
+    "name": "Lamotrigin 50 mg",
+    "dosage": "50mg",
+    "instructions": "Einschleichend dosieren.",
+    "pzn": "10913285"
+  },
+  {
+    "name": "Lamotrigin 100 mg",
+    "dosage": "100mg",
+    "instructions": "Einschleichend dosieren.",
+    "pzn": "10913238"
+  },
+  {
+    "name": "Lamotrigin 200 mg",
+    "dosage": "200mg",
+    "instructions": "Einschleichend dosieren.",
+    "pzn": "10913210"
+  },
+  {
+    "name": "Pregabalin 75 mg",
+    "dosage": "75mg",
+    "instructions": "2-3x taeglich.",
+    "pzn": "11013319"
+  },
+  {
+    "name": "Pregabalin 150 mg",
+    "dosage": "150mg",
+    "instructions": "2-3x taeglich.",
+    "pzn": "11013390"
+  },
+  {
+    "name": "Pregabalin 300 mg",
+    "dosage": "300mg",
+    "instructions": "2-3x taeglich.",
+    "pzn": "11013317"
+  },
+  {
+    "name": "Gabapentin 100 mg",
+    "dosage": "100mg",
+    "instructions": "3x taeglich.",
+    "pzn": "11113439"
+  },
+  {
+    "name": "Gabapentin 300 mg",
+    "dosage": "300mg",
+    "instructions": "3x taeglich.",
+    "pzn": "11113418"
+  },
+  {
+    "name": "Gabapentin 400 mg",
+    "dosage": "400mg",
+    "instructions": "3x taeglich.",
+    "pzn": "11113414"
+  },
+  {
+    "name": "Carbamazepin 200 mg retard",
+    "dosage": "200mg",
+    "instructions": "2x taeglich unzerkaut.",
+    "pzn": "11213552"
+  },
+  {
+    "name": "Carbamazepin 400 mg retard",
+    "dosage": "400mg",
+    "instructions": "2x taeglich unzerkaut.",
+    "pzn": "11213519"
+  },
+  {
+    "name": "Valproinsaeure 300 mg retard",
+    "dosage": "300mg",
+    "instructions": "2x taeglich.",
+    "pzn": "11313675"
+  },
+  {
+    "name": "Valproinsaeure 600 mg retard",
+    "dosage": "600mg",
+    "instructions": "2x taeglich.",
+    "pzn": "11313640"
+  },
+  {
+    "name": "Levodopa/Carbidopa 100/25 mg",
+    "dosage": "100/25mg",
+    "instructions": "3x taeglich.",
+    "pzn": "11513810"
+  },
+  {
+    "name": "Pramipexol 0,18 mg",
+    "dosage": "0,18mg",
+    "instructions": "3x taeglich.",
+    "pzn": "11714010"
+  },
+  {
+    "name": "Rasagilin 1 mg",
+    "dosage": "1mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "11914210"
+  },
+  {
+    "name": "Amoxicillin 500 mg",
+    "dosage": "500mg",
+    "instructions": "3x taeglich.",
+    "pzn": "12114445"
+  },
+  {
+    "name": "Amoxicillin 875 mg",
+    "dosage": "875mg",
+    "instructions": "3x taeglich.",
+    "pzn": "12114495"
+  },
+  {
+    "name": "Amoxicillin 1000 mg",
+    "dosage": "1000mg",
+    "instructions": "3x taeglich.",
+    "pzn": "12114472"
+  },
+  {
+    "name": "Amoxicillin/Clavulansaeure 875/125",
+    "dosage": "875/125mg",
+    "instructions": "Zu Beginn einer Mahlzeit.",
+    "pzn": "12214510"
+  },
+  {
+    "name": "Ciprofloxacin 250 mg",
+    "dosage": "250mg",
+    "instructions": "2x taeglich, nicht mit Milch.",
+    "pzn": "12314637"
+  },
+  {
+    "name": "Ciprofloxacin 500 mg",
+    "dosage": "500mg",
+    "instructions": "2x taeglich, nicht mit Milch.",
+    "pzn": "12314679"
+  },
+  {
+    "name": "Levofloxacin 500 mg",
+    "dosage": "500mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "12414720"
+  },
+  {
+    "name": "Moxifloxacin 400 mg",
+    "dosage": "400mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "12514810"
+  },
+  {
+    "name": "Azithromycin 250 mg",
+    "dosage": "250mg",
+    "instructions": "1 Std. vor dem Essen.",
+    "pzn": "12614926"
+  },
+  {
+    "name": "Azithromycin 500 mg",
+    "dosage": "500mg",
+    "instructions": "1 Std. vor dem Essen.",
+    "pzn": "12614983"
+  },
+  {
+    "name": "Clarithromycin 250 mg",
+    "dosage": "250mg",
+    "instructions": "2x taeglich.",
+    "pzn": "12715083"
+  },
+  {
+    "name": "Clarithromycin 500 mg",
+    "dosage": "500mg",
+    "instructions": "2x taeglich.",
+    "pzn": "12715070"
+  },
+  {
+    "name": "Doxycyclin 100 mg",
+    "dosage": "100mg",
+    "instructions": "Aufrecht nach dem Essen.",
+    "pzn": "12915210"
+  },
+  {
+    "name": "Cefuroxim 500 mg",
+    "dosage": "500mg",
+    "instructions": "Nach dem Essen.",
+    "pzn": "13015320"
+  },
+  {
+    "name": "Cotrimoxazol 960 mg",
+    "dosage": "960mg",
+    "instructions": "Nach den Mahlzeiten mit Wasser.",
+    "pzn": "13215520"
+  },
+  {
+    "name": "Metronidazol 400 mg",
+    "dosage": "400mg",
+    "instructions": "3x taeglich.",
+    "pzn": "13315610"
+  },
+  {
+    "name": "Nitrofurantoin 100 mg retard",
+    "dosage": "100mg",
+    "instructions": "Zu den Mahlzeiten.",
+    "pzn": "13415710"
+  },
+  {
+    "name": "Fosfomycin 3 g Granulat",
+    "dosage": "3g",
+    "instructions": "Einmaldosis in Wasser aufgeloest.",
+    "pzn": "13515810"
+  },
+  {
+    "name": "Clindamycin 600 mg",
+    "dosage": "600mg",
+    "instructions": "3x taeglich.",
+    "pzn": "13615920"
+  },
+  {
+    "name": "Penicillin V 1,5 Mega",
+    "dosage": "1,5 Mega",
+    "instructions": "3x taeglich vor dem Essen.",
+    "pzn": "13716010"
+  },
+  {
+    "name": "Fluconazol 150 mg",
+    "dosage": "150mg",
+    "instructions": "Einmaldosis bei Pilzinfektion.",
+    "pzn": "13816110"
+  },
+  {
+    "name": "Methotrexat 15 mg",
+    "dosage": "15mg",
+    "instructions": "Einmal woechentlich.",
+    "pzn": "13916220"
+  },
+  {
+    "name": "Hydroxychloroquin 200 mg",
+    "dosage": "200mg",
+    "instructions": "Zum Essen.",
+    "pzn": "14216510"
+  },
+  {
+    "name": "Colchicin 0,5 mg",
+    "dosage": "0,5mg",
+    "instructions": "Bei akutem Gichtanfall.",
+    "pzn": "14416710"
+  },
+  {
+    "name": "Allopurinol 100 mg",
+    "dosage": "100mg",
+    "instructions": "Nach dem Essen.",
+    "pzn": "14516810"
+  },
+  {
+    "name": "Allopurinol 300 mg",
+    "dosage": "300mg",
+    "instructions": "Nach dem Essen.",
+    "pzn": "14516820"
+  },
+  {
+    "name": "Febuxostat 80 mg",
+    "dosage": "80mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "14616910"
+  },
+  {
+    "name": "Alendronsaeure 70 mg",
+    "dosage": "70mg",
+    "instructions": "Einmal woechentlich nuechtern.",
+    "pzn": "14717010"
+  },
+  {
+    "name": "Vitamin D3 1000 IE",
+    "dosage": "1000IE",
+    "instructions": "Taeglich zum Essen.",
+    "pzn": "15017310"
+  },
+  {
+    "name": "Vitamin D3 20000 IE",
+    "dosage": "20000IE",
+    "instructions": "Einmal woechentlich.",
+    "pzn": "15017320"
+  },
+  {
+    "name": "Calcium/Vitamin D3 1000/800",
+    "dosage": "1000mg/800IE",
+    "instructions": "Taeglich zum Essen.",
+    "pzn": "15117420"
+  },
+  {
+    "name": "Tamsulosin 0,4 mg",
+    "dosage": "0,4mg",
+    "instructions": "Morgens nach dem Fruehstueck.",
+    "pzn": "15217510"
+  },
+  {
+    "name": "Finasterid 5 mg",
+    "dosage": "5mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "15517810"
+  },
+  {
+    "name": "Solifenacin 5 mg",
+    "dosage": "5mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "15718010"
+  },
+  {
+    "name": "Sildenafil 50 mg",
+    "dosage": "50mg",
+    "instructions": "Ca. 1 Std. vor Aktivitaet.",
+    "pzn": "16118410"
+  },
+  {
+    "name": "Sildenafil 100 mg",
+    "dosage": "100mg",
+    "instructions": "Ca. 1 Std. vor Aktivitaet.",
+    "pzn": "16118420"
+  },
+  {
+    "name": "Tadalafil 5 mg",
+    "dosage": "5mg",
+    "instructions": "Taeglich zur gleichen Zeit.",
+    "pzn": "16218510"
+  },
+  {
+    "name": "Tadalafil 20 mg",
+    "dosage": "20mg",
+    "instructions": "Ca. 30 Min. vor Aktivitaet.",
+    "pzn": "16218520"
+  },
+  {
+    "name": "Cetirizin 10 mg",
+    "dosage": "10mg",
+    "instructions": "Einmal taeglich abends.",
+    "pzn": "16318610"
+  },
+  {
+    "name": "Loratadin 10 mg",
+    "dosage": "10mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "16418710"
+  },
+  {
+    "name": "Desloratadin 5 mg",
+    "dosage": "5mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "16518810"
+  },
+  {
+    "name": "Fexofenadin 180 mg",
+    "dosage": "180mg",
+    "instructions": "Vor dem Essen.",
+    "pzn": "16618910"
+  },
+  {
+    "name": "Levocetirizin 5 mg",
+    "dosage": "5mg",
+    "instructions": "Abends einnehmen.",
+    "pzn": "16719010"
+  },
+  {
+    "name": "Dimetinden 1 mg (Fenistil)",
+    "dosage": "1mg",
+    "instructions": "3x taeglich.",
+    "pzn": "16919210"
+  },
+  {
+    "name": "Eisen(II)-glycin-sulfat 100 mg",
+    "dosage": "100mg",
+    "instructions": "Nuechtern mit Vitamin-C-Saft.",
+    "pzn": "17119410"
+  },
+  {
+    "name": "Folsaeure 5 mg",
+    "dosage": "5mg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "17219510"
+  },
+  {
+    "name": "Vitamin B12 1000 mcg",
+    "dosage": "1000mcg",
+    "instructions": "Einmal taeglich.",
+    "pzn": "17319610"
+  },
+  {
+    "name": "Kaliumchlorid 600 mg retard",
+    "dosage": "600mg",
+    "instructions": "Zu den Mahlzeiten.",
+    "pzn": "17419710"
+  },
+  {
+    "name": "Magnesiumcitrat 300 mg",
+    "dosage": "300mg",
+    "instructions": "Abends einnehmen.",
+    "pzn": "17519810"
+  },
+  {
+    "name": "Jodid 200 mcg",
+    "dosage": "200mcg",
+    "instructions": "Morgens zum Fruehstueck.",
+    "pzn": "17720010"
+  },
+  {
+    "name": "Isotretinoin 20 mg",
+    "dosage": "20mg",
+    "instructions": "Zum Essen, Schwangerschaft ausschl.!",
+    "pzn": "18220520"
+  }
+]

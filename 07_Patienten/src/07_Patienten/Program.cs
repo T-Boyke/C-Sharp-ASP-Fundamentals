@@ -17,7 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IExaminationRepository, ExaminationRepository>();
 builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();
-builder.Services.AddHttpClient<IMedicationLookupService, MedicationLookupService>();
+builder.Services.AddSingleton<IMedicationLookupService, MedicationLookupService>();
 
 var app = builder.Build();
 
