@@ -6,39 +6,39 @@
     <title>@ViewData["Title"] - MedCare Patientenverwaltung</title>
     
     <!-- CSS Dependencies -->
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/@@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="~/lib/fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/_07_Patienten.styles.css" asp-append-version="true" />
 
     <style type="text/tailwindcss">
-        @theme {
+        @@theme {
             --color-primary: #0ea5e9;
             --color-primary-dark: #0284c7;
             --color-secondary: #64748b;
         }
 
-        @utility glass {
+        @@utility glass {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        @layer base {
-            body { @apply text-slate-900 antialiased h-full; }
-            h1, h2, h3 { @apply font-bold tracking-tight; }
+        @@layer base {
+            body { @@apply text-slate-900 antialiased h-full; }
+            h1, h2, h3 { @@apply font-bold tracking-tight; }
         }
 
-        @layer components {
+        @@layer components {
             .nav-link {
-                @apply flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-slate-600 hover:bg-white hover:text-primary hover:shadow-sm;
+                @@apply flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-slate-600 hover:bg-white hover:text-primary hover:shadow-sm;
             }
             .nav-link.active {
-                @apply bg-white text-primary shadow-sm;
+                @@apply bg-white text-primary shadow-sm;
             }
             .btn-premium {
-                @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 transform active:scale-95 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2;
+                @@apply inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 transform active:scale-95 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2;
             }
         }
     </style>
