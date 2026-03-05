@@ -1,3 +1,4 @@
+using Xunit;
 using _06_NewsApplication2.Domain.Entities;
 
 namespace _06_NewsApplication2.Tests.Domain;
