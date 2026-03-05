@@ -5,27 +5,27 @@
 }
 
 <div class="flex items-center gap-4 mb-8">
-    <a asp-action="Index" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm text-slate-400 hover:text-primary transition-colors">
-        <i class="fa-solid fa-arrow-left"></i>
+    <a asp-action="Index" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm text-slate-400 hover:text-primary transition-colors" aria-label="Zurück zur Patientenliste">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
     </a>
     <h1 class="text-3xl font-bold text-slate-900">Patientenakte</h1>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-in">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-in" role="region" aria-label="Patienten Details">
     <!-- Links: Stammdaten -->
     <div class="lg:col-span-1 space-y-6">
-        <div class="glass rounded-3xl p-8 bg-white/40 shadow-sm border border-white">
+        <section class="glass rounded-3xl p-8 bg-white/40 shadow-sm border border-white" aria-labelledby="stammdaten-title">
             <div class="flex flex-col items-center text-center mb-8">
-                <div class="w-24 h-24 rounded-3xl bg-primary/10 flex items-center justify-center text-primary text-4xl mb-4 shadow-inner">
+                <div class="w-24 h-24 rounded-3xl bg-primary/10 flex items-center justify-center text-primary text-4xl mb-4 shadow-inner" aria-hidden="true">
                     <i class="fa-solid fa-user-doctor"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-slate-900">@Model.Fullname</h2>
+                <h2 class="text-2xl font-bold text-slate-900" id="stammdaten-title">@Model.Fullname</h2>
                 <div class="flex gap-2 items-center mt-1">
-                    <span class="text-sm font-bold text-primary uppercase tracking-tighter">Status: Aktiv</span>
+                    <span class="text-sm font-bold text-primary uppercase tracking-tighter" aria-label="Aktiver Patientenstatus">Status: Aktiv</span>
                     @if (Model.IsPrivatePatient)
                     {
-                        <span class="inline-flex items-center rounded-md bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-700 ring-1 ring-inset ring-amber-600/20">
-                            <i class="fa-solid fa-crown mr-1"></i> PRIVAT
+                        <span class="inline-flex items-center rounded-md bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-700 ring-1 ring-inset ring-amber-600/20" aria-label="Privatpatient Status">
+                            <i class="fa-solid fa-crown mr-1" aria-hidden="true"></i> PRIVAT
                         </span>
                     }
                 </div>
@@ -34,18 +34,18 @@
             <div class="space-y-4">
                 <div class="flex justify-between items-center p-3 rounded-xl bg-white/50 border border-white/20">
                     <span class="text-sm text-slate-500">Geburtsdatum</span>
-                    <span class="font-semibold text-slate-900">@Model.Birthdate.ToString("dd.MM.yyyy") (@Model.Age Jahre)</span>
+                    <span class="font-semibold text-slate-900" aria-label="Geburtsdatum: @Model.Birthdate.ToString("dd.MM.yyyy")">@Model.Birthdate.ToString("dd.MM.yyyy") (@Model.Age Jahre)</span>
                 </div>
                 <div class="flex justify-between items-center p-3 rounded-xl bg-white/50 border border-white/20">
                     <span class="text-sm text-slate-500">SVNR</span>
-                    <span class="font-semibold text-slate-900">@Model.SocialSecurityNumber</span>
+                    <span class="font-semibold text-slate-900" aria-label="Sozialversicherungsnummer: @Model.SocialSecurityNumber">@Model.SocialSecurityNumber</span>
                 </div>
                 @if (Model.NextAppointmentDate.HasValue)
                 {
-                    <div class="p-3 rounded-xl bg-primary/5 border border-primary/20">
+                    <div class="p-3 rounded-xl bg-primary/5 border border-primary/20" aria-label="Nächster Termin am @Model.NextAppointmentDate.Value.ToString("dd.MM.yyyy HH:mm")">
                         <span class="text-[10px] uppercase font-bold text-primary block mb-1">Nächster Termin</span>
                         <span class="font-bold text-slate-900 flex items-center gap-2">
-                            <i class="fa-solid fa-clock"></i> @Model.NextAppointmentDate.Value.ToString("dd.MM.yyyy HH:mm")
+                            <i class="fa-solid fa-clock" aria-hidden="true"></i> @Model.NextAppointmentDate.Value.ToString("dd.MM.yyyy HH:mm")
                         </span>
                     </div>
                 }
@@ -55,36 +55,36 @@
             {
                 <div class="mt-8">
                     <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Aktuelle Symptome</h4>
-                    <div class="p-4 rounded-2xl bg-slate-100 text-slate-700 text-sm border border-slate-200">
+                    <div class="p-4 rounded-2xl bg-slate-100 text-slate-700 text-sm border border-slate-200" aria-label="Dokumentierte Symptome">
                         @Model.Symptoms
                     </div>
                 </div>
             }
 
             <div class="grid grid-cols-2 gap-3 mt-8">
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-premium bg-slate-100 text-slate-600 hover:bg-white text-sm">
-                    <i class="fa-solid fa-pen"></i> Bearbeiten
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-premium bg-slate-100 text-slate-600 hover:bg-white text-sm" aria-label="Patientendaten bearbeiten">
+                    <i class="fa-solid fa-pen" aria-hidden="true"></i> Bearbeiten
                 </a>
-                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn-premium bg-rose-50 text-rose-600 hover:bg-rose-100 text-sm">
-                    <i class="fa-solid fa-trash"></i> Löschen
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn-premium bg-rose-50 text-rose-600 hover:bg-rose-100 text-sm" aria-label="Patient löschen">
+                    <i class="fa-solid fa-trash" aria-hidden="true"></i> Löschen
                 </a>
             </div>
-        </div>
+        </section>
 
         <!-- Medikationen Card -->
-        <div class="glass rounded-3xl p-8 bg-white/40 shadow-sm border border-white">
-            <h3 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
-                <i class="fa-solid fa-pills text-primary"></i> Medikationen
+        <section class="glass rounded-3xl p-8 bg-white/40 shadow-sm border border-white" aria-labelledby="medications-title">
+            <h3 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2" id="medications-title">
+                <i class="fa-solid fa-pills text-primary" aria-hidden="true"></i> Medikationen
             </h3>
             <div class="space-y-4">
                 @if (Model.Medications.Any())
                 {
                     @foreach (var med in Model.Medications.OrderByDescending(m => m.PrescribedDate))
                     {
-                        <div class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white transition-colors">
+                        <div class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white transition-colors" role="listitem">
                             <div class="flex justify-between items-start mb-1">
                                 <span class="font-bold text-slate-900">@med.Name</span>
-                                <span class="text-[10px] font-bold px-2 py-0.5 bg-slate-100 rounded text-slate-500">@med.Dosage</span>
+                                <span class="text-[10px] font-bold px-2 py-0.5 bg-slate-100 rounded text-slate-500" aria-label="Dosierung: @med.Dosage">@med.Dosage</span>
                             </div>
                             @if (!string.IsNullOrEmpty(med.Instructions))
                             {
@@ -101,33 +101,33 @@
                     </p>
                 }
             </div>
-        </div>
+        </section>
     </div>
 
     <!-- Rechts: Behandlungsverlauf -->
     <div class="lg:col-span-2 space-y-6">
         <div class="flex items-center justify-between">
             <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                <i class="fa-solid fa-file-medical text-primary"></i> Behandlungsverlauf
+                <i class="fa-solid fa-file-medical text-primary" aria-hidden="true"></i> Behandlungsverlauf
             </h3>
-            <a asp-controller="Examinations" asp-action="Create" asp-route-patientId="@Model.Id" class="btn-premium bg-primary text-white hover:bg-primary-dark py-2">
-                <i class="fa-solid fa-plus-circle"></i> Neuer Befund
+            <a asp-controller="Examinations" asp-action="Create" asp-route-patientId="@Model.Id" class="btn-premium bg-primary text-white hover:bg-primary-dark py-2" aria-label="Neue Untersuchung hinzufügen">
+                <i class="fa-solid fa-plus-circle" aria-hidden="true"></i> Neuer Befund
             </a>
         </div>
 
-        <div class="relative space-y-4">
+        <div class="relative space-y-4" role="list" aria-label="Chronologische Liste der Untersuchungen">
             @if (Model.Examinations.Any()) {
                 @foreach (var exam in Model.Examinations.OrderByDescending(e => e.Date)) {
-                    <div class="glass rounded-2xl p-6 bg-white/40 border border-white hover:border-primary/20 transition-all group">
+                    <div class="glass rounded-2xl p-6 bg-white/40 border border-white hover:border-primary/20 transition-all group" role="listitem">
                         <div class="flex justify-between items-start mb-3">
                             <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-primary mb-0.5"></div>
+                                <div class="w-2 h-2 rounded-full bg-primary mb-0.5" aria-hidden="true"></div>
                                 <span class="font-bold text-slate-900">Untersuchung @exam.Date.ToString("dd.MM.yyyy")</span>
                                 <span class="text-xs text-slate-400">@exam.Date.ToString("HH:mm") Uhr</span>
                             </div>
                             <form asp-controller="Examinations" asp-action="Delete" asp-route-id="@exam.Id" asp-route-patientId="@Model.Id" method="post" onsubmit="return confirm('Befund wirklich unwiderruflich löschen?')">
-                                <button type="submit" class="text-slate-300 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100">
-                                    <i class="fa-solid fa-xmark"></i>
+                                <button type="submit" class="text-slate-300 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100" aria-label="Befund vom @exam.Date.ToString("dd.MM.yyyy") löschen">
+                                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                                 </button>
                             </form>
                         </div>
@@ -137,8 +137,8 @@
                     </div>
                 }
             } else {
-                <div class="text-center py-16 bg-slate-100/30 rounded-3xl border-2 border-dashed border-slate-200">
-                    <i class="fa-solid fa-comment-medical text-3xl text-slate-300 mb-3"></i>
+                <div class="text-center py-16 bg-slate-100/30 rounded-3xl border-2 border-dashed border-slate-200" role="status">
+                    <i class="fa-solid fa-comment-medical text-3xl text-slate-300 mb-3" aria-hidden="true"></i>
                     <p class="text-slate-400">Noch keine Behandlungen dokumentiert.</p>
                 </div>
             }

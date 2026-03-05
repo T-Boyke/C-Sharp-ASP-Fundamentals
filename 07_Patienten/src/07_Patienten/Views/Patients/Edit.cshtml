@@ -49,16 +49,43 @@
                 <div class="space-y-2">
                     <label asp-for="SocialSecurityNumber" class="text-sm font-semibold text-slate-700 ml-1">SVNR</label>
                     <div class="relative">
-                        <i class="fa-solid fa-id-card absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm"></i>
-                        <input asp-for="SocialSecurityNumber" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
+                        <i class="fa-solid fa-id-card absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm" aria-hidden="true"></i>
+                        <input asp-for="SocialSecurityNumber" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" aria-required="true" />
                     </div>
                     <span asp-validation-for="SocialSecurityNumber" class="text-xs text-rose-500 ml-1"></span>
+                </div>
+
+                <div class="space-y-2 md:col-span-2">
+                    <label asp-for="NextAppointmentDate" class="text-sm font-semibold text-slate-700 ml-1">Nächster Termin</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-calendar-check absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm" aria-hidden="true"></i>
+                        <input asp-for="NextAppointmentDate" type="datetime-local" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
+                    </div>
+                    <span asp-validation-for="NextAppointmentDate" class="text-xs text-rose-500 ml-1"></span>
+                </div>
+
+                <div class="space-y-2 md:col-span-2">
+                    <label asp-for="Symptoms" class="text-sm font-semibold text-slate-700 ml-1">Symptome / Anamnese</label>
+                    <div class="relative">
+                        <textarea asp-for="Symptoms" rows="3" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">@Model.Symptoms</textarea>
+                    </div>
+                    <span asp-validation-for="Symptoms" class="text-xs text-rose-500 ml-1"></span>
+                </div>
+
+                <div class="md:col-span-2 flex items-center gap-3 p-4 bg-amber-50 rounded-2xl border border-amber-100">
+                    <div class="flex items-center h-5">
+                        <input asp-for="IsPrivatePatient" type="checkbox" class="w-5 h-5 text-primary border-amber-300 rounded focus:ring-primary/20 cursor-pointer" />
+                    </div>
+                    <div class="text-sm">
+                        <label asp-for="IsPrivatePatient" class="font-bold text-amber-900 cursor-pointer">Privatpatient (Priorität)</label>
+                        <p class="text-amber-700/70 text-xs">Aktiviert erweiterte Abrechnungsoptionen und Priorisierung.</p>
+                    </div>
                 </div>
             </div>
 
             <div class="mt-10 flex gap-4">
-                <button type="submit" class="flex-grow btn-premium bg-primary text-white hover:bg-primary-dark">
-                    <i class="fa-solid fa-check"></i> Änderungen speichern
+                <button type="submit" class="flex-grow btn-premium bg-primary text-white hover:bg-primary-dark" aria-label="Änderungen an der Patientenakte speichern">
+                    <i class="fa-solid fa-check" aria-hidden="true"></i> Änderungen speichern
                 </button>
             </div>
         </form>
