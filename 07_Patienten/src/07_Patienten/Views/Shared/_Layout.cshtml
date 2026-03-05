@@ -1,49 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" class="h-full bg-slate-50">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - _06_Unit_Template</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"] - MedCare Patientenverwaltung</title>
+    
+    <!-- CSS Dependencies -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="~/lib/fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/_06_Unit_Template.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/_07_Patienten.styles.css" asp-append-version="true" />
+
+    <style type="text/tailwindcss">
+        @theme {
+            --color-primary: #0ea5e9;
+            --color-primary-dark: #0284c7;
+            --color-secondary: #64748b;
+        }
+
+        @utility glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @layer base {
+            body { @apply text-slate-900 antialiased h-full; }
+            h1, h2, h3 { @apply font-bold tracking-tight; }
+        }
+
+        @layer components {
+            .nav-link {
+                @apply flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-slate-600 hover:bg-white hover:text-primary hover:shadow-sm;
+            }
+            .nav-link.active {
+                @apply bg-white text-primary shadow-sm;
+            }
+            .btn-premium {
+                @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 transform active:scale-95 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2;
+            }
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">_06_Unit_Template</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+<body class="flex flex-col">
+    <header class="sticky top-0 z-50 glass border-b border-slate-200">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-8">
+                    <a asp-controller="Patients" asp-action="Index" class="text-2xl font-black text-slate-900 flex items-center gap-2 group">
+                        <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg group-hover:rotate-12 transition-transform duration-300">
+                            <i class="fa-solid fa-hospital-user"></i>
+                        </div>
+                        <span class="hidden sm:inline">Med<span class="text-primary tracking-tighter">Care</span></span>
+                    </a>
+
+                    <div class="hidden md:flex items-center gap-2">
+                        <a class="nav-link" asp-controller="Patients" asp-action="Index">
+                            <i class="fa-solid fa-users"></i> Patienten
+                        </a>
+                        <a class="nav-link" asp-controller="Patients" asp-action="Create">
+                            <i class="fa-solid fa-user-plus"></i> Neuaufnahme
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="hidden lg:flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-widest bg-slate-100/50 px-3 py-1 rounded-full border border-slate-200">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Praxis Online
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - _06_Unit_Template - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <main class="flex-grow py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-primary"></i>
+                <span>&copy; 2026 MedCare Systems - DSGVO Konform</span>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-primary transition-colors">Datenschutz</a>
+                <a href="#" class="hover:text-primary transition-colors">Impressum</a>
+                <a href="#" class="hover:text-primary transition-colors">Support</a>
+            </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

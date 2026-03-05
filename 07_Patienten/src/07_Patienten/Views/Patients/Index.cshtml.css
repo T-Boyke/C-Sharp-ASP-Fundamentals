@@ -1,0 +1,26 @@
+/* SFC Style for Patient Index */
+
+.patient-card {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@layer components {
+    /* Integration with Tailwind utilities for specific components */
+}

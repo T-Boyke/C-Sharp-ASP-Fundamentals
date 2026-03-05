@@ -1,0 +1,67 @@
+@model _07_Patienten.Domain.Entities.Patient
+
+@{
+    ViewData["Title"] = "Neuaufnahme";
+}
+
+<div class="max-w-2xl mx-auto animate-fade-in">
+    <div class="flex items-center gap-4 mb-8">
+        <a asp-action="Index" class="text-slate-400 hover:text-primary transition-colors">
+            <i class="fa-solid fa-chevron-left"></i> Zurück
+        </a>
+        <h1 class="text-3xl font-bold text-slate-900">Patientenaufnahme</h1>
+    </div>
+
+    <div class="glass rounded-3xl p-10 bg-white/40 shadow-xl border border-white">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="mb-6 p-4 bg-rose-50 text-rose-600 rounded-xl text-sm italic"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                    <label asp-for="Firstname" class="text-sm font-semibold text-slate-700 ml-1">Vorname</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm"></i>
+                        <input asp-for="Firstname" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="z.B. Max" />
+                    </div>
+                    <span asp-validation-for="Firstname" class="text-xs text-rose-500 ml-1"></span>
+                </div>
+
+                <div class="space-y-2">
+                    <label asp-for="Lastname" class="text-sm font-semibold text-slate-700 ml-1">Nachname</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-user-tag absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm"></i>
+                        <input asp-for="Lastname" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="z.B. Mustermann" />
+                    </div>
+                    <span asp-validation-for="Lastname" class="text-xs text-rose-500 ml-1"></span>
+                </div>
+
+                <div class="space-y-2">
+                    <label asp-for="Birthdate" class="text-sm font-semibold text-slate-700 ml-1">Geburtsdatum</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-calendar absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm"></i>
+                        <input asp-for="Birthdate" type="date" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
+                    </div>
+                    <span asp-validation-for="Birthdate" class="text-xs text-rose-500 ml-1"></span>
+                </div>
+
+                <div class="space-y-2">
+                    <label asp-for="SocialSecurityNumber" class="text-sm font-semibold text-slate-700 ml-1">SVNR (10-stellig)</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-id-card absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm"></i>
+                        <input asp-for="SocialSecurityNumber" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="1234010180" />
+                    </div>
+                    <span asp-validation-for="SocialSecurityNumber" class="text-xs text-rose-500 ml-1"></span>
+                </div>
+            </div>
+
+            <div class="mt-10 flex gap-4">
+                <button type="submit" class="flex-grow btn-premium bg-primary text-white hover:bg-primary-dark">
+                    <i class="fa-solid fa-save"></i> Patient Speichern
+                </button>
+                <a asp-action="Index" class="btn-premium bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Abbrechen
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

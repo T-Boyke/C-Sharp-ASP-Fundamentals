@@ -1,0 +1,42 @@
+@model _07_Patienten.Domain.Entities.Examination
+
+@{
+    ViewData["Title"] = "Neuer Befund";
+}
+
+<div class="max-w-xl mx-auto animate-fade-in">
+    <div class="flex items-center gap-4 mb-8">
+        <a asp-controller="Patients" asp-action="Details" asp-route-id="@ViewBag.PatientId" class="text-slate-400 hover:text-primary transition-colors">
+            <i class="fa-solid fa-chevron-left"></i> Patientenakte
+        </a>
+        <h1 class="text-3xl font-bold text-slate-900">Medizinischer Befund</h1>
+    </div>
+
+    <div class="glass rounded-3xl p-10 bg-white/40 shadow-xl border border-white">
+        <form asp-action="Create">
+            <input type="hidden" asp-for="PatientId" value="@ViewBag.PatientId" />
+            
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    <label asp-for="Date" class="text-sm font-semibold text-slate-700 ml-1">Untersuchungszeitpunkt</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-clock absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm"></i>
+                        <input asp-for="Date" type="datetime-local" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label asp-for="Findings" class="text-sm font-semibold text-slate-700 ml-1">Diagnose / Befund</label>
+                    <textarea asp-for="Findings" rows="6" class="w-full bg-white/60 border border-slate-200 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none" placeholder="Was wurde festgestellt?"></textarea>
+                    <span asp-validation-for="Findings" class="text-xs text-rose-500 ml-1"></span>
+                </div>
+            </div>
+
+            <div class="mt-10 flex gap-4">
+                <button type="submit" class="flex-grow btn-premium bg-primary text-white hover:bg-primary-dark">
+                    <i class="fa-solid fa-file-signature"></i> Befund festschreiben
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

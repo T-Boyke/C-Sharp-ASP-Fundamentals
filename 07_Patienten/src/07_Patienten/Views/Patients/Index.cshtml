@@ -1,0 +1,63 @@
+@model IEnumerable<_07_Patienten.Domain.Entities.Patient>
+
+@{
+    ViewData["Title"] = "Patientenübersicht";
+}
+
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+    <div>
+        <h1 class="text-4xl text-slate-900 mb-2">Patientendatenstamm</h1>
+        <p class="text-slate-500">Verwaltung und Einsicht aller registrierten Patienten der Praxis.</p>
+    </div>
+    <a asp-action="Create" class="btn-premium bg-primary text-white hover:bg-primary-dark">
+        <i class="fa-solid fa-plus-circle"></i> Neuer Patient
+    </a>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 animate-fade-in">
+    @foreach (var item in Model) {
+        <div class="patient-card glass rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-white/40">
+            <div class="flex items-start justify-between mb-4">
+                <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 overflow-hidden border-2 border-white shadow-inner">
+                    <i class="fa-solid fa-user-circle text-3xl"></i>
+                </div>
+                <div class="flex gap-2 text-slate-400">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="hover:text-primary transition-colors p-2 rounded-lg hover:bg-white" title="Bearbeiten">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-slate-900 leading-tight">@item.Fullname</h3>
+                <div class="flex items-center gap-2 mt-1">
+                    <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-700 uppercase">SVNR: @item.SocialSecurityNumber</span>
+                    <span class="text-xs text-slate-400">@item.Age Jahre</span>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-4 border-t border-slate-100/50">
+                <div class="flex items-center gap-2 text-slate-500 text-sm">
+                    <i class="fa-solid fa-notes-medical"></i>
+                    <span>@item.Examinations.Count Untersuchungen</span>
+                </div>
+                <a asp-action="Details" asp-route-id="@item.Id" class="text-primary hover:text-primary-dark font-semibold text-sm flex items-center gap-1 group">
+                    Details <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Any()) {
+    <div class="text-center py-24 glass rounded-3xl border-2 border-dashed border-slate-200">
+        <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-300">
+            <i class="fa-solid fa-users-slash text-4xl"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-slate-700">Keine Patienten gefunden</h2>
+        <p class="text-slate-400 mt-2 mb-8">Beginnen Sie mit der Aufnahme Ihres ersten Patienten.</p>
+        <a asp-action="Create" class="btn-premium bg-primary text-white hover:bg-primary-dark">
+            <i class="fa-solid fa-plus"></i> Patient anlegen
+        </a>
+    </div>
+}
