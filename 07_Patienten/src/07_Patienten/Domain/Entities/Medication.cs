@@ -20,6 +20,9 @@ public class Medication
     public string? Instructions { get; set; }
 
     public DateTime PrescribedDate { get; set; }
+    
+    [MaxLength(20)]
+    public string? Pzn { get; set; }
 
     public int PatientId { get; set; }
     public virtual Patient Patient { get; set; } = null!;

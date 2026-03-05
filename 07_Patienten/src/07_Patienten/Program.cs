@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using _07_Patienten.Infrastructure.Data;
 using _07_Patienten.Domain.Interfaces;
 using _07_Patienten.Infrastructure.Repositories;
+using _07_Patienten.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +13,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Repository Registration
+// Repository & Service Registration
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IExaminationRepository, ExaminationRepository>();
 builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();
+builder.Services.AddHttpClient<IMedicationLookupService, MedicationLookupService>();
 
 var app = builder.Build();
 

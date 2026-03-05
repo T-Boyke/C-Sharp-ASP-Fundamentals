@@ -10,10 +10,12 @@ namespace _07_Patienten.Controllers;
 public class PatientsController : Controller
 {
     private readonly IPatientRepository _patientRepo;
+    private readonly IMedicationRepository _medicationRepo;
 
-    public PatientsController(IPatientRepository patientRepo)
+    public PatientsController(IPatientRepository patientRepo, IMedicationRepository medicationRepo)
     {
         _patientRepo = patientRepo;
+        _medicationRepo = medicationRepo;
     }
 
     // GET: Patients
@@ -88,5 +90,24 @@ public class PatientsController : Controller
     {
         await _patientRepo.DeleteAsync(id);
         return RedirectToAction(nameof(Index));
+    }
+
+    // POST: Patients/AddMedication
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AddMedication(int patientId, string name, string? dosage, string? instructions, string? pzn)
+    {
+        var medication = new Medication
+        {
+            PatientId = patientId,
+            Name = name,
+            Dosage = dosage,
+            Instructions = instructions,
+            Pzn = pzn,
+            PrescribedDate = DateTime.Now
+        };
+
+        await _medicationRepo.AddAsync(medication);
+        return RedirectToAction(nameof(Details), new { id = patientId });
     }
 }
