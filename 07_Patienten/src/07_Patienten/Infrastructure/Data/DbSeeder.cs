@@ -18,9 +18,9 @@ public static class DbSeeder
         {
             new Patient 
             { 
-                Firstname = "Tobia", 
+                Firstname = "Tobias", 
                 Lastname = "Boyke", 
-                Birthdate = new DateTime(1990, 5, 15), 
+                Birthdate = new DateTime(1986, 1, 16), 
                 SocialSecurityNumber = "1234150590",
                 Examinations = new List<Examination>
                 {

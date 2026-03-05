@@ -47,15 +47,15 @@ classDiagram
 Beschreibt die Interaktion der Praxis-Mitarbeiter mit dem System.
 
 ```mermaid
-useCaseDiagram
-    actor "Arzt / Personal" as Staff
+graph LR
+    Staff((Arzt / Personal))
     
-    package MedCare {
-        usecase "Patient aufnehmen" as UC1
-        usecase "Patientenliste einsehen" as UC2
-        usecase "Befund dokumentieren" as UC3
-        usecase "Akte löschen" as UC4
-    }
+    subgraph MedCare [MedCare Patientenverwaltung]
+        UC1(Patient aufnehmen)
+        UC2(Patientenliste einsehen)
+        UC3(Befund dokumentieren)
+        UC4(Akte löschen)
+    end
     
     Staff --> UC1
     Staff --> UC2
@@ -103,24 +103,24 @@ stateDiagram-v2
 Detaillierter Prozess für das Personal während einer Untersuchung.
 
 ```mermaid
-activityDiagram
-    start
-    :Suche Patient in Liste;
-    if (Patient gefunden?) then (Ja)
-        :Akte öffnen;
-    else (Nein)
-        :Neuen Patienten anlegen;
-    endif
-    :Befund-Formular öffnen;
-    :Ergebnisse der Untersuchung eintragen;
-    if (Eingaben valide?) then (Ja)
-        :Befund festschreiben (Speichern);
-    else (Nein)
-        :Fehler korrigieren;
-        stop
-    endif
-    :Redirect zur Akte;
-    stop
+flowchart TD
+    Start([Start]) --> Search[Suche Patient in Liste]
+    Search --> Found{Gefunden?}
+    Found -- Ja --> Open[Akte öffnen]
+    Found -- Nein --> Create[Neuen Patienten anlegen]
+    
+    Open --> Form[Befund-Formular öffnen]
+    Create --> Form
+    
+    Form --> Input[Untersuchung eingeben]
+    Input --> Valid{Valide?}
+    
+    Valid -- Ja --> Save[Speichern & Festschreiben]
+    Valid -- Nein --> Error[Fehler korrigieren]
+    Error --> Input
+    
+    Save --> Redirect[Redirect zur Akte]
+    Redirect --> End([Ende])
 ```
 
 ## 6. Entity Relationship Diagram (Datenbank)

@@ -1,4 +1,4 @@
-namespace _06_Unit_Template.Models;
+namespace _07_Patienten.Models;
 
 public class ErrorViewModel
 {
