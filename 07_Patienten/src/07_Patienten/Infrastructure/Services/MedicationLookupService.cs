@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using _07_Patienten.Domain.Interfaces;
 
@@ -7,6 +8,10 @@ public class MedicationLookupService : IMedicationLookupService
 {
     private readonly HttpClient _httpClient;
 
+    // Thread-safe lokaler Cache (wird zur Laufzeit erweitert)
+    private static readonly List<MedicationSearchResult> _cache = new(MockDatabase);
+    private static readonly object _cacheLock = new();
+
     public MedicationLookupService(HttpClient httpClient)
     {
         _httpClient = httpClient;
@@ -15,7 +20,6 @@ public class MedicationLookupService : IMedicationLookupService
 
     public async Task<MedicationSearchResult> SearchByPznAsync(string pzn)
     {
-        // PZN Normalisierung (8 Stellen)
         pzn = pzn.Replace(" ", "").Replace("-", "").Trim().PadLeft(8, '0');
 
         if (pzn.Length != 8 || !pzn.All(char.IsDigit))
@@ -23,65 +27,150 @@ public class MedicationLookupService : IMedicationLookupService
             return new MedicationSearchResult { Success = false, ErrorMessage = "Ungültige PZN. Eine PZN muss 8 Ziffern enthalten." };
         }
 
-        try
-        {
-            // Versuch 1: Bekannte Test-PZNs (Smart-Mock)
-            var mockResult = GetMockResult(pzn);
-            if (mockResult != null) return mockResult;
+        // Zuerst im lokalen Cache suchen
+        var cached = GetFromCache(pzn);
+        if (cached != null) return cached;
 
-            // Versuch 2: Live-Abfrage via Shop-Apotheke (Leichtes Scraping für Demo-Zwecke)
-            // Hinweis: Im echten Produkt würde man eine offizielle API wie ABDA nutzen.
-            var searchUrl = $"https://www.shop-apotheke.com/suche.htm?q={pzn}";
-            var response = await _httpClient.GetStringAsync(searchUrl);
-
-            // Sehr einfaches Parsing des Titels oder der Produktdaten
-            // Suchen nach Produktname im HTML
-            var match = Regex.Match(response, @"<title>(.*?) - shop-apotheke\.com</title>", RegexOptions.IgnoreCase);
-            if (match.Success)
-            {
-                var fullTitle = match.Groups[1].Value.Trim();
-                // Oft ist der Titel "Produktname, Dosierung, Packungsgröße"
-                var parts = fullTitle.Split(',');
-                
-                return new MedicationSearchResult
-                {
-                    Name = parts[0].Trim(),
-                    Dosage = parts.Length > 1 ? parts[1].Trim() : "Daten laut PZN",
-                    Instructions = "Einnahme laut Packungsbeilage",
-                    Pzn = pzn,
-                    Success = true
-                };
-            }
-
-            return new MedicationSearchResult { Success = false, ErrorMessage = "Medikament konnte nicht gefunden werden." };
-        }
-        catch (Exception ex)
-        {
-            return new MedicationSearchResult { Success = false, ErrorMessage = $"Fehler bei der Live-Abfrage: {ex.Message}" };
-        }
+        return new MedicationSearchResult { Success = false, ErrorMessage = "Medikament nicht gefunden." };
     }
 
-    public Task<List<MedicationSearchResult>> SearchAsync(string query)
+    /// <summary>
+    /// Sucht Medikamente im lokalen Cache. Falls wenig Treffer, wird die OpenFDA API
+    /// im Hintergrund abgefragt und die Ergebnisse lokal gecacht.
+    /// </summary>
+    public async Task<List<MedicationSearchResult>> SearchAsync(string query)
     {
         if (string.IsNullOrWhiteSpace(query))
+            return new List<MedicationSearchResult>();
+
+        query = query.Trim();
+        var lowerQuery = query.ToLowerInvariant();
+
+        // 1. Lokale Ergebnisse
+        List<MedicationSearchResult> localResults;
+        lock (_cacheLock)
         {
-            return Task.FromResult(new List<MedicationSearchResult>());
+            localResults = _cache
+                .Where(m => m.Name.ToLowerInvariant().Contains(lowerQuery) || m.Pzn.Contains(lowerQuery))
+                .ToList();
         }
 
-        query = query.Trim().ToLowerInvariant();
+        // 2. Falls weniger als 3 lokale Treffer → OpenFDA API abfragen
+        if (localResults.Count < 3)
+        {
+            try
+            {
+                var fdaResults = await SearchOpenFdaAsync(query);
+                if (fdaResults.Any())
+                {
+                    // Neue Ergebnisse in den Cache aufnehmen
+                    lock (_cacheLock)
+                    {
+                        foreach (var r in fdaResults)
+                        {
+                            if (!_cache.Any(c => c.Name.Equals(r.Name, StringComparison.OrdinalIgnoreCase)))
+                            {
+                                _cache.Add(r);
+                            }
+                        }
+                    }
 
-        var results = MockDatabase
-            .Where(m => m.Name.ToLowerInvariant().Contains(query) || m.Pzn.Contains(query))
-            .ToList();
+                    // Lokale Ergebnisse aktualisieren
+                    lock (_cacheLock)
+                    {
+                        localResults = _cache
+                            .Where(m => m.Name.ToLowerInvariant().Contains(lowerQuery) || m.Pzn.Contains(lowerQuery))
+                            .ToList();
+                    }
+                }
+            }
+            catch
+            {
+                // Wenn die API nicht erreichbar ist, verwenden wir nur den lokalen Cache
+            }
+        }
 
-        return Task.FromResult(results);
+        return localResults;
     }
 
-    private MedicationSearchResult? GetMockResult(string pzn)
+    /// <summary>
+    /// Durchsucht die OpenFDA Drug Label API nach Medikamenten.
+    /// </summary>
+    private async Task<List<MedicationSearchResult>> SearchOpenFdaAsync(string query)
     {
-        return MockDatabase.FirstOrDefault(m => m.Pzn == pzn);
+        var results = new List<MedicationSearchResult>();
+        var url = $"https://api.fda.gov/drug/label.json?search=openfda.brand_name:{Uri.EscapeDataString(query)}&limit=10";
+
+        var response = await _httpClient.GetAsync(url);
+        if (!response.IsSuccessStatusCode) return results;
+
+        var json = await response.Content.ReadAsStringAsync();
+        using var doc = JsonDocument.Parse(json);
+
+        if (!doc.RootElement.TryGetProperty("results", out var resultsArray))
+            return results;
+
+        foreach (var item in resultsArray.EnumerateArray())
+        {
+            try
+            {
+                string name = "Unbekannt";
+                string dosage = "";
+
+                // Name aus openfda.brand_name extrahieren
+                if (item.TryGetProperty("openfda", out var openfda))
+                {
+                    if (openfda.TryGetProperty("brand_name", out var brandNames) && brandNames.GetArrayLength() > 0)
+                    {
+                        name = brandNames[0].GetString() ?? "Unbekannt";
+                    }
+
+                    // Dosierung aus dosage_form extrahieren
+                    if (openfda.TryGetProperty("dosage_form", out var dosageForms) && dosageForms.GetArrayLength() > 0)
+                    {
+                        dosage = dosageForms[0].GetString() ?? "";
+                    }
+
+                    // Stärke aus openfda.substance_name 
+                    if (openfda.TryGetProperty("product_type", out var productType) && productType.GetArrayLength() > 0)
+                    {
+                        var type = productType[0].GetString();
+                        if (type == "HUMAN PRESCRIPTION DRUG")
+                            dosage += " (Rx)";
+                    }
+                }
+
+                // Duplikate nach Name vermeiden
+                if (results.Any(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase)))
+                    continue;
+
+                results.Add(new MedicationSearchResult
+                {
+                    Name = name,
+                    Dosage = dosage,
+                    Instructions = "Einnahme laut Packungsbeilage",
+                    Pzn = "", // OpenFDA hat keine PZN (deutsche Nummern)
+                    Success = true
+                });
+            }
+            catch
+            {
+                // Einzelnen fehlerhaften Eintrag überspringen
+            }
+        }
+
+        return results;
     }
 
+    private MedicationSearchResult? GetFromCache(string pzn)
+    {
+        lock (_cacheLock)
+        {
+            return _cache.FirstOrDefault(m => m.Pzn == pzn);
+        }
+    }
+
+    // Statische Seed-Daten (deutsches Referenz-Sortiment)
     private static readonly List<MedicationSearchResult> MockDatabase = new()
     {
         new() { Name = "Ibuprofen 400 AKUT", Dosage = "400mg", Instructions = "Bei Schmerzen 1 Tbl. unzerkaut einnehmen.", Pzn = "00951474", Success = true },
@@ -113,7 +202,8 @@ public class MedicationLookupService : IMedicationLookupService
         new() { Name = "Diazepam 5 mg - 1 A Pharma", Dosage = "5mg", Instructions = "Abends zur Beruhigung.", Pzn = "01242005", Success = true },
         new() { Name = "Ibuprofen 600 mg ratiopharm", Dosage = "600mg", Instructions = "Verschreibungspflichtig bei Entzündungen.", Pzn = "02142469", Success = true },
         new() { Name = "Metamizol 500 mg ratiopharm", Dosage = "500mg", Instructions = "Bei starken Schmerzen einnehmen.", Pzn = "00101693", Success = true },
-        new() { Name = "Torasemid 5 mg - 1 A Pharma", Dosage = "5mg", Instructions = "Morgens zur Entwässerung.", Pzn = "04000100", Success = true }
+        new() { Name = "Torasemid 5 mg - 1 A Pharma", Dosage = "5mg", Instructions = "Morgens zur Entwässerung.", Pzn = "04000100", Success = true },
+        new() { Name = "Tramadol 50 mg - 1 A Pharma", Dosage = "50mg", Instructions = "Bei Bedarf gegen starke Schmerzen.", Pzn = "03522327", Success = true },
+        new() { Name = "Tramadol 100 mg retard ratiopharm", Dosage = "100mg", Instructions = "Alle 12 Stunden unzerkaut einnehmen.", Pzn = "02715643", Success = true }
     };
-
 }

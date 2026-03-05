@@ -208,7 +208,7 @@
 <!-- Medikamentensuche Modal -->
 <div id="pznModal" class="hidden fixed inset-0 z-[100] overflow-y-auto" role="dialog" aria-modal="true">
     <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-        <div class="fixed inset-0 transition-opacity bg-slate-900/60 backdrop-blur-sm" onclick="closePznModal()"></div>
+        <div class="fixed inset-0 transition-opacity bg-slate-900/60" onclick="closePznModal()"></div>
 
         <div class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-3xl shadow-2xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-white">
             <div class="px-8 pt-8 pb-6 bg-white">
@@ -281,12 +281,13 @@
     function openPznModal() {
         document.getElementById('pznModal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
+        // Auto-focus the search input
+        setTimeout(() => document.getElementById('pznInput').focus(), 100);
     }
 
     function closePznModal() {
         document.getElementById('pznModal').classList.add('hidden');
         document.body.style.overflow = 'auto';
-        // Reset state
         document.getElementById('searchResults').innerHTML = '';
         document.getElementById('searchResults').classList.add('hidden');
         document.getElementById('medicationForm').classList.add('opacity-40', 'pointer-events-none');
@@ -297,13 +298,64 @@
         document.getElementById('pznStatus').textContent = '';
     }
 
+    function renderResults(results, query) {
+        const resultsContainer = document.getElementById('searchResults');
+        const status = document.getElementById('pznStatus');
+        
+        currentResults = Array.isArray(results) ? results : [];
+        resultsContainer.innerHTML = '';
+
+        if (currentResults.length > 0) {
+            status.textContent = `${currentResults.length} Treffer gefunden.`;
+            status.className = 'text-[10px] text-emerald-500 font-bold mt-1 ml-1';
+            resultsContainer.classList.remove('hidden');
+
+            currentResults.forEach((res, index) => {
+                const item = document.createElement('div');
+                item.className = 'p-3 rounded-xl border border-slate-200 hover:border-primary hover:bg-primary/5 cursor-pointer transition-colors';
+                item.onclick = () => selectResult(index);
+                item.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <span class="font-bold text-slate-800 text-sm">${res.name || 'Unbekannt'}</span>
+                        <span class="text-xs text-slate-400 font-mono flex-shrink-0 ml-2">PZN: ${res.pzn || ''}</span>
+                    </div>
+                    <div class="text-xs text-slate-500 mt-1">${res.dosage || ''}</div>
+                `;
+                resultsContainer.appendChild(item);
+            });
+
+            if (currentResults.length === 1 && query.length >= 8) {
+                selectResult(0);
+            }
+        } else {
+            resultsContainer.classList.add('hidden');
+            status.textContent = 'Keine Medikamente gefunden.';
+            status.className = 'text-[10px] text-rose-500 font-bold mt-1 ml-1';
+        }
+    }
+
+    // Live search (called by debounced input - no spinner)
+    async function liveSearch() {
+        const query = document.getElementById('pznInput').value.trim();
+        if (!query || query.length < 3) return;
+
+        try {
+            const response = await fetch(`/api/MedicationsApi/search?q=${encodeURIComponent(query)}`);
+            if (!response.ok) return;
+            const results = await response.json();
+            renderResults(results, query);
+        } catch (e) {
+            console.error('Live search error:', e);
+        }
+    }
+
+    // Manual search (called by button click - with spinner)
     async function lookupPzn() {
         const query = document.getElementById('pznInput').value.trim();
         const btn = document.getElementById('lookupBtn');
         const text = document.getElementById('lookupText');
         const spinner = document.getElementById('lookupSpinner');
         const status = document.getElementById('pznStatus');
-        const resultsContainer = document.getElementById('searchResults');
         const form = document.getElementById('medicationForm');
 
         if (!query || query.length < 3) {
@@ -312,61 +364,24 @@
             return;
         }
 
-        // UI State: Loading
         btn.disabled = true;
         text.classList.add('hidden');
         spinner.classList.remove('hidden');
-        status.textContent = 'Suche in Datenbank läuft...';
+        status.textContent = 'Suche läuft...';
         status.className = 'text-[10px] text-primary italic mt-1 ml-1 animate-pulse';
-        resultsContainer.innerHTML = '';
-        resultsContainer.classList.add('hidden');
         form.classList.add('opacity-40', 'pointer-events-none');
 
         try {
             const response = await fetch(`/api/MedicationsApi/search?q=${encodeURIComponent(query)}`);
-            
-            if (!response.ok) {
-                throw new Error("HTTP Fehler " + response.status);
-            }
-
+            if (!response.ok) throw new Error('HTTP ' + response.status);
             const results = await response.json();
-            currentResults = Array.isArray(results) ? results : [];
-
-            if (currentResults.length > 0) {
-                status.textContent = `${currentResults.length} Treffer gefunden. Bitte auswählen.`;
-                status.className = 'text-[10px] text-emerald-500 font-bold mt-1 ml-1';
-                
-                resultsContainer.classList.remove('hidden');
-                
-                currentResults.forEach((res, index) => {
-                    const item = document.createElement('div');
-                    item.className = 'p-3 rounded-xl border border-slate-200 hover:border-primary hover:bg-primary/5 cursor-pointer transition-colors';
-                    item.onclick = () => selectResult(index);
-                    item.innerHTML = `
-                        <div class="flex justify-between items-start">
-                            <span class="font-bold text-slate-800 text-sm">${res.name || 'Unbekannt'}</span>
-                            <span class="text-xs text-slate-400 font-mono flex-shrink-0 ml-2">PZN: ${res.pzn || ''}</span>
-                        </div>
-                        <div class="text-xs text-slate-500 mt-1">${res.dosage || ''}</div>
-                    `;
-                    resultsContainer.appendChild(item);
-                });
-
-                if (currentResults.length === 1 && query.length >= 8) {
-                    selectResult(0);
-                }
-
-            } else {
-                status.textContent = 'Keine Medikamente gefunden.';
-                status.className = 'text-[10px] text-rose-500 font-bold mt-1 ml-1';
-            }
+            renderResults(results, query);
         } catch (error) {
             console.error(error);
-            status.textContent = 'Fehler bei der Abfrage: ' + error.message;
+            status.textContent = 'Fehler: ' + error.message;
             status.className = 'text-[10px] text-rose-500 font-bold mt-1 ml-1';
         }
 
-        // Reset state directly (instead of finally block which might have issues in some edge cases)
         btn.disabled = false;
         text.classList.remove('hidden');
         spinner.classList.add('hidden');
@@ -375,32 +390,29 @@
     function selectResult(index) {
         const result = currentResults[index];
         if (!result) return;
-        
+
         document.getElementById('searchResults').classList.add('hidden');
         document.getElementById('pznStatus').textContent = 'Medikament ausgewählt. Bitte Anweisung eingeben.';
+        document.getElementById('pznStatus').className = 'text-[10px] text-emerald-500 font-bold mt-1 ml-1';
 
         document.getElementById('medName').value = result.name;
         document.getElementById('medDosage').value = result.dosage || '';
         document.getElementById('medInfo').value = result.instructions || '';
         document.getElementById('hiddenPzn').value = result.pzn;
-        
+
         const form = document.getElementById('medicationForm');
         form.classList.remove('opacity-40', 'pointer-events-none');
-        
-        // Focus instructions field for quick typing
         document.getElementById('medInfo').focus();
     }
 
-    // Live Search Preview
+    // Debounced live search on input
     let searchTimeout = null;
     document.getElementById('pznInput').addEventListener('input', (e) => {
         clearTimeout(searchTimeout);
         const query = e.target.value.trim();
-        
+
         if (query.length >= 3) {
-            searchTimeout = setTimeout(() => {
-                lookupPzn();
-            }, 300); // 300ms debounce
+            searchTimeout = setTimeout(liveSearch, 300);
         } else {
             document.getElementById('searchResults').innerHTML = '';
             document.getElementById('searchResults').classList.add('hidden');
@@ -408,7 +420,7 @@
         }
     });
 
-    // Enter key support for quick search
+    // Enter key fires manual search
     document.getElementById('pznInput').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
