@@ -112,7 +112,7 @@
             </h3>
             <div class="flex gap-2">
                 <button onclick="openPznModal()" class="btn-premium bg-emerald-500 text-white hover:bg-emerald-600 py-2" aria-label="Medikament via PZN verschreiben">
-                    <i class="fa-solid fa-pills" aria-hidden="true"></i> PZN-Rezept
+                    <i class="fa-solid fa-pills" aria-hidden="true"></i> Neues Rezept
                 </button>
                 <a asp-controller="Examinations" asp-action="Create" asp-route-patientId="@Model.Id" class="btn-premium bg-primary text-white hover:bg-primary-dark py-2" aria-label="Neue Untersuchung hinzufügen">
                     <i class="fa-solid fa-plus-circle" aria-hidden="true"></i> Neuer Befund
@@ -120,130 +120,7 @@
             </div>
         </div>
 
-        <!-- Behandlungsverlauf Liste ... (bleibt gleich) -->
-    </div>
-</div>
-
-<!-- PZN Modal -->
-<div id="pznModal" class="hidden fixed inset-0 z-[100] overflow-y-auto" role="dialog" aria-modal="true">
-    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-        <div class="fixed inset-0 transition-opacity bg-slate-900/60 backdrop-blur-sm" onclick="closePznModal()"></div>
-
-        <div class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-3xl shadow-2xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-white">
-            <div class="px-8 pt-8 pb-6 bg-white">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                        <i class="fa-solid fa-prescription text-primary"></i> PZN Live Check
-                    </h3>
-                    <button onclick="closePznModal()" class="text-slate-400 hover:text-slate-600 transition-colors">
-                        <i class="fa-solid fa-xmark text-xl"></i>
-                    </button>
-                </div>
-
-                <div class="space-y-6">
-                    <!-- PZN Suche -->
-                    <div class="space-y-2">
-                        <label class="text-sm font-semibold text-slate-700">Pharmazentralnummer (PZN)</label>
-                        <div class="flex gap-2">
-                            <div class="relative flex-grow">
-                                <i class="fa-solid fa-barcode absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm"></i>
-                                <input type="text" id="pznInput" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="z.B. 00951474" />
-                            </div>
-                            <button onclick="lookupPzn()" id="lookupBtn" class="btn-premium bg-slate-900 text-white hover:bg-black px-6">
-                                <span id="lookupText">Prüfen</span>
-                                <i id="lookupSpinner" class="fa-solid fa-spinner fa-spin hidden"></i>
-                            </button>
-                        </div>
-                        <p id="pznStatus" class="text-[10px] text-slate-400 italic mt-1 ml-1"></p>
-                    </div>
-
-                    <form asp-controller="Patients" asp-action="AddMedication" method="post" id="medicationForm" class="space-y-4 opacity-40 pointer-events-none transition-all duration-500">
-                        <input type="hidden" name="PatientId" value="@Model.Id" />
-                        <input type="hidden" name="Pzn" id="hiddenPzn" />
-                        
-                        <div class="space-y-1">
-                            <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">Präparat</label>
-                            <input type="text" name="Name" id="medName" required class="w-full bg-white border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">Dosierung</label>
-                                <input type="text" name="Dosage" id="medDosage" class="w-full bg-white border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">Anweisung</label>
-                                <input type="text" name="Instructions" id="medInfo" class="w-full bg-white border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="z.B. 1-0-1" />
-                            </div>
-                        </div>
-
-                        <div class="pt-4">
-                            <button type="submit" class="w-full btn-premium bg-primary text-white hover:bg-primary-dark py-4 shadow-lg shadow-primary/20">
-                                <i class="fa-solid fa-prescription-bottle-medical"></i> In Akte übernehmen
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function openPznModal() {
-        document.getElementById('pznModal').classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closePznModal() {
-        document.getElementById('pznModal').classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
-
-    async function lookupPzn() {
-        const pzn = document.getElementById('pznInput').value;
-        const btn = document.getElementById('lookupBtn');
-        const text = document.getElementById('lookupText');
-        const spinner = document.getElementById('lookupSpinner');
-        const status = document.getElementById('pznStatus');
-        const form = document.getElementById('medicationForm');
-
-        if (!pzn || pzn.length < 3) return;
-
-        // UI State: Loading
-        btn.disabled = true;
-        text.classList.add('hidden');
-        spinner.classList.remove('hidden');
-        status.textContent = 'Suche in Datenbank läuft...';
-        status.className = 'text-[10px] text-primary italic mt-1 ml-1 animate-pulse';
-
-        try {
-            const response = await fetch(`/api/MedicationsApi/lookup/${pzn}`);
-            const result = await response.json();
-
-            if (response.ok) {
-                document.getElementById('medName').value = result.name;
-                document.getElementById('medDosage').value = result.dosage || '';
-                document.getElementById('medInfo').value = result.instructions || '';
-                document.getElementById('hiddenPzn').value = result.pzn;
-                
-                form.classList.remove('opacity-40', 'pointer-events-none');
-                status.textContent = 'Treffer gefunden! Daten wurden übernommen.';
-                status.className = 'text-[10px] text-emerald-500 font-bold mt-1 ml-1';
-            } else {
-                status.textContent = result.message || 'PZN nicht gefunden.';
-                status.className = 'text-[10px] text-rose-500 font-bold mt-1 ml-1';
-            }
-        } catch (error) {
-            status.textContent = 'Netzwerkfehler bei der Abfrage.';
-            status.className = 'text-[10px] text-rose-500 font-bold mt-1 ml-1';
-        } finally {
-            btn.disabled = false;
-            text.classList.remove('hidden');
-            spinner.classList.add('hidden');
-        }
-    }
-</script>
+        <div class="space-y-4">
             @if (Model.Examinations.Any()) {
                 @foreach (var exam in Model.Examinations.OrderByDescending(e => e.Date)) {
                     <div class="glass rounded-2xl p-6 bg-white/40 border border-white hover:border-primary/20 transition-all group" role="listitem">
@@ -273,3 +150,209 @@
         </div>
     </div>
 </div>
+
+<!-- Medikamentensuche Modal -->
+<div id="pznModal" class="hidden fixed inset-0 z-[100] overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity bg-slate-900/60 backdrop-blur-sm" onclick="closePznModal()"></div>
+
+        <div class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-3xl shadow-2xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-white">
+            <div class="px-8 pt-8 pb-6 bg-white">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-prescription text-primary"></i> Medikamentensuche
+                    </h3>
+                    <button onclick="closePznModal()" class="text-slate-400 hover:text-slate-600 transition-colors">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Suche -->
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-slate-700">PZN oder Name (Wirkstoff)</label>
+                        <div class="flex gap-2">
+                            <div class="relative flex-grow">
+                                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm"></i>
+                                <input type="text" id="pznInput" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="z.B. Ibuprofen oder 00951474" />
+                            </div>
+                            <button onclick="lookupPzn()" id="lookupBtn" class="btn-premium bg-slate-900 text-white hover:bg-black px-6">
+                                <span id="lookupText">Suchen</span>
+                                <i id="lookupSpinner" class="fa-solid fa-spinner fa-spin hidden"></i>
+                            </button>
+                        </div>
+                        <p id="pznStatus" class="text-[10px] text-slate-400 italic mt-1 ml-1"></p>
+                    </div>
+
+                    <!-- Suchergebnisse Container -->
+                    <div id="searchResults" class="hidden space-y-2 max-h-40 overflow-y-auto custom-scrollbar p-1">
+                        <!-- Wird per JS befüllt -->
+                    </div>
+
+                    <form asp-controller="Patients" asp-action="AddMedication" method="post" id="medicationForm" class="space-y-4 opacity-40 pointer-events-none transition-all duration-500">
+                        <input type="hidden" name="PatientId" value="@Model.Id" />
+                        <input type="hidden" name="Pzn" id="hiddenPzn" />
+                        
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">Präparat</label>
+                            <input type="text" name="Name" id="medName" required class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-semibold" readonly />
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-1">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">Dosierung</label>
+                                <input type="text" name="Dosage" id="medDosage" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm" readonly />
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">Anweisung</label>
+                                <input type="text" name="Instructions" id="medInfo" class="w-full bg-white border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm" placeholder="z.B. 1-0-1" />
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <button type="submit" class="w-full btn-premium bg-primary text-white hover:bg-primary-dark py-4 shadow-lg shadow-primary/20">
+                                <i class="fa-solid fa-prescription-bottle-medical"></i> In Akte übernehmen
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentResults = [];
+
+    function openPznModal() {
+        document.getElementById('pznModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePznModal() {
+        document.getElementById('pznModal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        // Reset state
+        document.getElementById('searchResults').innerHTML = '';
+        document.getElementById('searchResults').classList.add('hidden');
+        document.getElementById('medicationForm').classList.add('opacity-40', 'pointer-events-none');
+        document.getElementById('pznInput').value = '';
+        document.getElementById('medName').value = '';
+        document.getElementById('medDosage').value = '';
+        document.getElementById('medInfo').value = '';
+        document.getElementById('pznStatus').textContent = '';
+    }
+
+    async function lookupPzn() {
+        const query = document.getElementById('pznInput').value.trim();
+        const btn = document.getElementById('lookupBtn');
+        const text = document.getElementById('lookupText');
+        const spinner = document.getElementById('lookupSpinner');
+        const status = document.getElementById('pznStatus');
+        const resultsContainer = document.getElementById('searchResults');
+        const form = document.getElementById('medicationForm');
+
+        if (!query || query.length < 3) {
+            status.textContent = 'Bitte mindestens 3 Zeichen eingeben.';
+            status.className = 'text-[10px] text-amber-500 font-bold mt-1 ml-1';
+            return;
+        }
+
+        // UI State: Loading
+        btn.disabled = true;
+        text.classList.add('hidden');
+        spinner.classList.remove('hidden');
+        status.textContent = 'Suche in Datenbank läuft...';
+        status.className = 'text-[10px] text-primary italic mt-1 ml-1 animate-pulse';
+        resultsContainer.innerHTML = '';
+        resultsContainer.classList.add('hidden');
+        form.classList.add('opacity-40', 'pointer-events-none');
+
+        try {
+            const response = await fetch(`/api/MedicationsApi/search?q=${encodeURIComponent(query)}`);
+            const results = await response.json();
+            currentResults = results;
+
+            if (response.ok && results.length > 0) {
+                status.textContent = `${results.length} Treffer gefunden. Bitte auswählen.`;
+                status.className = 'text-[10px] text-emerald-500 font-bold mt-1 ml-1';
+                
+                resultsContainer.classList.remove('hidden');
+                
+                results.forEach((res, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'p-3 rounded-xl border border-slate-200 hover:border-primary hover:bg-primary/5 cursor-pointer transition-colors';
+                    item.onclick = () => selectResult(index);
+                    item.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <span class="font-bold text-slate-800 text-sm">${res.name}</span>
+                            <span class="text-xs text-slate-400 font-mono flex-shrink-0 ml-2">PZN: ${res.pzn}</span>
+                        </div>
+                        <div class="text-xs text-slate-500 mt-1">${res.dosage || ''}</div>
+                    `;
+                    resultsContainer.appendChild(item);
+                });
+
+                if (results.length === 1 && query.length >= 8) {
+                    selectResult(0);
+                }
+
+            } else {
+                status.textContent = 'Keine Medikamente gefunden.';
+                status.className = 'text-[10px] text-rose-500 font-bold mt-1 ml-1';
+            }
+        } catch (error) {
+            status.textContent = 'Netzwerkfehler bei der Abfrage.';
+            status.className = 'text-[10px] text-rose-500 font-bold mt-1 ml-1';
+        } finally {
+            btn.disabled = false;
+            text.classList.remove('hidden');
+            spinner.classList.add('hidden');
+        }
+    }
+
+    function selectResult(index) {
+        const result = currentResults[index];
+        if (!result) return;
+        
+        document.getElementById('searchResults').classList.add('hidden');
+        document.getElementById('pznStatus').textContent = 'Medikament ausgewählt. Bitte Anweisung eingeben.';
+
+        document.getElementById('medName').value = result.name;
+        document.getElementById('medDosage').value = result.dosage || '';
+        document.getElementById('medInfo').value = result.instructions || '';
+        document.getElementById('hiddenPzn').value = result.pzn;
+        
+        const form = document.getElementById('medicationForm');
+        form.classList.remove('opacity-40', 'pointer-events-none');
+        
+        // Focus instructions field for quick typing
+        document.getElementById('medInfo').focus();
+    }
+
+    // Live Search Preview
+    let searchTimeout = null;
+    document.getElementById('pznInput').addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        const query = e.target.value.trim();
+        
+        if (query.length >= 3) {
+            searchTimeout = setTimeout(() => {
+                lookupPzn();
+            }, 300); // 300ms debounce
+        } else {
+            document.getElementById('searchResults').innerHTML = '';
+            document.getElementById('searchResults').classList.add('hidden');
+            document.getElementById('pznStatus').textContent = '';
+        }
+    });
+
+    // Enter key support for quick search
+    document.getElementById('pznInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            clearTimeout(searchTimeout);
+            lookupPzn();
+        }
+    });
+</script>

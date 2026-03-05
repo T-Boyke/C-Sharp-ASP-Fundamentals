@@ -1,3 +1,4 @@
+using Bogus;
 using Microsoft.EntityFrameworkCore;
 using _07_Patienten.Domain.Entities;
 
@@ -14,31 +15,23 @@ public static class DbSeeder
 
         if (await context.Patients.AnyAsync()) return;
 
-        var patients = new List<Patient>();
+        var patientFaker = new Faker<Patient>("de")
+            .RuleFor(p => p.Firstname, f => f.Name.FirstName())
+            .RuleFor(p => p.Lastname, f => f.Name.LastName())
+            .RuleFor(p => p.Birthdate, f => f.Date.Past(60, DateTime.Now.AddYears(-20)))
+            .RuleFor(p => p.IsPrivatePatient, f => f.Random.Bool(0.3f))
+            .RuleFor(p => p.Symptoms, f => f.Random.Bool(0.7f) ? f.PickRandom("Kopfschmerzen, Übelkeit", "Rückenschmerzen (LWS)", "Husten, Schnupfen", "Erschöpfung, Schwindel", "Knieschmerzen links", "Bluthochdruck", "Schlafstörungen", "Magen-Darm-Beschwerden", "Allergische Reaktion", "Hautausschlag") : null)
+            .RuleFor(p => p.NextAppointmentDate, f => f.Random.Bool(0.5f) ? f.Date.Soon(30).Date.AddHours(f.Random.Int(8, 17)) : null);
+
+        var patients = patientFaker.Generate(50);
+        
+        // Enhance patients with SVNR, examinations and medications
+        string[] medNames = { "Ibuprofen 400mg", "Paracetamol 500mg", "Amoxicillin 1000mg", "Pantoprazol 20mg", "L-Thyroxin 75", "Metformin 500mg", "Ramipril 5mg", "Simvastatin 20mg", "Bisoprolol 5mg", "D3-Vigantolol" };
         var random = new Random(42);
 
-        string[] firstnames = { "Tobias", "Max", "Erika", "Lukas", "Sarah", "Jonas", "Anna", "Tim", "Lea", "Felix", "Marie", "Julian", "Sophie", "Mark", "Elena", "David", "Laura", "Simon", "Julia", "Niklas", "Hannah", "Paul", "Clara", "Andreas", "Barbara", "Christian", "Daniela", "Erik", "Frauke", "Gerhard", "Helga", "Ingo", "Johanna", "Karin", "Lothar", "Monika", "Norbert", "Olga", "Peter", "Renate", "Stefan", "Tanja", "Ulrich", "Ursula", "Volker", "Winfried", "Xaver", "Yvonne", "Zita" };
-        string[] lastnames = { "Boyke", "Mustermann", "Musterfrau", "Weber", "Schmidt", "Müller", "Fischer", "Meyer", "Wagner", "Schulz", "Becker", "Hoffmann", "Schäfer", "Koch", "Bauer", "Richter", "Klein", "Wolf", "Schröder", "Neumann", "Schwarz", "Zimmermann", "Braun", "Krüger", "Hofmann", "Hartmann", "Lange", "Schmitt", "Werner", "Schmitz", "Krause", "Meier", "Lehmann", "Schmid", "Schulze", "Maier", "Köhler", "Herrmann", "König", "Walter", "Mayer", "Huber", "Kaiser", "Fuchs", "Peters", "Lang", "Scholz", "Möller", "Weiß" };
-        string[] symptomsList = { "Kopfschmerzen, Übelkeit", "Rückenschmerzen (LWS)", "Husten, Schnupfen", "Erschöpfung, Schwindel", "Knieschmerzen links", "Bluthochdruck", "Schlafstörungen", "Magen-Darm-Beschwerden", "Allergische Reaktion", "Hautausschlag" };
-        string[] medNames = { "Ibuprofen 400mg", "Paracetamol 500mg", "Amoxicillin 1000mg", "Pantoprazol 20mg", "L-Thyroxin 75", "Metformin 500mg", "Ramipril 5mg", "Simvastatin 20mg", "Bisoprolol 5mg", "D3-Vigantolol" };
-
-        for (int i = 0; i < 50; i++)
+        foreach (var patient in patients)
         {
-            var fn = i < firstnames.Length ? firstnames[i] : $"Patient_F_{i}";
-            var ln = i < lastnames.Length ? lastnames[i] : $"Patient_L_{i}";
-            var birth = new DateTime(1950 + random.Next(60), random.Next(1, 13), random.Next(1, 28));
-            var svnr = $"{random.Next(1000, 9999)}{birth:ddMMyy}";
-
-            var patient = new Patient
-            {
-                Firstname = fn,
-                Lastname = ln,
-                Birthdate = birth,
-                SocialSecurityNumber = svnr,
-                IsPrivatePatient = random.Next(10) < 3, // 30% Privat
-                Symptoms = random.Next(10) < 7 ? symptomsList[random.Next(symptomsList.Length)] : null,
-                NextAppointmentDate = random.Next(10) < 5 ? DateTime.Now.AddDays(random.Next(1, 30)).AddHours(random.Next(8, 17)) : null
-            };
+            patient.SocialSecurityNumber = $"{random.Next(1000, 9999)}{patient.Birthdate:ddMMyy}";
 
             // Untersuchungen
             int examCount = random.Next(1, 5);
@@ -63,8 +56,6 @@ public static class DbSeeder
                     PrescribedDate = DateTime.Now.AddDays(-random.Next(1, 50))
                 });
             }
-
-            patients.Add(patient);
         }
 
         // Spezielle Testdaten für Tobias Boyke (falls nicht in Liste)

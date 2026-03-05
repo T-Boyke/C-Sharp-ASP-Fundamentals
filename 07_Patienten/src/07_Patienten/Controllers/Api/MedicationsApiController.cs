@@ -26,4 +26,11 @@ public class MedicationsApiController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpGet("search")]
+    public async Task<IActionResult> Search([FromQuery] string q)
+    {
+        var results = await _lookupService.SearchAsync(q);
+        return Ok(results);
+    }
 }

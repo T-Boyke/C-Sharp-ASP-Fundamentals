@@ -13,4 +13,5 @@ public class MedicationSearchResult
 public interface IMedicationLookupService
 {
     Task<MedicationSearchResult> SearchByPznAsync(string pzn);
+    Task<List<MedicationSearchResult>> SearchAsync(string query);
 }
