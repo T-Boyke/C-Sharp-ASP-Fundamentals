@@ -1,0 +1,53 @@
+@model IEnumerable<_06_NewsApplication2.Domain.Entities.Article>
+
+@{
+    ViewData["Title"] = "Aktuelle Nachrichten";
+}
+
+<div class="space-y-12">
+    <div class="flex justify-between items-end">
+        <div>
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Aktuelle Nachrichten</h1>
+            <p class="mt-2 text-lg text-slate-600">Die neuesten Updates aus Technik und Entwicklung.</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @foreach (var item in Model)
+        {
+            <article class="card flex flex-col group h-full">
+                <div class="flex-grow">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 uppercase tracking-wider">
+                            News
+                        </span>
+                        <span class="text-slate-400 text-sm">
+                            <i class="fa-regular fa-calendar-days"></i> @item.CreatedAt.ToString("dd.MM.yyyy")
+                        </span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-3">
+                        <a asp-action="Details" asp-route-id="@item.Id">@item.Headline</a>
+                    </h2>
+                    <p class="text-slate-600 leading-relaxed mb-6 italic">
+                        "@item.ContentPreview"
+                    </p>
+                </div>
+                
+                <div class="pt-6 border-t border-slate-100 flex items-center justify-between mt-auto">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-900">@item.Author?.Fullname</p>
+                            <p class="text-xs text-slate-500">Redakteur</p>
+                        </div>
+                    </div>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="text-blue-600 hover:text-blue-700 font-semibold flex items-center gap-1 group/link">
+                        Mehr <i class="fa-solid fa-arrow-right text-xs transform group-hover/link:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </article>
+        }
+    </div>
+</div>

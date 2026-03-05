@@ -1,0 +1,46 @@
+@model _06_NewsApplication2.Domain.Entities.Article
+
+@{
+    ViewData["Title"] = "Neuen Artikel erstellen";
+}
+
+<div class="max-w-3xl mx-auto">
+    <div class="mb-10">
+        <h1 class="text-4xl font-extrabold text-slate-900">Artikel verfassen</h1>
+        <p class="text-slate-500 mt-2">Teile deine Gedanken mit der Welt.</p>
+    </div>
+
+    <form asp-action="Create" class="card space-y-6">
+        <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm p-4 bg-red-50 rounded-lg"></div>
+        
+        <div class="space-y-2">
+            <label asp-for="Headline" class="block text-sm font-bold text-slate-700">Überschrift</label>
+            <div class="relative">
+                <i class="fa-solid fa-heading absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input asp-for="Headline" class="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all outline-none" placeholder="Titel des Artikels..." />
+            </div>
+            <span asp-validation-for="Headline" class="text-red-500 text-xs mt-1"></span>
+        </div>
+
+        <div class="space-y-2">
+            <label asp-for="AuthorId" class="block text-sm font-bold text-slate-700">Autor</label>
+            <div class="relative">
+                <i class="fa-solid fa-user-pen absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <select asp-for="AuthorId" class="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all outline-none appearance-none" asp-items="ViewBag.AuthorId"></select>
+            </div>
+        </div>
+
+        <div class="space-y-2">
+            <label asp-for="Content" class="block text-sm font-bold text-slate-700">Inhalt</label>
+            <textarea asp-for="Content" rows="10" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all outline-none" placeholder="Schreibe hier deinen Artikel..."></textarea>
+            <span asp-validation-for="Content" class="text-red-500 text-xs mt-1"></span>
+        </div>
+
+        <div class="pt-6 flex items-center justify-between">
+            <a asp-action="Index" class="text-slate-500 hover:text-slate-700 font-medium">Abbrechen</a>
+            <button type="submit" class="btn-primary bg-slate-900 hover:bg-black">
+                <i class="fa-solid fa-paper-plane"></i> Veröffentlichen
+            </button>
+        </div>
+    </form>
+</div>

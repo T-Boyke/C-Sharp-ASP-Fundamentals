@@ -1,0 +1,54 @@
+@model _06_NewsApplication2.Domain.Entities.Article
+
+@{
+    ViewData["Title"] = Model.Headline;
+}
+
+<div class="max-w-4xl mx-auto">
+    <a asp-action="Index" class="inline-flex items-center gap-2 text-slate-500 hover:text-blue-600 transition-colors mb-8 font-medium">
+        <i class="fa-solid fa-arrow-left"></i> Zurück zur Übersicht
+    </a>
+
+    <article class="card">
+        <header class="mb-10">
+            <div class="flex items-center gap-4 mb-6 text-sm">
+                <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 font-bold uppercase tracking-widest text-[10px]">
+                    News Article
+                </span>
+                <span class="text-slate-400">
+                    <i class="fa-regular fa-clock"></i> Veröffentlicht am @Model.CreatedAt.ToString("f")
+                </span>
+            </div>
+            <h1 class="text-5xl font-black text-slate-900 leading-tight">@Model.Headline</h1>
+            
+            <div class="mt-10 pt-10 border-t border-slate-100 flex items-center gap-6">
+                <div class="w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-3xl">
+                    <i class="fa-solid fa-user-ninja"></i>
+                </div>
+                <div>
+                    <p class="text-xl font-bold text-slate-900">@Model.Author?.Fullname</p>
+                    <p class="text-slate-500">Exklusiv-Autor bei NewsApplication2</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="prose prose-slate prose-xl max-w-none text-slate-700 leading-relaxed space-y-6">
+            @foreach (var p in Model.Content.Split("\n"))
+            {
+                if (!string.IsNullOrWhiteSpace(p))
+                {
+                    <p>@p</p>
+                }
+            }
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-slate-100 flex gap-4">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-primary">
+                <i class="fa-solid fa-pen-to-square"></i> Bearbeiten
+            </a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-all flex items-center gap-2 font-medium">
+                <i class="fa-solid fa-trash-can"></i> Löschen
+            </a>
+        </div>
+    </article>
+</div>

@@ -1,50 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" class="h-full bg-slate-50">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - _07_Unit_Template</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/_07_Unit_Template.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - NewsApplication2</title>
+
+    <!-- Tailwind CSS 4.1.13 via local lib -->
+    <script src="~/lib/tailwindcss-browser/index.global.min.js"></script>
+    
+    <!-- Font Awesome 7.2.0 via local lib -->
+    <link rel="stylesheet" href="~/lib/fortawesome/fontawesome-free/css/all.min.css" />
+
+    <style type="text/tailwindcss">
+        @theme {
+            --color-brand: #0f172a;
+            --color-accent: #3b82f6;
+        }
+
+        @layer base {
+            body { @apply font-sans antialiased text-slate-900; }
+        }
+
+        @layer components {
+            .btn-primary { @apply px-4 py-2 bg-blue-600 text-white rounded-lg shadow-sm hover:bg-blue-700 transition-all active:scale-95 flex items-center gap-2; }
+            .nav-link { @apply text-slate-600 hover:text-blue-600 transition-colors font-medium flex items-center gap-2; }
+            .card { @apply bg-white/80 backdrop-blur-md border border-slate-200 rounded-xl p-6 shadow-xl hover:shadow-2xl transition-all; }
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">_07_Unit_Template</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+<body class="flex flex-col h-full">
+    <header class="bg-white/80 backdrop-blur-xl border-b border-slate-200 sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-8">
+                    <a asp-controller="Home" asp-action="Index" class="text-2xl font-black text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-newspaper text-blue-600"></i>
+                        <span>News<span class="text-blue-600">App</span></span>
+                    </a>
+                    <div class="hidden md:flex items-center gap-6">
+                        <a asp-controller="Articles" asp-action="Index" class="nav-link">
+                            <i class="fa-solid fa-list-ul"></i> Artikel
+                        </a>
+                        <a asp-controller="Authors" asp-action="Index" class="nav-link">
+                            <i class="fa-solid fa-users"></i> Autoren
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <a asp-controller="Articles" asp-action="Create" class="btn-primary">
+                        <i class="fa-solid fa-plus"></i> Artikel schreiben
+                    </a>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - _07_Unit_Template - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <main role="main" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-500">
+            <p>&copy; 2026 - NewsApplication2 - <i class="fa-solid fa-bolt text-yellow-500"></i> Engineered with Async & DDD</p>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

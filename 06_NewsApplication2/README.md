@@ -1,16 +1,21 @@
 # 🚀 06_NewsApplication2
 
-Welcome to 06_NewsApplication2. This unit is part of the C# ASP.NET Core 10 fundamentals series.
+Welcome to **NewsApplication2**. This unit demonstrates a modern ASP.NET Core 10 application using Domain-Driven Design (DDD), Asynchronous Programming, and a custom Tailwind CSS 4 frontend.
 
 ## 🎯 Learning Objectives
-- [ ] Implement core concepts for this unit.
-- [ ] Master the architectural patterns demonstrated.
-- [ ] Maintain 100% test coverage for new logic.
-- [ ] Follow SOLID, Clean Architecture, and DDD guidelines.
+- [x] **Asynchronous Programming**: Deep dive into `async/await` patterns based on the "Tutorial Asynchrone Programmierung.pdf".
+- [x] **DDD (Domain-Driven Design)**: Logical separation of Domain, Infrastructure, and Presentation layers.
+- [x] **TDD (Test-Driven Development)**: Implementing core logic via Red-Green-Refactor cycles.
+- [x] **Modern Frontend**: Building premium UIs with **Tailwind CSS 4.1.13** and **Font Awesome 7.2.0**.
+
+## 🏗️ Architecture
+- **Domain**: Pure C# entities and repository interfaces (`IArticleRepository`, `IAuthorRepository`).
+- **Infrastructure**: EF Core 10 implementation, `AppDbContext`, and concrete repositories.
+- **Presentation**: Asynchronous MVC Controllers and Razor Views styled with Tailwind.
 
 ## 📂 Folder Structure
-- [**/src**](./src/README.md): Application source code and implementation details.
-- [**/tests**](./tests/README.md): Automated testing suite and validation logic.
+- [**/src**](./src/README.md): Application source code.
+- [**/tests**](./tests/README.md): Unit and Integration tests (xUnit).
 
 ---
 > [!IMPORTANT]

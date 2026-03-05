@@ -1,0 +1,46 @@
+@model _06_NewsApplication2.Domain.Entities.Author
+
+@{
+    ViewData["Title"] = "Autor hinzufügen";
+}
+
+<div class="max-w-2xl mx-auto">
+    <div class="mb-10 text-center">
+        <div class="inline-flex w-16 h-16 bg-blue-100 text-blue-600 items-center justify-center rounded-full text-2xl mb-4">
+            <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <h1 class="text-3xl font-black text-slate-900">Neuen Autor anlegen</h1>
+        <p class="text-slate-500 mt-2">Erweitere das Redaktionsteam der NewsApplication2.</p>
+    </div>
+
+    <form asp-action="Create" class="card space-y-6">
+        <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm p-4 bg-red-50 rounded-lg"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+                <label asp-for="Firstname" class="block text-sm font-bold text-slate-700">Vorname</label>
+                <div class="relative">
+                    <i class="fa-solid fa-id-card absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input asp-for="Firstname" class="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all outline-none" placeholder="Max" />
+                </div>
+                <span asp-validation-for="Firstname" class="text-red-500 text-xs mt-1"></span>
+            </div>
+
+            <div class="space-y-2">
+                <label asp-for="Lastname" class="block text-sm font-bold text-slate-700">Nachname</label>
+                <div class="relative">
+                    <i class="fa-solid fa-signature absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input asp-for="Lastname" class="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all outline-none" placeholder="Mustermann" />
+                </div>
+                <span asp-validation-for="Lastname" class="text-red-500 text-xs mt-1"></span>
+            </div>
+        </div>
+
+        <div class="pt-6 flex items-center justify-between">
+            <a asp-action="Index" class="text-slate-500 hover:text-slate-700 font-medium">Abbrechen</a>
+            <button type="submit" class="btn-primary bg-slate-900 hover:bg-black">
+                <i class="fa-solid fa-save"></i> Speichern
+            </button>
+        </div>
+    </form>
+</div>
