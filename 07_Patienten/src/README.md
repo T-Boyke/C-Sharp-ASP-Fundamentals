@@ -13,14 +13,15 @@ Hier liegen die **Entities** (Patient, Untersuchung). Das sind einfache Klassen,
 *   **Wichtig**: Hier gibt es keine Technik, nur Logik!
 
 ### 2. Infrastructure (Die Werkzeuge)
-Hier kümmert sich EF Core um die Datenbank. 
+Hier kümmert sich EF Core um die Datenbank und Services um externe Daten. 
 *   **AppDbContext**: Der Übersetzer zwischen C# und SQL.
-*   **DbSeeder**: Unser "Gärtner", der beim ersten Start automatisch 23 Test-Patienten pflanzt, damit die App nicht leer aussieht.
+*   **DbSeeder**: Unser "Gärtner", der beim ersten Start automatisch **über 50 Test-Patienten** pflanzt.
+*   **MedicationLookupService**: Der "Detektiv". Er sucht live via PZN nach Medikamentendaten (Mock & Scraping).
 
 ### 3. Presentation (Das Gesicht)
 Hier liegen die **Controller** und **Views**.
-*   **Controllers**: Die Verkehrspolizisten. Sie nehmen Anfragen vom Browser entgegen und sagen dem System, was zu tun ist.
-*   **Views**: Die HTML-Seiten. Dank **Tailwind CSS 4** sehen sie modern aus und passen sich jeder Bildschirmgröße an.
+*   **Controllers**: Die Verkehrspolizisten. Neu: `MedicationsApiController` für asynchrone PZN-Abfragen.
+*   **Views**: Die HTML-Seiten. Dank **Tailwind CSS 4** und **ARIA-Labels** modern, schnell und barrierefrei!
 
 ---
 

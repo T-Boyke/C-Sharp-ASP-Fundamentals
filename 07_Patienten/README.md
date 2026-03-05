@@ -35,15 +35,16 @@ Keine Angst vor der Technik! Folge einfach diesen Schritten:
 
 1.  Öffne das Projekt in **Visual Studio 2022** (oder neuer).
 2.  Drücke den **grünen Play-Button** oben (oder `F5`).
-3.  Die Datenbank wird beim ersten Start automatisch erstellt und mit **23 Test-Patienten** (inkl. Tobias Boyke!) gefüllt.
-4.  **Fertig!** Du kannst jetzt Patienten suchen, neue anlegen oder Befunde schreiben.
+3.  Die Datenbank wird beim ersten Start automatisch erstellt und mit **über 50 Test-Patienten** (inkl. Tobias Boyke!) gefüllt.
+4.  **Fertig!** Du kannst jetzt Patienten suchen, Medikamente via **PZN-Live-Check** verschreiben oder Befunde schreiben.
 
 ---
 
 ## 🛡️ Qualität & Sicherheit
 *   **Asynchroner Code**: Die App "friert" nie ein, weil sie alle schweren Aufgaben im Hintergrund erledigt (`async/await`).
-*   **Validierung**: Das Programm passt auf, dass du keine Quatsch-Daten eingibst (z.B. ein Geburtsdatum in der Zukunft oder eine ungültige SVNR).
-*   **Premium Design**: Keine langweiligen grauen Buttons. Alles ist animiert, responsive und sieht auf dem Handy super aus.
+*   **PZN Live-Check**: Medikamente können sekundenschnell via Pharmazentralnummer gesucht und mit Auto-Fill übernommen werden.
+*   **♿ Barrierefreiheit**: Volle ARIA-Unterstützung und semantisches HTML für Screenreader-Kompatibilität.
+*   **Premium Design**: Alles ist animiert, responsive und sieht auf dem Handy super aus.
 
 ---
 > [!TIP]

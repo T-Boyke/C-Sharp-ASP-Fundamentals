@@ -13,9 +13,11 @@ classDiagram
         +string Lastname
         +DateTime Birthdate
         +string SocialSecurityNumber
-        +int Age
-        +string Fullname
+        +bool IsPrivatePatient
+        +DateTime? NextAppointmentDate
+        +string Symptoms
         +List~Examination~ Examinations
+        +List~Medication~ Medications
     }
 
     class Examination {
@@ -26,6 +28,14 @@ classDiagram
         +Patient Patient
     }
 
+    class Medication {
+        +int Id
+        +string Name
+        +string Dosage
+        +string Pzn
+        +int PatientId
+    }
+
     class IPatientRepository {
         <<interface>>
         +GetAllAsync() Task~IEnumerable~
@@ -33,13 +43,25 @@ classDiagram
         +AddAsync(Patient p) Task
     }
 
+    class IMedicationLookupService {
+        <<interface>>
+        +SearchByPznAsync(string pzn) Task
+    }
+
     class PatientRepository {
         -AppDbContext _context
         +AddAsync(Patient p) Task
     }
 
+    class MedicationLookupService {
+        -HttpClient _httpClient
+        +SearchByPznAsync(string pzn) Task
+    }
+
     Patient "1" --> "*" Examination : besitzt
+    Patient "1" --> "*" Medication : verschrieben
     IPatientRepository <|.. PatientRepository : implementiert
+    IMedicationLookupService <|.. MedicationLookupService : implementiert
     PatientRepository --> Patient : verwaltet
 ```
 
@@ -49,41 +71,45 @@ Beschreibt die Interaktion der Praxis-Mitarbeiter mit dem System.
 ```mermaid
 graph LR
     Staff((Arzt / Personal))
+    Extern[Shop Apotheke / Live-PZN]
     
     subgraph MedCare [MedCare Patientenverwaltung]
         UC1(Patient aufnehmen)
         UC2(Patientenliste einsehen)
         UC3(Befund dokumentieren)
-        UC4(Akte löschen)
+        UC4(Medikament via PZN suchen)
+        UC5(Akte löschen)
     end
     
     Staff --> UC1
     Staff --> UC2
     Staff --> UC3
     Staff --> UC4
+    UC4 -.-> Extern
+    Staff --> UC5
 ```
 
-## 3. Sequenzdiagramm (Ablauf: Befund erfassen)
-Visualisiert den asynchronen Datenfluss beim Speichern eines neuen Befunds.
+## 3. Sequenzdiagramm (Ablauf: PZN Live-Check)
+Visualisiert den asynchronen Datenfluss bei der Medikamenten-Suche.
 
 ```mermaid
 sequenceDiagram
     participant User as Browser / Frontend
-    participant Ctrl as ExaminationsController
-    participant Repo as ExaminationRepository
-    participant DB as SQL Server (EF Core)
+    participant Api as MedicationsApiController
+    participant Service as MedicationLookupService
+    participant Extern as Externes System (via PZN)
 
-    User->>Ctrl: POST /Examinations/Create (Data)
-    Ctrl->>Ctrl: Validate Model
-    alt Valid
-        Ctrl->>Repo: AddAsync(examination)
-        Repo->>DB: SaveChangesAsync()
-        DB-->>Repo: Success
-        Repo-->>Ctrl: Task Complete
-        Ctrl->>User: Redirect to PatientDetails
-    else Invalid
-        Ctrl->>User: Return View(Data) with Errors
+    User->>Api: GET /api/MedicationsApi/lookup/{pzn}
+    Api->>Service: SearchByPznAsync(pzn)
+    alt Mock found
+        Service-->>Api: Return Mock Data
+    else Scrape Live
+        Service->>Extern: HTTP GET (PZN Search)
+        Extern-->>Service: HTML Response
+        Service->>Service: Parse Metadata
+        Service-->>Api: Return Scraped Data
     end
+    Api-->>User: JSON Response (Success/Fail)
 ```
 
 ## 4. Zustandsdiagramm (Patienten-Status)
@@ -129,17 +155,29 @@ Das physische Datenmodell (Code-First Schema).
 ```mermaid
 erDiagram
     PATIENT ||--o{ EXAMINATION : "hat viele"
+    PATIENT ||--o{ MEDICATION : "bekommt viele"
     PATIENT {
         int Id PK
         string Firstname
         string Lastname
         datetime Birthdate
         string SVNR
+        bool IsPrivatePatient
+        datetime NextAppointmentDate
+        string Symptoms
     }
     EXAMINATION {
         int Id PK
         int PatientId FK
         datetime Date
         string Findings
+    }
+    MEDICATION {
+        int Id PK
+        int PatientId FK
+        string Name
+        string Dosage
+        string Pzn
+        datetime PrescribedDate
     }
 ```
