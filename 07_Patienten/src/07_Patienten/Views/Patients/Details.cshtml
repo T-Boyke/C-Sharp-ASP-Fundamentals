@@ -20,7 +20,15 @@
                     <i class="fa-solid fa-user-doctor"></i>
                 </div>
                 <h2 class="text-2xl font-bold text-slate-900">@Model.Fullname</h2>
-                <span class="text-sm font-bold text-primary uppercase tracking-tighter">Status: Aktiv</span>
+                <div class="flex gap-2 items-center mt-1">
+                    <span class="text-sm font-bold text-primary uppercase tracking-tighter">Status: Aktiv</span>
+                    @if (Model.IsPrivatePatient)
+                    {
+                        <span class="inline-flex items-center rounded-md bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-700 ring-1 ring-inset ring-amber-600/20">
+                            <i class="fa-solid fa-crown mr-1"></i> PRIVAT
+                        </span>
+                    }
+                </div>
             </div>
 
             <div class="space-y-4">
@@ -32,7 +40,26 @@
                     <span class="text-sm text-slate-500">SVNR</span>
                     <span class="font-semibold text-slate-900">@Model.SocialSecurityNumber</span>
                 </div>
+                @if (Model.NextAppointmentDate.HasValue)
+                {
+                    <div class="p-3 rounded-xl bg-primary/5 border border-primary/20">
+                        <span class="text-[10px] uppercase font-bold text-primary block mb-1">Nächster Termin</span>
+                        <span class="font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-clock"></i> @Model.NextAppointmentDate.Value.ToString("dd.MM.yyyy HH:mm")
+                        </span>
+                    </div>
+                }
             </div>
+
+            @if (!string.IsNullOrEmpty(Model.Symptoms))
+            {
+                <div class="mt-8">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Aktuelle Symptome</h4>
+                    <div class="p-4 rounded-2xl bg-slate-100 text-slate-700 text-sm border border-slate-200">
+                        @Model.Symptoms
+                    </div>
+                </div>
+            }
 
             <div class="grid grid-cols-2 gap-3 mt-8">
                 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-premium bg-slate-100 text-slate-600 hover:bg-white text-sm">
@@ -41,6 +68,38 @@
                 <a asp-action="Delete" asp-route-id="@Model.Id" class="btn-premium bg-rose-50 text-rose-600 hover:bg-rose-100 text-sm">
                     <i class="fa-solid fa-trash"></i> Löschen
                 </a>
+            </div>
+        </div>
+
+        <!-- Medikationen Card -->
+        <div class="glass rounded-3xl p-8 bg-white/40 shadow-sm border border-white">
+            <h3 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-pills text-primary"></i> Medikationen
+            </h3>
+            <div class="space-y-4">
+                @if (Model.Medications.Any())
+                {
+                    @foreach (var med in Model.Medications.OrderByDescending(m => m.PrescribedDate))
+                    {
+                        <div class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white transition-colors">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="font-bold text-slate-900">@med.Name</span>
+                                <span class="text-[10px] font-bold px-2 py-0.5 bg-slate-100 rounded text-slate-500">@med.Dosage</span>
+                            </div>
+                            @if (!string.IsNullOrEmpty(med.Instructions))
+                            {
+                                <p class="text-xs text-slate-500 italic mb-2">"@med.Instructions"</p>
+                            }
+                            <span class="text-[10px] text-slate-400">Verschrieben am @med.PrescribedDate.ToString("dd.MM.yyyy")</span>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-sm text-slate-400 text-center py-4 bg-slate-50 rounded-2xl border border-dashed border-slate-200 italic">
+                        Keine Medikamente verschrieben.
+                    </p>
+                }
             </div>
         </div>
     </div>

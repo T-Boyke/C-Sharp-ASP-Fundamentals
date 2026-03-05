@@ -4,7 +4,7 @@ using _07_Patienten.Domain.Entities;
 namespace _07_Patienten.Infrastructure.Data;
 
 /// <summary>
-/// Hilfsklasse zur Initialisierung der Datenbank mit Testdaten.
+/// Hilfsklasse zur Initialisierung der Datenbank mit umfangreichen Testdaten.
 /// </summary>
 public static class DbSeeder
 {
@@ -14,43 +14,74 @@ public static class DbSeeder
 
         if (await context.Patients.AnyAsync()) return;
 
-        var patients = new List<Patient>
+        var patients = new List<Patient>();
+        var random = new Random(42);
+
+        string[] firstnames = { "Tobias", "Max", "Erika", "Lukas", "Sarah", "Jonas", "Anna", "Tim", "Lea", "Felix", "Marie", "Julian", "Sophie", "Mark", "Elena", "David", "Laura", "Simon", "Julia", "Niklas", "Hannah", "Paul", "Clara", "Andreas", "Barbara", "Christian", "Daniela", "Erik", "Frauke", "Gerhard", "Helga", "Ingo", "Johanna", "Karin", "Lothar", "Monika", "Norbert", "Olga", "Peter", "Renate", "Stefan", "Tanja", "Ulrich", "Ursula", "Volker", "Winfried", "Xaver", "Yvonne", "Zita" };
+        string[] lastnames = { "Boyke", "Mustermann", "Musterfrau", "Weber", "Schmidt", "Müller", "Fischer", "Meyer", "Wagner", "Schulz", "Becker", "Hoffmann", "Schäfer", "Koch", "Bauer", "Richter", "Klein", "Wolf", "Schröder", "Neumann", "Schwarz", "Zimmermann", "Braun", "Krüger", "Hofmann", "Hartmann", "Lange", "Schmitt", "Werner", "Schmitz", "Krause", "Meier", "Lehmann", "Schmid", "Schulze", "Maier", "Köhler", "Herrmann", "König", "Walter", "Mayer", "Huber", "Kaiser", "Fuchs", "Peters", "Lang", "Scholz", "Möller", "Weiß" };
+        string[] symptomsList = { "Kopfschmerzen, Übelkeit", "Rückenschmerzen (LWS)", "Husten, Schnupfen", "Erschöpfung, Schwindel", "Knieschmerzen links", "Bluthochdruck", "Schlafstörungen", "Magen-Darm-Beschwerden", "Allergische Reaktion", "Hautausschlag" };
+        string[] medNames = { "Ibuprofen 400mg", "Paracetamol 500mg", "Amoxicillin 1000mg", "Pantoprazol 20mg", "L-Thyroxin 75", "Metformin 500mg", "Ramipril 5mg", "Simvastatin 20mg", "Bisoprolol 5mg", "D3-Vigantolol" };
+
+        for (int i = 0; i < 50; i++)
         {
-            new Patient 
-            { 
-                Firstname = "Tobias", 
-                Lastname = "Boyke", 
-                Birthdate = new DateTime(1986, 1, 16), 
-                SocialSecurityNumber = "1234150590",
-                Examinations = new List<Examination>
+            var fn = i < firstnames.Length ? firstnames[i] : $"Patient_F_{i}";
+            var ln = i < lastnames.Length ? lastnames[i] : $"Patient_L_{i}";
+            var birth = new DateTime(1950 + random.Next(60), random.Next(1, 13), random.Next(1, 28));
+            var svnr = $"{random.Next(1000, 9999)}{birth:ddMMyy}";
+
+            var patient = new Patient
+            {
+                Firstname = fn,
+                Lastname = ln,
+                Birthdate = birth,
+                SocialSecurityNumber = svnr,
+                IsPrivatePatient = random.Next(10) < 3, // 30% Privat
+                Symptoms = random.Next(10) < 7 ? symptomsList[random.Next(symptomsList.Length)] : null,
+                NextAppointmentDate = random.Next(10) < 5 ? DateTime.Now.AddDays(random.Next(1, 30)).AddHours(random.Next(8, 17)) : null
+            };
+
+            // Untersuchungen
+            int examCount = random.Next(1, 5);
+            for (int j = 0; j < examCount; j++)
+            {
+                patient.Examinations.Add(new Examination
                 {
-                    new Examination { Date = DateTime.Now.AddDays(-10), Findings = "Routineuntersuchung: Alles ok." },
-                    new Examination { Date = DateTime.Now.AddDays(-2), Findings = "Leichte Erkältung: Ruhe verordnet." }
-                }
-            },
-            new Patient { Firstname = "Max", Lastname = "Mustermann", Birthdate = new DateTime(1985, 10, 20), SocialSecurityNumber = "9876201085" },
-            new Patient { Firstname = "Erika", Lastname = "Musterfrau", Birthdate = new DateTime(1995, 3, 12), SocialSecurityNumber = "4567120395" },
-            new Patient { Firstname = "Lukas", Lastname = "Weber", Birthdate = new DateTime(1978, 4, 5), SocialSecurityNumber = "1029050478" },
-            new Patient { Firstname = "Sarah", Lastname = "Schmidt", Birthdate = new DateTime(1992, 8, 17), SocialSecurityNumber = "3847170892" },
-            new Patient { Firstname = "Jonas", Lastname = "Müller", Birthdate = new DateTime(2005, 12, 1), SocialSecurityNumber = "5928011205" },
-            new Patient { Firstname = "Anna", Lastname = "Fischer", Birthdate = new DateTime(1980, 1, 30), SocialSecurityNumber = "2837300180" },
-            new Patient { Firstname = "Tim", Lastname = "Meyer", Birthdate = new DateTime(1998, 6, 22), SocialSecurityNumber = "4958220698" },
-            new Patient { Firstname = "Lea", Lastname = "Wagner", Birthdate = new DateTime(1965, 11, 11), SocialSecurityNumber = "5829111165" },
-            new Patient { Firstname = "Felix", Lastname = "Schulz", Birthdate = new DateTime(1988, 3, 25), SocialSecurityNumber = "6938250388" },
-            new Patient { Firstname = "Marie", Lastname = "Becker", Birthdate = new DateTime(2010, 7, 14), SocialSecurityNumber = "7049140710" },
-            new Patient { Firstname = "Julian", Lastname = "Hoffmann", Birthdate = new DateTime(1972, 9, 3), SocialSecurityNumber = "8150030972" },
-            new Patient { Firstname = "Sophie", Lastname = "Schäfer", Birthdate = new DateTime(1994, 2, 28), SocialSecurityNumber = "9261280294" },
-            new Patient { Firstname = "Mark", Lastname = "Koch", Birthdate = new DateTime(1950, 12, 24), SocialSecurityNumber = "1372241250" },
-            new Patient { Firstname = "Elena", Lastname = "Bauer", Birthdate = new DateTime(2001, 5, 19), SocialSecurityNumber = "2483190501" },
-            new Patient { Firstname = "David", Lastname = "Richter", Birthdate = new DateTime(1960, 10, 10), SocialSecurityNumber = "3594101060" },
-            new Patient { Firstname = "Laura", Lastname = "Klein", Birthdate = new DateTime(1987, 1, 1), SocialSecurityNumber = "4605010187" },
-            new Patient { Firstname = "Simon", Lastname = "Wolf", Birthdate = new DateTime(1999, 4, 15), SocialSecurityNumber = "5716150499" },
-            new Patient { Firstname = "Julia", Lastname = "Schröder", Birthdate = new DateTime(1975, 8, 8), SocialSecurityNumber = "6827080875" },
-            new Patient { Firstname = "Niklas", Lastname = "Neumann", Birthdate = new DateTime(1991, 11, 20), SocialSecurityNumber = "7938201191" },
-            new Patient { Firstname = "Hannah", Lastname = "Schwarz", Birthdate = new DateTime(1983, 3, 14), SocialSecurityNumber = "8049140383" },
-            new Patient { Firstname = "Paul", Lastname = "Zimmermann", Birthdate = new DateTime(1968, 6, 30), SocialSecurityNumber = "9150300668" },
-            new Patient { Firstname = "Clara", Lastname = "Braun", Birthdate = new DateTime(2003, 9, 21), SocialSecurityNumber = "1261210903" }
-        };
+                    Date = DateTime.Now.AddDays(-random.Next(1, 100)),
+                    Findings = $"Befund für Untersuchung {j + 1}: Alles im Normbereich."
+                });
+            }
+
+            // Medikamente
+            int medCount = random.Next(0, 3);
+            for (int k = 0; k < medCount; k++)
+            {
+                patient.Medications.Add(new Medication
+                {
+                    Name = medNames[random.Next(medNames.Length)],
+                    Dosage = "1-0-1",
+                    Instructions = "Nach dem Essen einnehmen.",
+                    PrescribedDate = DateTime.Now.AddDays(-random.Next(1, 50))
+                });
+            }
+
+            patients.Add(patient);
+        }
+
+        // Spezielle Testdaten für Tobias Boyke (falls nicht in Liste)
+        if (!patients.Any(p => p.Lastname == "Boyke"))
+        {
+            patients.Add(new Patient
+            {
+                Firstname = "Tobias",
+                Lastname = "Boyke",
+                Birthdate = new DateTime(1986, 1, 16),
+                SocialSecurityNumber = "1234150590",
+                IsPrivatePatient = true,
+                Symptoms = "Übermäßiger Energy-Drink Konsum",
+                NextAppointmentDate = DateTime.Now.AddDays(2).AddHours(14),
+                Examinations = new List<Examination> { new Examination { Date = DateTime.Now.AddDays(-1), Findings = "Blutdruck leicht erhöht (Koffein?)" } }
+            });
+        }
 
         await context.Patients.AddRangeAsync(patients);
         await context.SaveChangesAsync();

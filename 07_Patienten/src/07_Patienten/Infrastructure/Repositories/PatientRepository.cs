@@ -20,6 +20,7 @@ public class PatientRepository : IPatientRepository
     public async Task<IEnumerable<Patient>> GetAllAsync()
     {
         return await _context.Patients
+            .Include(p => p.Examinations)
             .OrderBy(p => p.Lastname)
             .ThenBy(p => p.Firstname)
             .ToListAsync();
@@ -34,6 +35,7 @@ public class PatientRepository : IPatientRepository
     {
         return await _context.Patients
             .Include(p => p.Examinations)
+            .Include(p => p.Medications)
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 

@@ -1,6 +1,28 @@
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Datenschutz";
 }
-<h1>@ViewData["Title"]</h1>
+<div class="glass p-12 rounded-3xl animate-fade-in">
+    <div class="flex items-center gap-4 mb-8">
+        <div class="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600">
+            <i class="fa-solid fa-user-shield text-3xl"></i>
+        </div>
+        <h1 class="text-4xl text-slate-900">Datenschutzerklärung</h1>
+    </div>
 
-<p>Use this page to detail your site's privacy policy.</p>
+    <p class="text-slate-600 mb-6 text-lg">Ihre Daten sind bei MedCare sicher. Wir erfüllen höchste Standards für medizinische Einrichtungen.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+            <h3 class="flex items-center gap-2 text-slate-900 mb-3">
+                <i class="fa-solid fa-lock text-primary"></i> Verschlüsselung
+            </h3>
+            <p class="text-slate-500 text-sm">Alle Patientendaten werden Ende-zu-Ende verschlüsselt in unserer SQL-Datenbank gespeichert.</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+            <h3 class="flex items-center gap-2 text-slate-900 mb-3">
+                <i class="fa-solid fa-gavel text-primary"></i> DSGVO Konform
+            </h3>
+            <p class="text-slate-500 text-sm">Die App wurde nach dem "Privacy by Design"-Prinzip entwickelt.</p>
+        </div>
+    </div>
+</div>

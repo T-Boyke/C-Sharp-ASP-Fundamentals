@@ -16,6 +16,16 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Imprint()
+    {
+        return View();
+    }
+
+    public IActionResult Support()
+    {
+        return View();
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

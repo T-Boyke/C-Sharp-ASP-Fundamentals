@@ -26,6 +26,23 @@ public class Patient
     public required string SocialSecurityNumber { get; set; }
 
     /// <summary>
+    /// Gibt an, ob der Patient privat versichert ist (Prioritäts-Flag).
+    /// </summary>
+    public bool IsPrivatePatient { get; set; }
+
+    /// <summary>
+    /// Datum des nächsten geplanten Termins.
+    /// </summary>
+    [DataType(DataType.DateTime)]
+    public DateTime? NextAppointmentDate { get; set; }
+
+    /// <summary>
+    /// Aktuelle Symptome oder Anamnese-Notizen.
+    /// </summary>
+    [MaxLength(1000)]
+    public string? Symptoms { get; set; }
+
+    /// <summary>
     /// Berechnet das aktuelle Alter des Patienten.
     /// </summary>
     public int Age
@@ -45,4 +62,9 @@ public class Patient
     /// Navigations-Property für Untersuchungen.
     /// </summary>
     public virtual ICollection<Examination> Examinations { get; set; } = new List<Examination>();
+
+    /// <summary>
+    /// Navigations-Property für verschriebene Medikamente.
+    /// </summary>
+    public virtual ICollection<Medication> Medications { get; set; } = new List<Medication>();
 }

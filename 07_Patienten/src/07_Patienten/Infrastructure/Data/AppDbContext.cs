@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
 
     public DbSet<Patient> Patients { get; set; } = null!;
     public DbSet<Examination> Examinations { get; set; } = null!;
+    public DbSet<Medication> Medications { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,6 +24,11 @@ public class AppDbContext : DbContext
             entity.HasMany(p => p.Examinations)
                   .WithOne(e => e.Patient)
                   .HasForeignKey(e => e.PatientId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasMany(p => p.Medications)
+                  .WithOne(m => m.Patient)
+                  .HasForeignKey(m => m.PatientId)
                   .OnDelete(DeleteBehavior.Cascade);
         });
 

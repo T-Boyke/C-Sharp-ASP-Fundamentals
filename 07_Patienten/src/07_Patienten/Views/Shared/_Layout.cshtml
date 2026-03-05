@@ -81,16 +81,28 @@
         </div>
     </main>
 
-    <footer class="bg-white border-t border-slate-200 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-shield-halved text-primary"></i>
-                <span>&copy; 2026 MedCare Systems - DSGVO Konform</span>
-            </div>
-            <div class="flex gap-6">
-                <a href="#" class="hover:text-primary transition-colors">Datenschutz</a>
-                <a href="#" class="hover:text-primary transition-colors">Impressum</a>
-                <a href="#" class="hover:text-primary transition-colors">Support</a>
+    <footer class="bg-white border-t border-slate-200 py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-slate-500 text-sm">
+                <div class="flex flex-col gap-2 items-center md:items-start text-center md:text-left">
+                    <div class="flex items-center gap-2 font-bold text-slate-800">
+                        <i class="fa-solid fa-shield-halved text-emerald-500"></i>
+                        <span>MedCare Systems &copy; 2026</span>
+                    </div>
+                    <p class="text-xs">Built with ❤️ & copious amounts of Energy-Drinks by <b>Tobias Boyke</b></p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 font-medium uppercase tracking-wider text-[10px]">
+                    <a asp-controller="Home" asp-action="Privacy" class="hover:text-primary transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-lock text-slate-300"></i> Datenschutz
+                    </a>
+                    <a asp-controller="Home" asp-action="Imprint" class="hover:text-primary transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-contract text-slate-300"></i> Impressum
+                    </a>
+                    <a asp-controller="Home" asp-action="Support" class="hover:text-primary transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-question text-slate-300"></i> Support-Center
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
