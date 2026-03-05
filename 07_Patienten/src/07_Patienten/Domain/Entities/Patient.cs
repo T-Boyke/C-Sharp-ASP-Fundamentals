@@ -58,7 +58,25 @@ public class Patient
 
     public string Fullname => $"{Firstname} {Lastname}";
 
-    /// <summary>
+    // --- 3NF Relations ---
+
+    // Krankenkasse
+    public int? HealthInsuranceId { get; set; }
+    public virtual HealthInsurance? HealthInsurance { get; set; }
+
+    // Behandelnder Arzt
+    public int? DoctorId { get; set; }
+    public virtual Doctor? Doctor { get; set; }
+
+    // Anschrift
+    public int? AddressId { get; set; }
+    public virtual Address? Address { get; set; }
+
+    // Kontaktdaten
+    public int? ContactInfoId { get; set; }
+    public virtual ContactInfo? ContactInfo { get; set; }
+
+    // --- Collections ---
     /// Navigations-Property für Untersuchungen.
     /// </summary>
     public virtual ICollection<Examination> Examinations { get; set; } = new List<Examination>();

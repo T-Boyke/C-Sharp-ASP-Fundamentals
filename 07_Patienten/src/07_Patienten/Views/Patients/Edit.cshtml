@@ -83,6 +83,75 @@
                 </div>
             </div>
 
+            <!-- 3NF: Arzt & Krankenkasse -->
+            <h3 class="text-lg font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-stethoscope text-primary"></i> Zuordnung
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                    <label asp-for="DoctorId" class="text-sm font-semibold text-slate-700 ml-1">Behandelnder Arzt</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-user-doctor absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm"></i>
+                        <select asp-for="DoctorId" asp-items="ViewBag.Doctors" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none">
+                            <option value="">-- Arzt wählen --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label asp-for="HealthInsuranceId" class="text-sm font-semibold text-slate-700 ml-1">Krankenkasse</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-shield-heart absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm"></i>
+                        <select asp-for="HealthInsuranceId" asp-items="ViewBag.HealthInsurances" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none">
+                            <option value="">-- Kasse wählen --</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3NF: Anschrift -->
+            <h3 class="text-lg font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-location-dot text-primary"></i> Anschrift
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="space-y-2 md:col-span-2">
+                    <label class="text-sm font-semibold text-slate-700 ml-1">Straße</label>
+                    <input name="Address.Street" value="@Model.Address?.Street" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
+                </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-700 ml-1">Hausnr.</label>
+                    <input name="Address.HouseNumber" value="@Model.Address?.HouseNumber" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
+                </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-700 ml-1">PLZ</label>
+                    <input name="Address.ZipCode" value="@Model.Address?.ZipCode" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
+                </div>
+                <div class="space-y-2 md:col-span-2">
+                    <label class="text-sm font-semibold text-slate-700 ml-1">Stadt</label>
+                    <input name="Address.City" value="@Model.Address?.City" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
+                </div>
+            </div>
+
+            <!-- 3NF: Kontakt -->
+            <h3 class="text-lg font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-address-book text-primary"></i> Kontakt
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-700 ml-1">Telefon</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-phone absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm"></i>
+                        <input name="ContactInfo.PhoneNumber" value="@Model.ContactInfo?.PhoneNumber" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-700 ml-1">E-Mail</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-sm"></i>
+                        <input name="ContactInfo.Email" type="email" value="@Model.ContactInfo?.Email" class="w-full bg-white/60 border border-slate-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
+                    </div>
+                </div>
+            </div>
+
             <div class="mt-10 flex gap-4">
                 <button type="submit" class="flex-grow btn-premium bg-primary text-white hover:bg-primary-dark" aria-label="Änderungen an der Patientenakte speichern">
                     <i class="fa-solid fa-check" aria-hidden="true"></i> Änderungen speichern

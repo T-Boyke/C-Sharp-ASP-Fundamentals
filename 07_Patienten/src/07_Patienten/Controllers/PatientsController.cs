@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using _07_Patienten.Domain.Entities;
 using _07_Patienten.Domain.Interfaces;
+using _07_Patienten.Infrastructure.Data;
 
 namespace _07_Patienten.Controllers;
 
@@ -11,11 +14,23 @@ public class PatientsController : Controller
 {
     private readonly IPatientRepository _patientRepo;
     private readonly IMedicationRepository _medicationRepo;
+    private readonly AppDbContext _context;
 
-    public PatientsController(IPatientRepository patientRepo, IMedicationRepository medicationRepo)
+    public PatientsController(IPatientRepository patientRepo, IMedicationRepository medicationRepo, AppDbContext context)
     {
         _patientRepo = patientRepo;
         _medicationRepo = medicationRepo;
+        _context = context;
+    }
+
+    private async Task PopulateDropdownsAsync(Patient? patient = null)
+    {
+        ViewBag.Doctors = new SelectList(
+            await _context.Doctors.OrderBy(d => d.Lastname).ToListAsync(),
+            "Id", "Fullname", patient?.DoctorId);
+        ViewBag.HealthInsurances = new SelectList(
+            await _context.HealthInsurances.OrderBy(h => h.Name).ToListAsync(),
+            "Id", "Name", patient?.HealthInsuranceId);
     }
 
     // GET: Patients
@@ -34,8 +49,9 @@ public class PatientsController : Controller
     }
 
     // GET: Patients/Create
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
+        await PopulateDropdownsAsync();
         return View();
     }
 
@@ -49,14 +65,16 @@ public class PatientsController : Controller
             await _patientRepo.AddAsync(patient);
             return RedirectToAction(nameof(Index));
         }
+        await PopulateDropdownsAsync(patient);
         return View(patient);
     }
 
     // GET: Patients/Edit/5
     public async Task<IActionResult> Edit(int id)
     {
-        var patient = await _patientRepo.GetByIdAsync(id);
+        var patient = await _patientRepo.GetByIdWithExaminationsAsync(id);
         if (patient == null) return NotFound();
+        await PopulateDropdownsAsync(patient);
         return View(patient);
     }
 
@@ -72,6 +90,7 @@ public class PatientsController : Controller
             await _patientRepo.UpdateAsync(patient);
             return RedirectToAction(nameof(Index));
         }
+        await PopulateDropdownsAsync(patient);
         return View(patient);
     }
 

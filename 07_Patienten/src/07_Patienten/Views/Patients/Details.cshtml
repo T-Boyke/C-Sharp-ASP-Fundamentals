@@ -61,6 +61,60 @@
                 </div>
             }
 
+            <!-- 3NF: Zuordnung -->
+            <div class="mt-8 space-y-4">
+                @if (Model.Doctor != null)
+                {
+                    <div class="flex justify-between items-center p-3 rounded-xl bg-white/50 border border-white/20">
+                        <span class="text-sm text-slate-500"><i class="fa-solid fa-user-doctor mr-1"></i> Arzt</span>
+                        <span class="font-semibold text-slate-900">@Model.Doctor.Fullname</span>
+                    </div>
+                }
+                @if (Model.HealthInsurance != null)
+                {
+                    <div class="flex justify-between items-center p-3 rounded-xl bg-white/50 border border-white/20">
+                        <span class="text-sm text-slate-500"><i class="fa-solid fa-shield-heart mr-1"></i> Kasse</span>
+                        <span class="font-semibold text-slate-900">@Model.HealthInsurance.Name</span>
+                    </div>
+                }
+            </div>
+
+            <!-- 3NF: Anschrift -->
+            @if (Model.Address != null)
+            {
+                <div class="mt-6">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Anschrift</h4>
+                    <div class="p-4 rounded-2xl bg-slate-100 text-slate-700 text-sm border border-slate-200">
+                        <i class="fa-solid fa-location-dot mr-1 text-primary"></i>
+                        @Model.Address.Street @Model.Address.HouseNumber, @Model.Address.ZipCode @Model.Address.City
+                    </div>
+                </div>
+            }
+
+            <!-- 3NF: Kontakt -->
+            @if (Model.ContactInfo != null)
+            {
+                <div class="mt-6">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Kontakt</h4>
+                    <div class="space-y-2">
+                        @if (!string.IsNullOrEmpty(Model.ContactInfo.PhoneNumber))
+                        {
+                            <div class="p-3 rounded-xl bg-white/50 border border-white/20 flex items-center gap-2">
+                                <i class="fa-solid fa-phone text-primary text-sm"></i>
+                                <span class="text-sm text-slate-700">@Model.ContactInfo.PhoneNumber</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.ContactInfo.Email))
+                        {
+                            <div class="p-3 rounded-xl bg-white/50 border border-white/20 flex items-center gap-2">
+                                <i class="fa-solid fa-envelope text-primary text-sm"></i>
+                                <span class="text-sm text-slate-700">@Model.ContactInfo.Email</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
             <div class="grid grid-cols-2 gap-3 mt-8">
                 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-premium bg-slate-100 text-slate-600 hover:bg-white text-sm" aria-label="Patientendaten bearbeiten">
                     <i class="fa-solid fa-pen" aria-hidden="true"></i> Bearbeiten
@@ -270,30 +324,35 @@
 
         try {
             const response = await fetch(`/api/MedicationsApi/search?q=${encodeURIComponent(query)}`);
-            const results = await response.json();
-            currentResults = results;
+            
+            if (!response.ok) {
+                throw new Error("HTTP Fehler " + response.status);
+            }
 
-            if (response.ok && results.length > 0) {
-                status.textContent = `${results.length} Treffer gefunden. Bitte auswählen.`;
+            const results = await response.json();
+            currentResults = Array.isArray(results) ? results : [];
+
+            if (currentResults.length > 0) {
+                status.textContent = `${currentResults.length} Treffer gefunden. Bitte auswählen.`;
                 status.className = 'text-[10px] text-emerald-500 font-bold mt-1 ml-1';
                 
                 resultsContainer.classList.remove('hidden');
                 
-                results.forEach((res, index) => {
+                currentResults.forEach((res, index) => {
                     const item = document.createElement('div');
                     item.className = 'p-3 rounded-xl border border-slate-200 hover:border-primary hover:bg-primary/5 cursor-pointer transition-colors';
                     item.onclick = () => selectResult(index);
                     item.innerHTML = `
                         <div class="flex justify-between items-start">
-                            <span class="font-bold text-slate-800 text-sm">${res.name}</span>
-                            <span class="text-xs text-slate-400 font-mono flex-shrink-0 ml-2">PZN: ${res.pzn}</span>
+                            <span class="font-bold text-slate-800 text-sm">${res.name || 'Unbekannt'}</span>
+                            <span class="text-xs text-slate-400 font-mono flex-shrink-0 ml-2">PZN: ${res.pzn || ''}</span>
                         </div>
                         <div class="text-xs text-slate-500 mt-1">${res.dosage || ''}</div>
                     `;
                     resultsContainer.appendChild(item);
                 });
 
-                if (results.length === 1 && query.length >= 8) {
+                if (currentResults.length === 1 && query.length >= 8) {
                     selectResult(0);
                 }
 
@@ -302,13 +361,15 @@
                 status.className = 'text-[10px] text-rose-500 font-bold mt-1 ml-1';
             }
         } catch (error) {
-            status.textContent = 'Netzwerkfehler bei der Abfrage.';
+            console.error(error);
+            status.textContent = 'Fehler bei der Abfrage: ' + error.message;
             status.className = 'text-[10px] text-rose-500 font-bold mt-1 ml-1';
-        } finally {
-            btn.disabled = false;
-            text.classList.remove('hidden');
-            spinner.classList.add('hidden');
         }
+
+        // Reset state directly (instead of finally block which might have issues in some edge cases)
+        btn.disabled = false;
+        text.classList.remove('hidden');
+        spinner.classList.add('hidden');
     }
 
     function selectResult(index) {

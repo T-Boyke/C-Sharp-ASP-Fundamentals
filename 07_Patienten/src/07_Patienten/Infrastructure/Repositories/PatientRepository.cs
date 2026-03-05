@@ -21,6 +21,10 @@ public class PatientRepository : IPatientRepository
     {
         return await _context.Patients
             .Include(p => p.Examinations)
+            .Include(p => p.Doctor)
+            .Include(p => p.HealthInsurance)
+            .Include(p => p.Address)
+            .Include(p => p.ContactInfo)
             .OrderBy(p => p.Lastname)
             .ThenBy(p => p.Firstname)
             .ToListAsync();
@@ -36,6 +40,10 @@ public class PatientRepository : IPatientRepository
         return await _context.Patients
             .Include(p => p.Examinations)
             .Include(p => p.Medications)
+            .Include(p => p.Doctor)
+            .Include(p => p.HealthInsurance)
+            .Include(p => p.Address)
+            .Include(p => p.ContactInfo)
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
