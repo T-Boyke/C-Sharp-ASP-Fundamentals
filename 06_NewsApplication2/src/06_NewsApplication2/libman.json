@@ -1,0 +1,19 @@
+{
+    "version": "3.0",
+    "defaultProvider": "cdnjs",
+    "libraries": [
+        {
+            "library": "tailwindcss@4.1.13",
+            "destination": "wwwroot/lib/tailwindcss/"
+        },
+        {
+            "library": "tailwindcss-browser@4.1.13",
+            "destination": "wwwroot/lib/tailwindcss-browser/"
+        },
+        {
+            "provider": "jsdelivr",
+            "library": "@fortawesome/fontawesome-free@7.2.0",
+            "destination": "wwwroot/lib/fortawesome/fontawesome-free/"
+        }
+    ]
+}
