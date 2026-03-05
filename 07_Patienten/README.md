@@ -17,9 +17,9 @@ Stell dir vor, du arbeitest in einer Arztpraxis. Du brauchst ein Programm, um Pa
 ## 🏗️ Wie ist das Projekt aufgebaut?
 Das Projekt besteht aus drei großen Teilen:
 
-1.  **[Domäne (Kernelemente)](./src/07_Patienten/Models)**: Hier liegen `Patient.cs` und `Examination.cs`. Das sind die Baupläne für unsere Daten. Ein Patient hat einen Namen, ein Geburtsdatum und viele Untersuchungen.
-2.  **[Webseite (UI)](./src/07_Patienten/Views)**: Hier nutzen wir **Tailwind CSS 4**. Das sorgt dafür, dass die Seite modern und "premium" aussieht – wie bei einer teuren Privatpraxis! ✨
-3.  **[Datenbank (Speicher)](./src/07_Patienten/Infrastructure)**: Wir nutzen EF Core (Code-First). Das bedeutet: Wir schreiben C#-Code, und das Programm baut die Datenbank von ganz alleine.
+1.  **[Domäne (Kernelemente)](./src/07_Patienten/Domain/Entities)**: Hier liegen die Entitäten: `Patient.cs`, `Examination.cs`, `Medication.cs`, `Doctor.cs`, `HealthInsurance.cs`, `Address.cs` und `ContactInfo.cs`. Die Datenbank ist in der **3. Normalform (3NF)** aufgebaut – jede Information steht nur einmal an der richtigen Stelle.
+2.  **[Webseite (UI)](./src/07_Patienten/Views)**: Hier nutzen wir **Tailwind CSS 4**. Formulare für Patienten haben **Dropdown-Menüs** für Arzt und Krankenkasse sowie Eingabefelder für Anschrift und Kontaktdaten. ✨
+3.  **[Datenbank (Speicher)](./src/07_Patienten/Infrastructure)**: Wir nutzen EF Core (Code-First). Der `DbSeeder` erstellt 50 Testpatienten mit Düsseldorfer Adressen, 4 Ärzten und 6 deutschen Krankenkassen.
 
 ---
 
@@ -41,8 +41,10 @@ Keine Angst vor der Technik! Folge einfach diesen Schritten:
 ---
 
 ## 🛡️ Qualität & Sicherheit
+*   **3NF Datenbank**: Arzt, Krankenkasse, Adresse und Kontaktdaten sind als eigene Tabellen normalisiert – keine Redundanz.
 *   **Asynchroner Code**: Die App "friert" nie ein, weil sie alle schweren Aufgaben im Hintergrund erledigt (`async/await`).
-*   **PZN Live-Check**: Medikamente können sekundenschnell via Pharmazentralnummer gesucht und mit Auto-Fill übernommen werden.
+*   **PZN Live-Suche**: Medikamente können sekundenschnell via Name oder PZN gesucht werden – mit Live-Preview beim Tippen.
+*   **Bogus Fake-Daten**: 50 Testpatienten mit realistischen Düsseldorfer Adressen, Telefonnummern und E-Mails.
 *   **♿ Barrierefreiheit**: Volle ARIA-Unterstützung und semantisches HTML für Screenreader-Kompatibilität.
 *   **Premium Design**: Alles ist animiert, responsive und sieht auf dem Handy super aus.
 

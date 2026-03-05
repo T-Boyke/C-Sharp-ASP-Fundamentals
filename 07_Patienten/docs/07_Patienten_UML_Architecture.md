@@ -16,8 +16,39 @@ classDiagram
         +bool IsPrivatePatient
         +DateTime? NextAppointmentDate
         +string Symptoms
+        +int? DoctorId
+        +int? HealthInsuranceId
+        +int? AddressId
+        +int? ContactInfoId
         +List~Examination~ Examinations
         +List~Medication~ Medications
+    }
+
+    class Doctor {
+        +int Id
+        +string Title
+        +string Firstname
+        +string Lastname
+        +string Fullname
+    }
+
+    class HealthInsurance {
+        +int Id
+        +string Name
+    }
+
+    class Address {
+        +int Id
+        +string Street
+        +string HouseNumber
+        +string ZipCode
+        +string City
+    }
+
+    class ContactInfo {
+        +int Id
+        +string PhoneNumber
+        +string Email
     }
 
     class Examination {
@@ -25,7 +56,6 @@ classDiagram
         +DateTime Date
         +string Findings
         +int PatientId
-        +Patient Patient
     }
 
     class Medication {
@@ -40,29 +70,23 @@ classDiagram
         <<interface>>
         +GetAllAsync() Task~IEnumerable~
         +GetByIdAsync(int id) Task~Patient~
+        +GetByIdWithExaminationsAsync(int id) Task~Patient~
         +AddAsync(Patient p) Task
     }
 
     class IMedicationLookupService {
         <<interface>>
-        +SearchByPznAsync(string pzn) Task
+        +SearchAsync(string query) Task~List~
     }
 
-    class PatientRepository {
-        -AppDbContext _context
-        +AddAsync(Patient p) Task
-    }
-
-    class MedicationLookupService {
-        -HttpClient _httpClient
-        +SearchByPznAsync(string pzn) Task
-    }
-
+    Patient "*" --> "1" Doctor : behandelt von
+    Patient "*" --> "1" HealthInsurance : versichert bei
+    Patient "1" --> "1" Address : wohnt in
+    Patient "1" --> "1" ContactInfo : erreichbar unter
     Patient "1" --> "*" Examination : besitzt
     Patient "1" --> "*" Medication : verschrieben
     IPatientRepository <|.. PatientRepository : implementiert
     IMedicationLookupService <|.. MedicationLookupService : implementiert
-    PatientRepository --> Patient : verwaltet
 ```
 
 ## 2. Use Case Diagramm (Funktionalität)
@@ -97,19 +121,16 @@ sequenceDiagram
     participant User as Browser / Frontend
     participant Api as MedicationsApiController
     participant Service as MedicationLookupService
-    participant Extern as Externes System (via PZN)
+    participant DB as Mock-Datenbank (30 Medikamente)
 
-    User->>Api: GET /api/MedicationsApi/lookup/{pzn}
-    Api->>Service: SearchByPznAsync(pzn)
-    alt Mock found
-        Service-->>Api: Return Mock Data
-    else Scrape Live
-        Service->>Extern: HTTP GET (PZN Search)
-        Extern-->>Service: HTML Response
-        Service->>Service: Parse Metadata
-        Service-->>Api: Return Scraped Data
-    end
-    Api-->>User: JSON Response (Success/Fail)
+    User->>Api: GET /api/MedicationsApi/search?q=ibupro
+    Api->>Service: SearchAsync("ibupro")
+    Service->>DB: Suche nach Name/PZN
+    DB-->>Service: Treffer-Liste
+    Service-->>Api: List~MedicationSearchResult~
+    Api-->>User: JSON Response (Treffer)
+    User->>User: Live-Preview anzeigen
+    User->>User: Medikament auswählen → Formular füllen
 ```
 
 ## 4. Zustandsdiagramm (Patienten-Status)
@@ -154,8 +175,35 @@ Das physische Datenmodell (Code-First Schema).
 
 ```mermaid
 erDiagram
+    DOCTOR ||--o{ PATIENT : "behandelt"
+    HEALTH_INSURANCE ||--o{ PATIENT : "versichert"
+    ADDRESS ||--o{ PATIENT : "wohnt in"
+    CONTACT_INFO ||--o{ PATIENT : "erreichbar unter"
     PATIENT ||--o{ EXAMINATION : "hat viele"
     PATIENT ||--o{ MEDICATION : "bekommt viele"
+
+    DOCTOR {
+        int Id PK
+        string Title
+        string Firstname
+        string Lastname
+    }
+    HEALTH_INSURANCE {
+        int Id PK
+        string Name
+    }
+    ADDRESS {
+        int Id PK
+        string Street
+        string HouseNumber
+        string ZipCode
+        string City
+    }
+    CONTACT_INFO {
+        int Id PK
+        string PhoneNumber
+        string Email
+    }
     PATIENT {
         int Id PK
         string Firstname
@@ -165,6 +213,10 @@ erDiagram
         bool IsPrivatePatient
         datetime NextAppointmentDate
         string Symptoms
+        int DoctorId FK
+        int HealthInsuranceId FK
+        int AddressId FK
+        int ContactInfoId FK
     }
     EXAMINATION {
         int Id PK
