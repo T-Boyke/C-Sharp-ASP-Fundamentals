@@ -1,0 +1,10 @@
+{
+  "name": "09_identity_web",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli@4.2 -i Views/Shared/input.css -o wwwroot/css/output.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.2"
+  }
+}

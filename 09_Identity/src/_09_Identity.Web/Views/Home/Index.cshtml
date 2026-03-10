@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Willkommen";
+}
+
+<div class="grow container mx-auto px-6 py-20 flex flex-col items-center justify-center text-center">
+    <div class="max-w-3xl space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
+        <h1 class="text-6xl md:text-8xl font-black text-slate-800 tracking-tighter">
+            Einfach. Sicher. <br/>
+            <span class="bg-clip-text text-transparent bg-linear-to-r from-indigo-600 to-violet-500">Exzellent.</span>
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
+            Erleben Sie die nächste Generation des Identitätsmanagements. Basierend auf Clean Architecture, DDD und ASP.NET Core Identity.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-6 pt-8">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <div class="bg-white p-8 rounded-3xl shadow-xl border border-indigo-100 flex items-center gap-6 transform transition-transform hover:scale-105">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center">
+                        <i class="fa fa-unlock-alt text-3xl"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-slate-400 text-sm font-bold uppercase tracking-widest">Status: Angemeldet</p>
+                        <h2 class="text-2xl font-black text-slate-800">Willkommen zurück, @User.Identity.Name!</h2>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black py-5 px-10 rounded-2xl transition-all shadow-2xl shadow-indigo-200 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-3">
+                    JETZT STARTEN <i class="fa fa-arrow-right text-indigo-300"></i>
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+<section class="bg-white py-20 border-t border-indigo-50">
+    <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="space-y-4">
+            <div class="w-12 h-12 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center">
+                <i class="fa fa-code text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800">Clean Architecture</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Strikte Trennung von Belangen durch Domain-Driven Design und Layered Architecture.</p>
+        </div>
+        <div class="space-y-4">
+            <div class="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-xl flex items-center justify-center">
+                <i class="fa fa-fingerprint text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800">Modern IAM</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Sichere Authentifizierung und Autorisierung mit Microsoft Identity Standards.</p>
+        </div>
+        <div class="space-y-4">
+            <div class="w-12 h-12 bg-amber-50 text-amber-500 rounded-xl flex items-center justify-center">
+                <i class="fa fa-bolt text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800">Tailwind 4.2</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Next-Generation CSS Framework für blitzschnelle und hochgradig anpassbare User Interfaces.</p>
+        </div>
+    </div>
+</section>

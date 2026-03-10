@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/_09_Identity.Domain/_09_Identity.Domain.csproj" />
+    <Project Path="src/_09_Identity.Application/_09_Identity.Application.csproj" />
+    <Project Path="src/_09_Identity.Infrastructure/_09_Identity.Infrastructure.csproj" />
+    <Project Path="src/_09_Identity.Web/_09_Identity.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/_09_Identity.Domain.Tests/_09_Identity.Domain.Tests.csproj" />
+    <Project Path="tests/_09_Identity.Application.Tests/_09_Identity.Application.Tests.csproj" />
+    <Project Path="tests/_09_Identity.Web.Tests/_09_Identity.Web.Tests.csproj" />
+  </Folder>
+</Solution>

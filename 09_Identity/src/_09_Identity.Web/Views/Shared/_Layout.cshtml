@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Identity Excellence</title>
+    
+    <!-- Tailwind CSS 4.2 CLI Output -->
+    <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" />
+    
+    <!-- Font-Awesome 7.2 (Local) -->
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="bg-indigo-50 text-slate-900 min-h-screen flex flex-col">
+    <header class="glass sticky top-0 z-50 border-b border-indigo-100 shadow-sm">
+        <nav class="container mx-auto px-6 h-18 flex items-center justify-between">
+            <a class="text-2xl font-extrabold tracking-tighter" asp-controller="Home" asp-action="Index">
+                <span class="bg-clip-text text-transparent bg-linear-to-r from-indigo-600 to-violet-500">
+                    IDENTITY<span class="font-extralight text-slate-400">PRO</span>
+                </span>
+            </a>
+            
+            <div class="flex items-center gap-8">
+                <ul class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
+                    <li><a class="hover:text-indigo-600 transition-colors" asp-controller="Home" asp-action="Index">Dashboard</a></li>
+                </ul>
+                
+                <div class="h-6 w-px bg-slate-200"></div>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm font-medium px-3 py-1 bg-white rounded-full border border-indigo-100 shadow-sm">
+                            <i class="fa fa-user-circle text-indigo-500 mr-2"></i> @User.Identity.Name
+                        </span>
+                        <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
+                            <button type="submit" class="text-sm font-bold text-rose-500 hover:text-rose-600 transition-colors">
+                                <i class="fa fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold py-2 px-6 rounded-full transition-all shadow-md hover:shadow-indigo-200">
+                        Sign In
+                    </a>
+                }
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="grow flex flex-col">
+        @RenderBody()
+    </main>
+
+    <footer class="border-t border-indigo-100 bg-white py-8">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-slate-400 text-sm italic">
+                &copy; 2026 - Identity Excellence Framework - IHK Standard
+            </p>
+            <div class="flex gap-6 text-slate-400">
+                <i class="fab fa-github hover:text-indigo-500 transition-colors cursor-pointer"></i>
+                <i class="fab fa-linkedin hover:text-indigo-500 transition-colors cursor-pointer"></i>
+            </div>
+        </div>
+    </footer>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

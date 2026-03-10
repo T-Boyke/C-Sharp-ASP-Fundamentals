@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Filmdatenbank</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        @@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 group/body">
+    <header class="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 px-6 lg:px-8" aria-label="Global">
+            <div class="flex lg:flex-1">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="-m-1.5 p-1.5 flex items-center gap-2">
+                    <i class="fa-solid fa-film text-indigo-600 text-2xl"></i>
+                    <span class="text-xl font-bold tracking-tight text-slate-900">Film<span class="text-indigo-600">DB</span></span>
+                </a>
+            </div>
+            
+            <div class="hidden lg:flex lg:gap-x-12">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="text-sm font-semibold leading-6 text-slate-900 hover:text-indigo-600 transition-colors">Home</a>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a asp-area="" asp-controller="Film" asp-action="Index" class="text-sm font-semibold leading-6 text-slate-900 hover:text-indigo-600 transition-colors">Filme</a>
+                }
+            </div>
+            
+            <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-4 items-center">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <span class="text-xs text-slate-500">Hallo, @User.Identity?.Name</span>
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
+                        <button type="submit" class="text-sm font-semibold leading-6 text-slate-900 hover:text-red-600 transition-colors">Logout <span aria-hidden="true">&rarr;</span></button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="text-sm font-semibold leading-6 text-slate-900 hover:text-indigo-600 transition-colors">Log in <span aria-hidden="true">&rarr;</span></a>
+                }
+            </div>
+        </nav>
+    </header>
+
+    <main class="min-h-screen">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-12 mt-20">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8 text-center">
+            <p class="text-sm text-slate-500">&copy; 2026 Filmdatenbank - Build with ❤️ for C# ASP.NET Core Fundamentals</p>
+        </div>
+    </footer>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

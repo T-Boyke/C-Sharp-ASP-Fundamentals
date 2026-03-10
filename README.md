@@ -91,10 +91,10 @@ We adhere to the following architectural pillars:
 | **04** | **[Shopping List](./04_ShoppingList)** | **Full MVC app with DDD, TDD, and Tailwind CSS.** | **[View](./04_ShoppingList)** |
 | 05 | [Unit 05](./05_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./05_Unit_Template) |
 | 06 | [Unit 06](./06_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./06_Unit_Template) |
-| 07 | [Unit 07](./07_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./07_Unit_Template) |
+| 07 | [Patienten-Management](./07_Patienten) | **Masterpiece project with 3NF, EF Core, and premium UI.** | [View](./07_Patienten) |
 | 08 | [Unit 08](./08_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./08_Unit_Template) |
-| 09 | [Unit 09](./09_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./09_Unit_Template) |
-| 10 | [Unit 10](./10_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./10_Unit_Template) |
+| 09 | [Identity Management](./09_Identity) | **Modern IAM with Identity, RBAC, and Clean Architecture.** | [View](./09_Identity) |
+| **10** | **[Film Database](./10_Filmdatenbank)** | **Clean Architecture MVC app with many-to-many relationships.** | **[View](./10_Filmdatenbank)** |
 | 11 | [Unit 11](./11_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./11_Unit_Template) |
 | 12 | [Unit 12](./12_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./12_Unit_Template) |
 | 13 | [Unit 13](./13_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./13_Unit_Template) |
