@@ -1,0 +1,64 @@
+@model IEnumerable<_08_Patienten2.Application.DTOs.PatientDto>
+
+@{
+    ViewData["Title"] = "Patienten-Übersicht";
+}
+
+<div class="container mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-4xl font-bold text-slate-800 tracking-tight">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500">
+                Patienten-Management
+            </span>
+        </h1>
+        
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-all duration-200 transform hover:-translate-y-1 shadow-lg flex items-center gap-2">
+                <i class="fa fa-plus"></i> Neuer Patient
+            </a>
+        }
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @foreach (var patient in Model)
+        {
+            <div class="glass p-6 rounded-2xl hover-lift shadow-sm hover:shadow-xl transition-all border border-slate-100 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 rounded-xl bg-blue-50 text-blue-600">
+                            <i class="fa fa-user text-xl"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400 bg-slate-50 px-2 py-1 rounded">@patient.SocialSecurityNumber</span>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-slate-800 mb-1">@patient.Fullname</h3>
+                    <p class="text-sm text-slate-500 mb-4">@patient.Age Jahre • Geboren am @patient.Birthdate.ToString("dd.MM.yyyy")</p>
+                    
+                    @if (!string.IsNullOrEmpty(patient.Symptoms))
+                    {
+                        <div class="bg-amber-50 border-l-4 border-amber-400 p-3 mb-4 rounded-r">
+                            <p class="text-xs text-amber-700 italic line-clamp-2">"@patient.Symptoms"</p>
+                        </div>
+                    }
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-slate-50 flex justify-between gap-2">
+                    <button class="flex-1 py-1.5 px-3 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-md transition-colors">Details</button>
+                    <button class="flex-1 py-1.5 px-3 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-md transition-colors">Akte</button>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-20 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">
+            <div class="text-slate-400 mb-4">
+                <i class="fa fa-folder-open text-6xl"></i>
+            </div>
+            <h2 class="text-xl font-medium text-slate-600">Keine Patienten gefunden</h2>
+            <p class="text-slate-400 mt-2">Beginnen Sie mit der Erfassung eines neuen Patienten.</p>
+        </div>
+    }
+</div>

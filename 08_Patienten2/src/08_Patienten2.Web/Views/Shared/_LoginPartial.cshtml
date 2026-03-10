@@ -1,0 +1,27 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="flex items-center gap-4 text-sm font-medium">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="text-slate-500">
+        Hallo, <span class="font-bold text-slate-800">@User.Identity?.Name</span>!
+        @if (User.IsInRole("Admin"))
+        {
+            <span class="ml-1 text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full uppercase tracking-wider font-bold">Admin</span>
+        }
+    </li>
+    <li>
+        <form class="inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Patient", new { area = "" })">
+            <button type="submit" class="text-slate-600 hover:text-red-600 transition-colors">Abmelden</button>
+        </form>
+    </li>
+}
+else
+{
+    <li>
+        <a class="text-slate-600 hover:text-blue-600 transition-colors" asp-area="Identity" asp-page="/Account/Login">Anmelden</a>
+    </li>
+}
+</ul>

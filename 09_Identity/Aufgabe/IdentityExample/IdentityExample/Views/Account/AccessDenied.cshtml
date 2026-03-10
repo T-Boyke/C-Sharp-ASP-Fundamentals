@@ -1,0 +1,10 @@
+﻿@{
+    ViewData["Title"] = "Zugriff verweigert";
+}
+@model string
+
+<h1 class="text-danger">Zugriff verweigert</h1>
+<a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model"
+    class="btn btn-outline-dark">Login</a>
+<a asp-controller="Home" asp-action="Index"
+    class="btn btn-outline-dark">Startseite</a>

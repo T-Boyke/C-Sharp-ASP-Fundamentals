@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/08_Patienten2.Domain/08_Patienten2.Domain.csproj" />
+    <Project Path="src/08_Patienten2.Application/08_Patienten2.Application.csproj" />
+    <Project Path="src/08_Patienten2.Infrastructure/08_Patienten2.Infrastructure.csproj" />
+    <Project Path="src/08_Patienten2.Web/08_Patienten2.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/08_Patienten2.Domain.Tests/08_Patienten2.Domain.Tests.csproj" />
+    <Project Path="tests/08_Patienten2.Application.Tests/08_Patienten2.Application.Tests.csproj" />
+    <Project Path="tests/08_Patienten2.Infrastructure.Tests/08_Patienten2.Infrastructure.Tests.csproj" />
+    <Project Path="tests/08_Patienten2.Web.Tests/08_Patienten2.Web.Tests.csproj" />
+  </Folder>
+</Solution>
