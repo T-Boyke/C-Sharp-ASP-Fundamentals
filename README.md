@@ -2,6 +2,9 @@
 
 Welcome to the ultimate **C# ASP.NET Core 10** learning and development playground! This repository is meticulously structured to follow industry-leading best practices, from **Domain-Driven Design (DDD)** to **100% Test Coverage** and modern **Utility-First Frontend Architectures**.
 
+> [!NOTE]
+> This project is the successor to [C-Sharp-OOP-Fundamentals](https://github.com/T-Boyke/C-Sharp-OOP-Fundamentals).
+
 ---
 
 ## 📊 Repository Health & Status
@@ -34,11 +37,15 @@ Unit 04 has been fully implemented as a modern, IHK-compliant **Shopping List Ap
 <details open>
 <summary><b>Click to expand</b></summary>
 
-- [🏗️ Core Architecture & Design](#-core-architecture--design)
-- [🛡️ Code Quality Guidelines](#-code-quality-guidelines)
-- [⚙️ Workflow & CI/CD](#-workflow--cicd)
-- [📚 Units & Projects](#-units--projects)
-- [🛠️ Local Development Setup](#-local-development-setup)
+- [🚀 C# ASP.NET Core 10 Fundamentals](#-c-aspnet-core-10-fundamentals)
+  - [📊 Repository Health \& Status](#-repository-health--status)
+  - [🌟 Featured Project: Unit 04 Einkaufsliste](#-featured-project-unit-04-einkaufsliste)
+  - [🗺️ Table of Contents](#️-table-of-contents)
+  - [🏗️ Core Architecture \& Design](#️-core-architecture--design)
+  - [🛡️ Code Quality Guidelines](#️-code-quality-guidelines)
+  - [⚙️ Workflow \& CI/CD](#️-workflow--cicd)
+  - [📚 Units \& Projects](#-units--projects)
+  - [🛠️ Local Development Setup](#️-local-development-setup)
 </details>
 
 ---
