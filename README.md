@@ -37,15 +37,15 @@ Unit 04 has been fully implemented as a modern, IHK-compliant **Shopping List Ap
 <details open>
 <summary><b>Click to expand</b></summary>
 
-- [🚀 C# ASP.NET Core 10 Fundamentals](#-c-aspnet-core-10-fundamentals)
-  - [📊 Repository Health \& Status](#-repository-health--status)
-  - [🌟 Featured Project: Unit 04 Einkaufsliste](#-featured-project-unit-04-einkaufsliste)
-  - [🗺️ Table of Contents](#️-table-of-contents)
-  - [🏗️ Core Architecture \& Design](#️-core-architecture--design)
-  - [🛡️ Code Quality Guidelines](#️-code-quality-guidelines)
-  - [⚙️ Workflow \& CI/CD](#️-workflow--cicd)
-  - [📚 Units \& Projects](#-units--projects)
-  - [🛠️ Local Development Setup](#️-local-development-setup)
+* [🚀 C# ASP.NET Core 10 Fundamentals](#-c-aspnet-core-10-fundamentals)
+* [📊 Repository Health \& Status](#-repository-health--status)
+* [🌟 Featured Project: Unit 04 Einkaufsliste](#-featured-project-unit-04-einkaufsliste)
+* [🗺️ Table of Contents](#️-table-of-contents)
+* [🏗️ Core Architecture \& Design](#️-core-architecture--design)
+* [🛡️ Code Quality Guidelines](#️-code-quality-guidelines)
+* [⚙️ Workflow \& CI/CD](#️-workflow--cicd)
+* [📚 Units \& Projects](#-units--projects)
+* [🛠️ Local Development Setup](#️-local-development-setup)
 </details>
 
 ---
@@ -54,10 +54,10 @@ Unit 04 has been fully implemented as a modern, IHK-compliant **Shopping List Ap
 
 We adhere to the following architectural pillars:
 
-- **📐 DDD (Domain Driven Design)**: Focus on the core domain, bounded contexts, and ubiquitous language.
-- **🏗️ Clean Architecture**: Strict separation of concerns using MVC and Onion principles.
-- **🎨 OOCSS & Atomic Design**: Styling is structured via modules (e.g., `theme.css`, `buttons.css`) to ensure predictable scalable UIs.
-- **🧱 SOLID**: The foundation for modular and scalable C# systems.
+* **📐 DDD (Domain Driven Design)**: Focus on the core domain, bounded contexts, and ubiquitous language.
+* **🏗️ Clean Architecture**: Strict separation of concerns using MVC and Onion principles.
+* **🎨 OOCSS & Atomic Design**: Styling is structured via modules (e.g., `theme.css`, `buttons.css`) to ensure predictable scalable UIs.
+* **🧱 SOLID**: The foundation for modular and scalable C# systems.
 
 ---
 
@@ -66,18 +66,18 @@ We adhere to the following architectural pillars:
 > [!IMPORTANT]
 > **Quality is non-negotiable.** We follow a zero-compromise policy on code quality, including exhaustive C#-XML (`<summary>`) documentation per IHK standards.
 
-- **🧪 TDD (Test Driven)**: Red-Green-Refactor is our heartbeat.
-- **📈 100% Coverage**: Every logic branch verified via **xUnit**.
-- **✨ DRY & KISS**: Don't Repeat Yourself. Keep It Simple, Stupid.
-- **📄 1 Class per File**: Exceptionally clean file organization.
+* **🧪 TDD (Test Driven)**: Red-Green-Refactor is our heartbeat.
+* **📈 100% Coverage**: Every logic branch verified via **xUnit**.
+* **✨ DRY & KISS**: Don't Repeat Yourself. Keep It Simple, Stupid.
+* **📄 1 Class per File**: Exceptionally clean file organization.
 
 ---
 
 ## ⚙️ Workflow & CI/CD
 
-- **🧩 SFC (Single File Components)**: Modular UI architecture for Blazor and Razor.
-- **🚀 Automated Tooling**: Quality gates, linting, and automated builds.
-- **📝 Documentation**: Extensive **Kdoc** in every unit and Architectural Decision Records (ADR).
+* **🧩 SFC (Single File Components)**: Modular UI architecture for Blazor and Razor.
+* **🚀 Automated Tooling**: Quality gates, linting, and automated builds.
+* **📝 Documentation**: Extensive **Kdoc** in every unit and Architectural Decision Records (ADR).
 
 ---
 
@@ -116,25 +116,31 @@ We adhere to the following architectural pillars:
 | 29 | [Unit 29](./29_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./29_Unit_Template) |
 | 30 | [Unit 30](./30_Unit_Template) | Advanced WebAPI Template. | [View](./30_Unit_Template) |
 
-*(Note: Table will be updated as units are populated)*
+> [!NOTE]
+> Table will be updated as units are populated.
 
 ---
 
 ## 🛠️ Local Development Setup
 
-1. **Clone the repo**:
-   ```bash
-   git clone https://github.com/T-Boyke/C-Sharp-ASP-Fundamentals.git
-   ```
-2. **Navigate to the workspace**:
-   ```bash
-   cd C-Sharp-ASP-Fundamentals
-   ```
-3. **Run a project**:
-   ```bash
-   cd 01_Project_Setup
-   dotnet run
-   ```
+1.  **Clone the repo**:
+
+    ```bash
+    git clone https://github.com/T-Boyke/C-Sharp-ASP-Fundamentals.git
+    ```
+
+2.  **Navigate to the workspace**:
+
+    ```bash
+    cd C-Sharp-ASP-Fundamentals
+    ```
+
+3.  **Run a project**:
+
+    ```bash
+    cd 01_Project_Setup
+    dotnet run
+    ```
 
 ---
 
