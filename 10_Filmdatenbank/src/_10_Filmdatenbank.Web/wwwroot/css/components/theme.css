@@ -7,7 +7,7 @@
   --color-brand-bg: #fafafa;
 }
 
-@variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* Base Body Styles for Light / Dark Mode Handling */
 @layer base {
