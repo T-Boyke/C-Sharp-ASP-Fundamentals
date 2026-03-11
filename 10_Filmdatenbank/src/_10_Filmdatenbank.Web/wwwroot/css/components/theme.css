@@ -7,7 +7,7 @@
   --color-brand-bg: #fafafa;
 }
 
-@custom-variant dark (.dark &);
+@variant dark (&:where(.dark, .dark *));
 
 /* Base Body Styles for Light / Dark Mode Handling */
 @layer base {
@@ -15,7 +15,7 @@
     @apply bg-brand-bg text-slate-900 font-sans antialiased transition-colors duration-300;
   }
   
-  :is(.dark *) body {
+  .dark body {
     @apply bg-slate-950 text-white;
   }
 }

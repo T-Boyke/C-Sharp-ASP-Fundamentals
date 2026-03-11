@@ -7,8 +7,8 @@
 <div class="flex min-h-[60vh] items-center justify-center px-4 py-20">
     <div class="w-full max-w-md">
         <div class="text-center mb-10">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-primary shadow-lg mb-6">
-                <i aria-hidden="true" class="fa-solid fa-lock text-white text-3xl"></i>
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-soft shadow-sm border border-brand-border mb-6">
+                <i aria-hidden="true" class="fa-solid fa-lock text-brand-primary text-3xl"></i>
             </div>
             <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white transition-colors">Willkommen zurück</h2>
             <p class="mt-2 text-slate-500 dark:text-slate-400 font-medium transition-colors">Melden Sie sich an, um Ihre Datenbank zu verwalten.</p>
@@ -27,7 +27,7 @@
                     <label asp-for="Email" class="form-label">
                         <i aria-hidden="true" class="fa-solid fa-envelope mr-1 text-slate-400 dark:text-slate-500"></i> Email Adresse
                     </label>
-                    <input asp-for="Email" type="email" autocomplete="email" required class="form-input">
+                    <input asp-for="Email" type="email" autocomplete="email" required class="form-input" placeholder="Beispiel Test">
                     <span asp-validation-for="Email" class="form-error"></span>
                 </div>
 
@@ -35,7 +35,7 @@
                     <label asp-for="Password" class="form-label">
                         <i aria-hidden="true" class="fa-solid fa-key mr-1 text-slate-400 dark:text-slate-500"></i> Passwort
                     </label>
-                    <input asp-for="Password" type="password" autocomplete="current-password" required class="form-input">
+                    <input asp-for="Password" type="password" autocomplete="current-password" required class="form-input" placeholder="Beispiel Test">
                     <span asp-validation-for="Password" class="form-error"></span>
                 </div>
 

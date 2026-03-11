@@ -1,0 +1,63 @@
+@model IEnumerable<_10_Filmdatenbank.Domain.Entities.Person>
+
+@{
+    ViewData["Title"] = "Schauspieler & Team";
+}
+
+<div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-slate-200 dark:border-slate-800 pb-8 transition-colors duration-300">
+        <div>
+            <div class="flex items-center gap-2 mb-2">
+                <i aria-hidden="true" class="fa-solid fa-users text-brand-primary"></i>
+                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none">Mitwirkende</span>
+            </div>
+            <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors">Schauspieler & Team</h1>
+            <p class="mt-3 text-lg text-slate-500 dark:text-slate-400 max-w-2xl font-medium transition-colors">Entdecken Sie die Gesichter hinter unseren Filmproduktionen.</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        @foreach (var person in Model)
+        {
+            <div class="group relative flex flex-col p-6 rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-primary/20 dark:hover:border-brand-primary/20 transition-all hover:shadow-xl hover:shadow-brand-primary/5">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 dark:text-slate-500 group-hover:bg-brand-soft group-hover:text-brand-primary transition-colors">
+                        <i aria-hidden="true" class="fa-solid fa-user-circle text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-black text-slate-900 dark:text-white transition-colors">
+                            @person.Vorname @person.Nachname
+                        </h3>
+                        @{
+                            var rollen = person.PersonEigenschaftFilme.Select(pef => pef.Eigenschaft.Bezeichnung).Distinct();
+                        }
+                        <div class="flex flex-wrap gap-1 mt-1">
+                            @foreach (var rolle in rollen)
+                            {
+                                <span class="text-[9px] font-bold text-brand-primary uppercase tracking-widest bg-brand-soft/50 px-1.5 py-0.5 rounded">@rolle</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 pt-6 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between transition-colors">
+                    <span class="text-xs font-medium text-slate-400 dark:text-slate-500">
+                        @person.PersonEigenschaftFilme.Count() Filme
+                    </span>
+                    <a asp-action="Details" asp-route-id="@person.PersonID" class="p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-brand-primary hover:bg-white dark:hover:bg-slate-700 transition-all shadow-sm border border-transparent hover:border-slate-200 dark:hover:border-slate-600" title="Profil ansehen" aria-label="Profil ansehen">
+                        <i aria-hidden="true" class="fa-solid fa-arrow-right-to-bracket text-sm"></i>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+    
+    @if (!Model.Any())
+    {
+        <div class="text-center py-20 px-6 rounded-3xl border-2 border-dashed border-slate-100 dark:border-slate-800 transition-colors">
+            <i aria-hidden="true" class="fa-solid fa-user-group text-6xl text-slate-200 dark:text-slate-800 mb-6"></i>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Keine Personen gefunden</h3>
+            <p class="mt-2 text-slate-500 dark:text-slate-400 max-w-sm mx-auto">Es sind noch keine Schauspieler oder Team-Mitglieder in der Datenbank hinterlegt.</p>
+        </div>
+    }
+</div>

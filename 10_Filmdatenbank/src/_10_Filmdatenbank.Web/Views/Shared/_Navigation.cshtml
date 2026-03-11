@@ -6,7 +6,7 @@
         <div class="flex lg:flex-1">
             <a asp-area="" asp-controller="Home" asp-action="Index" class="-m-1.5 p-1.5 flex items-center gap-3 group">
                 <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-brand-primary shadow-sm group-hover:bg-brand-hover transition-colors duration-300">
-                    <i aria-hidden="true" class="fa-solid fa-clapperboard text-white text-xl shadow-sm"></i>
+                    <i aria-hidden="true" class="fa-solid fa-clapperboard text-slate-100 text-xl shadow-sm"></i>
                 </div>
                 <span class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors duration-300">Film<span class="text-brand-primary">Catalog</span></span>
             </a>
@@ -23,7 +23,7 @@
                     <i aria-hidden="true" class="fa-solid fa-film text-slate-400 dark:text-slate-500"></i>
                     Filme
                 </a>
-                <a href="#schauspieler" class="nav-link text-slate-700 dark:text-slate-300 hover:text-brand-primary dark:hover:text-brand-primary font-medium flex items-center gap-2 transition-colors" title="Schauspieler (Kommt bald)">
+                <a asp-area="" asp-controller="Person" asp-action="Index" class="nav-link text-slate-700 dark:text-slate-300 hover:text-brand-primary dark:hover:text-brand-primary font-medium flex items-center gap-2 transition-colors">
                     <i aria-hidden="true" class="fa-solid fa-masks-theater text-slate-400 dark:text-slate-500"></i>
                     Schauspieler
                 </a>
