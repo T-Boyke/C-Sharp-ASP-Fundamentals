@@ -1,11 +1,11 @@
 ---
 name: Frontend Modernization (Node-Free)
-description: Guide for converting CDN-based apps to local Tailwind 4.2, Font Awesome 7.2, and Google Sans Flex without Node.js.
+description: Guide for converting CDN-based apps to local Tailwind 4.2, Font Awesome 7.2, and Noto Sans Variable without Node.js.
 ---
 
 # Skill: Frontend Modernization (Node-Free)
 
-Guide for implementing a professional, local-only frontend stack in .NET 10 without requiring Node.js or npm.
+Guide for implementing a professional, local-only frontend stack in .NET 10 without requiring Node.js or npm, achieving visual excellence ("The WOW Factor") without "AI Slop".
 
 ## 1. Prerequisites (Tools)
 
@@ -16,7 +16,7 @@ Ensure the following tools are available:
 
 ## 2. Local Asset Setup (LibMan)
 
-Configure `libman.json` to download fonts and icons from `unpkg`.
+Configure `libman.json` to download fonts (Noto Sans Variable) and icons (Font Awesome) from `unpkg`.
 
 ```json
 {
@@ -29,25 +29,25 @@ Configure `libman.json` to download fonts and icons from `unpkg`.
       "files": [
         "css/all.min.css",
         "webfonts/fa-solid-900.woff2",
-        "webfonts/fa-brands-400.woff2"
+        "webfonts/fa-brands-400.woff2",
+        "webfonts/fa-regular-400.woff2"
       ]
     },
     {
-      "library": "@fontsource-variable/google-sans-flex@latest",
-      "destination": "wwwroot/lib/google-sans-flex/",
+      "library": "@fontsource-variable/noto-sans@5.1.1",
+      "destination": "wwwroot/lib/noto-sans/",
       "files": [
         "index.css",
-        "files/google-sans-flex-latin-wght-normal.woff2"
+        "files/noto-sans-latin-wght-normal.woff2"
       ]
     }
   ]
 }
 ```
 
-## 3. Tailwind CSS 4.2 Integration
+## 3. Tailwind CSS 4 Integration (CSS-First)
 
 1. **Add NuGet Package**:
-
    ```xml
    <PackageReference Include="Tailwind.MSBuild" Version="2.0.2">
      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -55,8 +55,7 @@ Configure `libman.json` to download fonts and icons from `unpkg`.
    </PackageReference>
    ```
 
-2. **Configure Properties**:
-
+2. **Configure Properties in `.csproj`**:
    ```xml
    <PropertyGroup>
      <TailwindCSSInputFile>wwwroot/css/input.css</TailwindCSSInputFile>
@@ -64,39 +63,56 @@ Configure `libman.json` to download fonts and icons from `unpkg`.
    </PropertyGroup>
    ```
 
-3. **Define Input CSS** (`wwwroot/css/input.css`):
+3. **Single File Component (SFC) CSS Architecture**:
+   Organize CSS into components to keep `input.css` clean.
 
+   - `wwwroot/css/components/theme.css`: Core design tokens (`@theme`).
+   - `wwwroot/css/components/btn.css`: Button utilities (`@utility`).
+   - `wwwroot/css/components/card.css`: Card utilities (`@utility`).
+
+   **Main Input CSS (`wwwroot/css/input.css`)**:
    ```css
    @import "tailwindcss";
 
-   @theme {
-     --font-sans: "Google Sans Flex", ui-sans-serif, system-ui;
-   }
+   /* Theme and Base */
+   @import "./components/theme.css";
 
-   @font-face {
-     font-family: "Google Sans Flex";
-     src: url("../lib/google-sans-flex/files/google-sans-flex-latin-wght-normal.woff2") format("woff2");
-     font-weight: 100 900;
-     font-style: normal;
-     font-display: swap;
+   /* Components */
+   @import "./components/btn.css";
+   @import "./components/card.css";
+   ```
+
+   **Theme Component (`wwwroot/css/components/theme.css`)**:
+   ```css
+   @theme {
+     --font-sans: "Noto Sans Variable", ui-sans-serif, system-ui;
+     --color-brand-primary: #7c3aed; /* Professional Purple */
+     --color-brand-bg: #fafafa;
    }
    ```
 
-## 4. Layout Integration (`_Layout.cshtml`)
+## 4. Integration into ASP.NET Core (`_Layout.cshtml`)
 
-Replace CDNs with local references:
+Replace CDNs with local references. Ensure Noto Sans is loaded correctly:
 
 ```html
-<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-<link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
-<link rel="stylesheet" href="~/lib/google-sans-flex/index.css" />
-<style>
-    body { font-family: "Google Sans Flex", sans-serif; }
-</style>
+<head>
+    <!-- Local Fonts -->
+    <link rel="stylesheet" href="~/lib/noto-sans/index.css" />
+    <!-- Local Icons -->
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <!-- Tailwind Generated CSS -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="bg-brand-bg text-slate-900 font-sans antialiased">
 ```
 
-## 5. Build & Verify
+## 5. Tailark / UI Blocks Integration
 
-- Run `dotnet build`.
-- Verify `wwwroot/css/site.css` is generated.
-- Check browser Network tab: **Zero external requests** (all from localhost).
+When integrating external premium UI blocks (like Tailark):
+- Copy HTML and Tailwind classes verbatim.
+- Remove React specific tags (`className`, `{...props}`).
+- Translate `Lucide` icons to Font Awesome tags (`<i class="fa-solid fa-*"></i>`).
+- Handle interaction states (e.g., mobile menu toggle) with standard Razor View conditionals or Vanilla JS.
+
+> For comprehensive styling rules, always refer to `.agents/rules/tailwind_css_styleguide.md` and `.agents/rules/font_awesome_styleguide.md`.
