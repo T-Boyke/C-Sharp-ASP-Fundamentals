@@ -22,6 +22,12 @@ public class HomeController(ILogger<HomeController> logger) : Controller
     public IActionResult Privacy() => View();
 
     /// <summary>
+    /// Zeigt das Impressum der Anwendung an.
+    /// </summary>
+    /// <returns>Die Impressum-View.</returns>
+    public IActionResult Impressum() => View();
+
+    /// <summary>
     /// Zeigt die Fehlerseite der Anwendung an.
     /// Wird standardmäßig von der ExceptionHandler Middleware aufgerufen.
     /// </summary>
