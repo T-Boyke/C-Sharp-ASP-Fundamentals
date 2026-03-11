@@ -26,4 +26,7 @@ Schritt-für-Schritt Anleitung zur Erstellung von "Wow"-Interfaces mit Tailwind 
 - [ ] Wirkt die UI "atmet" (genug Whitespace)?
 - [ ] Sind alle Abstände symmetrisch?
 - [ ] Funktionieren alle Hover-Zustände flüssig?
+- [ ] Funktioniert alles responsiv (Mobile-First Check)?
 - [ ] Ist das Design im Dark Mode ebenfalls exzellent?
+
+> **Tipp:** Konsultiere für verbindliche Styling-Regeln immer den detaillierten `tailwind_css_styleguide.md` und `font_awesome_styleguide.md` unter `.agents/rules/`.
