@@ -2,48 +2,70 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace _10_Filmdatenbank.Web.Controllers
+namespace _10_Filmdatenbank.Web.Controllers;
+
+/// <summary>
+/// Verwaltet Benutzerkonten, Anmeldungen und Abmeldungen.
+/// </summary>
+/// <param name="signInManager">Manager für den Anmeldeprozess.</param>
+/// <param name="userManager">Manager für die Benutzerverwaltung.</param>
+public class AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager) : Controller
 {
-    public class AccountController : Controller
+    /// <summary>
+    /// Zeigt die Anmeldeseite an.
+    /// </summary>
+    /// <returns>Die Login-View.</returns>
+    public IActionResult Login() => View();
+
+    /// <summary>
+    /// Verarbeitet den Anmeldeversuch eines Benutzers.
+    /// </summary>
+    /// <param name="model">Das ViewModel mit den Login-Daten.</param>
+    /// <returns>Redirect zur Startseite bei Erfolg, andernfalls die Login-View mit Fehlermeldung.</returns>
+    [HttpPost]
+    public async Task<IActionResult> Login(LoginViewModel model)
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-
-        public AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        if (ModelState.IsValid)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            if (result.Succeeded) return RedirectToAction("Index", "Home");
+            ModelState.AddModelError("", "Ungültiger Login-Versuch.");
         }
-
-        public IActionResult Login() => View();
-
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-                if (result.Succeeded) return RedirectToAction("Index", "Home");
-                ModelState.AddModelError("", "Ungültiger Login-Versuch.");
-            }
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
-        }
-
-        public IActionResult AccessDenied() => View();
+        return View(model);
     }
 
-    public class LoginViewModel
+    /// <summary>
+    /// Meldet den aktuellen Benutzer ab.
+    /// </summary>
+    /// <returns>Redirect zur Startseite.</returns>
+    [HttpPost]
+    public async Task<IActionResult> Logout()
     {
-        [Required, EmailAddress]
-        public string Email { get; set; } = string.Empty;
-        [Required, DataType(DataType.Password)]
-        public string Password { get; set; } = string.Empty;
+        await signInManager.SignOutAsync();
+        return RedirectToAction("Index", "Home");
     }
+
+    /// <summary>
+    /// Zeigt die Seite für verweigerten Zugriff an.
+    /// </summary>
+    /// <returns>Die AccessDenied-View.</returns>
+    public IActionResult AccessDenied() => View();
+}
+
+/// <summary>
+/// ViewModel für den Login-Prozess.
+/// </summary>
+public class LoginViewModel
+{
+    /// <summary>
+    /// Die E-Mail-Adresse des Benutzers.
+    /// </summary>
+    [Required, EmailAddress]
+    public string Email { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Das Passwort des Benutzers.
+    /// </summary>
+    [Required, DataType(DataType.Password)]
+    public string Password { get; set; } = string.Empty;
 }

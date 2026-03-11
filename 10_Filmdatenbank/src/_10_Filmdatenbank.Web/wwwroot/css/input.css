@@ -1,13 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Google Sans Flex", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans: "Noto Sans Variable", ui-sans-serif, system-ui;
+  --color-brand-bg: #fafafa;
+  --color-brand-primary: #7c3aed; /* Violet 600 - Professional Purple */
+  --color-brand-hover: #6d28d9; /* Violet 700 */
+  --color-brand-soft: #f5f3ff; /* Violet 50 */
+  --color-brand-border: #ddd6fe; /* Violet 200 */
 }
 
-@font-face {
-  font-family: "Google Sans Flex";
-  src: url("../lib/google-sans-flex/files/google-sans-flex-latin-wght-normal.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
+@layer base {
+  body {
+    @apply bg-brand-bg text-slate-900 font-sans antialiased;
+  }
+}
+
+/* Professional Utilities - No AI Slop */
+@utility accent-border {
+  @apply border-l-4 border-brand-primary;
+}
+
+@utility card-premium {
+  @apply bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300;
+}
+
+@utility btn-primary {
+  @apply inline-flex items-center justify-center px-6 py-2.5 bg-brand-primary text-white font-bold rounded-lg hover:bg-brand-hover transition-all duration-200 shadow-sm hover:shadow-brand-border/50;
+}
+
+@utility nav-link {
+  @apply text-sm font-semibold text-slate-600 hover:text-brand-primary transition-colors duration-200 flex items-center gap-2;
 }

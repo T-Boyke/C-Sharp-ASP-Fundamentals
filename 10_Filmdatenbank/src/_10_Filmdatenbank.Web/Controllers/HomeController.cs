@@ -1,17 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace _10_Filmdatenbank.Web.Controllers
-{
-    public class HomeController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
+namespace _10_Filmdatenbank.Web.Controllers;
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-    }
+/// <summary>
+/// Controller für die Startseite und allgemeine Seiten.
+/// </summary>
+public class HomeController : Controller
+{
+    /// <summary>
+    /// Zeigt die Startseite der Anwendung an.
+    /// </summary>
+    /// <returns>Die Index-View.</returns>
+    public IActionResult Index() => View();
+
+    /// <summary>
+    /// Zeigt die Datenschutzseite an.
+    /// </summary>
+    /// <returns>Die Privacy-View.</returns>
+    public IActionResult Privacy() => View();
 }

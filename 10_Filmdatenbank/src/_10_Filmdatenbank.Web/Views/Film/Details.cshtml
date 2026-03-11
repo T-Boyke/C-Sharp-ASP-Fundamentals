@@ -1,113 +1,126 @@
 @model _10_Filmdatenbank.Domain.Entities.Film
 
 @{
-    ViewData["Title"] = "Film Details";
+    ViewData["Title"] = Model.Titel;
 }
 
-<div class="mx-auto max-w-7xl px-6 lg:px-8 py-12">
-    <div class="mb-8 flex items-center justify-between">
-        <div class="flex items-center gap-4">
-            <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-3xl shadow-lg shadow-indigo-200">
-                <i class="fa-solid fa-film"></i>
-            </div>
-            <div>
-                <h1 class="text-3xl font-bold leading-9 tracking-tight text-slate-900">@Model.Titel</h1>
-                <p class="mt-1 text-sm text-slate-500">Filmdatenbank &middot; ID #@Model.FilmID</p>
-            </div>
-        </div>
-        <div class="flex gap-4">
-            <a asp-action="Index" class="inline-flex items-center rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 transition-all duration-200">
-                <i class="fa-solid fa-list mr-2 text-slate-400"></i>Liste
-            </a>
-            @if (User.IsInRole("Admin"))
-            {
-                <a asp-action="Edit" asp-route-id="@Model.FilmID" class="inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all duration-200">
-                    <i class="fa-solid fa-pen-to-square mr-2"></i>Bearbeiten
-                </a>
-            }
-        </div>
-    </div>
+<div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
+    <!-- Breadcrumb & Back -->
+    <nav class="flex mb-8 items-center gap-4 text-sm font-bold text-slate-400 uppercase tracking-widest" aria-label="Breadcrumb">
+        <a asp-action="Index" class="hover:text-brand-primary transition-colors flex items-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> Katalog
+        </a>
+        <span class="h-1 w-1 rounded-full bg-slate-300"></span>
+        <span class="text-slate-900 border-b-2 border-brand-primary pb-0.5">@Model.Titel</span>
+    </nav>
 
-    <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <!-- Main Stats -->
-        <div class="lg:col-span-1 space-y-6">
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden divide-y divide-slate-100">
-                <div class="p-6">
-                    <h3 class="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wider">Informationen</h3>
-                    <dl class="space-y-4">
-                        <div>
-                            <dt class="text-xs font-medium text-slate-500 uppercase">Erscheinungsjahr</dt>
-                            <dd class="mt-1 text-lg font-bold text-slate-900">@Model.Erscheinungsjahr</dd>
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-3 items-start">
+        
+        <!-- Left: Poster / Placeholder / Key Info -->
+        <div class="lg:col-span-1 space-y-8">
+            <div class="card-premium overflow-hidden">
+                <div class="aspect-[2/3] bg-slate-50 flex items-center justify-center border-b border-slate-100 relative group">
+                    <i class="fa-solid fa-film text-slate-100 text-9xl group-hover:scale-110 transition-transform duration-700"></i>
+                    <div class="absolute inset-x-0 bottom-0 p-8 bg-linear-to-t from-slate-900/10 to-transparent">
+                        <div class="flex items-center gap-3">
+                            <div class="h-12 w-12 rounded-xl bg-brand-primary shadow-lg flex items-center justify-center">
+                                <i class="fa-solid fa-star text-white"></i>
+                            </div>
+                            <div class="text-slate-900 drop-shadow-sm">
+                                <div class="text-[10px] font-bold uppercase tracking-widest opacity-60">Status</div>
+                                <div class="font-black">Verfügbar</div>
+                            </div>
                         </div>
-                        <div>
-                            <dt class="text-xs font-medium text-slate-500 uppercase">Spieldauer</dt>
-                            <dd class="mt-1 text-lg font-bold text-slate-900">@Model.Spieldauer <span class="text-sm font-normal text-slate-400">Minuten</span></dd>
-                        </div>
-                        <div>
-                            <dt class="text-xs font-medium text-slate-500 uppercase">Preis</dt>
-                            <dd class="mt-1 text-2xl font-black text-indigo-600">@Model.Preis.ToString("C")</dd>
-                        </div>
-                    </dl>
-                </div>
-                @if (User.IsInRole("Admin"))
-                {
-                    <div class="p-6 bg-slate-50/50">
-                        <a asp-action="Delete" asp-route-id="@Model.FilmID" class="text-sm font-semibold text-red-600 hover:text-red-900 flex items-center transition-colors">
-                            <i class="fa-solid fa-trash-can mr-2"></i>Film dauerhaft löschen
-                        </a>
                     </div>
-                }
+                </div>
+                <div class="p-8 space-y-6">
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Preisgestaltung</h3>
+                        <div class="flex items-baseline gap-2 text-3xl font-black text-slate-900">
+                            @Model.Preis.ToString("C")
+                            <span class="text-sm font-bold text-slate-400 uppercase tracking-tighter">Inkl. MwSt</span>
+                        </div>
+                    </div>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="pt-6 border-t border-slate-100 flex gap-4">
+                            <a asp-action="Edit" asp-route-id="@Model.FilmID" class="btn-primary flex-1">
+                                <i class="fa-solid fa-pen-to-square mr-2"></i> Edit
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@Model.FilmID" class="px-3 py-2.5 rounded-lg border border-red-100 text-red-500 hover:bg-red-50 transition-colors">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
 
-        <!-- Cast & Roles -->
-        <div class="lg:col-span-2">
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="px-8 py-6 border-b border-slate-100 flex items-center justify-between">
-                    <h2 class="text-xl font-bold text-slate-900">Beteiligte Personen</h2>
-                    <span class="inline-flex items-center rounded-full bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">
+        <!-- Right: Content & Metadata -->
+        <div class="lg:col-span-2 space-y-12">
+            <header>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-widest mb-4">
+                    <i class="fa-solid fa-hashtag text-brand-primary"></i> @Model.FilmID
+                </div>
+                <h1 class="text-5xl font-black tracking-tighter text-slate-900 leading-none">@Model.Titel</h1>
+                
+                <div class="flex flex-wrap items-center gap-6 mt-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
+                            <i class="fa-solid fa-calendar-days text-brand-primary"></i>
+                        </div>
+                        <div>
+                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Jahr</div>
+                            <div class="text-sm font-bold text-slate-900">@Model.Erscheinungsjahr</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
+                            <i class="fa-solid fa-stopwatch text-brand-primary"></i>
+                        </div>
+                        <div>
+                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Dauer</div>
+                            <div class="text-sm font-bold text-slate-900">@Model.Spieldauer Minuten</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section>
+                <div class="flex items-center justify-between mb-8 border-b border-slate-100 pb-4">
+                    <h2 class="text-xl font-bold text-slate-900 flex items-center gap-3">
+                        <i class="fa-solid fa-users-viewfinder text-brand-primary"></i>
+                        Produktion & Cast
+                    </h2>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                         @Model.PersonEigenschaftFilme.Count Personen
                     </span>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left">
-                        <thead class="bg-slate-50/50 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                            <tr>
-                                <th class="px-8 py-4">Name</th>
-                                <th class="px-8 py-4">Rolle / Eigenschaft</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100">
-                            @foreach (var pef in Model.PersonEigenschaftFilme)
-                            {
-                                <tr class="hover:bg-slate-50/50 transition-colors">
-                                    <td class="px-8 py-5 whitespace-nowrap">
-                                        <div class="flex items-center gap-3">
-                                            <div class="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
-                                                <i class="fa-solid fa-user text-sm"></i>
-                                            </div>
-                                            <div class="text-sm font-bold text-slate-900">@pef.Person.Vorname @pef.Person.Nachname</div>
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-5 whitespace-nowrap">
-                                        <span class="inline-flex items-center rounded-md bg-white px-2 py-1 text-xs font-medium text-slate-700 ring-1 ring-inset ring-slate-200 shadow-sm capitalize">
-                                            @pef.Eigenschaft.Bezeichnung
-                                        </span>
-                                    </td>
-                                </tr>
-                            }
-                            @if (!Model.PersonEigenschaftFilme.Any())
-                            {
-                                <tr>
-                                    <td colspan="2" class="px-8 py-12 text-center text-slate-400 italic text-sm">
-                                        Keine Verknüpfungen für diesen Film gefunden.
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    @foreach (var pef in Model.PersonEigenschaftFilme)
+                    {
+                        <div class="flex items-center p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50 hover:border-brand-primary/20 transition-all group">
+                            <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-brand-soft group-hover:text-brand-primary transition-colors">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
+                            <div class="ml-4 flex-grow">
+                                <div class="text-sm font-black text-slate-900">@pef.Person.Vorname @pef.Person.Nachname</div>
+                                <div class="text-[10px] font-bold text-brand-primary uppercase tracking-widest">@pef.Eigenschaft.Bezeichnung</div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-slate-200 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    }
+                    @if (!Model.PersonEigenschaftFilme.Any())
+                    {
+                         <div class="col-span-full p-12 rounded-2xl border-2 border-dashed border-slate-100 flex flex-col items-center text-slate-400">
+                            <i class="fa-solid fa-people-group text-4xl mb-3"></i>
+                            <p class="text-sm font-medium">Keine Mitwirkenden hinterlegt.</p>
+                        </div>
+                    }
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 </div>
