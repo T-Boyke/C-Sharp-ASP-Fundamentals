@@ -5,13 +5,20 @@ using _10_Filmdatenbank.Domain.Entities;
 using Bogus;
 using Microsoft.EntityFrameworkCore;
 
-namespace _10_Filmdatenbank.Infrastructure.Persistence
+namespace _10_Filmdatenbank.Infrastructure.Persistence;
+
+/// <summary>
+/// Hilfsklasse zum Befüllen der Datenbank mit initialen Testdaten.
+/// </summary>
+public static class DbSeeder
 {
-    public static class DbSeeder
+    /// <summary>
+    /// Befüllt die Datenbank asynchron mit Testdaten, falls diese noch keine Filme enthält.
+    /// </summary>
+    /// <param name="context">Der Datenbankkontext.</param>
+    public static async Task SeedAsync(ApplicationDbContext context)
     {
-        public static async Task SeedAsync(ApplicationDbContext context)
-        {
-            if (await context.Filme.AnyAsync()) return;
+        if (await context.Filme.AnyAsync()) return;
 
             var personFaker = new Faker<_10_Filmdatenbank.Domain.Entities.Person>()
                 .RuleFor(p => p.Vorname, (f, p) => f.Name.FirstName())
@@ -61,8 +68,7 @@ namespace _10_Filmdatenbank.Infrastructure.Persistence
                 }
             }
 
-            context.PersonEigenschaftFilme.AddRange(links);
-            await context.SaveChangesAsync();
-        }
+        context.PersonEigenschaftFilme.AddRange(links);
+        await context.SaveChangesAsync();
     }
 }

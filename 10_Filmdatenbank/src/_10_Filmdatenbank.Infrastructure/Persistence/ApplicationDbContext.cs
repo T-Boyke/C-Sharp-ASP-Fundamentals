@@ -2,23 +2,50 @@ using _10_Filmdatenbank.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace _10_Filmdatenbank.Infrastructure.Persistence
+namespace _10_Filmdatenbank.Infrastructure.Persistence;
+
+/// <summary>
+/// Der Entity Framework Core Datenbankkontext für die Anwendung.
+/// Erweitert IdentityDbContext für die Benutzer- und Rollenverwaltung.
+/// </summary>
+public class ApplicationDbContext : IdentityDbContext
 {
-    public class ApplicationDbContext : IdentityDbContext
+    /// <summary>
+    /// Initialisiert eine neue Instanz des Datenbankkontexts.
+    /// </summary>
+    /// <param name="options">Die Optionen für diesen Kontext.</param>
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+    }
 
-        public DbSet<Film> Filme { get; set; } = null!;
-        public DbSet<Person> Personen { get; set; } = null!;
-        public DbSet<Eigenschaft> Eigenschaften { get; set; } = null!;
-        public DbSet<PersonEigenschaftFilm> PersonEigenschaftFilme { get; set; } = null!;
+    /// <summary>
+    /// Die Tabelle für Filme.
+    /// </summary>
+    public DbSet<Film> Filme { get; set; } = null!;
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
+    /// <summary>
+    /// Die Tabelle für Personen.
+    /// </summary>
+    public DbSet<Person> Personen { get; set; } = null!;
+
+    /// <summary>
+    /// Die Tabelle für Eigenschaften (Rollen).
+    /// </summary>
+    public DbSet<Eigenschaft> Eigenschaften { get; set; } = null!;
+
+    /// <summary>
+    /// Die Verknüpfungstabelle für Personen, Filme und deren Eigenschaften.
+    /// </summary>
+    public DbSet<PersonEigenschaftFilm> PersonEigenschaftFilme { get; set; } = null!;
+
+    /// <summary>
+    /// Konfiguriert das Datenbankmodell, insbesondere Beziehungen und initiale Daten.
+    /// </summary>
+    /// <param name="builder">Der ModelBuilder zum Konfigurieren des Modells.</param>
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
 
             builder.Entity<PersonEigenschaftFilm>(entity =>
             {
@@ -37,12 +64,11 @@ namespace _10_Filmdatenbank.Infrastructure.Persistence
                     .HasForeignKey(e => e.EigenschaftID);
             });
 
-            // Seed initial properties/roles as per assignment
-            builder.Entity<Eigenschaft>().HasData(
-                new Eigenschaft { EigenschaftID = 1, Bezeichnung = "Regisseur" },
-                new Eigenschaft { EigenschaftID = 2, Bezeichnung = "Produzent" },
-                new Eigenschaft { EigenschaftID = 3, Bezeichnung = "Schauspieler" }
-            );
-        }
+        // Seed initial properties/roles as per assignment
+        builder.Entity<Eigenschaft>().HasData(
+            new Eigenschaft { EigenschaftID = 1, Bezeichnung = "Regisseur" },
+            new Eigenschaft { EigenschaftID = 2, Bezeichnung = "Produzent" },
+            new Eigenschaft { EigenschaftID = 3, Bezeichnung = "Schauspieler" }
+        );
     }
 }
