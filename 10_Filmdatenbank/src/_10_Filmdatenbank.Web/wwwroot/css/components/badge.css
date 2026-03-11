@@ -1,0 +1,7 @@
+@utility badge-premium {
+  @apply inline-flex items-center px-2 py-0.5 rounded bg-brand-soft text-[10px] font-bold text-brand-primary border border-brand-border dark:bg-brand-primary/20 dark:text-brand-soft dark:border-brand-primary/40;
+}
+
+@utility badge-status-new {
+  @apply absolute top-4 right-4 bg-brand-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-tighter shadow-sm dark:bg-brand-primary dark:text-slate-100;
+}

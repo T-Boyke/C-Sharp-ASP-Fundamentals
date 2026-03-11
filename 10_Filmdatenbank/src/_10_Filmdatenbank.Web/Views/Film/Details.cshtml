@@ -11,7 +11,7 @@
             <i class="fa-solid fa-arrow-left"></i> Katalog
         </a>
         <span class="h-1 w-1 rounded-full bg-slate-300"></span>
-        <span class="text-slate-900 border-b-2 border-brand-primary pb-0.5">@Model.Titel</span>
+        <span class="text-slate-900 dark:text-white border-b-2 border-brand-primary pb-0.5 transition-colors">@Model.Titel</span>
     </nav>
 
     <div class="grid grid-cols-1 gap-12 lg:grid-cols-3 items-start">
@@ -19,14 +19,14 @@
         <!-- Left: Poster / Placeholder / Key Info -->
         <div class="lg:col-span-1 space-y-8">
             <div class="card-premium overflow-hidden">
-                <div class="aspect-[2/3] bg-slate-50 flex items-center justify-center border-b border-slate-100 relative group">
-                    <i class="fa-solid fa-film text-slate-100 text-9xl group-hover:scale-110 transition-transform duration-700"></i>
+                <div class="aspect-[2/3] bg-slate-50 dark:bg-slate-800 flex items-center justify-center border-b border-slate-100 dark:border-slate-800 relative group transition-colors">
+                    <i class="fa-solid fa-film text-slate-100 dark:text-slate-700 text-9xl group-hover:scale-110 transition-transform duration-700"></i>
                     <div class="absolute inset-x-0 bottom-0 p-8 bg-linear-to-t from-slate-900/10 to-transparent">
                         <div class="flex items-center gap-3">
                             <div class="h-12 w-12 rounded-xl bg-brand-primary shadow-lg flex items-center justify-center">
                                 <i class="fa-solid fa-star text-white"></i>
                             </div>
-                            <div class="text-slate-900 drop-shadow-sm">
+                            <div class="text-slate-900 dark:text-white drop-shadow-sm transition-colors">
                                 <div class="text-[10px] font-bold uppercase tracking-widest opacity-60">Status</div>
                                 <div class="font-black">Verfügbar</div>
                             </div>
@@ -35,20 +35,20 @@
                 </div>
                 <div class="p-8 space-y-6">
                     <div>
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Preisgestaltung</h3>
-                        <div class="flex items-baseline gap-2 text-3xl font-black text-slate-900">
+                        <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">Preisgestaltung</h3>
+                        <div class="flex items-baseline gap-2 text-3xl font-black text-slate-900 dark:text-white transition-colors">
                             @Model.Preis.ToString("C")
-                            <span class="text-sm font-bold text-slate-400 uppercase tracking-tighter">Inkl. MwSt</span>
+                            <span class="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-tighter">Inkl. MwSt</span>
                         </div>
                     </div>
 
                     @if (User.IsInRole("Admin"))
                     {
-                        <div class="pt-6 border-t border-slate-100 flex gap-4">
+                        <div class="pt-6 border-t border-slate-100 dark:border-slate-800 flex gap-4 transition-colors">
                             <a asp-action="Edit" asp-route-id="@Model.FilmID" class="btn-primary flex-1">
                                 <i class="fa-solid fa-pen-to-square mr-2"></i> Edit
                             </a>
-                            <a asp-action="Delete" asp-route-id="@Model.FilmID" class="px-3 py-2.5 rounded-lg border border-red-100 text-red-500 hover:bg-red-50 transition-colors">
+                            <a asp-action="Delete" asp-route-id="@Model.FilmID" class="px-3 py-2.5 rounded-lg border border-red-100 dark:border-red-900/50 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
                                 <i class="fa-solid fa-trash-can"></i>
                             </a>
                         </div>
@@ -60,40 +60,40 @@
         <!-- Right: Content & Metadata -->
         <div class="lg:col-span-2 space-y-12">
             <header>
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-widest mb-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[10px] font-bold uppercase tracking-widest mb-4 transition-colors">
                     <i class="fa-solid fa-hashtag text-brand-primary"></i> @Model.FilmID
                 </div>
-                <h1 class="text-5xl font-black tracking-tighter text-slate-900 leading-none">@Model.Titel</h1>
+                <h1 class="text-5xl font-black tracking-tighter text-slate-900 dark:text-white leading-none transition-colors">@Model.Titel</h1>
                 
                 <div class="flex flex-wrap items-center gap-6 mt-6">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
+                        <div class="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center border border-slate-100 dark:border-slate-700 transition-colors">
                             <i class="fa-solid fa-calendar-days text-brand-primary"></i>
                         </div>
                         <div>
-                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Jahr</div>
-                            <div class="text-sm font-bold text-slate-900">@Model.Erscheinungsjahr</div>
+                            <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none">Jahr</div>
+                            <div class="text-sm font-bold text-slate-900 dark:text-white transition-colors">@Model.Erscheinungsjahr</div>
                         </div>
                     </div>
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
+                        <div class="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center border border-slate-100 dark:border-slate-700 transition-colors">
                             <i class="fa-solid fa-stopwatch text-brand-primary"></i>
                         </div>
                         <div>
-                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Dauer</div>
-                            <div class="text-sm font-bold text-slate-900">@Model.Spieldauer Minuten</div>
+                            <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none">Dauer</div>
+                            <div class="text-sm font-bold text-slate-900 dark:text-white transition-colors">@Model.Spieldauer Minuten</div>
                         </div>
                     </div>
                 </div>
             </header>
 
             <section>
-                <div class="flex items-center justify-between mb-8 border-b border-slate-100 pb-4">
-                    <h2 class="text-xl font-bold text-slate-900 flex items-center gap-3">
+                <div class="flex items-center justify-between mb-8 border-b border-slate-100 dark:border-slate-800 pb-4 transition-colors">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 transition-colors">
                         <i class="fa-solid fa-users-viewfinder text-brand-primary"></i>
                         Produktion & Cast
                     </h2>
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                         @Model.PersonEigenschaftFilme.Count Personen
                     </span>
                 </div>
@@ -101,20 +101,20 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     @foreach (var pef in Model.PersonEigenschaftFilme)
                     {
-                        <div class="flex items-center p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50 hover:border-brand-primary/20 transition-all group">
-                            <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-brand-soft group-hover:text-brand-primary transition-colors">
+                        <div class="flex items-center p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:border-brand-primary/20 dark:hover:border-brand-primary/20 transition-all group">
+                            <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 dark:text-slate-500 group-hover:bg-brand-soft group-hover:text-brand-primary transition-colors">
                                 <i class="fa-solid fa-user-tie"></i>
                             </div>
                             <div class="ml-4 flex-grow">
-                                <div class="text-sm font-black text-slate-900">@pef.Person.Vorname @pef.Person.Nachname</div>
+                                <div class="text-sm font-black text-slate-900 dark:text-white transition-colors">@pef.Person.Vorname @pef.Person.Nachname</div>
                                 <div class="text-[10px] font-bold text-brand-primary uppercase tracking-widest">@pef.Eigenschaft.Bezeichnung</div>
                             </div>
-                            <i class="fa-solid fa-chevron-right text-slate-200 group-hover:translate-x-1 transition-transform"></i>
+                            <i class="fa-solid fa-chevron-right text-slate-200 dark:text-slate-700 group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     }
                     @if (!Model.PersonEigenschaftFilme.Any())
                     {
-                         <div class="col-span-full p-12 rounded-2xl border-2 border-dashed border-slate-100 flex flex-col items-center text-slate-400">
+                         <div class="col-span-full p-12 rounded-2xl border-2 border-dashed border-slate-100 dark:border-slate-800 flex flex-col items-center text-slate-400 dark:text-slate-500 transition-colors">
                             <i class="fa-solid fa-people-group text-4xl mb-3"></i>
                             <p class="text-sm font-medium">Keine Mitwirkenden hinterlegt.</p>
                         </div>

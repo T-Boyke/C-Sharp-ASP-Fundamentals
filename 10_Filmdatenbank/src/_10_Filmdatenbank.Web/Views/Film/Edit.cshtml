@@ -11,7 +11,7 @@
                 <i class="fa-solid fa-pen-to-square text-2xl"></i>
             </div>
             <div>
-                <h1 class="text-3xl font-black tracking-tight text-slate-900 leading-none">@Model.Titel</h1>
+                <h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-none transition-colors">@Model.Titel</h1>
                 <p class="mt-2 text-sm font-bold text-slate-400 uppercase tracking-widest">Katalogeintrag modifizieren</p>
             </div>
         </div>
@@ -20,7 +20,7 @@
         </a>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden transition-colors">
         <form asp-action="Edit" class="p-10 space-y-10">
             <input type="hidden" asp-for="FilmID" />
             <div asp-validation-summary="ModelOnly" class="p-4 rounded-xl bg-red-50 text-red-600 text-sm font-bold border border-red-100 italic"></div>
@@ -29,42 +29,42 @@
                 <!-- Basic Info -->
                 <div class="grid grid-cols-1 gap-8">
                     <div>
-                        <label asp-for="Titel" class="block text-sm font-bold text-slate-700 mb-2">
-                            <i class="fa-solid fa-heading mr-1 text-slate-300"></i> Film-Titel
+                        <label asp-for="Titel" class="form-label">
+                            <i class="fa-solid fa-heading mr-1 text-slate-400 dark:text-slate-500"></i> Film-Titel
                         </label>
-                        <input asp-for="Titel" class="block w-full rounded-xl border-slate-200 py-3.5 text-slate-900 shadow-sm focus:border-brand-primary focus:ring-brand-primary bg-slate-50/50 focus:bg-white transition-all px-4 font-medium" />
-                        <span asp-validation-for="Titel" class="mt-2 block text-[10px] font-bold text-red-500 uppercase tracking-wider italic"></span>
+                        <input asp-for="Titel" class="form-input" />
+                        <span asp-validation-for="Titel" class="form-error"></span>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                         <div>
-                            <label asp-for="Erscheinungsjahr" class="block text-sm font-bold text-slate-700 mb-2">
-                                <i class="fa-solid fa-calendar mr-1 text-slate-300"></i> Jahr
+                            <label asp-for="Erscheinungsjahr" class="form-label">
+                                <i class="fa-solid fa-calendar mr-1 text-slate-400 dark:text-slate-500"></i> Jahr
                             </label>
-                            <input asp-for="Erscheinungsjahr" class="block w-full rounded-xl border-slate-200 py-3.5 text-slate-900 shadow-sm focus:border-brand-primary focus:ring-brand-primary bg-slate-50/50 focus:bg-white transition-all px-4 font-medium" />
-                            <span asp-validation-for="Erscheinungsjahr" class="mt-2 block text-[10px] font-bold text-red-500 uppercase tracking-wider italic"></span>
+                            <input asp-for="Erscheinungsjahr" class="form-input" />
+                            <span asp-validation-for="Erscheinungsjahr" class="form-error"></span>
                         </div>
 
                         <div>
-                            <label asp-for="Spieldauer" class="block text-sm font-bold text-slate-700 mb-2">
-                                <i class="fa-solid fa-stopwatch mr-1 text-slate-300"></i> Dauer (min)
+                            <label asp-for="Spieldauer" class="form-label">
+                                <i class="fa-solid fa-stopwatch mr-1 text-slate-400 dark:text-slate-500"></i> Dauer (min)
                             </label>
-                            <input asp-for="Spieldauer" class="block w-full rounded-xl border-slate-200 py-3.5 text-slate-900 shadow-sm focus:border-brand-primary focus:ring-brand-primary bg-slate-50/50 focus:bg-white transition-all px-4 font-medium" />
-                            <span asp-validation-for="Spieldauer" class="mt-2 block text-[10px] font-bold text-red-500 uppercase tracking-wider italic"></span>
+                            <input asp-for="Spieldauer" class="form-input" />
+                            <span asp-validation-for="Spieldauer" class="form-error"></span>
                         </div>
 
                         <div>
-                            <label asp-for="Preis" class="block text-sm font-bold text-slate-700 mb-2">
-                                <i class="fa-solid fa-tag mr-1 text-slate-300"></i> Preis (€)
+                            <label asp-for="Preis" class="form-label">
+                                <i class="fa-solid fa-tag mr-1 text-slate-400 dark:text-slate-500"></i> Preis (€)
                             </label>
-                            <input asp-for="Preis" class="block w-full rounded-xl border-slate-200 py-3.5 text-slate-900 shadow-sm focus:border-brand-primary focus:ring-brand-primary bg-slate-50/50 focus:bg-white transition-all px-4 font-medium" />
-                            <span asp-validation-for="Preis" class="mt-2 block text-[10px] font-bold text-red-500 uppercase tracking-wider italic"></span>
+                            <input asp-for="Preis" class="form-input" />
+                            <span asp-validation-for="Preis" class="form-error"></span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="pt-10 border-t border-slate-100 flex items-center justify-between gap-6">
+            <div class="pt-10 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-6 transition-colors">
                  <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] max-w-[200px] leading-relaxed">
                     Änderungen werden sofort in der Datenbank persistiert.
                 </p>
