@@ -11,7 +11,8 @@ A structured approach to developing features with reliability.
 
 ## Step 2: GREEN (Make it pass)
 
-- Write the *minimum* amount of code in the `src/` project to make the test pass.
+- Write the _minimum_ amount of code in the `src/` project to make the test
+  pass.
 - Don't worry about perfection yet.
 - **Run the test**: Verify it passes.
 

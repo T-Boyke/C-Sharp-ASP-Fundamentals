@@ -237,11 +237,18 @@ mehr.
 
 ---
 
-## 17. Accessibility (A11y)
+## 17. Accessibility (A11y) & BTHG Compliance
 
-- **Screen Readers**: Blende dekorative Elemente via `aria-hidden="true"` aus.
-  Biete visuell versteckten, aber lesbaren Text für Screenreader an: `sr-only`
-  (z.B. Label eines Icon-only Buttons).
+- **100% Konformität**: Die Einhaltung von WCAG 2.1 AA und BTHG ist Pflicht.
+  Jeder Button und jeder interaktive Link **muss** per Tastatur bedienbar sein
+  und einen sichtbaren Fokus-State haben
+  (`focus-visible:outline-brand-primary`).
+- **Screen Readers & ARIA**: Blende rein dekorative Elemente konsequent via
+  `aria-hidden="true"` aus. Biete visuell versteckten, aber lesbaren Text für
+  Screenreader an: `sr-only` (z.B. Label eines Icon-only Buttons). Nutze
+  `aria-expanded` für Toggles.
+- **Kontraste**: Beachte zwingend starke Kontraste (4.5:1), auch und besonders
+  bei den Dark-Mode Textfarben (`dark:text-slate-300`).
 - **color-adjust**: Tailwind `forced-color-adjust-none` sparsam verwenden,
   primär wenn OS-High-Contrast Themes das Branding einer Fläche stark zerstören
   würden.
@@ -264,3 +271,15 @@ Wenn wir fertige UI-Blöcke (Tailark, TailwindUI) adaptieren:
 3. **Color-Mapping**: Achte darauf, dass neutrale Variablen aus Tailark an
    unsere CSS-Variablen in `theme.css` oder Custom-Klassen (`bg-brand-primary`)
    angepasst werden.
+
+---
+
+## 19. Datenschutz (DSGVO / GDPR) & CDNs
+
+- **Local Assets Only**: Beziehe Fonts, Icons oder externe Scripte **niemals**
+  über CDNs. Nutze LibMan für lokale Kopien (`/wwwroot/lib`). Dies ist eine
+  strikte DSGVO-Anforderung, um den unaufgeforderten Datentransfer (z.B.
+  IP-Adressen) an Drittserver (USA) zu unterbinden.
+- **Privacy by Design**: Formulare, die personenbezogene Daten erfassen, müssen
+  transparent gestaltet sein und klare Opt-in Checkboxen für die Speicherung
+  anbieten.

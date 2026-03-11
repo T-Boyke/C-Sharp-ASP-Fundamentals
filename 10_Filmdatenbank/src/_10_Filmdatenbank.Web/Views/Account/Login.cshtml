@@ -8,7 +8,7 @@
     <div class="w-full max-w-md">
         <div class="text-center mb-10">
             <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-primary shadow-lg mb-6">
-                <i class="fa-solid fa-lock text-white text-3xl"></i>
+                <i aria-hidden="true" class="fa-solid fa-lock text-white text-3xl"></i>
             </div>
             <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white transition-colors">Willkommen zurück</h2>
             <p class="mt-2 text-slate-500 dark:text-slate-400 font-medium transition-colors">Melden Sie sich an, um Ihre Datenbank zu verwalten.</p>
@@ -16,11 +16,11 @@
 
         <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl transition-colors">
             <form class="space-y-6" asp-action="Login" method="post">
-                <div asp-validation-summary="ModelOnly" class="p-3 rounded-lg bg-red-50 text-red-600 text-sm font-bold border border-red-100 italic"></div>
+                <div asp-validation-summary="ModelOnly" role="alert" class="p-3 rounded-lg bg-red-50 text-red-600 text-sm font-bold border border-red-100 italic"></div>
                 
                 <div>
                     <label asp-for="Email" class="form-label">
-                        <i class="fa-solid fa-envelope mr-1 text-slate-400 dark:text-slate-500"></i> Email Adresse
+                        <i aria-hidden="true" class="fa-solid fa-envelope mr-1 text-slate-400 dark:text-slate-500"></i> Email Adresse
                     </label>
                     <input asp-for="Email" type="email" autocomplete="email" required class="form-input">
                     <span asp-validation-for="Email" class="form-error"></span>
@@ -28,20 +28,26 @@
 
                 <div>
                     <label asp-for="Password" class="form-label">
-                        <i class="fa-solid fa-key mr-1 text-slate-400 dark:text-slate-500"></i> Passwort
+                        <i aria-hidden="true" class="fa-solid fa-key mr-1 text-slate-400 dark:text-slate-500"></i> Passwort
                     </label>
                     <input asp-for="Password" type="password" autocomplete="current-password" required class="form-input">
                     <span asp-validation-for="Password" class="form-error"></span>
                 </div>
 
-                <button type="submit" class="btn-primary w-full py-3.5 text-base shadow-lg shadow-brand-primary/20">
-                    <i class="fa-solid fa-right-to-bracket mr-2"></i> Jetzt anmelden
-                </button>
+                <div class="flex items-center gap-3">
+                    <button type="submit" class="btn-primary flex-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary">
+                        <i aria-hidden="true" class="fa-solid fa-right-to-bracket mr-2"></i> Anmelden
+                    </button>
+                </div>
+                
+                <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 text-center">
+                    Durch die Anmeldung akzeptieren Sie unsere <a asp-controller="Home" asp-action="Privacy" class="underline hover:text-brand-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded">Datenschutzbestimmungen</a>. Login-Aktivitäten werden sicher protokolliert.
+                </p>
             </form>
 
             <div class="mt-10 pt-8 border-t border-slate-100 dark:border-slate-800 transition-colors">
                 <div class="flex items-center gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors">
-                    <i class="fa-solid fa-circle-info text-brand-primary text-xl"></i>
+                    <i aria-hidden="true" class="fa-solid fa-circle-info text-brand-primary text-xl"></i>
                     <div class="text-xs text-slate-600 dark:text-slate-400 font-medium">
                         <p>Test-Zugang (Admin):</p>
                         <p class="font-bold text-slate-900 dark:text-white mt-0.5">admin@film.de | Admin123!</p>

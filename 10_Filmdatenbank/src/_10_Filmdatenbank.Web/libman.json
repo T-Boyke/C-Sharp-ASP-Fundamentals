@@ -9,8 +9,10 @@
         "css/all.min.css",
         "css/fontawesome.min.css",
         "css/solid.min.css",
+        "css/regular.min.css",
         "css/brands.min.css",
         "webfonts/fa-solid-900.woff2",
+        "webfonts/fa-regular-400.woff2",
         "webfonts/fa-brands-400.woff2"
       ]
     },

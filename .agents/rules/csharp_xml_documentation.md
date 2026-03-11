@@ -1,31 +1,37 @@
 # C# XML-Dokumentationsstandard (IHK-Konform)
 
-Um exzellente Code-Qualität und IHK-Konformität zu erreichen, muss jeder öffentliche Member (Klassen, Methoden, Eigenschaften) detailliert auf **Deutsch** dokumentiert werden.
+Um exzellente Code-Qualität und IHK-Konformität zu erreichen, muss jeder
+öffentliche Member (Klassen, Methoden, Eigenschaften) detailliert auf
+**Deutsch** dokumentiert werden.
 
 ## Grundprinzipien
 
 - **Sprache**: Deutsch (Präzise, professionell und verständlich).
-- **Zielgruppe**: IHK-Prüfer (Technischer Anspruch) und Anfänger (Erklärender Charakter).
-- **Vollständigkeit**: Jedes `<summary>`, `<param>` und `<returns>` muss ausgefüllt sein.
+- **Zielgruppe**: IHK-Prüfer (Technischer Anspruch) und Anfänger (Erklärender
+  Charakter).
+- **Vollständigkeit**: Jedes `<summary>`, `<param>` und `<returns>` muss
+  ausgefüllt sein.
 
 ## Erforderliche Tags
 
 ### `<summary>`
 
-Beschreibt *was* die Komponente macht. Vermeide triviale Aussagen wie "Setzt den Namen". Nutze stattdessen: "Initialisiert den Namen des Patienten und validiert die Eingabe auf Korrektheit."
+Beschreibt _was_ die Komponente macht. Vermeide triviale Aussagen wie "Setzt den
+Namen". Nutze stattdessen: "Initialisiert den Namen des Patienten und validiert
+die Eingabe auf Korrektheit."
 
 ### `<param name="xxx">`
 
 Beschreibt den Zweck des Parameters, nicht nur den Typ.
 
-*Gut*: `Der eindeutige Identifikator des Benutzers.`
-*Schlecht*: `Die ID.`
+_Gut_: `Der eindeutige Identifikator des Benutzers.` _Schlecht_: `Die ID.`
 
 ### `<returns>`
 
 Beschreibt den Rückgabewert und ggf. den Zustand bei Erfolg/Fehler.
 
-*Gut*: `Gibt die Liste aller aktiven Termine zurück. Wenn keine Termine vorhanden sind, wird eine leere Liste zurückgegeben.`
+_Gut_:
+`Gibt die Liste aller aktiven Termine zurück. Wenn keine Termine vorhanden sind, wird eine leere Liste zurückgegeben.`
 
 ### `<exception cref="xxx">`
 
@@ -48,7 +54,11 @@ public decimal BerechneGesamtpreis(decimal rabattProzent)
 
 ## Best Practices für "IHK-Glück"
 
-1. **Kontext liefern**: Erkläre kurz das *Warum*, wenn es nicht offensichtlich ist.
-2. **Fachbegriffe nutzen**: Verwende korrekte deutsche Fachbegriffe (z.B. "Instanziierung", "Kapselung", "Zeichenfolge").
-3. **Lesbarkeit**: Nutze `<para>` für längere Beschreibungen, um Absätze zu bilden.
-4. **Beispiele**: Nutze `<example>` für komplexe Logik, um Anfängern den Einstieg zu erleichtern.
+1. **Kontext liefern**: Erkläre kurz das _Warum_, wenn es nicht offensichtlich
+   ist.
+2. **Fachbegriffe nutzen**: Verwende korrekte deutsche Fachbegriffe (z.B.
+   "Instanziierung", "Kapselung", "Zeichenfolge").
+3. **Lesbarkeit**: Nutze `<para>` für längere Beschreibungen, um Absätze zu
+   bilden.
+4. **Beispiele**: Nutze `<example>` für komplexe Logik, um Anfängern den
+   Einstieg zu erleichtern.

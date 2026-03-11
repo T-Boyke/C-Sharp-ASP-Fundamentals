@@ -8,7 +8,7 @@
     <div class="flex items-center justify-between mb-12">
         <div class="flex items-center gap-4">
             <div class="w-12 h-12 rounded-xl bg-brand-soft border border-brand-border flex items-center justify-center text-brand-primary shadow-sm transition-transform hover:scale-105">
-                <i class="fa-solid fa-square-plus text-2xl"></i>
+                <i aria-hidden="true" class="fa-solid fa-square-plus text-2xl"></i>
             </div>
             <div>
                 <h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-none transition-colors">Neuer Katalogeintrag</h1>
@@ -16,20 +16,20 @@
             </div>
         </div>
         <a asp-action="Index" class="text-sm font-bold text-slate-400 hover:text-brand-primary transition-all flex items-center gap-2 uppercase tracking-widest">
-            <i class="fa-solid fa-chevron-left"></i> Zurück
+            <i aria-hidden="true" class="fa-solid fa-chevron-left"></i> Zurück
         </a>
     </div>
 
     <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden transition-colors">
         <form asp-action="Create" class="p-10 space-y-10">
-            <div asp-validation-summary="ModelOnly" class="p-4 rounded-xl bg-red-50 text-red-600 text-sm font-bold border border-red-100 italic"></div>
+            <div asp-validation-summary="ModelOnly" role="alert" class="p-4 rounded-xl bg-red-50 text-red-600 text-sm font-bold border border-red-100 italic"></div>
 
             <div class="space-y-8">
                 <!-- Basic Info -->
                 <div class="grid grid-cols-1 gap-8">
                     <div>
                         <label asp-for="Titel" class="form-label">
-                            <i class="fa-solid fa-heading mr-1 text-slate-400 dark:text-slate-500"></i> Film-Titel
+                            <i aria-hidden="true" class="fa-solid fa-heading mr-1 text-slate-400 dark:text-slate-500"></i> Film-Titel
                         </label>
                         <input asp-for="Titel" class="form-input" placeholder="z.B. Interstellar" />
                         <span asp-validation-for="Titel" class="form-error"></span>
@@ -38,7 +38,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                         <div>
                             <label asp-for="Erscheinungsjahr" class="form-label">
-                                <i class="fa-solid fa-calendar mr-1 text-slate-400 dark:text-slate-500"></i> Jahr
+                                <i aria-hidden="true" class="fa-solid fa-calendar mr-1 text-slate-400 dark:text-slate-500"></i> Jahr
                             </label>
                             <input asp-for="Erscheinungsjahr" class="form-input" />
                             <span asp-validation-for="Erscheinungsjahr" class="form-error"></span>
@@ -46,7 +46,7 @@
 
                         <div>
                             <label asp-for="Spieldauer" class="form-label">
-                                <i class="fa-solid fa-stopwatch mr-1 text-slate-400 dark:text-slate-500"></i> Dauer (min)
+                                <i aria-hidden="true" class="fa-solid fa-stopwatch mr-1 text-slate-400 dark:text-slate-500"></i> Dauer (min)
                             </label>
                             <input asp-for="Spieldauer" class="form-input" />
                             <span asp-validation-for="Spieldauer" class="form-error"></span>
@@ -54,7 +54,7 @@
 
                         <div>
                             <label asp-for="Preis" class="form-label">
-                                <i class="fa-solid fa-tag mr-1 text-slate-400 dark:text-slate-500"></i> Preis (€)
+                                <i aria-hidden="true" class="fa-solid fa-tag mr-1 text-slate-400 dark:text-slate-500"></i> Preis (€)
                             </label>
                             <input asp-for="Preis" class="form-input" />
                             <span asp-validation-for="Preis" class="form-error"></span>
@@ -65,13 +65,18 @@
 
             <div class="pt-10 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-6 transition-colors">
                  <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] max-w-[200px] leading-relaxed">
-                    Alle Felder müssen den IHK-Qualitätsrichtlinien entsprechen.
+                    Bitte füllen Sie alle markierten Felder aus.
                 </p>
-                <div class="flex gap-4">
-                    <a asp-action="Index" class="px-6 py-3 text-sm font-bold text-slate-500 hover:text-slate-700 transition-colors">Abbrechen</a>
-                    <button type="submit" class="btn-primary px-8 shadow-lg shadow-brand-primary/20">
-                        <i class="fa-solid fa-floppy-disk mr-2 font-light"></i> Speichern
-                    </button>
+                <div class="flex flex-col gap-3">
+                    <div class="flex gap-4">
+                        <a asp-action="Index" class="px-6 py-3 text-sm font-bold text-slate-500 hover:text-slate-700 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded-lg">Abbrechen</a>
+                        <button type="submit" class="btn-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary">
+                            <i aria-hidden="true" class="fa-solid fa-square-plus mr-2"></i> Film speichern
+                        </button>
+                    </div>
+                    <p class="text-xs text-slate-400 dark:text-slate-500">
+                        Mit dem Speichern der Daten bestätigen Sie unsere <a asp-controller="Home" asp-action="Privacy" class="underline hover:text-brand-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded">Datenschutzbestimmungen</a>. Die eingegebenen Daten werden ausschließlich projektintern gespeichert.
+                    </p>
                 </div>
             </div>
         </form>

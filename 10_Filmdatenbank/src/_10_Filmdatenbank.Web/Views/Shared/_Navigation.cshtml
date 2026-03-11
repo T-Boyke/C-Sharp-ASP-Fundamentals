@@ -1,30 +1,30 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 
-<header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+<header class="sticky top-0 z-50 w-full bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
     <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 px-6 lg:px-8" aria-label="Global">
         <div class="flex lg:flex-1">
             <a asp-area="" asp-controller="Home" asp-action="Index" class="-m-1.5 p-1.5 flex items-center gap-3 group">
                 <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-brand-primary shadow-sm group-hover:bg-brand-hover transition-colors duration-300">
-                    <i class="fa-solid fa-clapperboard text-white text-xl"></i>
+                    <i aria-hidden="true" class="fa-solid fa-clapperboard text-white text-xl"></i>
                 </div>
-                <span class="text-xl font-extrabold tracking-tight text-slate-900">Film<span class="text-brand-primary">Catalog</span></span>
+                <span class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors duration-300">Film<span class="text-brand-primary">Catalog</span></span>
             </a>
         </div>
         
         <div class="hidden lg:flex lg:gap-x-10">
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">
-                <i class="fa-solid fa-house-chimney text-slate-400"></i>
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link text-slate-700 dark:text-slate-300 hover:text-brand-primary dark:hover:text-brand-primary font-medium flex items-center gap-2 transition-colors">
+                <i aria-hidden="true" class="fa-solid fa-house-chimney text-slate-400 dark:text-slate-500"></i>
                 Home
             </a>
             @if (SignInManager.IsSignedIn(User))
             {
-                <a asp-area="" asp-controller="Film" asp-action="Index" class="nav-link">
-                    <i class="fa-solid fa-film text-slate-400"></i>
+                <a asp-area="" asp-controller="Film" asp-action="Index" class="nav-link text-slate-700 dark:text-slate-300 hover:text-brand-primary dark:hover:text-brand-primary font-medium flex items-center gap-2 transition-colors">
+                    <i aria-hidden="true" class="fa-solid fa-film text-slate-400 dark:text-slate-500"></i>
                     Filme
                 </a>
-                <a href="#" class="nav-link">
-                    <i class="fa-solid fa-masks-theater text-slate-401"></i>
+                <a href="#schauspieler" class="nav-link text-slate-700 dark:text-slate-300 hover:text-brand-primary dark:hover:text-brand-primary font-medium flex items-center gap-2 transition-colors" title="Schauspieler (Kommt bald)">
+                    <i aria-hidden="true" class="fa-solid fa-masks-theater text-slate-400 dark:text-slate-500"></i>
                     Schauspieler
                 </a>
             }
@@ -35,17 +35,17 @@
             {
                 <div class="flex items-center gap-4">
                     <div class="flex flex-col items-end">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Authentifiziert</span>
+                        <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none mb-1">Authentifiziert</span>
                         <span class="text-sm font-bold text-brand-primary flex items-center gap-2">
-                            <i class="fa-solid fa-circle-user"></i>
+                            <i aria-hidden="true" class="fa-solid fa-circle-user"></i>
                             @User.Identity?.Name
                         </span>
                     </div>
-                    <div class="h-8 w-px bg-slate-200"></div>
+                    <div class="h-8 w-px bg-slate-200 dark:bg-slate-700"></div>
                     <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
-                        <button type="submit" class="group flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-red-600 transition-colors duration-300">
+                        <button type="submit" class="group flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-300">
                             Logout 
-                            <i class="fa-solid fa-power-off group-hover:rotate-90 transition-transform duration-300"></i>
+                            <i aria-hidden="true" class="fa-solid fa-power-off group-hover:rotate-90 transition-transform duration-300"></i>
                         </button>
                     </form>
                 </div>
@@ -53,7 +53,7 @@
             else
             {
                 <a asp-controller="Account" asp-action="Login" class="btn-primary">
-                    <i class="fa-solid fa-circle-arrow-right mr-2"></i>
+                    <i aria-hidden="true" class="fa-solid fa-circle-arrow-right mr-2"></i>
                     Anmelden
                 </a>
             }
