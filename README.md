@@ -14,6 +14,7 @@ Welcome to the ultimate **C# ASP.NET Core 10** learning and development playgrou
 | **Framework** | .NET 10 | ![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&style=flat-square) |
 | **Architecture** | Clean / DDD | ![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2F%20DDD-blue?style=flat-square) |
 | **Frontend** | Tailwind CSS 4.2 | ![Tailwind](https://img.shields.io/badge/Tailwind-V4.2-06B6D4?logo=tailwindcss&style=flat-square) |
+| **Solution** | .slnx Format | ![Solution](https://img.shields.io/badge/Solution-.slnx-blue?style=flat-square) |
 | **Code Quality** | A+ | ![Quality](https://img.shields.io/badge/Quality-A%2B-brightgreen?style=flat-square) |
 | **Tests** | TDD Driven | ![Tests](https://img.shields.io/badge/Coverage-100%25-brightgreen?style=flat-square) |
 
@@ -94,7 +95,7 @@ We adhere to the following architectural pillars:
 | 07 | [Patienten-Management](./07_Patienten) | **Masterpiece project with 3NF, EF Core, and premium UI.** | [View](./07_Patienten) |
 | 08 | [Unit 08](./08_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./08_Unit_Template) |
 | 09 | [Identity Management](./09_Identity) | **Modern IAM with Identity, RBAC, and Clean Architecture.** | [View](./09_Identity) |
-| **10** | **[Film Database](./10_Filmdatenbank)** | **Clean Architecture MVC app with many-to-many relationships.** | **[View](./10_Filmdatenbank)** |
+| **10** | **[Film Database](./10_Filmdatenbank)** | **Clean Architecture MVC with 100% Test Coverage (TDD).** | **[View](./10_Filmdatenbank)** |
 | 11 | [Unit 11](./11_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./11_Unit_Template) |
 | 12 | [Unit 12](./12_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./12_Unit_Template) |
 | 13 | [Unit 13](./13_Unit_Template) | Template project for ASP.NET Fundamentals. | [View](./13_Unit_Template) |

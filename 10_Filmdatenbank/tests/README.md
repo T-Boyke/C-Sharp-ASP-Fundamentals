@@ -1,32 +1,46 @@
-# 🛡️ FilmDB - Testing Infrastructure (/tests)
+# 🧪 FilmDB - Test Suite (/tests)
 
-Dieses Verzeichnis enthält die automatisierte Test-Suite für das Film-Management-System. Wir setzen auf **xUnit**, um die Integrität unserer Clean Architecture sicherzustellen.
+Dieses Verzeichnis enthält die Tests für die Film-Management-Applikation. Wir verfolgen einen strikten **TDD-Ansatz** mit dem Ziel einer **100% Code-Abdeckung**.
 
-## 🧪 Test-Strategie
+## 🏗️ Test-Struktur
 
-### 1. Unit Tests (Domäne & Applikation)
+Die Tests sind in zwei Hauptprojekte unterteilt, um eine klare Trennung zwischen reiner Logik und Infrastruktur-Abhängigkeiten zu gewährleisten:
 
-Wir testen die Kernelemente der Anwendung isoliert:
+### 1. [_10_Filmdatenbank.UnitTests](./_10_Filmdatenbank.UnitTests)
+*   **Fokus**: Testet die Geschäftslogik isoliert.
+*   **Inhalt**:
+    *   **Domain**: Validierung der Entitäten (`Film`, `Person`, etc.).
+    *   **Web**: Controller-Logik mit gemockten Abhängigkeiten via **Moq**.
+*   **Vorteil**: Extrem schnelle Ausführung, da keine Datenbank- oder I/O-Zugriffe erfolgen.
 
-* **Entities**: Validierung von Properties und Geschäftsregeln in `Film`, `Person` etc.
-* **Services**: Prüfung der Geschäftslogik in der Applikations-Schicht unter Verwendung von Mocks für die Infrastruktur.
+### 2. [_10_Filmdatenbank.IntegrationTests](./_10_Filmdatenbank.IntegrationTests)
+*   **Fokus**: Testet das Zusammenspiel der Komponenten (End-to-End).
+*   **Inhalt**:
+    *   **Infrastructure**: Persistenz-Checks mit **EF Core In-Memory Database**.
+    *   **Seeding**: Validierung des automatischen Daten-Seeds via **Bogus**.
+    *   **Web**: Controller-Tests, die gegen eine reale (In-Memory) Datenbank laufen.
+*   **Vorteil**: Stellt sicher, dass die Anwendung auch mit realen Datenflüssen korrekt funktioniert.
 
-### 2. Integration Tests (Infrastruktur)
+## 🚀 Tests ausführen
 
-Prüfung des Zusammenspiels mit der Datenbank:
-
-* **Persistence**: Validierung der EF Core Konfigurationen und der FIFO API Mappings.
-* **Seeding**: Sicherstellung, dass der `DbSeeder` die korrekte Anzahl an Datensätzen erzeugt.
-
-## 🏃 Ausführung
-
-Um alle Tests zu starten, führe folgenden Befehl im Hauptverzeichnis aus:
+Zum Ausführen aller Tests kannst du entweder den Test Explorer in Visual Studio nutzen oder die CLI verwenden:
 
 ```bash
-dotnet test
+# Alle Tests in der Solution ausführen
+dotnet test ../10_Filmdatenbank.slnx
+
+# Nur Unit Tests
+dotnet test _10_Filmdatenbank.UnitTests
+
+# Nur Integration Tests
+dotnet test _10_Filmdatenbank.IntegrationTests
 ```
+
+## 📈 Coverage Report
+
+Wir nutzen `coverlet`, um die Testabdeckung zu messen. Für 100% Coverage wird jeder logische Pfad in den Controllern und Entity-Modellen geprüft.
 
 ---
 
 > [!TIP]
-> Die Tests dienen nicht nur der Fehlersuche, sondern auch als Dokumentation für das erwartete Systemverhalten! 📖
+> Neue Features sollten immer zuerst durch einen fehlschlagenden Test definiert werden (**Red**), bevor die Implementierung erfolgt (**Green**).

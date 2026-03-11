@@ -19,21 +19,23 @@ Stell dir vor, du bist der Betreiber einer Videothek oder eines Streaming-Dienst
 Das Projekt folgt dem Clean Architecture Muster und besteht aus vier Schichten:
 
 1.  **[Domäne (Kernelemente)](./src/_10_Filmdatenbank.Domain/Entities)**: Enthält die Entitäten `Film.cs`, `Person.cs` und `Eigenschaft.cs`. Die Beziehung zwischen ihnen wird über die Link-Tabelle `PersonEigenschaftFilm.cs` (Many-to-Many-to-Many) abgebildet.
-2.  **[Infrastruktur (Speicher)](./src/_10_Filmdatenbank.Infrastructure)**: Hier wird Entity Framework Core genutzt, um die Daten sicher in einer SQL Server Datenbank zu speichern.
+2.  **[Infrastruktur (Speicher)](./src/_10_Filmdatenbank.Infrastructure)**: Hier wird Entity Framework Core genutzt, um die Daten sicher in einer SQL Server Datenbank zu speichern (In-Memory für Tests).
 3.  **[Applikation (Logik)](./src/_10_Filmdatenbank.Application)**: Hier liegen die Schnittstellen und Dienste für die Geschäftslogik.
 4.  **[Webseite (UI)](./src/_10_Filmdatenbank.Web)**: Ein modernes ASP.NET MVC Frontend mit Tailwind 4, Inter-Font und Glassmorphism-Effekten.
+5.  **[Tests (Qualitätssicherung)](./tests)**: Getrennte **Unit-** und **Integrations-Tests** mit 100% Abdeckung.
 
 ---
 
 ## 📂 Wo finde ich was?
 *   [**/src**](./src/README.md): Der eigentliche Quellcode, unterteilt in die vier Architektur-Schichten.
-*   [**/tests**](./tests/README.md): Unit-Tests zur Qualitätssicherung.
+*   [**/tests**](./tests/README.md): DDD-konforme Test-Suite (Unit & Integration).
+*   [**/docs/diagrams.md**](./docs/diagrams.md): **Technische Dokumentation (Big 5 UML + ERD).**
 *   [**/aufgabe**](./aufgabe/Aufgabe%20Filmdatenbank.pdf): Die ursprüngliche Aufgabenstellung als PDF.
 
 ---
 
 ## 🚀 Schnellstart: So startest du die App
-1.  Öffne die Projektmappe in **Visual Studio 2022**.
+1.  Öffne die Datei `10_Filmdatenbank.slnx` in **Visual Studio 2022** (Version 17.10+).
 2.  Stelle sicher, dass `_10_Filmdatenbank.Web` als Startprojekt festgelegt ist.
 3.  Drücke **F5**.
 4.  Die Datenbank wird automatisch erstellt und mit **Testdaten** gefüllt.

@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/_10_Filmdatenbank.Domain/_10_Filmdatenbank.Domain.csproj" />
+    <Project Path="src/_10_Filmdatenbank.Application/_10_Filmdatenbank.Application.csproj" />
+    <Project Path="src/_10_Filmdatenbank.Infrastructure/_10_Filmdatenbank.Infrastructure.csproj" />
+    <Project Path="src/_10_Filmdatenbank.Web/_10_Filmdatenbank.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/_10_Filmdatenbank.UnitTests/_10_Filmdatenbank.UnitTests.csproj" />
+    <Project Path="tests/_10_Filmdatenbank.IntegrationTests/_10_Filmdatenbank.IntegrationTests.csproj" />
+  </Folder>
+</Solution>

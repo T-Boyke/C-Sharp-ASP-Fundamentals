@@ -1,4 +1,4 @@
-namespace tests;
+﻿namespace _10_Filmdatenbank.IntegrationTests;
 
 public class UnitTest1
 {
