@@ -47,7 +47,11 @@ public class ApplicationDbContext : IdentityDbContext
     {
         base.OnModelCreating(builder);
 
-            builder.Entity<PersonEigenschaftFilm>(entity =>
+        builder.Entity<Film>()
+            .Property(f => f.Preis)
+            .HasPrecision(18, 2);
+
+        builder.Entity<PersonEigenschaftFilm>(entity =>
             {
                 entity.HasKey(e => e.PEFID);
 

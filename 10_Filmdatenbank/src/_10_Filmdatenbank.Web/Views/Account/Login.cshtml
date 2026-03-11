@@ -16,7 +16,12 @@
 
         <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl transition-colors">
             <form class="space-y-6" asp-action="Login" method="post">
-                <div asp-validation-summary="ModelOnly" role="alert" class="p-3 rounded-lg bg-red-50 text-red-600 text-sm font-bold border border-red-100 italic"></div>
+                <div asp-validation-summary="ModelOnly" role="alert" class="p-4 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-bold border border-red-100 dark:border-red-900/30 italic flex flex-col items-center gap-4">
+                    @if (ViewBag.LoginFailed == true)
+                    {
+                        <img src="~/wrongPW.gif" alt="Falsches Passwort" class="w-32 h-32 rounded-lg shadow-md border-2 border-red-200 dark:border-red-800" />
+                    }
+                </div>
                 
                 <div>
                     <label asp-for="Email" class="form-label">

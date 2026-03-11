@@ -28,6 +28,7 @@ public class AccountController(SignInManager<IdentityUser> signInManager) : Cont
         {
             var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
             if (result.Succeeded) return RedirectToAction("Index", "Home");
+            ViewBag.LoginFailed = true;
             ModelState.AddModelError("", "Ungültiger Login-Versuch.");
         }
         return View(model);
