@@ -11,6 +11,8 @@ namespace _10_Filmdatenbank.Web.Controllers;
 /// </summary>
 /// <param name="context">Der Datenbankkontext für den Zugriff auf Filmdaten.</param>
 [Authorize]
+[Route("Movies")]
+[Route("Movies/[action]")]
 public class FilmController(ApplicationDbContext context) : Controller
 {
     /// <summary>
