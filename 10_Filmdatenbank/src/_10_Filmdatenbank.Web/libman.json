@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "@fortawesome/fontawesome-free@7.2.0",
+      "destination": "wwwroot/lib/font-awesome",
+      "files": [
+        "css/all.min.css",
+        "css/fontawesome.min.css",
+        "css/solid.min.css",
+        "css/brands.min.css",
+        "webfonts/fa-solid-900.woff2",
+        "webfonts/fa-brands-400.woff2"
+      ]
+    },
+    {
+      "library": "@fontsource-variable/noto-sans@5.2.10",
+      "destination": "wwwroot/lib/noto-sans",
+      "files": [
+        "index.css",
+        "files/noto-sans-latin-wght-normal.woff2"
+      ]
+    }
+  ]
+}
