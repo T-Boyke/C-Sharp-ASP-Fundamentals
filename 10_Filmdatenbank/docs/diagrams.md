@@ -5,6 +5,7 @@ This document provides a visual overview of the `10_Filmdatenbank` architecture 
 ---
 
 ## 1. ERD (Entity Relationship Diagram)
+
 The database schema follows the 3rd Normal Form (3NF) to manage movies, persons, and their roles efficiently.
 
 ```mermaid
@@ -43,30 +44,36 @@ erDiagram
 ---
 
 ## 2. UML Use Case Diagram
+
 Describes the interactions between different user roles and the system.
 
 ```mermaid
-usecaseDiagram
-    actor "Guest" as G
-    actor "Member" as M
-    actor "Admin" as A
+graph LR
+    subgraph Users
+        G((Guest))
+        M((Member))
+        A((Admin))
+    end
 
-    M --|> G
-    A --|> M
-
-    package "Film Management" {
-        usecase "Browse Films" as UC1
-        usecase "View Film Details" as UC2
-        usecase "Register/Login" as UC3
-        usecase "Search Films" as UC4
-        usecase "CRUD Movies" as UC5
-        usecase "Manage Permissions" as UC6
-    }
+    subgraph "Film Management System"
+        UC1(Browse Films)
+        UC2(View Film Details)
+        UC3(Register/Login)
+        UC4(Search Films)
+        UC5(CRUD Movies)
+        UC6(Manage Permissions)
+    end
 
     G --> UC1
     G --> UC3
+    M --> UC1
     M --> UC2
+    M --> UC3
     M --> UC4
+    A --> UC1
+    A --> UC2
+    A --> UC3
+    A --> UC4
     A --> UC5
     A --> UC6
 ```
@@ -74,6 +81,7 @@ usecaseDiagram
 ---
 
 ## 3. UML Class Diagram
+
 Shows the Domain Entities and their relationships within the `_10_Filmdatenbank.Domain` layer.
 
 ```mermaid
@@ -118,6 +126,7 @@ classDiagram
 ---
 
 ## 4. UML Sequence Diagram (Add Movie Flow)
+
 Illustrates the interaction between the Web UI, Controller, and Database when an Admin adds a new film.
 
 ```mermaid
@@ -140,36 +149,32 @@ sequenceDiagram
 ---
 
 ## 5. UML Activity Diagram (Application Flow)
+
 Shows the logical flow of a user navigating the application with authentication checks.
 
 ```mermaid
-activityDiagram
-    start
-    :User opens App;
-    if (Is Authenticated?) then (yes)
-        :Show Dashboard;
-        :User Browses Films;
-        if (Is Admin?) then (yes)
-            :Enable Edit/Delete Buttons;
-        else (no)
-            :Show Only Details;
-        endif
-    else (no)
-        :Redirect to Login;
-        :User enters Credentials;
-        if (Login Successful?) then (yes)
-            stop
-        else (no)
-            :Show Error;
-            backward:User enters Credentials;
-        endif
-    endif
-    stop
+flowchart TD
+    Start([Start]) --> OpenApp[User opens App]
+    OpenApp --> Auth{Is Authenticated?}
+    Auth -- Yes --> Dashboard[Show Dashboard]
+    Dashboard --> Browse[User Browses Films]
+    Browse --> AdminCheck{Is Admin?}
+    AdminCheck -- Yes --> AdminUI[Enable Edit/Delete Buttons]
+    AdminCheck -- No --> MemberUI[Show Only Details]
+    Auth -- No --> Redirect[Redirect to Login]
+    Redirect --> Credentials[User enters Credentials]
+    Credentials --> LoginCheck{Login Successful?}
+    LoginCheck -- Yes --> Dashboard
+    LoginCheck -- No --> Error[Show Error]
+    Error --> Credentials
+    AdminUI --> Stop([Stop])
+    MemberUI --> Stop
 ```
 
 ---
 
 ## 6. UML State Diagram (Auth State)
+
 Visualizes the different states of a user session.
 
 ```mermaid
