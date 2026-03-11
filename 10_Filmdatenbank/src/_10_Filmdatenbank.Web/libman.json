@@ -15,11 +15,11 @@
       ]
     },
     {
-      "library": "@fontsource-variable/noto-sans@5.2.10",
-      "destination": "wwwroot/lib/noto-sans",
+      "library": "@fontsource-variable/google-sans-flex@latest",
+      "destination": "wwwroot/lib/google-sans-flex/",
       "files": [
         "index.css",
-        "files/noto-sans-latin-wght-normal.woff2"
+        "files/google-sans-flex-latin-wght-normal.woff2"
       ]
     }
   ]

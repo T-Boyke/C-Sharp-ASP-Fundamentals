@@ -10,13 +10,15 @@ Verified and required versions for the repository.
 
 ## Frontend
 
-- **Styling**: Tailwind CSS 4.2
+- **Styling**: Tailwind CSS 4.2.1 (Local Binary / Tailwind.MSBuild)
+- **Icons**: Font Awesome 7.2.0 Free (Local LibMan)
+- **Typography**: Google Sans Flex (Variable Font, Local LibMan)
 - **Framework**: ASP.NET Core MVC & Blazor
 
 ## Testing & Quality
 
 - **Testing Framework**: xUnit 2.9+
-- **Assertions**: FluentAssertions or standard xUnit
-- **Mocking**: Moq or NSubstitute
+- **Assertions**: FluentAssertions 7.0+
+- **Mocking**: NSubstitute 5.1+ or Moq
 - **Linting**: Markdownlint, C# Analyzers (Roslyn)
 - **Documentation**: C#-XML Documentation (`/// <summary>`)

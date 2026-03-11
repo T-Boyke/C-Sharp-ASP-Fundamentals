@@ -15,6 +15,7 @@ To maintain excellence in documentation, all markdown files MUST adhere to these
 - Use **GitHub Alerts** (`> [!NOTE]`, `> [!IMPORTANT]`, etc.) to highlight critical information.
 - Use **Emojis** at the start of headers to improve scannability (e.g., `## 🚀 Features`).
 - Use **Mermaid Diagrams** for complex architectures or logic flows.
+  - **Compatibility**: Avoid `usecaseDiagram` or `activityDiagram`. Use `graph LR/TD` for architecture, flows, and logic to ensure rendering across all platforms (GitHub, IDEs).
 - Tables should be used for comparisons or status overviews.
 
 ## Formatting

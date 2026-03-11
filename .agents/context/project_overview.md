@@ -5,7 +5,7 @@ This repository is the successor to [C-Sharp-OOP-Fundamentals](https://github.co
 ## Mission
 
 - **Excellence**: High-quality code following IHK and industry standards.
-- **Modernity**: Using the latest features of C# 14, .NET 10, and Tailwind CSS 4.
+- **Modernity**: Using the latest features of C# 14, .NET 10, and Tailwind CSS 4.2.
 - **Foundational Learning**: Learning through doing, focusing on DDD, TDD, and Clean Architecture.
 
 ## Architecture & Design
@@ -13,10 +13,13 @@ This repository is the successor to [C-Sharp-OOP-Fundamentals](https://github.co
 - **DDD (Domain-Driven Design)**: Focus on the business domain and logic.
 - **TDD (Test-Driven Development)**: Red-Green-Refactor approach for 100% coverage.
 - **Clean Architecture**: Decoupling the business logic from infrastructure and UI.
-- **Utility-First UI**: Modern, responsive, and visually stunning frontends powered by Tailwind.
+- **Local-Only UI**: High-performance, Node-free frontends powered by Tailwind 4.2 and local assets.
 
 ## Project Structure
 
-- `01_...` to `30_...`: Incremental learning units.
-- Each unit is a self-contained project with its own `src/` and `tests/`.
-- `/.agent/`: Workspace-specific intelligence tools and rules.
+- **Incremental Learning**: `01_...` to `30_...` units.
+- **Modern Layout**:
+  - `Src/`: Domain, Application, Infrastructure, Web layers.
+  - `Tests/`: UnitTests and IntegrationTests.
+- **Solution Management**: Centralized `.slnx` files for streamlined project handling.
+- **Agent Intelligence**: `/.agents/` directory containing the project's brain (Skills, Rules, Context).

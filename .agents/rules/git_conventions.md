@@ -28,7 +28,23 @@ Format: `<type>(<scope>): <description>`
 - No period at the end of the subject line.
 - Scope should refer to the Unit or Project (e.g., `feat(04_ShoppingList): ...`).
 
-## Branching
-
-- Use descriptive branch names: `feature/xyz`, `bugfix/abc`, `refactor/clean-up`.
 - Keep branches short-lived.
+
+## Workflow (Daily Sync)
+
+To avoid conflicts and ensure environment stability, follow this sequence:
+
+1. `git fetch`: Check for remote changes without merging.
+2. `git status`: Review local state.
+3. `git pull --tags origin main`: Always sync the latest state including tags.
+4. `git push origin main:main`: Direct pushes to main are allowed for educational units, but verify stability first.
+
+## Troubleshooting
+
+### File Locks (Windows)
+
+If you encounter `The process cannot access the file ... because it is being used by another process`:
+
+- **Visual Studio**: Close the relevant `.csproj` or the entire IDE instance.
+- **Background Processes**: Ensure no `dotnet` or `tailwindcss` processes are hung in the background.
+- **Retry**: Use `dotnet build` again after closing the blocking application.

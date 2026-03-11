@@ -12,7 +12,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="tailwindcss" Version="4.0.0-beta.5" />
+    <PackageReference Include="Tailwind.MSBuild" Version="2.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
   <PropertyGroup>
@@ -21,7 +24,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <TailwindCSSInputFile>wwwroot/css/input.css</TailwindCSSInputFile>
     <TailwindCSSOutputFile>wwwroot/css/site.css</TailwindCSSOutputFile>
-    <DisableStaticWebAssetsCompression>true</DisableStaticWebAssetsCompression>
   </PropertyGroup>
 
 </Project>

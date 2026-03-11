@@ -6,14 +6,25 @@ Qualitativ hochwertige Tests sind das Rückgrat jeder exzellenten Anwendung.
 
 Jeder Test muss strikt nach dem **Arrange-Act-Assert** Pattern gegliedert sein:
 
-1.  **Arrange**: Vorbereiten der Testdaten, Mocks und des "System Under Test" (SUT).
-2.  **Act**: Ausführen der zu testenden Aktion.
-3.  **Assert**: Überprüfen des Ergebnisses.
+1. **Arrange**: Vorbereiten der Testdaten, Mocks und des "System Under Test" (SUT).
+2. **Act**: Ausführen der zu testenden Aktion.
+3. **Assert**: Überprüfen des Ergebnisses.
 
 ## 🏷️ Benennungskonvention
 
 Format: `UnitOfWork_StateUnderTest_ExpectedBehavior`
 Beispiel: `BerechneGesamtpreis_RabattGültig_GibtkorrektenBetragZurück`
+
+## 📂 DDD Test-Struktur
+
+Projektspezifische Tests sollten strikt nach den Layern der Clean Architecture / DDD gegliedert sein:
+
+- **{Project}.UnitTests**: Logik-Tests für Domain & Application.
+  - `Domain/`: Entitäten, Value Objects, Domain Services.
+  - `Application/`: Use Cases, Mapping, Validierung.
+- **{Project}.IntegrationTests**: Tests für Infrastructure & Web.
+  - `Infrastructure/`: Repository-Implementierungen (via Container/In-Memory), Mail-Services, API-Clients.
+  - `Web/`: Middleware, Filter, Controller (Integration).
 
 ## 🛠️ Werkzeuge & Best Practices
 
@@ -23,6 +34,7 @@ Beispiel: `BerechneGesamtpreis_RabattGültig_GibtkorrektenBetragZurück`
 - **Constructor Injection**: Injiziere Abhängigkeiten via Constructor in das SUT, um einfaches Mocking zu ermöglichen.
 
 ## 🛡️ Excellence Checklist
+
 - [ ] Folgt der Test dem AAA-Pattern?
 - [ ] Ist der Name präzise und beschreibt das erwartete Verhalten?
 - [ ] Wird gegen ein Interface getestet (Decoupling)?

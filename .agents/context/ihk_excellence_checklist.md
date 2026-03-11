@@ -18,8 +18,9 @@ Die ultimative Checkliste für jedes Feature und jeden Commit.
 - [ ] Alle Tests folgen dem AAA-Pattern.
 - [ ] Benennung der Tests ist sprechend (`Unit_State_Expected`).
 
-## 🎨 Visual Excellence
 - [ ] UI nutzt Tailwind 4.2 Best Practices (Gradients, Glassmorphism).
+- [ ] Alle Assets (Fonts, Icons, CSS) werden **lokal** (ohne CDN) ausgeliefert.
+- [ ] Asset-Management erfolgt **Node-frei** (via LibMan & Tailwind.MSBuild).
 - [ ] Interaktionen sind durch Micro-Animations (Transitions) flüssig.
 - [ ] Das Layout ist responsiv und barrierefrei.
 
