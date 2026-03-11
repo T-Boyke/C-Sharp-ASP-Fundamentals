@@ -8,8 +8,7 @@ namespace _10_Filmdatenbank.Web.Controllers;
 /// Verwaltet Benutzerkonten, Anmeldungen und Abmeldungen.
 /// </summary>
 /// <param name="signInManager">Manager für den Anmeldeprozess.</param>
-/// <param name="userManager">Manager für die Benutzerverwaltung.</param>
-public class AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager) : Controller
+public class AccountController(SignInManager<IdentityUser> signInManager) : Controller
 {
     /// <summary>
     /// Zeigt die Anmeldeseite an.
