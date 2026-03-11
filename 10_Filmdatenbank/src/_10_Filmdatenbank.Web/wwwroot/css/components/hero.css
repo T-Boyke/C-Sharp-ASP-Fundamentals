@@ -1,0 +1,3 @@
+@utility hero-container {
+  @apply relative isolate px-6 pt-14 lg:px-8 bg-brand-soft rounded-3xl mx-4 my-8 overflow-hidden shadow-sm border border-brand-border;
+}

@@ -1,0 +1,3 @@
+@utility btn-primary {
+  @apply inline-flex items-center justify-center px-6 py-2.5 bg-brand-primary text-white font-bold rounded-lg hover:bg-brand-hover transition-all duration-200 shadow-sm hover:shadow-brand-border/50;
+}

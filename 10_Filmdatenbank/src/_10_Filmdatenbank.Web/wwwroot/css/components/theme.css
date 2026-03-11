@@ -1,0 +1,14 @@
+@theme {
+  --font-sans: "Noto Sans Variable", ui-sans-serif, system-ui;
+  --color-brand-bg: #fafafa;
+  --color-brand-primary: #7c3aed; /* Violet 600 - Professional Purple */
+  --color-brand-hover: #6d28d9; /* Violet 700 */
+  --color-brand-soft: #f5f3ff; /* Violet 50 */
+  --color-brand-border: #ddd6fe; /* Violet 200 */
+}
+
+@layer base {
+  body {
+    @apply bg-brand-bg text-slate-900 font-sans antialiased;
+  }
+}
