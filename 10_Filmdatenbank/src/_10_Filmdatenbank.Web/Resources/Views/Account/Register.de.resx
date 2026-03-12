@@ -15,4 +15,6 @@
   <data name="RegisterButton" xml:space="preserve"><value>Mitglied werden</value></data>
   <data name="AlreadyHaveAccount" xml:space="preserve"><value>Bereits ein Konto?</value></data>
   <data name="LoginLink" xml:space="preserve"><value>Hier anmelden</value></data>
+  <data name="HidePassword" xml:space="preserve"><value>Passwort ausblenden</value></data>
+  <data name="ShowPassword" xml:space="preserve"><value>Passwort anzeigen</value></data>
 </root>

@@ -16,4 +16,6 @@
   <data name="NoAccount" xml:space="preserve"><value>Hala bir hesabınız yok mu?</value></data>
   <data name="RegisterNow" xml:space="preserve"><value>Şimdi kaydolun</value></data>
   <data name="TestAccessAdmin" xml:space="preserve"><value>Test Erişimi (Admin)</value></data>
+  <data name="HidePassword" xml:space="preserve"><value>Şifreyi gizle</value></data>
+  <data name="ShowPassword" xml:space="preserve"><value>Şifreyi göster</value></data>
 </root>

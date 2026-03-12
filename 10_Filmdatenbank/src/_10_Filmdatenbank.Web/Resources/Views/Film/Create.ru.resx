@@ -28,4 +28,9 @@
   <data name="Cancel" xml:space="preserve"><value>Отмена</value></data>
   <data name="CreateButton" xml:space="preserve"><value>Создать фильм</value></data>
   <data name="ValidationNotice" xml:space="preserve"><value>Системная валидация активна • Все изменения сразу появятся в каталоге.</value></data>
+  <data name="TmdbSearchLabel" xml:space="preserve"><value>Быстрый поиск TMDB</value></data>
+  <data name="TmdbSearchPlaceholder" xml:space="preserve"><value>Введите название для автозаполнения...</value></data>
+  <data name="TmdbSearchHint" xml:space="preserve"><value>Упрощает ввод данных путем импорта из TMDB.</value></data>
+  <data name="Searching" xml:space="preserve"><value>Поиск...</value></data>
+  <data name="NoResults" xml:space="preserve"><value>Подходящих фильмов не найдено.</value></data>
 </root>

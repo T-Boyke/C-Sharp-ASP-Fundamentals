@@ -28,4 +28,9 @@
   <data name="Cancel" xml:space="preserve"><value>İptal</value></data>
   <data name="CreateButton" xml:space="preserve"><value>Film Oluştur</value></data>
   <data name="ValidationNotice" xml:space="preserve"><value>Sistem doğrulaması aktif • Tüm değişiklikler anında katalogda görünür olacaktır.</value></data>
+  <data name="TmdbSearchLabel" xml:space="preserve"><value>TMDB Hızlı Arama</value></data>
+  <data name="TmdbSearchPlaceholder" xml:space="preserve"><value>Otomatik tamamlama için başlık girin...</value></data>
+  <data name="TmdbSearchHint" xml:space="preserve"><value>TMDB'den içe aktararak veri girişini basitleştirir.</value></data>
+  <data name="Searching" xml:space="preserve"><value>Aranıyor...</value></data>
+  <data name="NoResults" xml:space="preserve"><value>Eşleşen film bulunamadı.</value></data>
 </root>

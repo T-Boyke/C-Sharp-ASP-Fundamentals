@@ -16,4 +16,6 @@
   <data name="NoAccount" xml:space="preserve"><value>Noch kein Konto?</value></data>
   <data name="RegisterNow" xml:space="preserve"><value>Jetzt registrieren</value></data>
   <data name="TestAccessAdmin" xml:space="preserve"><value>Test-Zugang (Admin)</value></data>
+  <data name="HidePassword" xml:space="preserve"><value>Passwort ausblenden</value></data>
+  <data name="ShowPassword" xml:space="preserve"><value>Passwort anzeigen</value></data>
 </root>

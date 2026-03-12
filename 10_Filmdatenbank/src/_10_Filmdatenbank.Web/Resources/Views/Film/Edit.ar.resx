@@ -32,4 +32,5 @@
   <data name="SaveChanges" xml:space="preserve"><value>حفظ التغييرات</value></data>
   <data name="SaveNotice" xml:space="preserve"><value>سيتم حفظ التغييرات في قاعدة البيانات فوراً.</value></data>
   <data name="Update" xml:space="preserve"><value>تحديث</value></data>
+  <data name="LabelTagline" xml:space="preserve"><value>الشعار / سطر الوصف</value></data>
 </root>

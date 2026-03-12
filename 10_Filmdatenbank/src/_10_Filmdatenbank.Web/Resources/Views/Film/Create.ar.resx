@@ -28,4 +28,9 @@
   <data name="Cancel" xml:space="preserve"><value>إلغاء</value></data>
   <data name="CreateButton" xml:space="preserve"><value>إنشاء فيلم</value></data>
   <data name="ValidationNotice" xml:space="preserve"><value>تبويب التحقق من النظام نشط • ستظهر جميع التغييرات فوراً في الكتالوج.</value></data>
+  <data name="TmdbSearchLabel" xml:space="preserve"><value>البحث السريع في TMDB</value></data>
+  <data name="TmdbSearchPlaceholder" xml:space="preserve"><value>أدخل العنوان للإكمال التلقائي...</value></data>
+  <data name="TmdbSearchHint" xml:space="preserve"><value>يسهل إدخال البيانات عن طريق الاستيراد من TMDB.</value></data>
+  <data name="Searching" xml:space="preserve"><value>جاري البحث...</value></data>
+  <data name="NoResults" xml:space="preserve"><value>لم يتم العثور على أفلام مطابقة.</value></data>
 </root>

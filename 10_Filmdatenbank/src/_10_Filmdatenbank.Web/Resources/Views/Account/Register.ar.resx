@@ -15,4 +15,6 @@
   <data name="RegisterButton" xml:space="preserve"><value>كن عضواً</value></data>
   <data name="AlreadyHaveAccount" xml:space="preserve"><value>لديك حساب بالفعل؟</value></data>
   <data name="LoginLink" xml:space="preserve"><value>سجل دخولك من هنا</value></data>
+  <data name="HidePassword" xml:space="preserve"><value>إخفاء كلمة المرور</value></data>
+  <data name="ShowPassword" xml:space="preserve"><value>إظهار كلمة المرور</value></data>
 </root>

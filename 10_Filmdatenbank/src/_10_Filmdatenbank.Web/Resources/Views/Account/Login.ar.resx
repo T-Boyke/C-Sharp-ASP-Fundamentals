@@ -16,4 +16,6 @@
   <data name="NoAccount" xml:space="preserve"><value>ليس لديك حساب؟</value></data>
   <data name="RegisterNow" xml:space="preserve"><value>سجل الآن</value></data>
   <data name="TestAccessAdmin" xml:space="preserve"><value>الدخول التجريبي (مسؤول)</value></data>
+  <data name="HidePassword" xml:space="preserve"><value>إخفاء كلمة المرور</value></data>
+  <data name="ShowPassword" xml:space="preserve"><value>إظهار كلمة المرور</value></data>
 </root>

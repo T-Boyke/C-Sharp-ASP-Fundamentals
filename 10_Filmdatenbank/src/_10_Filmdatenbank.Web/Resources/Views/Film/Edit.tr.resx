@@ -32,4 +32,5 @@
   <data name="SaveChanges" xml:space="preserve"><value>Değişiklikleri Kaydet</value></data>
   <data name="SaveNotice" xml:space="preserve"><value>Değişiklikler anında veritabanına kaydedilecektir.</value></data>
   <data name="Update" xml:space="preserve"><value>Güncelle</value></data>
+  <data name="LabelTagline" xml:space="preserve"><value>Slogan / Tanıtım Yazısı</value></data>
 </root>

@@ -15,4 +15,6 @@
   <data name="RegisterButton" xml:space="preserve"><value>Стать участником</value></data>
   <data name="AlreadyHaveAccount" xml:space="preserve"><value>Уже есть аккаунт?</value></data>
   <data name="LoginLink" xml:space="preserve"><value>Войти здесь</value></data>
+  <data name="HidePassword" xml:space="preserve"><value>Скрыть пароль</value></data>
+  <data name="ShowPassword" xml:space="preserve"><value>Показать пароль</value></data>
 </root>

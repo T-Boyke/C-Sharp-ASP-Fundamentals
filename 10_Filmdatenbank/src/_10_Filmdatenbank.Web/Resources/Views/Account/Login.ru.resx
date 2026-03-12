@@ -16,4 +16,6 @@
   <data name="NoAccount" xml:space="preserve"><value>Нет аккаунта?</value></data>
   <data name="RegisterNow" xml:space="preserve"><value>Зарегистрироваться</value></data>
   <data name="TestAccessAdmin" xml:space="preserve"><value>Тестовый доступ (Админ)</value></data>
+  <data name="HidePassword" xml:space="preserve"><value>Скрыть пароль</value></data>
+  <data name="ShowPassword" xml:space="preserve"><value>Показать пароль</value></data>
 </root>

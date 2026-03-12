@@ -15,4 +15,6 @@
   <data name="RegisterButton" xml:space="preserve"><value>Üye olun</value></data>
   <data name="AlreadyHaveAccount" xml:space="preserve"><value>Zaten bir hesabınız var mı?</value></data>
   <data name="LoginLink" xml:space="preserve"><value>Buradan giriş yapın</value></data>
+  <data name="HidePassword" xml:space="preserve"><value>Şifreyi gizle</value></data>
+  <data name="ShowPassword" xml:space="preserve"><value>Şifreyi göster</value></data>
 </root>

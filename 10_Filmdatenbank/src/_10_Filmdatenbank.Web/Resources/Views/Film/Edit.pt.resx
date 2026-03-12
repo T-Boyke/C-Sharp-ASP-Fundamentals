@@ -32,4 +32,5 @@
   <data name="SaveChanges" xml:space="preserve"><value>Salvar Alterações</value></data>
   <data name="SaveNotice" xml:space="preserve"><value>As alterações serão persistidas no banco de dados imediatamente.</value></data>
   <data name="Update" xml:space="preserve"><value>Atualizar</value></data>
+  <data name="LabelTagline" xml:space="preserve"><value>Slogan / Tagline</value></data>
 </root>
