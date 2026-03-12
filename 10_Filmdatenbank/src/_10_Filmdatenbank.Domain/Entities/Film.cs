@@ -39,6 +39,12 @@ public class Film
     public string? Handlung { get; set; }
 
     /// <summary>
+    /// Ein kurzer Werbespruch zum Film.
+    /// </summary>
+    public string? Tagline { get; set; }
+
+
+    /// <summary>
     /// Die URL zum Poster-Bild.
     /// </summary>
     public string? PosterUrl { get; set; }
