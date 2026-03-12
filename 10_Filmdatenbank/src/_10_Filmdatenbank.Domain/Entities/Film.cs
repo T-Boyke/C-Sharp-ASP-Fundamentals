@@ -74,6 +74,68 @@ public class Film
     /// </summary>
     public string? Tags { get; set; }
 
+    // --- TMDB PERFECT ALIGNMENT ---
+
+    /// <summary>
+    /// Die ID des Films auf TMDB.
+    /// </summary>
+    public int? TmdbId { get; set; }
+
+    /// <summary>
+    /// Die ID des Films auf IMDB.
+    /// </summary>
+    public string? ImdbId { get; set; }
+
+    /// <summary>
+    /// Der Originaltitel des Films.
+    /// </summary>
+    public string? OriginalTitle { get; set; }
+
+    /// <summary>
+    /// Die Originalsprache des Films (ISO 639-1).
+    /// </summary>
+    public string? OriginalLanguage { get; set; }
+
+    /// <summary>
+    /// Der Status der Produktion (z.B. Released).
+    /// </summary>
+    public string? Status { get; set; }
+
+    /// <summary>
+    /// Das Budget des Films in USD.
+    /// </summary>
+    public long? Budget { get; set; }
+
+    /// <summary>
+    /// Die Einnahmen des Films in USD.
+    /// </summary>
+    public long? Revenue { get; set; }
+
+    /// <summary>
+    /// Die offizielle Homepage des Films.
+    /// </summary>
+    public string? Homepage { get; set; }
+
+    /// <summary>
+    /// Die TMDB-Popularitätsskala.
+    /// </summary>
+    public double? Popularity { get; set; }
+
+    /// <summary>
+    /// Die Anzahl der Stimmen auf TMDB.
+    /// </summary>
+    public int? VoteCount { get; set; }
+
+    /// <summary>
+    /// Die durchschnittliche Nutzerwertung (0-10) von TMDB.
+    /// </summary>
+    public double? VoteAverage { get; set; }
+
+    /// <summary>
+    /// Die URL zum Hintergrundbild (Backdrop).
+    /// </summary>
+    public string? BackdropUrl { get; set; }
+
     /// <summary>
     /// Eine Sammlung von Personen und ihren Eigenschaften, die an diesem Film mitgewirkt haben.
     /// </summary>

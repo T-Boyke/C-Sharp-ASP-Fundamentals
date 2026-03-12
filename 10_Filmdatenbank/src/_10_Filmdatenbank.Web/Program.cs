@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using _10_Filmdatenbank.Application.Interfaces;
+using _10_Filmdatenbank.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddControllersWithViews()
     .AddDataAnnotationsLocalization();
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+builder.Services.AddScoped<ITmdbService, TmdbService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),

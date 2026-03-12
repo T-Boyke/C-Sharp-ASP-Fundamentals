@@ -48,6 +48,38 @@ public class Person
     /// </summary>
     public string? Tags { get; set; }
 
+    // --- TMDB PERFECT ALIGNMENT ---
+
+    /// <summary>
+    /// Die ID der Person auf TMDB.
+    /// </summary>
+    public int? TmdbId { get; set; }
+
+    /// <summary>
+    /// Die ID der Person auf IMDB.
+    /// </summary>
+    public string? ImdbId { get; set; }
+
+    /// <summary>
+    /// Das Geschlecht (1=Weiblich, 2=Männlich, 0=Unbekannt).
+    /// </summary>
+    public int? Gender { get; set; }
+
+    /// <summary>
+    /// Das Todesdatum (falls verstorben).
+    /// </summary>
+    public DateTime? Deathday { get; set; }
+
+    /// <summary>
+    /// Die offizielle Homepage der Person.
+    /// </summary>
+    public string? Homepage { get; set; }
+
+    /// <summary>
+    /// Die TMDB-Popularitätsskala.
+    /// </summary>
+    public double? Popularity { get; set; }
+
     /// <summary>
     /// Eine Sammlung von Filmen und Eigenschaften, an denen die Person mitgewirkt hat.
     /// </summary>

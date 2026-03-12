@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _10_Filmdatenbank.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using _10_Filmdatenbank.Infrastructure.Persistence;
 namespace _10_Filmdatenbank.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260312125911_AddTagline")]
+    partial class AddTagline
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,12 +265,6 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FilmID"));
 
-                    b.Property<string>("BackdropUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("Budget")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime?>("Erscheinungsdatum")
                         .HasColumnType("datetime2");
 
@@ -283,22 +280,7 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<string>("Handlung")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Homepage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImdbId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double?>("Nutzerwertung")
-                        .HasColumnType("float");
-
-                    b.Property<string>("OriginalLanguage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OriginalTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("Popularity")
                         .HasColumnType("float");
 
                     b.Property<string>("PosterUrl")
@@ -308,14 +290,8 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<long?>("Revenue")
-                        .HasColumnType("bigint");
-
                     b.Property<int>("Spieldauer")
                         .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tagline")
                         .HasColumnType("nvarchar(max)");
@@ -326,15 +302,6 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<string>("Titel")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TmdbId")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("VoteAverage")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("VoteCount")
-                        .HasColumnType("int");
 
                     b.HasKey("FilmID");
 
@@ -352,39 +319,21 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<string>("Biografie")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Deathday")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime?>("Geburtsdatum")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Geburtsort")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Homepage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImdbId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Nachname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("Popularity")
-                        .HasColumnType("float");
 
                     b.Property<string>("ProfilBildUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tags")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TmdbId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Vorname")
                         .IsRequired()

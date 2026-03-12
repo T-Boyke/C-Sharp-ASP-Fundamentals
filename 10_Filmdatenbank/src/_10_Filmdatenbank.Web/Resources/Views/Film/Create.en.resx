@@ -27,5 +27,10 @@
   <data name="PlaceholderPlot" xml:space="preserve"><value>What is the movie about?</value></data>
   <data name="Cancel" xml:space="preserve"><value>Cancel</value></data>
   <data name="CreateButton" xml:space="preserve"><value>Create Film</value></data>
-  <data name="ValidationNotice" xml:space="preserve"><value>System validation active • All changes will be visible in the catalog immediately.</value></data>
+  <data name="ValidationNotice" xml:space="preserve"><value>System validation active • All changes become visible instantly.</value></data>
+  <data name="TmdbSearchLabel" xml:space="preserve"><value>TMDB Quick Search</value></data>
+  <data name="TmdbSearchPlaceholder" xml:space="preserve"><value>Enter title for auto-complete...</value></data>
+  <data name="TmdbSearchHint" xml:space="preserve"><value>Simplifies data entry by importing from TMDB.</value></data>
+  <data name="Searching" xml:space="preserve"><value>Searching...</value></data>
+  <data name="NoResults" xml:space="preserve"><value>No matching movies found.</value></data>
 </root>

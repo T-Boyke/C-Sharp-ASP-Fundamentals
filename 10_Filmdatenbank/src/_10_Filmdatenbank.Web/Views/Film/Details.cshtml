@@ -111,6 +111,10 @@
                     <i aria-hidden="true" class="fa-solid fa-hashtag text-brand-primary"></i> @Model.FilmID
                 </div>
                 <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-slate-900 dark:text-white leading-none transition-colors">@Model.Titel</h1>
+                @if (!string.IsNullOrEmpty(Model.Tagline))
+                {
+                    <p class="mt-4 text-2xl font-black text-brand-primary/80 italic tracking-tight transition-colors">@Model.Tagline</p>
+                }
                 <p class="mt-6 text-xl text-text-description dark:text-dark-text-muted font-medium italic transition-colors leading-relaxed">@Model.Genre &bull; @Model.Erscheinungsjahr</p>
             </header>
 

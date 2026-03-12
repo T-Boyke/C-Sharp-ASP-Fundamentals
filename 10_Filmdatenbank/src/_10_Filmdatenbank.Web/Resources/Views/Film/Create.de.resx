@@ -28,4 +28,9 @@
   <data name="Cancel" xml:space="preserve"><value>Abbrechen</value></data>
   <data name="CreateButton" xml:space="preserve"><value>Film erstellen</value></data>
   <data name="ValidationNotice" xml:space="preserve"><value>System-Validierung aktiv • Alle Änderungen werden sofort im Katalog sichtbar.</value></data>
+  <data name="TmdbSearchLabel" xml:space="preserve"><value>TMDB Schnellsuche</value></data>
+  <data name="TmdbSearchPlaceholder" xml:space="preserve"><value>Titel eingeben für automatische Vervollständigung...</value></data>
+  <data name="TmdbSearchHint" xml:space="preserve"><value>Erleichtert die Dateneingabe durch Import von TMDB.</value></data>
+  <data name="Searching" xml:space="preserve"><value>Suche läuft...</value></data>
+  <data name="NoResults" xml:space="preserve"><value>Keine passenden Filme gefunden.</value></data>
 </root>
