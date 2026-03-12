@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="PrivacyTitle" xml:space="preserve"><value>Конфиденциальность</value></data>
+  <data name="PrivacyHeaderPrefix" xml:space="preserve"><value>Положения о </value></data>
+  <data name="PrivacyHeaderHighlight" xml:space="preserve"><value>конфиденциальности</value></data>
+  <data name="GeneralInfoTitle" xml:space="preserve"><value>Общая информация</value></data>
+  <data name="GeneralInfoText" xml:space="preserve"><value>Мы очень серьезно относимся к защите ваших личных данных. Эта страница информирует вас о том, как мы собираем и обрабатываем данные для обеспечения соответствия GDPR.</value></data>
+  <data name="LocalProcessingTitle" xml:space="preserve"><value>Локальная обработка данных</value></data>
+  <data name="LocalProcessingIntro" xml:space="preserve"><value>Этот проект («Filmdatenbank») разработан таким образом, что **все ресурсы загружаются локально**. Это означает:</value></data>
+  <data name="LocalProcessingItem1" xml:space="preserve"><value>Никакой интеграции Google Fonts через серверы Google.</value></data>
+  <data name="LocalProcessingItem2" xml:space="preserve"><value>Никакой интеграции FontAwesome через CDN.</value></data>
+  <data name="LocalProcessingItem3" xml:space="preserve"><value>Никаких внешних трекеров или инструментов анализа.</value></data>
+  <data name="LocalProcessingFooter" xml:space="preserve"><value>В результате IP-адреса не передаются сторонним провайдерам (например, в США) без запроса.</value></data>
+  <data name="DataStorageTitle" xml:space="preserve"><value>Хранение данных о фильмах</value></data>
+  <data name="DataStorageText" xml:space="preserve"><value>Введенные вами данные о фильмах (название, год, продолжительность, цена) хранятся исключительно в локальной базе данных проекта (Entity Framework Core) и не передаются внешним службам.</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>Вернуться на главную</value></data>
+</root>

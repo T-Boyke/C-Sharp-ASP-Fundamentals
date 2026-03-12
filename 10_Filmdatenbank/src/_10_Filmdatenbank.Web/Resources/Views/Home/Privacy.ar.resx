@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="PrivacyTitle" xml:space="preserve"><value>خصوصية البيانات</value></data>
+  <data name="PrivacyHeaderPrefix" xml:space="preserve"><value>سياسة </value></data>
+  <data name="PrivacyHeaderHighlight" xml:space="preserve"><value>الخصوصية</value></data>
+  <data name="GeneralInfoTitle" xml:space="preserve"><value>معلومات عامة</value></data>
+  <data name="GeneralInfoText" xml:space="preserve"><value>نحن نأخذ حماية بياناتك الشخصية على محمل الجد. تطلعك هذه الصفحة على كيفية جمعنا للبيانات ومعالجتها لضمان الامتثال للائحة العامة لحماية البيانات (GDPR).</value></data>
+  <data name="LocalProcessingTitle" xml:space="preserve"><value>معالجة البيانات محلياً</value></data>
+  <data name="LocalProcessingIntro" xml:space="preserve"><value>تم تصميم هذا المشروع ("قاعدة بيانات الأفلام") بحيث **يتم تحميل جميع الأصول محلياً**. وهذا يعني:</value></data>
+  <data name="LocalProcessingItem1" xml:space="preserve"><value>لا يتم دمج خطوط جوجل عبر خوادم جوجل.</value></data>
+  <data name="LocalProcessingItem2" xml:space="preserve"><value>لا يتم دمج FontAwesome عبر CDN.</value></data>
+  <data name="LocalProcessingItem3" xml:space="preserve"><value>لا توجد أدوات تتبع أو تحليل خارجية.</value></data>
+  <data name="LocalProcessingFooter" xml:space="preserve"><value>ونتيجة لذلك، لا يتم نقل عناوين IP إلى موفري الطرف الثالث (على سبيل المثال في الولايات المتحدة) دون طلب.</value></data>
+  <data name="DataStorageTitle" xml:space="preserve"><value>تخزين بيانات الأفلام</value></data>
+  <data name="DataStorageText" xml:space="preserve"><value>يتم تخزين بيانات الأفلام التي تدخلها (العنوان، السنة، المدة، السعر) حصرياً في قاعدة بيانات المشروع المحلية (Entity Framework Core) ولا يتم تمريرها إلى خدمات خارجية.</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>العودة إلى الصفحة الرئيسية</value></data>
+</root>

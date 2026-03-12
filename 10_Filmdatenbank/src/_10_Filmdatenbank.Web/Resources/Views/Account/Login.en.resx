@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="LoginTitle" xml:space="preserve"><value>Login</value></data>
+  <data name="WelcomeBack" xml:space="preserve"><value>Welcome Back</value></data>
+  <data name="LoginSubtitle" xml:space="preserve"><value>Log in to manage your database.</value></data>
+  <data name="WrongPasswordAlt" xml:space="preserve"><value>Incorrect Password</value></data>
+  <data name="EmailAddress" xml:space="preserve"><value>Email Address</value></data>
+  <data name="EmailPlaceholder" xml:space="preserve"><value>your@email.com</value></data>
+  <data name="Password" xml:space="preserve"><value>Password</value></data>
+  <data name="TogglePasswordVisibility" xml:space="preserve"><value>Show/Hide password</value></data>
+  <data name="LoginButton" xml:space="preserve"><value>Login</value></data>
+  <data name="NoAccount" xml:space="preserve"><value>Don't have an account?</value></data>
+  <data name="RegisterNow" xml:space="preserve"><value>Register now</value></data>
+  <data name="TestAccessAdmin" xml:space="preserve"><value>Test Access (Admin)</value></data>
+</root>

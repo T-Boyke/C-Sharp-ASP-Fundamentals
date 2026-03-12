@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="HomeTitle" xml:space="preserve"><value>أهلاً بك</value></data>
+  <data name="HeroTitlePrefix" xml:space="preserve"><value>احترافية</value></data>
+  <data name="HeroTitleHighlight" xml:space="preserve"><value>إدارة بيانات الأفلام</value></data>
+  <data name="HeroDescription" xml:space="preserve"><value>قم بإدارة مجموعة أفلامك بنظام. تقدم لك منصتنا جميع الأدوات اللازمة لصيانة قاعدة بيانات منظمة - بكفاءة وأمان وحداثة.</value></data>
+  <data name="GetStarted" xml:space="preserve"><value>ابدأ الآن</value></data>
+  <data name="LearnMore" xml:space="preserve"><value>تعرف على المزيد</value></data>
+  <data name="Feature1Title" xml:space="preserve"><value>بنية نظيفة</value></data>
+  <data name="Feature1Desc" xml:space="preserve"><value>بنية مؤسسية قابلة للتوسع تعتمد على مبادئ التصميم الموجه للمجال (DDD).</value></data>
+  <data name="Feature2Title" xml:space="preserve"><value>أصول بدون Node</value></data>
+  <data name="Feature2Desc" xml:space="preserve"><value>إدارة أصول سريعة للغاية بدون أعباء Node.js بفضل LibMan وTailwind CLI.</value></data>
+  <data name="Feature3Title" xml:space="preserve"><value>أمان عالٍ</value></data>
+  <data name="Feature3Desc" xml:space="preserve"><value>نظام إدارة هوية وصلاحيات معزز مع ASP.NET Identity وإدارة أدوار دقيقة (RBAC).</value></data>
+  <data name="Feature4Title" xml:space="preserve"><value>أداء احترافي</value></data>
+  <data name="Feature4Desc" xml:space="preserve"><value>سرعة عرض قصوى من خلال استعلامات محسنة وتخزين مؤقت حديث.</value></data>
+  <data name="Feature5Title" xml:space="preserve"><value>واجهات Razor</value></data>
+  <data name="Feature5Desc" xml:space="preserve"><value>عرض عالي الأداء من جهة الخادم لأقصى تحسين لمحركات البحث (SEO).</value></data>
+  <data name="Feature6Title" xml:space="preserve"><value>واجهة مستخدم متميزة</value></data>
+  <data name="Feature6Desc" xml:space="preserve"><value>جماليات حديثة مع تأثيرات الزجاج البلوري ورسوم متحركة سلسة.</value></data>
+  <data name="Feature7Title" xml:space="preserve"><value>متجاوب</value></data>
+  <data name="Feature7Desc" xml:space="preserve"><value>عرض مثالي على جميع الأجهزة - من الهواتف الذكية إلى شاشات 4K.</value></data>
+  <data name="Feature8Title" xml:space="preserve"><value>المحلي أولاً</value></data>
+  <data name="Feature8Desc" xml:space="preserve"><value>تحكم كامل في بياناتك من خلال الاستضافة المحلية وأنظمة الملفات.</value></data>
+</root>

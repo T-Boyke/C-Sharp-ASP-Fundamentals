@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="DeleteConfirmationTitle" xml:space="preserve"><value>Confirmar Exclusão</value></data>
+  <data name="DeleteEntryQuestion" xml:space="preserve"><value>Excluir registro?</value></data>
+  <data name="DeleteConfirmationMessage" xml:space="preserve"><value>Tem certeza de que deseja remover permanentemente {0} do banco de dados?</value></data>
+  <data name="ProfileImageAlt" xml:space="preserve"><value>Foto do perfil de {0}</value></data>
+  <data name="IdLabel" xml:space="preserve"><value>ID</value></data>
+  <data name="BornLabel" xml:space="preserve"><value>Nasc.</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Cancelar</value></data>
+  <data name="CancelLabel" xml:space="preserve"><value>Cancelar processo</value></data>
+  <data name="DeleteConfirmButton" xml:space="preserve"><value>Sim, excluir permanentemente</value></data>
+  <data name="DeleteConfirmLabel" xml:space="preserve"><value>Excluir pessoa definitivamente</value></data>
+  <data name="DeleteWarningMessage" xml:space="preserve"><value>Este processo não pode ser desfeito. Todas as relações com filmes vinculados também serão removidas.</value></data>
+</root>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="EditPersonTitle" xml:space="preserve"><value>Bearbeiten: {0}</value></data>
+  <data name="AdjustProfile" xml:space="preserve"><value>Profil anpassen</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>Änderungen speichern</value></data>
+  <data name="Back" xml:space="preserve"><value>Zurück</value></data>
+  <data name="BackToListLabel" xml:space="preserve"><value>Zurück zur Liste</value></data>
+  <data name="EditProfile" xml:space="preserve"><value>Profil bearbeiten</value></data>
+  <data name="SyncData" xml:space="preserve"><value>Stammdaten synchronisieren</value></data>
+  <data name="ContributorId" xml:space="preserve"><value>Mitarbeiter</value></data>
+  <data name="FirstName" xml:space="preserve"><value>Vorname</value></data>
+  <data name="LastName" xml:space="preserve"><value>Nachname</value></data>
+  <data name="BirthDate" xml:space="preserve"><value>Geburtsdatum</value></data>
+  <data name="BirthPlace" xml:space="preserve"><value>Geburtsort</value></data>
+  <data name="BirthPlacePlaceholder" xml:space="preserve"><value>z.B. London, UK</value></data>
+  <data name="ProfileImageUrl" xml:space="preserve"><value>Profilbild URL</value></data>
+  <data name="ProfileImageUrlPlaceholder" xml:space="preserve"><value>https://image.tmdb.org/...</value></data>
+  <data name="TagsLabel" xml:space="preserve"><value>Tags (kommagetrennt)</value></data>
+  <data name="TagsPlaceholder" xml:space="preserve"><value>z.B. Oscar-Gewinner, Legend</value></data>
+  <data name="Biography" xml:space="preserve"><value>Biografie</value></data>
+  <data name="BiographyPlaceholder" xml:space="preserve"><value>Biografische Informationen eingeben...</value></data>
+  <data name="GlobalSyncWarning" xml:space="preserve"><value>Änderungen werden sofort im gesamten System übernommen.</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="CancelLabel" xml:space="preserve"><value>Vorgang abbrechen</value></data>
+  <data name="SaveData" xml:space="preserve"><value>Daten speichern</value></data>
+  <data name="SaveLabel" xml:space="preserve"><value>Änderungen am Profil speichern</value></data>
+</root>

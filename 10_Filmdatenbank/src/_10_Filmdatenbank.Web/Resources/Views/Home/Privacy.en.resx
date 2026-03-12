@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="PrivacyTitle" xml:space="preserve"><value>Privacy Policy</value></data>
+  <data name="PrivacyHeaderPrefix" xml:space="preserve"><value>Privacy </value></data>
+  <data name="PrivacyHeaderHighlight" xml:space="preserve"><value>Policy</value></data>
+  <data name="GeneralInfoTitle" xml:space="preserve"><value>General Information</value></data>
+  <data name="GeneralInfoText" xml:space="preserve"><value>We take the protection of your personal data very seriously. This page informs you about how we collect and process data to ensure GDPR compliance.</value></data>
+  <data name="LocalProcessingTitle" xml:space="preserve"><value>Local Data Processing</value></data>
+  <data name="LocalProcessingIntro" xml:space="preserve"><value>This project ("Filmdatenbank") is designed so that **all assets are loaded locally**. This means:</value></data>
+  <data name="LocalProcessingItem1" xml:space="preserve"><value>No integration of Google Fonts via Google servers.</value></data>
+  <data name="LocalProcessingItem2" xml:space="preserve"><value>No FontAwesome integration via CDN.</value></data>
+  <data name="LocalProcessingItem3" xml:space="preserve"><value>No external trackers or analysis tools.</value></data>
+  <data name="LocalProcessingFooter" xml:space="preserve"><value>As a result, no IP addresses are transmitted to third-party providers (e.g., in the USA) without being asked.</value></data>
+  <data name="DataStorageTitle" xml:space="preserve"><value>Storage of Film Data</value></data>
+  <data name="DataStorageText" xml:space="preserve"><value>The film data you enter (title, year, duration, price) is stored exclusively in the local project database (Entity Framework Core) and is not passed on to external services.</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>Back to Home</value></data>
+</root>

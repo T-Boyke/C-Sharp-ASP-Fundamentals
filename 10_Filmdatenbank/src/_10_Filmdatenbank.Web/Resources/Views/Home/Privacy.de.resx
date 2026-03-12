@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="PrivacyTitle" xml:space="preserve"><value>Datenschutz</value></data>
+  <data name="PrivacyHeaderPrefix" xml:space="preserve"><value>Datenschutz</value></data>
+  <data name="PrivacyHeaderHighlight" xml:space="preserve"><value>bestimmungen</value></data>
+  <data name="GeneralInfoTitle" xml:space="preserve"><value>Allgemeine Informationen</value></data>
+  <data name="GeneralInfoText" xml:space="preserve"><value>Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Diese Seite informiert Sie darüber, wie wir Daten erheben und verarbeiten, um die DSGVO-Konformität sicherzustellen.</value></data>
+  <data name="LocalProcessingTitle" xml:space="preserve"><value>Lokale Datenverarbeitung</value></data>
+  <data name="LocalProcessingIntro" xml:space="preserve"><value>Dieses Projekt ("Filmdatenbank") ist so konzipiert, dass **alle Assets lokal geladen werden**. Das bedeutet:</value></data>
+  <data name="LocalProcessingItem1" xml:space="preserve"><value>Keine Einbindung von Google Fonts via Google-Server.</value></data>
+  <data name="LocalProcessingItem2" xml:space="preserve"><value>Keine FontAwesome-Einbindung via CDN.</value></data>
+  <data name="LocalProcessingItem3" xml:space="preserve"><value>Keine externen Tracker oder Analyse-Tools.</value></data>
+  <data name="LocalProcessingFooter" xml:space="preserve"><value>Dadurch werden keine IP-Adressen ungefragt an Drittanbieter (z.B. in die USA) übermittelt.</value></data>
+  <data name="DataStorageTitle" xml:space="preserve"><value>Speicherung von Filmdaten</value></data>
+  <data name="DataStorageText" xml:space="preserve"><value>Die von Ihnen eingegebenen Filmdaten (Titel, Jahr, Dauer, Preis) werden ausschließlich in der lokalen Projektdatenbank (Entity Framework Core) gespeichert und nicht an externe Dienste weitergegeben.</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>Zurück zur Startseite</value></data>
+</root>

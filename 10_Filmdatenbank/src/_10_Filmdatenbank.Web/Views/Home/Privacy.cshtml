@@ -1,49 +1,51 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Datenschutz";
+    ViewData["Title"] = Localizer["PrivacyTitle"];
 }
 
 <div class="py-24 px-6 lg:px-8 max-w-7xl mx-auto">
     <div class="max-w-3xl mx-auto">
         <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-8 border-l-4 border-brand-primary pl-6 uppercase">
-            Datenschutz<span class="text-brand-primary">bestimmungen</span>
+            @Localizer["PrivacyHeaderPrefix"]<span class="text-brand-primary">@Localizer["PrivacyHeaderHighlight"]</span>
         </h1>
         
         <div class="prose prose-slate dark:prose-invert max-w-none space-y-8 text-slate-600 dark:text-slate-400">
             <section class="accent-border bg-white/50 dark:bg-slate-900/50 p-8 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 transition-all backdrop-blur-sm">
                 <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
                     <i aria-hidden="true" class="fa-solid fa-shield-halved text-brand-primary"></i>
-                    Allgemeine Informationen
+                    @Localizer["GeneralInfoTitle"]
                 </h2>
                 <p>
-                    Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Diese Seite informiert Sie darüber, wie wir Daten erheben und verarbeiten, um die DSGVO-Konformität sicherzustellen.
+                    @Localizer["GeneralInfoText"]
                 </p>
             </section>
 
             <section class="accent-border bg-white/50 dark:bg-slate-900/50 p-8 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 transition-all backdrop-blur-sm">
                 <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
                     <i aria-hidden="true" class="fa-solid fa-server text-brand-primary"></i>
-                    Lokale Datenverarbeitung
+                    @Localizer["LocalProcessingTitle"]
                 </h2>
                 <p>
-                    Dieses Projekt ("Filmdatenbank") ist so konzipiert, dass **alle Assets lokal geladen werden**. Das bedeutet:
+                    @Localizer["LocalProcessingIntro"]
                 </p>
                 <ul class="list-disc pl-6 space-y-2 mt-4">
-                    <li>Keine Einbindung von Google Fonts via Google-Server.</li>
-                    <li>Keine FontAwesome-Einbindung via CDN.</li>
-                    <li>Keine externen Tracker oder Analyse-Tools.</li>
+                    <li>@Localizer["LocalProcessingItem1"]</li>
+                    <li>@Localizer["LocalProcessingItem2"]</li>
+                    <li>@Localizer["LocalProcessingItem3"]</li>
                 </ul>
                 <p class="mt-4 italic text-sm text-slate-400 dark:text-slate-500 transition-colors">
-                    Dadurch werden keine IP-Adressen ungefragt an Drittanbieter (z.B. in die USA) übermittelt.
+                    @Localizer["LocalProcessingFooter"]
                 </p>
             </section>
 
             <section class="accent-border bg-white/50 dark:bg-slate-900/50 p-8 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 transition-all backdrop-blur-sm">
                 <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
                     <i aria-hidden="true" class="fa-solid fa-database text-brand-primary"></i>
-                    Speicherung von Filmdaten
+                    @Localizer["DataStorageTitle"]
                 </h2>
                 <p>
-                    Die von Ihnen eingegebenen Filmdaten (Titel, Jahr, Dauer, Preis) werden ausschließlich in der lokalen Projektdatenbank (Entity Framework Core) gespeichert und nicht an externe Dienste weitergegeben.
+                    @Localizer["DataStorageText"]
                 </p>
             </section>
         </div>
@@ -51,7 +53,7 @@
         <div class="mt-16 flex items-center justify-center">
             <a asp-controller="Home" asp-action="Index" class="btn-primary">
                 <i aria-hidden="true" class="fa-solid fa-arrow-left mr-2"></i>
-                Zurück zur Startseite
+                @Localizer["BackToHome"]
             </a>
         </div>
     </div>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="HomeTitle" xml:space="preserve"><value>Hoş Geldiniz</value></data>
+  <data name="HeroTitlePrefix" xml:space="preserve"><value>Profesyonel</value></data>
+  <data name="HeroTitleHighlight" xml:space="preserve"><value>Film Veri Yönetimi</value></data>
+  <data name="HeroDescription" xml:space="preserve"><value>Film koleksiyonunuzu sistemli bir şekilde yönetin. Platformumuz size yapılandırılmış veritabanı bakımı için tüm araçları sunar – verimli, güvenli ve modern.</value></data>
+  <data name="GetStarted" xml:space="preserve"><value>Şimdi Başlayın</value></data>
+  <data name="LearnMore" xml:space="preserve"><value>Daha Fazla Bilgi</value></data>
+  <data name="Feature1Title" xml:space="preserve"><value>Temiz Mimari</value></data>
+  <data name="Feature1Desc" xml:space="preserve"><value>Domain-Driven Design (DDD) prensiplerine dayalı ölçeklenebilir kurumsal yapı.</value></data>
+  <data name="Feature2Title" xml:space="preserve"><value>Node'suz Varlıklar</value></data>
+  <data name="Feature2Desc" xml:space="preserve"><value>LibMan ve Tailwind CLI sayesinde Node.js yükü olmadan şimşek hızında varlık yönetimi.</value></data>
+  <data name="Feature3Title" xml:space="preserve"><value>Yüksek Güvenlik</value></data>
+  <data name="Feature3Desc" xml:space="preserve"><value>ASP.NET Identity ile güçlendirilmiş IAM ve ince taneli rol yönetimi (RBAC).</value></data>
+  <data name="Feature4Title" xml:space="preserve"><value>Pro Performans</value></data>
+  <data name="Feature4Desc" xml:space="preserve"><value>Optimize edilmiş sorgular ve modern önbellekleme yoluyla maksimum işleme hızı.</value></data>
+  <data name="Feature5Title" xml:space="preserve"><value>Razor Görünümleri</value></data>
+  <data name="Feature5Desc" xml:space="preserve"><value>Maksimum SEO optimizasyonu için yüksek performanslı sunucu tarafı işleme.</value></data>
+  <data name="Feature6Title" xml:space="preserve"><value>Premium Kullanıcı Arayüzü</value></data>
+  <data name="Feature6Desc" xml:space="preserve"><value>Cam görünümü (glassmorphism) efektleri ve akıcı animasyonlarla modern estetik.</value></data>
+  <data name="Feature7Title" xml:space="preserve"><value>Duyarlı Tasarım</value></data>
+  <data name="Feature7Desc" xml:space="preserve"><value>Akıllı telefonlardan 4K monitörlere kadar tüm cihazlarda mükemmel görüntü.</value></data>
+  <data name="Feature8Title" xml:space="preserve"><value>Önce Yerel</value></data>
+  <data name="Feature8Desc" xml:space="preserve"><value>Yerel barındırma ve dosya sistemleri aracılığıyla verileriniz üzerinde tam kontrol.</value></data>
+</root>

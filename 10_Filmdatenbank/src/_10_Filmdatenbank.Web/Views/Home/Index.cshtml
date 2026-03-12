@@ -1,5 +1,7 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Willkommen";
+    ViewData["Title"] = Localizer["HomeTitle"];
 }
 
 <div class="bg-transparent transition-colors duration-300">
@@ -11,17 +13,17 @@
                      <span class="badge-premium px-3 py-1">Version 4.2 Release</span>
                 </div>
                 <h1 class="mt-10 text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-6xl text-balance">
-                    Professionelle <span class="text-brand-primary">Filmdaten-Verwaltung</span>
+                    @Localizer["HeroTitlePrefix"] <span class="text-brand-primary">@Localizer["HeroTitleHighlight"]</span>
                 </h1>
                 <p class="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-400 text-pretty">
-                    Verwalten Sie Ihre Filmkollektion mit System. Unsere Plattform bietet Ihnen alle Werkzeuge für eine strukturierte Datenbankpflege – effizient, sicher und modern.
+                    @Localizer["HeroDescription"]
                 </p>
                 <div class="mt-10 flex-wrap-gap">
                     <a asp-controller="Film" asp-action="Index" class="btn-primary">
-                        <i aria-hidden="true" class="fa-solid fa-play mr-2"></i> Jetzt starten
+                        <i aria-hidden="true" class="fa-solid fa-play mr-2"></i> @Localizer["GetStarted"]
                     </a>
                     <a href="#features" class="btn-secondary px-6 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm">
-                        <i aria-hidden="true" class="fa-solid fa-circle-info mr-2"></i> Mehr erfahren
+                        <i aria-hidden="true" class="fa-solid fa-circle-info mr-2"></i> @Localizer["LearnMore"]
                     </a>
                 </div>
             </div>
@@ -32,43 +34,43 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="card-glass p-6 group">
                             <i aria-hidden="true" class="fa-solid fa-layer-group text-2xl text-brand-primary mb-3"></i>
-                            <h3 class="font-bold text-slate-900 dark:text-white">Clean Architecture</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">Skalierbare Enterprise-Struktur basierend auf Domain-Driven Design (DDD) Prinzipien.</p>
+                            <h3 class="font-bold text-slate-900 dark:text-white">@Localizer["Feature1Title"]</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">@Localizer["Feature1Desc"]</p>
                         </div>
                         <div class="card-glass p-6 group">
                             <i aria-hidden="true" class="fa-solid fa-box-open text-2xl text-brand-primary mb-3"></i>
-                            <h3 class="font-bold text-slate-900 dark:text-white">Node-Free Assets</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">Pfeilschnelles Asset-Management ohne Node.js-Overhead dank LibMan & Tailwind CLI.</p>
+                            <h3 class="font-bold text-slate-900 dark:text-white">@Localizer["Feature2Title"]</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">@Localizer["Feature2Desc"]</p>
                         </div>
                         <div class="card-glass p-6 group">
                             <i aria-hidden="true" class="fa-solid fa-shield-halved text-2xl text-brand-primary mb-3"></i>
-                            <h3 class="font-bold text-slate-900 dark:text-white">High Security</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">Gehärtetes IAM mit ASP.NET Identity und fein-granularem Rollen-Management (RBAC).</p>
+                            <h3 class="font-bold text-slate-900 dark:text-white">@Localizer["Feature3Title"]</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">@Localizer["Feature3Desc"]</p>
                         </div>
                         <div class="card-glass p-6 group">
                             <i aria-hidden="true" class="fa-solid fa-gauge-high text-2xl text-brand-primary mb-3"></i>
-                            <h3 class="font-bold text-slate-900 dark:text-white">Pro Performance</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">Maximale Rendering-Geschwindigkeit durch optimierte Queries und modernes Caching.</p>
+                            <h3 class="font-bold text-slate-900 dark:text-white">@Localizer["Feature4Title"]</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">@Localizer["Feature4Desc"]</p>
                         </div>
                         <div class="card-glass p-6 group">
                             <i aria-hidden="true" class="fa-solid fa-code text-2xl text-brand-primary mb-3"></i>
-                            <h3 class="font-bold text-slate-900 dark:text-white">Razor Views</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">Hoch-performantes serverseitiges Rendering für maximale SEO-Optimierung.</p>
+                            <h3 class="font-bold text-slate-900 dark:text-white">@Localizer["Feature5Title"]</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">@Localizer["Feature5Desc"]</p>
                         </div>
                         <div class="card-glass p-6 group">
                             <i aria-hidden="true" class="fa-solid fa-wand-magic-sparkles text-2xl text-brand-primary mb-3"></i>
-                            <h3 class="font-bold text-slate-900 dark:text-white">Premium UI</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">Moderne Ästhetik mit Glassmorphism-Effekten und flüssigen Animationen.</p>
+                            <h3 class="font-bold text-slate-900 dark:text-white">@Localizer["Feature6Title"]</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">@Localizer["Feature6Desc"]</p>
                         </div>
                         <div class="card-glass p-6 group">
                             <i aria-hidden="true" class="fa-solid fa-mobile-screen-button text-2xl text-brand-primary mb-3"></i>
-                            <h3 class="font-bold text-slate-900 dark:text-white">Responsive</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">Perfekte Darstellung auf allen Endgeräten – vom Smartphone bis zum 4K-Monitor.</p>
+                            <h3 class="font-bold text-slate-900 dark:text-white">@Localizer["Feature7Title"]</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">@Localizer["Feature7Desc"]</p>
                         </div>
                         <div class="card-glass p-6 group">
                             <i aria-hidden="true" class="fa-solid fa-server text-2xl text-brand-primary mb-3"></i>
-                            <h3 class="font-bold text-slate-900 dark:text-white">Local First</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">Vollständige Kontrolle über Ihre Daten durch lokales Hosting und Dateisysteme.</p>
+                            <h3 class="font-bold text-slate-900 dark:text-white">@Localizer["Feature8Title"]</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">@Localizer["Feature8Desc"]</p>
                         </div>
                     </div>
                 </div>

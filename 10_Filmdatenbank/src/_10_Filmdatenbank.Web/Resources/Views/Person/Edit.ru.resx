@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="EditPersonTitle" xml:space="preserve"><value>Редактировать: {0}</value></data>
+  <data name="AdjustProfile" xml:space="preserve"><value>Настроить профиль</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>Сохранить изменения</value></data>
+  <data name="Back" xml:space="preserve"><value>Назад</value></data>
+  <data name="BackToListLabel" xml:space="preserve"><value>Назад к списку</value></data>
+  <data name="EditProfile" xml:space="preserve"><value>Редактировать профиль</value></data>
+  <data name="SyncData" xml:space="preserve"><value>Синхронизировать основные данные</value></data>
+  <data name="ContributorId" xml:space="preserve"><value>Участник</value></data>
+  <data name="FirstName" xml:space="preserve"><value>Имя</value></data>
+  <data name="LastName" xml:space="preserve"><value>Фамилия</value></data>
+  <data name="BirthDate" xml:space="preserve"><value>Дата рождения</value></data>
+  <data name="BirthPlace" xml:space="preserve"><value>Место рождения</value></data>
+  <data name="BirthPlacePlaceholder" xml:space="preserve"><value>например, Лондон, Великобритания</value></data>
+  <data name="ProfileImageUrl" xml:space="preserve"><value>URL фото профиля</value></data>
+  <data name="ProfileImageUrlPlaceholder" xml:space="preserve"><value>https://image.tmdb.org/...</value></data>
+  <data name="TagsLabel" xml:space="preserve"><value>Теги (через запятую)</value></data>
+  <data name="TagsPlaceholder" xml:space="preserve"><value>например, обладатель Оскара, легенда</value></data>
+  <data name="Biography" xml:space="preserve"><value>Биография</value></data>
+  <data name="BiographyPlaceholder" xml:space="preserve"><value>Введите биографическую информацию...</value></data>
+  <data name="GlobalSyncWarning" xml:space="preserve"><value>Изменения немедленно применяются во всей системе.</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Отмена</value></data>
+  <data name="CancelLabel" xml:space="preserve"><value>Отменить процесс</value></data>
+  <data name="SaveData" xml:space="preserve"><value>Сохранить данные</value></data>
+  <data name="SaveLabel" xml:space="preserve"><value>Сохранить изменения профиля</value></data>
+</root>

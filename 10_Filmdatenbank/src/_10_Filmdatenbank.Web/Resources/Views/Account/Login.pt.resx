@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="LoginTitle" xml:space="preserve"><value>Entrar</value></data>
+  <data name="WelcomeBack" xml:space="preserve"><value>Bem-vindo de volta</value></data>
+  <data name="LoginSubtitle" xml:space="preserve"><value>Faça login para gerenciar seu banco de dados.</value></data>
+  <data name="WrongPasswordAlt" xml:space="preserve"><value>Senha Incorreta</value></data>
+  <data name="EmailAddress" xml:space="preserve"><value>Endereço de E-mail</value></data>
+  <data name="EmailPlaceholder" xml:space="preserve"><value>seu@email.com</value></data>
+  <data name="Password" xml:space="preserve"><value>Senha</value></data>
+  <data name="TogglePasswordVisibility" xml:space="preserve"><value>Mostrar/Esconder senha</value></data>
+  <data name="LoginButton" xml:space="preserve"><value>Entrar</value></data>
+  <data name="NoAccount" xml:space="preserve"><value>Não tem uma conta?</value></data>
+  <data name="RegisterNow" xml:space="preserve"><value>Registre-se agora</value></data>
+  <data name="TestAccessAdmin" xml:space="preserve"><value>Acesso de Teste (Admin)</value></data>
+</root>

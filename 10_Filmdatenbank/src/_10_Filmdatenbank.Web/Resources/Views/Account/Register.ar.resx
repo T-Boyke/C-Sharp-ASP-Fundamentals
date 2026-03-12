@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="RegisterTitle" xml:space="preserve"><value>تسجيل</value></data>
+  <data name="CreateAccount" xml:space="preserve"><value>إنشاء حساب</value></data>
+  <data name="RegisterSubtitle" xml:space="preserve"><value>انضم إلى مجتمعنا السينمائي.</value></data>
+  <data name="EmailAddress" xml:space="preserve"><value>عنوان البريد الإلكتروني</value></data>
+  <data name="EmailPlaceholder" xml:space="preserve"><value>your@email.com</value></data>
+  <data name="Password" xml:space="preserve"><value>كلمة المرور</value></data>
+  <data name="ConfirmPassword" xml:space="preserve"><value>تأكيد كلمة المرور</value></data>
+  <data name="TogglePasswordVisibility" xml:space="preserve"><value>إظهار/إخفاء كلمة المرور</value></data>
+  <data name="RegisterButton" xml:space="preserve"><value>كن عضواً</value></data>
+  <data name="AlreadyHaveAccount" xml:space="preserve"><value>لديك حساب بالفعل؟</value></data>
+  <data name="LoginLink" xml:space="preserve"><value>سجل دخولك من هنا</value></data>
+</root>

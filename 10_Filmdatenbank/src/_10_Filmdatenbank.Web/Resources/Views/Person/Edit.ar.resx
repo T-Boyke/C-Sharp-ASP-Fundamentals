@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="EditPersonTitle" xml:space="preserve"><value>تعديل: {0}</value></data>
+  <data name="AdjustProfile" xml:space="preserve"><value>ضبط الملف الشخصي</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>حفظ التغييرات</value></data>
+  <data name="Back" xml:space="preserve"><value>رجوع</value></data>
+  <data name="BackToListLabel" xml:space="preserve"><value>العودة إلى القائمة</value></data>
+  <data name="EditProfile" xml:space="preserve"><value>تعديل الملف الشخصي</value></data>
+  <data name="SyncData" xml:space="preserve"><value>مزامنة البيانات الأساسية</value></data>
+  <data name="ContributorId" xml:space="preserve"><value>مساهم</value></data>
+  <data name="FirstName" xml:space="preserve"><value>الاسم الأول</value></data>
+  <data name="LastName" xml:space="preserve"><value>اسم العائلة</value></data>
+  <data name="BirthDate" xml:space="preserve"><value>تاريخ الميلاد</value></data>
+  <data name="BirthPlace" xml:space="preserve"><value>مكان الميلاد</value></data>
+  <data name="BirthPlacePlaceholder" xml:space="preserve"><value>مثال: لندن، المملكة المتحدة</value></data>
+  <data name="ProfileImageUrl" xml:space="preserve"><value>رابط صورة الملف الشخصي</value></data>
+  <data name="ProfileImageUrlPlaceholder" xml:space="preserve"><value>https://image.tmdb.org/...</value></data>
+  <data name="TagsLabel" xml:space="preserve"><value>الوسوم (مفصولة بفاصلة)</value></data>
+  <data name="TagsPlaceholder" xml:space="preserve"><value>مثال: فائز بالأوسكار، أسطورة</value></data>
+  <data name="Biography" xml:space="preserve"><value>السيرة الذاتية</value></data>
+  <data name="BiographyPlaceholder" xml:space="preserve"><value>أدخل المعلومات الشخصية...</value></data>
+  <data name="GlobalSyncWarning" xml:space="preserve"><value>يتم تطبيق التغييرات فوراً في جميع أنحاء النظام.</value></data>
+  <data name="Cancel" xml:space="preserve"><value>إلغاء</value></data>
+  <data name="CancelLabel" xml:space="preserve"><value>إلغاء العملية</value></data>
+  <data name="SaveData" xml:space="preserve"><value>حفظ البيانات</value></data>
+  <data name="SaveLabel" xml:space="preserve"><value>حفظ تغييرات الملف الشخصي</value></data>
+</root>

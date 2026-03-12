@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="HomeTitle" xml:space="preserve"><value>Welcome</value></data>
+  <data name="HeroTitlePrefix" xml:space="preserve"><value>Professional</value></data>
+  <data name="HeroTitleHighlight" xml:space="preserve"><value>Film Data Management</value></data>
+  <data name="HeroDescription" xml:space="preserve"><value>Manage your film collection with system. Our platform offers you all the tools for structured database maintenance – efficient, secure, and modern.</value></data>
+  <data name="GetStarted" xml:space="preserve"><value>Get Started</value></data>
+  <data name="LearnMore" xml:space="preserve"><value>Learn More</value></data>
+  <data name="Feature1Title" xml:space="preserve"><value>Clean Architecture</value></data>
+  <data name="Feature1Desc" xml:space="preserve"><value>Scalable enterprise structure based on Domain-Driven Design (DDD) principles.</value></data>
+  <data name="Feature2Title" xml:space="preserve"><value>Node-Free Assets</value></data>
+  <data name="Feature2Desc" xml:space="preserve"><value>Lightning-fast asset management without Node.js overhead thanks to LibMan &amp; Tailwind CLI.</value></data>
+  <data name="Feature3Title" xml:space="preserve"><value>High Security</value></data>
+  <data name="Feature3Desc" xml:space="preserve"><value>Hardened IAM with ASP.NET Identity and fine-grained role management (RBAC).</value></data>
+  <data name="Feature4Title" xml:space="preserve"><value>Pro Performance</value></data>
+  <data name="Feature4Desc" xml:space="preserve"><value>Maximum rendering speed through optimized queries and modern caching.</value></data>
+  <data name="Feature5Title" xml:space="preserve"><value>Razor Views</value></data>
+  <data name="Feature5Desc" xml:space="preserve"><value>High-performance server-side rendering for maximum SEO optimization.</value></data>
+  <data name="Feature6Title" xml:space="preserve"><value>Premium UI</value></data>
+  <data name="Feature6Desc" xml:space="preserve"><value>Modern aesthetics with glassmorphism effects and smooth animations.</value></data>
+  <data name="Feature7Title" xml:space="preserve"><value>Responsive</value></data>
+  <data name="Feature7Desc" xml:space="preserve"><value>Perfect display on all devices – from smartphones to 4K monitors.</value></data>
+  <data name="Feature8Title" xml:space="preserve"><value>Local First</value></data>
+  <data name="Feature8Desc" xml:space="preserve"><value>Full control over your data through local hosting and file systems.</value></data>
+</root>

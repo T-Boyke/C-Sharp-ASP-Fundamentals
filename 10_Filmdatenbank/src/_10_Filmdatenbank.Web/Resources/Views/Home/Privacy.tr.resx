@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="PrivacyTitle" xml:space="preserve"><value>Gizlilik Politikası</value></data>
+  <data name="PrivacyHeaderPrefix" xml:space="preserve"><value>Gizlilik </value></data>
+  <data name="PrivacyHeaderHighlight" xml:space="preserve"><value>Politikası</value></data>
+  <data name="GeneralInfoTitle" xml:space="preserve"><value>Genel Bilgiler</value></data>
+  <data name="GeneralInfoText" xml:space="preserve"><value>Kişisel verilerinizin korunmasını çok ciddiye alıyoruz. Bu sayfa, GDPR uyumluluğunu sağlamak için verileri nasıl topladığımız ve işlediğimiz hakkında sizi bilgilendirir.</value></data>
+  <data name="LocalProcessingTitle" xml:space="preserve"><value>Yerel Veri İşleme</value></data>
+  <data name="LocalProcessingIntro" xml:space="preserve"><value>Bu proje ("Filmdatenbank"), **tüm varlıkların yerel olarak yükleneceği** şekilde tasarlanmıştır. Bu şu anlama gelir:</value></data>
+  <data name="LocalProcessingItem1" xml:space="preserve"><value>Google sunucuları üzerinden Google Fonts entegrasyonu yoktur.</value></data>
+  <data name="LocalProcessingItem2" xml:space="preserve"><value>CDN üzerinden FontAwesome entegrasyonu yoktur.</value></data>
+  <data name="LocalProcessingItem3" xml:space="preserve"><value>Harici takipçiler veya analiz araçları yoktur.</value></data>
+  <data name="LocalProcessingFooter" xml:space="preserve"><value>Sonuç olarak, IP adresleri sorulmadan üçüncü taraf sağlayıcılara (örneğin ABD'dekiler) iletilmez.</value></data>
+  <data name="DataStorageTitle" xml:space="preserve"><value>Film Verilerinin Saklanması</value></data>
+  <data name="DataStorageText" xml:space="preserve"><value>Girdiğiniz film verileri (başlık, yıl, süre, fiyat) yalnızca yerel proje veritabanında (Entity Framework Core) saklanır ve harici hizmetlere aktarılmaz.</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>Ana Sayfaya Dön</value></data>
+</root>

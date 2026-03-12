@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="HomeTitle" xml:space="preserve"><value>Bem-vindo</value></data>
+  <data name="HeroTitlePrefix" xml:space="preserve"><value>Profissional</value></data>
+  <data name="HeroTitleHighlight" xml:space="preserve"><value>Gestão de Dados de Filmes</value></data>
+  <data name="HeroDescription" xml:space="preserve"><value>Gerencie sua coleção de filmes com sistema. Nossa plataforma oferece todas as ferramentas para uma manutenção estruturada de banco de dados – eficiente, segura e moderna.</value></data>
+  <data name="GetStarted" xml:space="preserve"><value>Começar Agora</value></data>
+  <data name="LearnMore" xml:space="preserve"><value>Saber Mais</value></data>
+  <data name="Feature1Title" xml:space="preserve"><value>Arquitetura Limpa</value></data>
+  <data name="Feature1Desc" xml:space="preserve"><value>Estrutura empresarial escalável baseada nos princípios do Domain-Driven Design (DDD).</value></data>
+  <data name="Feature2Title" xml:space="preserve"><value>Ativos sem Node</value></data>
+  <data name="Feature2Desc" xml:space="preserve"><value>Gestão de ativos ultrarrápida sem a sobrecarga do Node.js graças ao LibMan e CLI do Tailwind.</value></data>
+  <data name="Feature3Title" xml:space="preserve"><value>Alta Segurança</value></data>
+  <data name="Feature3Desc" xml:space="preserve"><value>IAM endurecido com ASP.NET Identity e gestão de funções refinada (RBAC).</value></data>
+  <data name="Feature4Title" xml:space="preserve"><value>Desempenho Pro</value></data>
+  <data name="Feature4Desc" xml:space="preserve"><value>Velocidade máxima de renderização através de consultas otimizadas e cache moderno.</value></data>
+  <data name="Feature5Title" xml:space="preserve"><value>Views Razor</value></data>
+  <data name="Feature5Desc" xml:space="preserve"><value>Renderização do lado do servidor de alto desempenho para máxima otimização de SEO.</value></data>
+  <data name="Feature6Title" xml:space="preserve"><value>UI Premium</value></data>
+  <data name="Feature6Desc" xml:space="preserve"><value>Estética moderna com efeitos de glassmorphism e animações fluidas.</value></data>
+  <data name="Feature7Title" xml:space="preserve"><value>Responsivo</value></data>
+  <data name="Feature7Desc" xml:space="preserve"><value>Exibição perfeita em todos os dispositivos – de smartphones a monitores 4K.</value></data>
+  <data name="Feature8Title" xml:space="preserve"><value>Local First</value></data>
+  <data name="Feature8Desc" xml:space="preserve"><value>Controle total sobre seus dados através de hospedagem local e sistemas de arquivos.</value></data>
+</root>

@@ -1,7 +1,9 @@
 @model _10_Filmdatenbank.Domain.Entities.Person
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Bearbeiten: " + Model.Vorname + " " + Model.Nachname;
+    ViewData["Title"] = Localizer["EditPersonTitle", Model.Vorname + " " + Model.Nachname];
 }
 
 <div class="mx-auto max-w-3xl px-6 lg:px-8 py-16">
@@ -11,12 +13,12 @@
                 <i aria-hidden="true" class="fa-solid fa-user-pen text-2xl"></i>
             </div>
             <div>
-                <h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-none transition-colors">Profil anpassen</h1>
-                <p class="mt-2 text-sm font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest">Änderungen speichern</p>
+                <h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-none transition-colors">@Localizer["AdjustProfile"]</h1>
+                <p class="mt-2 text-sm font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest">@Localizer["SaveChanges"]</p>
             </div>
         </div>
-        <a asp-action="Index" class="text-sm font-bold text-text-muted hover:text-brand-primary transition-all flex items-center gap-2 uppercase tracking-widest">
-            <i aria-hidden="true" class="fa-solid fa-chevron-left"></i> Zurück
+        <a asp-action="Index" class="text-sm font-bold text-text-muted hover:text-brand-primary transition-all flex items-center gap-2 uppercase tracking-widest" aria-label='@Localizer["BackToListLabel"]'>
+            <i aria-hidden="true" class="fa-solid fa-chevron-left"></i> @Localizer["Back"]
         </a>
     </div>
 
@@ -26,11 +28,11 @@
             
             <div class="form-group-header">
                 <div>
-                    <h2 class="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Profil bearbeiten</h2>
-                    <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mt-1">Stammdaten synchronisieren</p>
+                    <h2 class="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">@Localizer["EditProfile"]</h2>
+                    <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mt-1">@Localizer["SyncData"]</p>
                 </div>
                 <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-surface-muted dark:bg-dark-surface border border-border-muted dark:border-dark-border text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase">
-                    Mitarbeiter: #@Model.PersonID
+                    @Localizer["ContributorId"]: #@Model.PersonID
                 </div>
             </div>
 
@@ -39,55 +41,55 @@
             <div class="space-y-8">
                 <div class="form-group-row">
                     <div class="flex flex-col gap-1.5 flex-grow">
-                        <label asp-for="Vorname" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Vorname</label>
-                        <input asp-for="Vorname" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
+                        <label asp-for="Vorname" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["FirstName"]</label>
+                        <input asp-for="Vorname" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" aria-required="true" />
                         <span asp-validation-for="Vorname" class="text-[10px] font-bold text-danger-primary mt-1 px-1"></span>
                     </div>
 
                     <div class="flex flex-col gap-1.5 flex-grow">
-                        <label asp-for="Nachname" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Nachname</label>
-                        <input asp-for="Nachname" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
+                        <label asp-for="Nachname" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LastName"]</label>
+                        <input asp-for="Nachname" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" aria-required="true" />
                         <span asp-validation-for="Nachname" class="text-[10px] font-bold text-danger-primary mt-1 px-1"></span>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Geburtsdatum" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Geburtsdatum</label>
+                        <label asp-for="Geburtsdatum" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["BirthDate"]</label>
                         <input asp-for="Geburtsdatum" type="date" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Geburtsort" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Geburtsort</label>
-                        <input asp-for="Geburtsort" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="z.B. London, UK" />
+                        <label asp-for="Geburtsort" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["BirthPlace"]</label>
+                        <input asp-for="Geburtsort" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder='@Localizer["BirthPlacePlaceholder"]' />
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="ProfilBildUrl" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Profilbild URL</label>
-                        <input asp-for="ProfilBildUrl" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="https://image.tmdb.org/..." />
+                        <label asp-for="ProfilBildUrl" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["ProfileImageUrl"]</label>
+                        <input asp-for="ProfilBildUrl" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder='@Localizer["ProfileImageUrlPlaceholder"]' />
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Tags" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Tags (kommagetrennt)</label>
-                        <input asp-for="Tags" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="z.B. Oscar-Gewinner, Legend" />
+                        <label asp-for="Tags" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["TagsLabel"]</label>
+                        <input asp-for="Tags" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder='@Localizer["TagsPlaceholder"]' />
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label asp-for="Biografie" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Biografie</label>
-                    <textarea asp-for="Biografie" rows="6" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-medium text-text-description dark:text-dark-text-muted" placeholder="Biografische Informationen eingeben..."></textarea>
+                    <label asp-for="Biografie" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["Biography"]</label>
+                    <textarea asp-for="Biografie" rows="6" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-medium text-text-description dark:text-dark-text-muted" placeholder='@Localizer["BiographyPlaceholder"]'></textarea>
                 </div>
             </div>
 
             <div class="form-group-footer">
                  <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-[0.2em] max-w-[200px] leading-relaxed">
-                    Änderungen werden sofort im gesamten System übernommen.
+                    @Localizer["GlobalSyncWarning"]
                 </p>
                 <div class="flex flex-col gap-3">
                     <div class="flex-wrap-gap">
-                        <a asp-action="Index" class="btn-secondary">Abbrechen</a>
-                        <button type="submit" class="btn-primary">
-                            <i aria-hidden="true" class="fa-solid fa-floppy-disk mr-2"></i> Daten speichern
+                        <a asp-action="Index" class="btn-secondary" aria-label='@Localizer["CancelLabel"]'>@Localizer["Cancel"]</a>
+                        <button type="submit" class="btn-primary" aria-label='@Localizer["SaveLabel"]'>
+                            <i aria-hidden="true" class="fa-solid fa-floppy-disk mr-2"></i> @Localizer["SaveData"]
                         </button>
                     </div>
                 </div>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="HomeTitle" xml:space="preserve"><value>Добро пожаловать</value></data>
+  <data name="HeroTitlePrefix" xml:space="preserve"><value>Профессиональное</value></data>
+  <data name="HeroTitleHighlight" xml:space="preserve"><value>Управление данными фильмов</value></data>
+  <data name="HeroDescription" xml:space="preserve"><value>Управляйте своей коллекцией фильмов системно. Наша платформа предлагает все инструменты для структурированного обслуживания базы данных – эффективно, безопасно и современно.</value></data>
+  <data name="GetStarted" xml:space="preserve"><value>Начать сейчас</value></data>
+  <data name="LearnMore" xml:space="preserve"><value>Узнать больше</value></data>
+  <data name="Feature1Title" xml:space="preserve"><value>Чистая архитектура</value></data>
+  <data name="Feature1Desc" xml:space="preserve"><value>Масштабируемая корпоративная структура, основанная на принципах Domain-Driven Design (DDD).</value></data>
+  <data name="Feature2Title" xml:space="preserve"><value>Ассеты без Node</value></data>
+  <data name="Feature2Desc" xml:space="preserve"><value>Молниеносное управление ассетами без накладных расходов Node.js благодаря LibMan и Tailwind CLI.</value></data>
+  <data name="Feature3Title" xml:space="preserve"><value>Высокая безопасность</value></data>
+  <data name="Feature3Desc" xml:space="preserve"><value>Закаленный IAM с ASP.NET Identity и тонко настроенным управлением ролями (RBAC).</value></data>
+  <data name="Feature4Title" xml:space="preserve"><value>Профессиональная производительность</value></data>
+  <data name="Feature4Desc" xml:space="preserve"><value>Максимальная скорость рендеринга благодаря оптимизированным запросам и современному кэшированию.</value></data>
+  <data name="Feature5Title" xml:space="preserve"><value>Razor Views</value></data>
+  <data name="Feature5Desc" xml:space="preserve"><value>Высокопроизводительный серверный рендеринг для максимальной SEO-оптимизации.</value></data>
+  <data name="Feature6Title" xml:space="preserve"><value>Премиум UI</value></data>
+  <data name="Feature6Desc" xml:space="preserve"><value>Современная эстетика с эффектами стекломорфизма и плавной анимацией.</value></data>
+  <data name="Feature7Title" xml:space="preserve"><value>Адаптивность</value></data>
+  <data name="Feature7Desc" xml:space="preserve"><value>Идеальное отображение на всех устройствах – от смартфонов до 4K мониторов.</value></data>
+  <data name="Feature8Title" xml:space="preserve"><value>Локальность превыше всего</value></data>
+  <data name="Feature8Desc" xml:space="preserve"><value>Полный контроль над вашими данными благодаря локальному хостингу и файловым системам.</value></data>
+</root>
