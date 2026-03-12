@@ -1,0 +1,74 @@
+@model _10_Filmdatenbank.Domain.Entities.Collection
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
+    <nav class="flex mb-8 items-center gap-4 text-sm font-bold text-text-muted uppercase tracking-widest">
+        <a asp-action="Index" class="nav-link">
+            <i class="fa-solid fa-arrow-left"></i> Reihen
+        </a>
+        <span class="h-1 w-1 rounded-full bg-border-default"></span>
+    </nav>
+
+    <div class="relative w-full h-80 md:h-[450px] rounded-3xl overflow-hidden mb-12 shadow-2xl transition-all">
+        @if (!string.IsNullOrEmpty(Model.BackdropUrl))
+        {
+            <img src="@Model.BackdropUrl" alt="" class="w-full h-full object-cover" />
+        }
+        else
+        {
+            <div class="w-full h-full bg-dark-surface-soft"></div>
+        }
+        <div class="absolute inset-0 bg-linear-to-t from-dark-surface via-dark-surface/40 to-transparent"></div>
+        <div class="absolute bottom-12 left-12 right-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div class="max-w-2xl">
+                <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter drop-shadow-2xl">@Model.Name</h1>
+                @if (!string.IsNullOrEmpty(Model.Overview))
+                {
+                    <p class="mt-6 text-lg text-white/80 font-medium leading-relaxed drop-shadow-lg">@Model.Overview</p>
+                }
+                @if (Model.TmdbId > 0)
+                {
+                    <div class="mt-4 flex items-center gap-2 text-[10px] font-black text-white/60 uppercase tracking-widest">
+                        <i class="fa-solid fa-database"></i> TMDB #@Model.TmdbId
+                    </div>
+                }
+            </div>
+            
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="flex gap-4">
+                    <a asp-action="Edit" asp-route-id="@Model.CollectionID" class="btn-primary">Bearbeiten</a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="form-group-header !mb-12">
+        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">Filme in dieser Reihe</h2>
+        <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @foreach (var film in Model.Films.OrderBy(f => f.Erscheinungsjahr))
+        {
+            <a asp-controller="Film" asp-action="Details" asp-route-id="@film.FilmID" class="card-premium group flex flex-col">
+                <div class="aspect-[2/3] relative overflow-hidden bg-surface-subtle dark:bg-dark-surface-soft">
+                    @if (!string.IsNullOrEmpty(film.PosterUrl))
+                    {
+                        <img src="@film.PosterUrl" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    }
+                    <div class="absolute inset-0 bg-linear-to-t from-dark-surface/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+                <div class="p-6">
+                    <p class="text-[10px] font-black text-brand-primary uppercase tracking-widest">@film.Erscheinungsjahr</p>
+                    <h3 class="text-lg font-black text-text-main dark:text-white mt-1 group-hover:text-brand-primary transition-colors">@film.Titel</h3>
+                </div>
+            </a>
+        }
+    </div>
+</div>

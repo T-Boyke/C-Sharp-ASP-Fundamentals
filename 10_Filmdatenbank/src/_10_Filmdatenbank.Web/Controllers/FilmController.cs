@@ -18,10 +18,19 @@ public class FilmController(ApplicationDbContext context) : Controller
     /// <summary>
     /// Zeigt eine Liste aller Filme an.
     /// </summary>
+    /// <param name="searchString">Optionaler Suchbegriff.</param>
     /// <returns>Die Index-View mit einer Liste von Filmen.</returns>
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string? searchString)
     {
-        var filme = await context.Filme
+        var query = context.Filme.AsQueryable();
+
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            query = query.Where(f => f.Titel.Contains(searchString) || (f.Handlung != null && f.Handlung.Contains(searchString)));
+            ViewData["CurrentFilter"] = searchString;
+        }
+
+        var filme = await query
             .Include(f => f.PersonEigenschaftFilme)
                 .ThenInclude(pef => pef.Person)
             .Include(f => f.PersonEigenschaftFilme)
@@ -39,6 +48,11 @@ public class FilmController(ApplicationDbContext context) : Controller
     public async Task<IActionResult> Details(int id)
     {
         var film = await context.Filme
+            .Include(f => f.Genres)
+            .Include(f => f.Keywords)
+            .Include(f => f.ProductionCompanies)
+            .Include(f => f.Collection)
+            .Include(f => f.Releases)
             .Include(f => f.PersonEigenschaftFilme)
                 .ThenInclude(pef => pef.Person)
             .Include(f => f.PersonEigenschaftFilme)

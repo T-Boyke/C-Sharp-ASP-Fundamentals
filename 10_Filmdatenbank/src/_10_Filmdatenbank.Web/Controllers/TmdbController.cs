@@ -45,11 +45,20 @@ public class TmdbController(ITmdbService tmdbService) : ControllerBase
             movie.Budget,
             movie.Revenue,
             movie.Homepage,
+            movie.Popularity,
+            movie.VoteCount,
+            movie.VoteAverage,
+            movie.Adult,
             TrailerKey = movie.Videos?.Results?.FirstOrDefault(v => v.Site == "YouTube" && v.Type == "Trailer")?.Key,
             PosterUrl = string.IsNullOrEmpty(movie.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{movie.PosterPath}",
             BackdropUrl = string.IsNullOrEmpty(movie.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{movie.BackdropPath}",
             Genres = string.Join(", ", movie.Genres.Select(g => g.Name)),
             ImdbId = movie.ExternalIds?.ImdbId,
+            FacebookId = movie.ExternalIds?.FacebookId,
+            InstagramId = movie.ExternalIds?.InstagramId,
+            TwitterId = movie.ExternalIds?.TwitterId,
+            WikidataId = movie.ExternalIds?.WikidataId,
+            CollectionId = movie.BelongsToCollection?.Id,
             Cast = movie.Credits?.Cast?.Take(10).Select(c => new
             {
                 c.Id,
@@ -57,6 +66,91 @@ public class TmdbController(ITmdbService tmdbService) : ControllerBase
                 c.Character,
                 ProfileUrl = string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}"
             })
+        });
+    }
+
+    [HttpGet("search-person")]
+    public async Task<IActionResult> SearchPerson(string query)
+    {
+        if (string.IsNullOrWhiteSpace(query)) return BadRequest();
+        var results = await tmdbService.SearchPersonsAsync(query);
+        return Ok(results.Select(r => new { r.Id, r.Name, r.ProfilePath, Department = r.KnownForDepartment }));
+    }
+
+    [HttpGet("person/{id}")]
+    public async Task<IActionResult> PersonDetails(int id)
+    {
+        var person = await tmdbService.GetPersonDetailsAsync(id);
+        if (person == null) return NotFound();
+        return Ok(new
+        {
+            person.Id,
+            Name = person.Name,
+            Birthday = person.Birthday?.ToString("yyyy-MM-dd"),
+            person.PlaceOfBirth,
+            person.Biography,
+            person.Homepage,
+            person.ImdbId,
+            person.ExternalIds?.FacebookId,
+            person.ExternalIds?.InstagramId,
+            person.ExternalIds?.TwitterId,
+            person.ExternalIds?.FreebaseId, // freebase for wikidata if wikidataid missing? no, let's stick to what we have
+            tmdbWikidataId = person.ExternalIds?.WikidataId,
+            ProfileUrl = string.IsNullOrEmpty(person.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w500{person.ProfilePath}",
+            person.Popularity,
+            Gender = person.Gender == TMDbLib.Objects.General.Gender.Female ? 1 : person.Gender == TMDbLib.Objects.General.Gender.Male ? 2 : 0,
+            Deathday = person.Deathday?.ToString("yyyy-MM-dd"),
+            person.KnownForDepartment,
+            person.Adult,
+            AlsoKnownAs = string.Join(", ", person.AlsoKnownAs ?? [])
+        });
+    }
+
+    [HttpGet("search-collection")]
+    public async Task<IActionResult> SearchCollection(string query)
+    {
+        if (string.IsNullOrWhiteSpace(query)) return BadRequest();
+        var results = await tmdbService.SearchCollectionsAsync(query);
+        return Ok(results.Select(r => new { r.Id, r.Name, r.PosterPath, r.BackdropPath }));
+    }
+
+    [HttpGet("collection/{id}")]
+    public async Task<IActionResult> CollectionDetails(int id)
+    {
+        var col = await tmdbService.GetCollectionDetailsAsync(id);
+        if (col == null) return NotFound();
+        return Ok(new
+        {
+            col.Id,
+            col.Name,
+            col.Overview,
+            PosterUrl = string.IsNullOrEmpty(col.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{col.PosterPath}",
+            BackdropUrl = string.IsNullOrEmpty(col.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{col.BackdropPath}"
+        });
+    }
+
+    [HttpGet("search-studio")]
+    public async Task<IActionResult> SearchStudio(string query)
+    {
+        if (string.IsNullOrWhiteSpace(query)) return BadRequest();
+        var results = await tmdbService.SearchCompaniesAsync(query);
+        return Ok(results.Select(r => new { r.Id, r.Name, r.LogoPath }));
+    }
+
+    [HttpGet("studio/{id}")]
+    public async Task<IActionResult> StudioDetails(int id)
+    {
+        var studio = await tmdbService.GetCompanyDetailsAsync(id);
+        if (studio == null) return NotFound();
+        return Ok(new
+        {
+            studio.Id,
+            studio.Name,
+            studio.Description,
+            studio.Headquarters,
+            studio.Homepage,
+            LogoUrl = string.IsNullOrEmpty(studio.LogoPath) ? null : $"https://image.tmdb.org/t/p/w500{studio.LogoPath}",
+            studio.OriginCountry
         });
     }
 }

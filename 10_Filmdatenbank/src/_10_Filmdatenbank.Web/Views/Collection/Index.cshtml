@@ -1,0 +1,66 @@
+@model IEnumerable<_10_Filmdatenbank.Domain.Entities.Collection>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Filmreihen";
+}
+
+<div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+        <div>
+            <h1 class="text-5xl font-black tracking-tighter text-text-main dark:text-white leading-none transition-colors">Filmreihen</h1>
+            <p class="mt-4 text-sm font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-[0.3em]">ENTDECKE DIE WELT DER SAGAS</p>
+        </div>
+        
+        <div class="flex-grow max-w-md">
+            <form asp-action="Index" method="get" class="relative group">
+                <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" 
+                       class="w-full pl-12 pr-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" 
+                       placeholder="Filmreihen suchen..." />
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-brand-primary transition-colors">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                @if (!string.IsNullOrEmpty(ViewData["CurrentFilter"]?.ToString()))
+                {
+                    <a asp-action="Index" class="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-danger-primary transition-colors">
+                        <i class="fa-solid fa-xmark"></i>
+                    </a>
+                }
+            </form>
+        </div>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn-primary shadow-xl shadow-brand-shadow flex items-center gap-2 group">
+                <i class="fa-solid fa-folder-plus text-lg transition-transform group-hover:scale-110"></i>
+                <span class="font-black uppercase tracking-widest text-xs">Neue Reihe</span>
+            </a>
+        }
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @foreach (var item in Model)
+        {
+            <a asp-action="Details" asp-route-id="@item.CollectionID" class="card-premium group overflow-hidden">
+                <div class="aspect-[16/9] relative overflow-hidden bg-surface-subtle dark:bg-dark-surface-soft">
+                    @if (!string.IsNullOrEmpty(item.BackdropUrl))
+                    {
+                        <img src="@item.BackdropUrl" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    }
+                    else
+                    {
+                        <div class="w-full h-full flex items-center justify-center">
+                            <i class="fa-solid fa-layer-group text-6xl text-text-muted/20"></i>
+                        </div>
+                    }
+                    <div class="absolute inset-0 bg-linear-to-t from-dark-surface/90 via-dark-surface/40 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <h2 class="text-xl font-black text-white group-hover:text-brand-primary transition-colors">@item.Name</h2>
+                        <p class="text-[10px] font-bold text-white/60 uppercase tracking-widest mt-1">@item.Films.Count Filme in der Reihe</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>

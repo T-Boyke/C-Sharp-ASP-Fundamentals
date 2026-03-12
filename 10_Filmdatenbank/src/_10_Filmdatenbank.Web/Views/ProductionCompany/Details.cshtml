@@ -1,0 +1,92 @@
+@model _10_Filmdatenbank.Domain.Entities.ProductionCompany
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
+    <nav class="flex mb-12 items-center gap-4 text-sm font-bold text-text-muted uppercase tracking-widest">
+        <a asp-action="Index" class="nav-link">
+            <i class="fa-solid fa-arrow-left"></i> Studios
+        </a>
+        <span class="h-1 w-1 rounded-full bg-border-default"></span>
+    </nav>
+
+    <div class="flex flex-col md:flex-row gap-16 mb-20">
+        <div class="w-full md:w-80 shrink-0">
+            <div class="card-premium p-10 bg-white dark:bg-white flex items-center justify-center aspect-square border-2 border-border-default">
+                @if (!string.IsNullOrEmpty(Model.LogoUrl))
+                {
+                    <img src="@Model.LogoUrl" alt="@Model.Name" class="max-w-full max-h-full object-contain" />
+                }
+                else
+                {
+                    <i class="fa-solid fa-industry text-8xl text-dark-surface-muted"></i>
+                }
+            </div>
+        </div>
+
+        <div class="flex-grow space-y-10">
+            <div>
+                <h1 class="text-5xl font-black text-text-main dark:text-white tracking-tighter">@Model.Name</h1>
+                <div class="flex items-center gap-6 mt-6">
+                    @if (!string.IsNullOrEmpty(Model.OriginCountry))
+                    {
+                        <div class="flex items-center gap-2 px-3 py-1 rounded bg-surface-muted dark:bg-dark-surface-muted text-[10px] font-black uppercase text-text-muted dark:text-dark-text-muted">
+                            <i class="fa-solid fa-earth-americas"></i> @Model.OriginCountry
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Headquarters))
+                    {
+                        <div class="flex items-center gap-2 px-3 py-1 rounded bg-surface-muted dark:bg-dark-surface-muted text-[10px] font-black uppercase text-text-muted dark:text-dark-text-muted">
+                            <i class="fa-solid fa-building"></i> @Model.Headquarters
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Homepage))
+                    {
+                        <a href="@Model.Homepage" target="_blank" class="text-xs font-black text-brand-primary hover:underline flex items-center gap-2">
+                            <i class="fa-solid fa-globe"></i> Offizielle Webseite
+                        </a>
+                    }
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.Description))
+            {
+                <div class="prose dark:prose-invert max-w-none">
+                    <p class="text-lg text-text-description dark:text-dark-text-muted leading-relaxed font-medium">@Model.Description</p>
+                </div>
+            }
+
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="pt-6 border-t border-border-muted dark:border-dark-border">
+                    <a asp-action="Edit" asp-route-id="@Model.ProductionCompanyID" class="btn-primary">Bearbeiten</a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="form-group-header !mb-12">
+        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">Produzierte Filme</h2>
+        <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        @foreach (var film in Model.ProduzierteFilme.OrderByDescending(f => f.Erscheinungsjahr))
+        {
+            <a asp-controller="Film" asp-action="Details" asp-route-id="@film.FilmID" class="card-premium group flex flex-col">
+                <div class="aspect-[2/3] relative overflow-hidden bg-surface-subtle dark:bg-dark-surface-soft">
+                    @if (!string.IsNullOrEmpty(film.PosterUrl))
+                    {
+                        <img src="@film.PosterUrl" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    }
+                </div>
+                <div class="p-6">
+                    <p class="text-[10px] font-black text-brand-primary uppercase tracking-widest">@film.Erscheinungsjahr</p>
+                    <h3 class="text-md font-black text-text-main dark:text-white mt-1 group-hover:text-brand-primary transition-colors">@film.Titel</h3>
+                </div>
+            </a>
+        }
+    </div>
+</div>

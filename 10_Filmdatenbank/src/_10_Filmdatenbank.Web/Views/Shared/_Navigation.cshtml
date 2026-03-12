@@ -33,6 +33,16 @@
                        aria-current='@(Context.Request.Path.StartsWithSegments("/Person") ? "page" : null)'>
                         @Localizer["Contributors"]
                     </a>
+                    <a asp-area="" asp-controller="Collection" asp-action="Index" 
+                       class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2"
+                       aria-current='@(Context.Request.Path.StartsWithSegments("/Kollektionen") ? "page" : null)'>
+                        @Localizer["Collections"]
+                    </a>
+                    <a asp-area="" asp-controller="ProductionCompany" asp-action="Index" 
+                       class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2"
+                       aria-current='@(Context.Request.Path.StartsWithSegments("/Studios") ? "page" : null)'>
+                        @Localizer["Studios"]
+                    </a>
                 }
             </div>
         </div>
@@ -53,7 +63,7 @@
 
                 <!-- User Profile / Logout -->
                 <div class="flex items-center gap-4">
-                    <div class="flex flex-col items-end hidden md:flex">
+                    <div class="hidden md:flex flex-col items-end">
                         <span class="text-[9px] font-black text-text-muted uppercase tracking-widest leading-none mb-1">@Localizer["SignedInAs"]</span>
                         <span class="text-xs font-bold text-dark-text-secondary">@User.Identity?.Name</span>
                     </div>

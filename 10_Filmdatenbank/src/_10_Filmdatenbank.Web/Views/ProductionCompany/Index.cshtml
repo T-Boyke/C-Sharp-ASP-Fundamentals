@@ -1,0 +1,58 @@
+@model IEnumerable<_10_Filmdatenbank.Domain.Entities.ProductionCompany>
+
+@{
+    ViewData["Title"] = "Studios";
+}
+
+<div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+        <div>
+            <h1 class="text-5xl font-black tracking-tighter text-text-main dark:text-white leading-none transition-colors">Studios</h1>
+            <p class="mt-4 text-sm font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-[0.3em]">DIE SCHÖPFER DER GESCHICHTEN</p>
+        </div>
+        
+        <div class="flex-grow max-w-md">
+            <form asp-action="Index" method="get" class="relative group">
+                <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" 
+                       class="w-full pl-12 pr-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" 
+                       placeholder="Studios suchen..." />
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-brand-primary transition-colors">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                @if (!string.IsNullOrEmpty(ViewData["CurrentFilter"]?.ToString()))
+                {
+                    <a asp-action="Index" class="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-danger-primary transition-colors">
+                        <i class="fa-solid fa-xmark"></i>
+                    </a>
+                }
+            </form>
+        </div>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn-primary shadow-xl shadow-brand-shadow flex items-center gap-2 group">
+                <i class="fa-solid fa-building-circle-plus text-lg transition-transform group-hover:scale-110"></i>
+                <span class="font-black uppercase tracking-widest text-xs">Neues Studio</span>
+            </a>
+        }
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 text-center">
+        @foreach (var item in Model)
+        {
+            <a asp-action="Details" asp-route-id="@item.ProductionCompanyID" class="group block p-6 card-premium transition-all hover:-translate-y-2">
+                <div class="aspect-square bg-white dark:bg-white rounded-2xl flex items-center justify-center p-4 mb-4 border border-border-muted transition-colors">
+                    @if (!string.IsNullOrEmpty(item.LogoUrl))
+                    {
+                        <img src="@item.LogoUrl" alt="@item.Name Logo" class="max-w-full max-h-full object-contain filter group-hover:drop-shadow-xl transition-all" />
+                    }
+                    else
+                    {
+                        <i class="fa-solid fa-industry text-5xl text-dark-surface-muted"></i>
+                    }
+                </div>
+                <h2 class="text-sm font-black text-text-main dark:text-white group-hover:text-brand-primary truncate transition-colors">@item.Name</h2>
+            </a>
+        }
+    </div>
+</div>

@@ -1,0 +1,117 @@
+@model _10_Filmdatenbank.Domain.Entities.Collection
+
+@{
+    ViewData["Title"] = "Neue Filmreihe";
+}
+
+<div class="mx-auto max-w-3xl px-6 lg:px-8 py-16">
+    <div class="mb-8">
+        <label for="tmdbCollectionSearch" class="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em] mb-3 block px-1">TMDB Suche</label>
+        <div class="relative group">
+            <input type="text" id="tmdbCollectionSearch" 
+                   class="w-full pl-12 pr-4 py-4 rounded-2xl bg-surface-overlay dark:bg-dark-surface-soft border-2 border-border-default dark:border-dark-border focus:border-brand-primary outline-hidden transition-all font-black text-text-main dark:text-white shadow-lg group-hover:border-brand-primary/50" 
+                   placeholder="Name der Filmreihe suchen..." />
+            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-brand-primary transition-colors">
+                <i class="fa-solid fa-magnifying-glass text-xl"></i>
+            </div>
+            <div id="searchResults" class="absolute z-50 w-full mt-3 bg-surface-overlay dark:bg-dark-surface border border-border-default dark:border-dark-border rounded-2xl shadow-2xl max-h-96 overflow-y-auto hidden divide-y divide-border-muted transition-all">
+                <!-- Results dynamic -->
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group-card overflow-hidden !p-0">
+        <form asp-action="Create" class="p-10 space-y-10">
+            <input type="hidden" asp-for="TmdbId" id="inputTmdbId" />
+
+            <div class="form-group-header">
+                <div>
+                    <h2 class="text-xl font-black text-text-main dark:text-white uppercase tracking-tight">Reihen-Informationen</h2>
+                    <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mt-1">Stammdaten der Filmreihe</p>
+                </div>
+                <i class="fa-solid fa-layer-group text-border-default dark:text-dark-surface-muted text-2xl"></i>
+            </div>
+
+            <div class="space-y-8">
+                <div class="flex flex-col gap-1.5">
+                    <label asp-for="Name" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Name</label>
+                    <input asp-for="Name" id="inputName" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
+                    <span asp-validation-for="Name" class="text-[10px] font-bold text-danger-primary mt-1 px-1"></span>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label asp-for="Overview" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Beschreibung</label>
+                    <textarea asp-for="Overview" id="inputOverview" rows="4" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:border-brand-primary outline-hidden transition-all font-medium text-text-description dark:text-dark-text-muted"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="flex flex-col gap-1.5">
+                        <label asp-for="PosterUrl" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Poster URL</label>
+                        <input asp-for="PosterUrl" id="inputPosterUrl" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label asp-for="BackdropUrl" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Backdrop URL</label>
+                        <input asp-for="BackdropUrl" id="inputBackdropUrl" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group-footer">
+                <a asp-action="Index" class="btn-secondary">Abbrechen</a>
+                <button type="submit" class="btn-primary">Erstellen</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            let searchTimeout;
+            const $search = $('#tmdbCollectionSearch');
+            const $results = $('#searchResults');
+
+            $search.on('input', function() {
+                clearTimeout(searchTimeout);
+                const query = $(this).val();
+                if (query.length < 2) {
+                    $results.hide();
+                    return;
+                }
+
+                searchTimeout = setTimeout(function() {
+                    $.get('/Tmdb/search-collection?query=' + encodeURIComponent(query), function(data) {
+                        $results.empty().show();
+                        data.forEach(c => {
+                            const html = `
+                                <div class="p-4 flex items-center gap-4 cursor-pointer hover:bg-surface-muted transition-colors select-collection" data-id="${c.id}">
+                                    <div class="w-12 h-16 rounded overflow-hidden bg-surface-subtle shrink-0">
+                                        ${c.posterPath ? `<img src="https://image.tmdb.org/t/p/w92${c.posterPath}" class="w-full h-full object-cover">` : '<i class="fa-solid fa-layer-group p-3"></i>'}
+                                    </div>
+                                    <div class="font-black text-text-main dark:text-white text-sm">${c.name}</div>
+                                </div>
+                            `;
+                            $results.append(html);
+                        });
+                    });
+                }, 500);
+            });
+
+            $(document).on('click', '.select-collection', function() {
+                const id = $(this).data('id');
+                $results.hide();
+                $search.val('Lade Details...');
+
+                $.get('/Tmdb/collection/' + id, function(c) {
+                    $search.val(c.name);
+                    $('#inputName').val(c.name);
+                    $('#inputOverview').val(c.overview);
+                    $('#inputPosterUrl').val(c.posterUrl);
+                    $('#inputBackdropUrl').val(c.backdropUrl);
+                    $('#inputTmdbId').val(c.id);
+                    toastr.success('Daten geladen!');
+                });
+            });
+        });
+    </script>
+}

@@ -43,6 +43,13 @@
                                 <span class="text-xs font-bold text-text-muted">@Localizer["Born"]</span>
                                 <span class="text-xs font-black text-text-main dark:text-white">@(Model.Geburtsdatum?.ToString("dd.MM.yyyy") ?? Localizer["NotAvailable"].Value)</span>
                             </div>
+                            @if (Model.Deathday.HasValue)
+                            {
+                                <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted text-danger-primary">
+                                    <span class="text-xs font-bold">Gestorben</span>
+                                    <span class="text-xs font-black">@Model.Deathday.Value.ToString("dd.MM.yyyy")</span>
+                                </div>
+                            }
                             @if (!string.IsNullOrEmpty(Model.Geburtsort))
                             {
                                 <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted">
@@ -50,6 +57,65 @@
                                     <span class="text-xs font-black text-text-main dark:text-white">@Model.Geburtsort</span>
                                 </div>
                             }
+                            @if (!string.IsNullOrEmpty(Model.KnownForDepartment))
+                            {
+                                <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted">
+                                    <span class="text-xs font-bold text-text-muted">Bereich</span>
+                                    <span class="text-xs font-black text-text-main dark:text-white">@Model.KnownForDepartment</span>
+                                </div>
+                            }
+                            <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted">
+                                <span class="text-xs font-bold text-text-muted">Popularität</span>
+                                <span class="text-xs font-black text-text-main dark:text-white">@(Model.Popularity?.ToString("0.0") ?? "N/A")</span>
+                            </div>
+                            
+                            @if (!string.IsNullOrEmpty(Model.Homepage))
+                            {
+                                <div class="py-2 border-b border-border-muted dark:border-dark-border-muted">
+                                    <a href="@Model.Homepage" target="_blank" class="text-xs font-black text-brand-primary hover:text-brand-hover flex items-center gap-2">
+                                        <i class="fa-solid fa-link"></i> Webseite besuchen
+                                    </a>
+                                </div>
+                            }
+
+                            <div class="flex items-center gap-4 mt-4 py-2">
+                                @if (!string.IsNullOrEmpty(Model.ImdbId))
+                                {
+                                    <a href="https://www.imdb.com/name/@Model.ImdbId" target="_blank" class="w-8 h-8 rounded-lg bg-[#f5c518] text-black flex items-center justify-center font-black transition-transform hover:scale-110 shadow-lg" title="IMDb Profile">
+                                        <i class="fa-brands fa-imdb text-xl"></i>
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.FacebookId))
+                                {
+                                    <a href="https://facebook.com/@Model.FacebookId" target="_blank" class="w-8 h-8 rounded-lg bg-[#1877f2] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.InstagramId))
+                                {
+                                    <a href="https://instagram.com/@Model.InstagramId" target="_blank" class="w-8 h-8 rounded-lg bg-linear-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.TwitterId))
+                                {
+                                    <a href="https://twitter.com/@Model.TwitterId" target="_blank" class="w-8 h-8 rounded-lg bg-[#1da1f2] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
+                                        <i class="fa-brands fa-x-twitter"></i>
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.WikidataId))
+                                {
+                                    <a href="https://www.wikidata.org/wiki/@Model.WikidataId" target="_blank" class="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center transition-transform hover:scale-110 shadow-lg border border-border-muted" title="Wikidata">
+                                        <i class="fa-solid fa-barcode"></i>
+                                    </a>
+                                }
+                                @if (Model.Adult)
+                                {
+                                    <span class="px-2 py-1 rounded bg-danger-primary text-white text-[10px] font-black uppercase tracking-tighter shadow-lg" title="Nur für Erwachsene">
+                                        18+
+                                    </span>
+                                }
+                            </div>
                             
                             @{
                                 var rollen = Model.PersonEigenschaftFilme.Select(pef => pef.Eigenschaft.Bezeichnung).Distinct();
@@ -103,6 +169,17 @@
                         * @Model.Geburtsdatum.Value.ToString("yyyy") 
                         @if(!string.IsNullOrEmpty(Model.Geburtsort)) { <span>@Localizer["BornIn"] @Model.Geburtsort</span> }
                     </p>
+                }
+                @if (!string.IsNullOrEmpty(Model.AlsoKnownAs))
+                {
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        @foreach (var alias in Model.AlsoKnownAs.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+                        {
+                            <span class="px-2 py-0.5 rounded-lg bg-surface-muted dark:bg-dark-surface-soft text-[10px] font-bold text-text-description dark:text-dark-text-muted transition-colors">
+                                @alias
+                            </span>
+                        }
+                    </div>
                 }
             </header>
 

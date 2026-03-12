@@ -12,4 +12,6 @@
   <data name="Logout" xml:space="preserve"><value>Abmelden</value></data>
   <data name="Register" xml:space="preserve"><value>Registrieren</value></data>
   <data name="Login" xml:space="preserve"><value>Anmelden</value></data>
+  <data name="Collections" xml:space="preserve"><value>Kollektionen</value></data>
+  <data name="Studios" xml:space="preserve"><value>Studios</value></data>
 </root>

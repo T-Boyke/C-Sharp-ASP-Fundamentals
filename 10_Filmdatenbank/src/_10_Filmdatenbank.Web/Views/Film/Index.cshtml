@@ -17,6 +17,23 @@
             <p class="mt-3 text-lg text-text-description dark:text-dark-text-muted max-w-2xl font-medium transition-colors">@Localizer["CatalogDescription"]</p>
         </div>
         
+        <div class="flex-grow max-w-md">
+            <form asp-action="Index" method="get" class="relative group">
+                <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" 
+                       class="w-full pl-12 pr-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" 
+                       placeholder='@Localizer["SearchPlaceholder"]' />
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-brand-primary transition-colors">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                @if (!string.IsNullOrEmpty(ViewData["CurrentFilter"]?.ToString()))
+                {
+                    <a asp-action="Index" class="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-danger-primary transition-colors">
+                        <i class="fa-solid fa-xmark"></i>
+                    </a>
+                }
+            </form>
+        </div>
+
         @if (User.IsInRole("Admin"))
         {
             <div class="mt-6 md:mt-0">

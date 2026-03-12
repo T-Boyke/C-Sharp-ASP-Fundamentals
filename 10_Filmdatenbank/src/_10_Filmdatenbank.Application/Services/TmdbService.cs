@@ -3,6 +3,9 @@ using Microsoft.Extensions.Configuration;
 using TMDbLib.Client;
 using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
+using TMDbLib.Objects.People;
+using TMDbLib.Objects.Collections;
+using TMDbLib.Objects.Companies;
 
 namespace _10_Filmdatenbank.Application.Services;
 
@@ -30,5 +33,38 @@ public class TmdbService : ITmdbService
     public async Task<Movie> GetMovieDetailsAsync(int tmdbId, string language = "de-DE")
     {
         return await _client.GetMovieAsync(tmdbId, language: language, extraMethods: MovieMethods.Credits | MovieMethods.ExternalIds | MovieMethods.Keywords | MovieMethods.Videos);
+    }
+
+    public async Task<IEnumerable<SearchPerson>> SearchPersonsAsync(string query, string language = "de-DE")
+    {
+        var results = await _client.SearchPersonAsync(query, language: language);
+        return results.Results;
+    }
+
+    public async Task<Person> GetPersonDetailsAsync(int tmdbId, string language = "de-DE")
+    {
+        return await _client.GetPersonAsync(tmdbId, language: language, extraMethods: PersonMethods.CombinedCredits | PersonMethods.ExternalIds | PersonMethods.MovieCredits);
+    }
+
+    public async Task<IEnumerable<SearchCollection>> SearchCollectionsAsync(string query, string language = "de-DE")
+    {
+        var results = await _client.SearchCollectionAsync(query, language: language);
+        return results.Results;
+    }
+
+    public async Task<Collection> GetCollectionDetailsAsync(int tmdbId, string language = "de-DE")
+    {
+        return await _client.GetCollectionAsync(tmdbId, language: language);
+    }
+
+    public async Task<IEnumerable<SearchCompany>> SearchCompaniesAsync(string query, string language = "de-DE")
+    {
+        var results = await _client.SearchCompanyAsync(query); // SearchCompany doesn't always support language in current TMDbLib
+        return results.Results;
+    }
+
+    public async Task<ProductionCompany> GetCompanyDetailsAsync(int tmdbId)
+    {
+        return await _client.GetCompanyAsync(tmdbId);
     }
 }

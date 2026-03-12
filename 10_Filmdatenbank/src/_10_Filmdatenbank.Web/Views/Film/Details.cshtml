@@ -110,6 +110,14 @@
                         </span>
                     </div>
                     <div class="flex flex-col">
+                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Originaltitel</span>
+                        <span class="text-sm font-black text-text-main dark:text-white">@Model.OriginalTitle (@Model.OriginalLanguage?.ToUpper())</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Popularität</span>
+                        <span class="text-sm font-black text-text-main dark:text-white">@(Model.Popularity?.ToString("0.0") ?? "N/A") (@Model.VoteCount Stimmen)</span>
+                    </div>
+                    <div class="flex flex-col">
                         <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Release"]</span>
                         <span class="text-sm font-black text-text-main dark:text-white transition-colors">@(Model.Erscheinungsdatum.HasValue ? Model.Erscheinungsdatum.Value.ToString("dd.MM.yyyy") : Model.Erscheinungsjahr.ToString())</span>
                     </div>
@@ -117,6 +125,90 @@
                         <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Runtime"]</span>
                         <span class="text-sm font-black text-text-main dark:text-white transition-colors">@Model.Spieldauer @Localizer["MinSuffix"]</span>
                     </div>
+                    @if (Model.Collection != null)
+                    {
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Filmreihe</span>
+                            <a asp-controller="Collection" asp-action="Details" asp-route-id="@Model.CollectionID" class="text-sm font-black text-brand-primary hover:text-brand-hover transition-colors">
+                                @Model.Collection.Name
+                            </a>
+                        </div>
+                    }
+                    @if (Model.ProductionCompanies?.Any() == true)
+                    {
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Studios</span>
+                            <div class="flex flex-wrap gap-2 mt-1">
+                                @foreach (var studio in Model.ProductionCompanies)
+                                {
+                                    <a asp-controller="ProductionCompany" asp-action="Details" asp-route-id="@studio.CompanyID" class="text-xs font-bold text-text-main dark:text-white hover:text-brand-primary transition-colors flex items-center gap-1">
+                                        @if (!string.IsNullOrEmpty(studio.LogoUrl))
+                                        {
+                                            <img src="@studio.LogoUrl" alt="" class="w-4 h-4 object-contain" />
+                                        }
+                                        @studio.Name
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Status))
+                    {
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Status</span>
+                            <span class="text-sm font-black text-text-main dark:text-white">@Model.Status</span>
+                        </div>
+                    }
+                     @if (Model.Budget > 0)
+                    {
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Budget</span>
+                            <span class="text-sm font-black text-text-main dark:text-white">$@Model.Budget?.ToString("N0")</span>
+                        </div>
+                    }
+                    @if (Model.Revenue > 0)
+                    {
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Einnahmen</span>
+                            <span class="text-sm font-black text-text-main dark:text-white">$@Model.Revenue?.ToString("N0")</span>
+                        </div>
+                    }
+                    
+                    <div class="pt-6 border-t border-border-muted dark:border-dark-border">
+                        <div class="flex flex-wrap gap-4">
+                            @if (!string.IsNullOrEmpty(Model.ImdbId))
+                            {
+                                <a href="https://www.imdb.com/title/@Model.ImdbId" target="_blank" class="w-8 h-8 rounded-lg bg-[#f5c518] text-black flex items-center justify-center font-black transition-transform hover:scale-110 shadow-lg" title="IMDb">
+                                    <i class="fa-brands fa-imdb text-xl"></i>
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.FacebookId))
+                            {
+                                <a href="https://facebook.com/@Model.FacebookId" target="_blank" class="w-8 h-8 rounded-lg bg-[#1877f2] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.InstagramId))
+                            {
+                                <a href="https://instagram.com/@Model.InstagramId" target="_blank" class="w-8 h-8 rounded-lg bg-linear-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.TwitterId))
+                            {
+                                <a href="https://twitter.com/@Model.TwitterId" target="_blank" class="w-8 h-8 rounded-lg bg-[#1da1f2] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
+                                    <i class="fa-brands fa-x-twitter"></i>
+                                </a>
+                            }
+                             @if (!string.IsNullOrEmpty(Model.WikidataId))
+                            {
+                                <a href="https://www.wikidata.org/wiki/@Model.WikidataId" target="_blank" class="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center transition-transform hover:scale-110 shadow-lg border border-border-muted">
+                                    <i class="fa-solid fa-barcode"></i>
+                                </a>
+                            }
+                        </div>
+                    </div>
+
                     @if (!string.IsNullOrEmpty(Model.Homepage))
                     {
                         <div class="flex flex-col">

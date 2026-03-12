@@ -17,10 +17,19 @@ public class PersonController(ApplicationDbContext context) : Controller
     /// <summary>
     /// Zeigt eine Liste aller Personen in der Datenbank an.
     /// </summary>
+    /// <param name="searchString">Optionaler Suchbegriff.</param>
     /// <returns>Die Index-View mit einer Liste von Personen.</returns>
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string? searchString)
     {
-        var personen = await context.Personen
+        var query = context.Personen.AsQueryable();
+
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            query = query.Where(p => p.Vorname.Contains(searchString) || p.Nachname.Contains(searchString) || (p.Biografie != null && p.Biografie.Contains(searchString)));
+            ViewData["CurrentFilter"] = searchString;
+        }
+
+        var personen = await query
             .Include(p => p.PersonEigenschaftFilme)
                 .ThenInclude(pef => pef.Eigenschaft)
             .OrderBy(p => p.Nachname)

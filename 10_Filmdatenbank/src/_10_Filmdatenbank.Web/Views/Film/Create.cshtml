@@ -138,6 +138,10 @@
                 <!-- Hidden TMDB alignment fields -->
                 <input type="hidden" asp-for="TmdbId" id="inputTmdbId" />
                 <input type="hidden" asp-for="ImdbId" id="inputImdbId" />
+                <input type="hidden" asp-for="FacebookId" id="inputFacebookId" />
+                <input type="hidden" asp-for="InstagramId" id="inputInstagramId" />
+                <input type="hidden" asp-for="TwitterId" id="inputTwitterId" />
+                <input type="hidden" asp-for="WikidataId" id="inputWikidataId" />
                 <input type="hidden" asp-for="OriginalTitle" id="inputOriginalTitle" />
                 <input type="hidden" asp-for="OriginalLanguage" id="inputOriginalLanguage" />
                 <input type="hidden" asp-for="BackdropUrl" id="inputBackdropUrl" />
@@ -146,8 +150,14 @@
                 <input type="hidden" asp-for="Budget" id="inputBudget" />
                 <input type="hidden" asp-for="Revenue" id="inputRevenue" />
                 <input type="hidden" asp-for="VoteAverage" id="inputVoteAverage" />
-                <input type="hidden" id="inputStatus" asp-for="Status" />
+                <input type="hidden" asp-for="Status" id="inputStatus" />
                 <input type="hidden" asp-for="TrailerUrl" id="inputTrailerUrl" />
+                <input type="hidden" asp-for="CollectionID" id="inputCollectionID" />
+
+                <div class="flex items-center gap-3 px-1">
+                    <input asp-for="Adult" id="inputAdult" type="checkbox" class="w-5 h-5 rounded border-border-default dark:border-dark-border text-brand-primary focus:ring-brand-primary" />
+                    <label asp-for="Adult" class="text-sm font-bold text-text-main dark:text-white">Nur für Erwachsene</label>
+                </div>
             </div>
 
             <div class="form-group-footer">
@@ -260,6 +270,10 @@
                 // Hidden Fields
                 setVal('inputTmdbId', data.id);
                 setVal('inputImdbId', data.imdbId || '');
+                setVal('inputFacebookId', data.facebookId || '');
+                setVal('inputInstagramId', data.instagramId || '');
+                setVal('inputTwitterId', data.twitterId || '');
+                setVal('inputWikidataId', data.wikidataId || '');
                 setVal('inputOriginalTitle', data.originalTitle || '');
                 setVal('inputOriginalLanguage', data.originalLanguage || '');
                 setVal('inputBackdropUrl', data.backdropUrl || '');
@@ -271,6 +285,10 @@
                 setVal('inputStatus', data.status || '');
                 setVal('inputHomepage', data.homepage || '');
                 setVal('inputTrailerUrl', data.trailerKey ? `https://www.youtube.com/embed/${data.trailerKey}` : '');
+                setVal('inputCollectionID', data.collectionId || '');
+
+                const adultCheck = document.getElementById('inputAdult');
+                if (adultCheck) adultCheck.checked = data.adult || false;
 
                 // Handle Cast
                 const castSection = document.getElementById('castSection');
