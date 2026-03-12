@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="CreatePageTitle" xml:space="preserve"><value>Новая запись</value></data>
+  <data name="CreateHeader" xml:space="preserve"><value>Новая запись в каталоге</value></data>
+  <data name="CreateSubheader" xml:space="preserve"><value>Сбор метаданных фильма</value></data>
+  <data name="Back" xml:space="preserve"><value>Назад</value></data>
+  <data name="BackToCatalog" xml:space="preserve"><value>Назад в каталог</value></data>
+  <data name="MovieInfo" xml:space="preserve"><value>Информация о фильме</value></data>
+  <data name="MovieInfoSub" xml:space="preserve"><value>Основные данные и метаданные</value></data>
+  <data name="LabelTitle" xml:space="preserve"><value>Название</value></data>
+  <data name="PlaceholderTitle" xml:space="preserve"><value>например, Матрица</value></data>
+  <data name="LabelGenre" xml:space="preserve"><value>Категория / Жанр</value></data>
+  <data name="PlaceholderGenre" xml:space="preserve"><value>Фантастика, Боевик</value></data>
+  <data name="LabelFsk" xml:space="preserve"><value>Возрастной рейтинг (FSK)</value></data>
+  <data name="LabelYear" xml:space="preserve"><value>Год</value></data>
+  <data name="LabelDate" xml:space="preserve"><value>Дата</value></data>
+  <data name="LabelRating" xml:space="preserve"><value>Нач. рейтинг</value></data>
+  <data name="LabelRuntime" xml:space="preserve"><value>Длительность (мин.)</value></data>
+  <data name="LabelPrice" xml:space="preserve"><value>Цена (€)</value></data>
+  <data name="LabelPosterUrl" xml:space="preserve"><value>URL постера</value></data>
+  <data name="PlaceholderPosterUrl" xml:space="preserve"><value>https://image.tmdb.org/...</value></data>
+  <data name="LabelPlot" xml:space="preserve"><value>Сюжет</value></data>
+  <data name="PlaceholderPlot" xml:space="preserve"><value>О чем этот фильм?</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Отмена</value></data>
+  <data name="CreateButton" xml:space="preserve"><value>Создать фильм</value></data>
+  <data name="ValidationNotice" xml:space="preserve"><value>Системная валидация активна • Все изменения сразу появятся в каталоге.</value></data>
+</root>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="CreatePageTitle" xml:space="preserve"><value>Nova Entrada</value></data>
+  <data name="CreateHeader" xml:space="preserve"><value>Novo Registro no Catálogo</value></data>
+  <data name="CreateSubheader" xml:space="preserve"><value>Capturar metadados do filme</value></data>
+  <data name="Back" xml:space="preserve"><value>Voltar</value></data>
+  <data name="BackToCatalog" xml:space="preserve"><value>Voltar ao catálogo</value></data>
+  <data name="MovieInfo" xml:space="preserve"><value>Informações do Filme</value></data>
+  <data name="MovieInfoSub" xml:space="preserve"><value>Dados básicos e metadados</value></data>
+  <data name="LabelTitle" xml:space="preserve"><value>Título</value></data>
+  <data name="PlaceholderTitle" xml:space="preserve"><value>ex: Matrix</value></data>
+  <data name="LabelGenre" xml:space="preserve"><value>Categoria / Gênero</value></data>
+  <data name="PlaceholderGenre" xml:space="preserve"><value>Sci-Fi, Ação</value></data>
+  <data name="LabelFsk" xml:space="preserve"><value>Classificação Etária (FSK)</value></data>
+  <data name="LabelYear" xml:space="preserve"><value>Ano</value></data>
+  <data name="LabelDate" xml:space="preserve"><value>Data</value></data>
+  <data name="LabelRating" xml:space="preserve"><value>Avaliação Inicial</value></data>
+  <data name="LabelRuntime" xml:space="preserve"><value>Duração (Min.)</value></data>
+  <data name="LabelPrice" xml:space="preserve"><value>Preço (€)</value></data>
+  <data name="LabelPosterUrl" xml:space="preserve"><value>URL da Imagem do Poster</value></data>
+  <data name="PlaceholderPosterUrl" xml:space="preserve"><value>https://image.tmdb.org/...</value></data>
+  <data name="LabelPlot" xml:space="preserve"><value>Enredo / Trama</value></data>
+  <data name="PlaceholderPlot" xml:space="preserve"><value>Sobre o que é o filme?</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Cancelar</value></data>
+  <data name="CreateButton" xml:space="preserve"><value>Criar Filme</value></data>
+  <data name="ValidationNotice" xml:space="preserve"><value>Validação do sistema ativa • Todas as alterações serão visíveis no catálogo imediatamente.</value></data>
+</root>

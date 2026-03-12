@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="DesignSelection" xml:space="preserve"><value>Seleção de Design</value></data>
+  <data name="LightDesign" xml:space="preserve"><value>Design Claro</value></data>
+  <data name="SystemDesign" xml:space="preserve"><value>Design do Sistema</value></data>
+  <data name="DarkDesign" xml:space="preserve"><value>Design Escuro</value></data>
+  <data name="Repository" xml:space="preserve"><value>Repositório</value></data>
+  <data name="CodedBy" xml:space="preserve"><value>O FilmDB foi codificado por</value></data>
+  <data name="WithMug" xml:space="preserve"><value>com muitas</value></data>
+  <data name="MadeWith" xml:space="preserve"><value>Feito com</value></data>
+  <data name="ForExcellence" xml:space="preserve"><value>para NE4 Excellence</value></data>
+  <data name="Impressum" xml:space="preserve"><value>Aviso Legal</value></data>
+  <data name="Privacy" xml:space="preserve"><value>Política de Privacidade</value></data>
+</root>

@@ -1,7 +1,9 @@
 @model IEnumerable<_10_Filmdatenbank.Domain.Entities.Film>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Filme Bibliothek";
+    ViewData["Title"] = Localizer["LibraryTitle"];
 }
 
 <div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
@@ -9,10 +11,10 @@
         <div>
             <div class="flex items-center gap-2 mb-2">
                 <i aria-hidden="true" class="fa-solid fa-rectangle-list text-brand-primary"></i>
-                <span class="text-xs font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest leading-none">Bestand</span>
+                <span class="text-xs font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest leading-none">@Localizer["Inventory"]</span>
             </div>
-            <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors">Film-Katalog</h1>
-            <p class="mt-3 text-lg text-text-description dark:text-dark-text-muted max-w-2xl font-medium transition-colors">Durchsuchen Sie unsere kuratierte Sammlung erstklassiger Filmproduktionen.</p>
+            <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors">@Localizer["CatalogHeader"]</h1>
+            <p class="mt-3 text-lg text-text-description dark:text-dark-text-muted max-w-2xl font-medium transition-colors">@Localizer["CatalogDescription"]</p>
         </div>
         
         @if (User.IsInRole("Admin"))
@@ -20,7 +22,7 @@
             <div class="mt-6 md:mt-0">
                 <a asp-action="Create" class="btn-primary">
                     <i aria-hidden="true" class="fa-solid fa-plus mr-2"></i>
-                    Neuer Film
+                    @Localizer["NewFilm"]
                 </a>
             </div>
         }
@@ -40,7 +42,7 @@
                     {
                         <div class="w-full h-full flex flex-col items-center justify-center text-slate-300 dark:text-dark-surface-muted p-6">
                             <i aria-hidden="true" class="fa-solid fa-film text-5xl mb-4 opacity-20"></i>
-                            <span class="text-[10px] uppercase font-black tracking-widest text-center">Kein Poster</span>
+                            <span class="text-[10px] uppercase font-black tracking-widest text-center">@Localizer["NoPoster"]</span>
                         </div>
                     }
                     
@@ -55,7 +57,8 @@
                     </div>
 
                     <div class="absolute top-4 right-4 animate-in fade-in zoom-in duration-500">
-                        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-primary/90 backdrop-blur-md text-white shadow-xl shadow-brand-shadow-lg border border-brand-primary/50">
+                        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-primary/90 backdrop-blur-md text-white shadow-xl shadow-brand-shadow-lg border border-brand-primary/50"
+                             aria-label='@Localizer["Rating"]: @(item.Nutzerwertung?.ToString("0.0") ?? "N/A")'>
                             <i aria-hidden="true" class="fa-solid fa-star text-[10px] text-yellow-300"></i>
                             <span class="text-xs font-black tracking-tighter">@(item.Nutzerwertung?.ToString("0.0") ?? "N/A")</span>
                         </div>
@@ -64,14 +67,16 @@
                     <!-- Hover Overlay Actions -->
                     <div class="absolute inset-0 bg-dark-surface/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[2px]">
                         <div class="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 flex flex-col gap-3 items-center px-6 w-full">
-                            <a asp-action="Details" asp-route-id="@item.FilmID" class="btn-primary w-full shadow-2xl">Mehr Details</a>
+                            <a asp-action="Details" asp-route-id="@item.FilmID" class="btn-primary w-full shadow-2xl">@Localizer["MoreDetails"]</a>
                             @if (User.IsInRole("Admin"))
                             {
                                 <div class="flex gap-2 w-full">
-                                    <a asp-action="Edit" asp-route-id="@item.FilmID" class="flex-1 p-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/10 transition-colors flex items-center justify-center" title="Bearbeiten">
+                                    <a asp-action="Edit" asp-route-id="@item.FilmID" class="flex-1 p-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/10 transition-colors flex items-center justify-center" 
+                                       title='@Localizer["Edit"]' aria-label='@Localizer["Edit"]'>
                                         <i aria-hidden="true" class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@item.FilmID" class="flex-1 p-2.5 rounded-lg bg-danger-primary/80 hover:bg-danger-primary text-white backdrop-blur-md border border-danger-primary/20 transition-colors flex items-center justify-center" title="Löschen">
+                                    <a asp-action="Delete" asp-route-id="@item.FilmID" class="flex-1 p-2.5 rounded-lg bg-danger-primary/80 hover:bg-danger-primary text-white backdrop-blur-md border border-danger-primary/20 transition-colors flex items-center justify-center" 
+                                       title='@Localizer["Delete"]' aria-label='@Localizer["Delete"]'>
                                         <i aria-hidden="true" class="fa-solid fa-trash-can"></i>
                                     </a>
                                 </div>
@@ -88,7 +93,7 @@
                         </div>
                         <h2 class="text-lg font-black text-slate-900 dark:text-white leading-tight line-clamp-1 transition-colors">@item.Titel</h2>
                         <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mt-1 italic transition-colors">
-                            @item.Erscheinungsjahr &bull; @item.Spieldauer min
+                            @item.Erscheinungsjahr &bull; @item.Spieldauer @Localizer["MinSuffix"]
                         </p>
                     </div>
                     
@@ -98,7 +103,7 @@
 
                     <div class="flex items-center justify-between pt-4 border-t border-border-muted dark:border-dark-border-muted mt-auto transition-colors">
                         <div class="flex flex-col">
-                            <span class="text-[9px] font-bold text-text-muted uppercase tracking-widest">Leihpreis</span>
+                            <span class="text-[9px] font-bold text-text-muted uppercase tracking-widest">@Localizer["RentalPrice"]</span>
                             <span class="text-lg font-black text-slate-900 dark:text-white tracking-tighter transition-colors">@item.Preis.ToString("C")</span>
                         </div>
                         <div class="flex -space-x-2">

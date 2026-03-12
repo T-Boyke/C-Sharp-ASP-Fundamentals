@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Breadcrumb" xml:space="preserve"><value>Breadcrumb</value></data>
+  <data name="Catalog" xml:space="preserve"><value>Catalog</value></data>
+  <data name="Rating" xml:space="preserve"><value>Rating</value></data>
+  <data name="Pricing" xml:space="preserve"><value>Pricing</value></data>
+  <data name="IncVat" xml:space="preserve"><value>Inc. VAT</value></data>
+  <data name="Edit" xml:space="preserve"><value>Edit</value></data>
+  <data name="Delete" xml:space="preserve"><value>Delete</value></data>
+  <data name="MovieFacts" xml:space="preserve"><value>Movie Facts</value></data>
+  <data name="Genre" xml:space="preserve"><value>Genre</value></data>
+  <data name="Release" xml:space="preserve"><value>Release</value></data>
+  <data name="Runtime" xml:space="preserve"><value>Runtime</value></data>
+  <data name="MinSuffix" xml:space="preserve"><value>min</value></data>
+  <data name="Tags" xml:space="preserve"><value>Tags</value></data>
+  <data name="Plot" xml:space="preserve"><value>Plot</value></data>
+  <data name="CastTeam" xml:space="preserve"><value>Cast &amp; Crew</value></data>
+  <data name="ContributorsCount" xml:space="preserve"><value>Contributors</value></data>
+</root>

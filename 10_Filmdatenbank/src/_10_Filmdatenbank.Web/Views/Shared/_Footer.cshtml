@@ -1,3 +1,5 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-12 mt-20 transition-colors duration-300">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="grid-standard gap-12 items-center mb-8">
@@ -8,42 +10,55 @@
                 <span class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">Film<span class="text-brand-primary">DB</span></span>
             </div>
             
-            <div class="flex-col-center gap-4">
+            <div class="flex flex-col items-center gap-6">
                 <!-- Dark Mode Toggle -->
-                <div class="flex items-center p-1 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-800 shadow-inner" role="radiogroup" aria-label="Design Auswahl">
+                <div class="flex items-center p-1 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-800 shadow-inner" role="radiogroup" aria-label='@Localizer["DesignSelection"]'>
                     <label class="cursor-pointer relative flex-center w-9 h-9 rounded-md text-slate-500 dark:text-slate-400 hover:text-brand-primary has-[:checked]:bg-white has-[:checked]:dark:bg-slate-700 has-[:checked]:text-brand-primary has-[:checked]:shadow-sm transition-all text-sm group">
-                        <input type="radio" name="theme-toggle" value="light" class="sr-only" aria-label="Helles Design">
+                        <input type="radio" name="theme-toggle" value="light" class="sr-only" aria-label='@Localizer["LightDesign"]'>
                         <i aria-hidden="true" class="fa-solid fa-sun group-has-[:checked]:fa-beat-fade transition-all"></i>
                     </label>
                     <label class="cursor-pointer relative flex-center w-9 h-9 rounded-md text-slate-500 dark:text-slate-400 hover:text-brand-primary has-[:checked]:bg-white has-[:checked]:dark:bg-slate-700 has-[:checked]:text-brand-primary has-[:checked]:shadow-sm transition-all text-sm group">
-                        <input type="radio" name="theme-toggle" value="system" class="sr-only" aria-label="System Design">
+                        <input type="radio" name="theme-toggle" value="system" class="sr-only" aria-label='@Localizer["SystemDesign"]'>
                         <i aria-hidden="true" class="fa-solid fa-desktop group-has-[:checked]:fa-beat-fade transition-all"></i>
                     </label>
                     <label class="cursor-pointer relative flex-center w-9 h-9 rounded-md text-slate-500 dark:text-slate-400 hover:text-brand-primary has-[:checked]:bg-white has-[:checked]:dark:bg-slate-700 has-[:checked]:text-brand-primary has-[:checked]:shadow-sm transition-all text-sm group">
-                        <input type="radio" name="theme-toggle" value="dark" class="sr-only" aria-label="Dunkles Design">
+                        <input type="radio" name="theme-toggle" value="dark" class="sr-only" aria-label='@Localizer["DarkDesign"]'>
                         <i aria-hidden="true" class="fa-solid fa-moon group-has-[:checked]:fa-beat-fade transition-all"></i>
                     </label>
+                </div>
+
+                <!-- Language Selector -->
+                <div class="flex flex-wrap items-center justify-center gap-2">
+                    @foreach (var culture in new[] { ("de", "DE"), ("en", "EN"), ("pt", "PT"), ("ru", "RU"), ("ar", "AR"), ("tr", "TR") })
+                    {
+                        <form asp-controller="HomeController" asp-action="SetLanguage" asp-route-culture="@culture.Item1" asp-route-returnUrl="@Context.Request.Path" method="post" class="inline">
+                            <button type="submit" 
+                                    class='px-2 py-1 text-[10px] font-black rounded border transition-all @(System.Globalization.CultureInfo.CurrentCulture.Name.StartsWith(culture.Item1) ? "bg-brand-primary text-white border-brand-primary shadow-lg shadow-brand-primary/20" : "bg-slate-50 dark:bg-slate-900 text-slate-500 border-slate-200 dark:border-slate-800 hover:border-brand-primary hover:text-brand-primary")'>
+                                @culture.Item2
+                            </button>
+                        </form>
+                    }
                 </div>
             </div>
             
             <div class="flex justify-center md:justify-end gap-3">
                 <a href="https://github.com/T-Boyke/C-Sharp-ASP-Fundamentals/tree/main/10_Filmdatenbank" target="_blank" class="btn-secondary px-4 py-2 border border-slate-200 dark:border-slate-800 !text-sm">
-                    <i aria-hidden="true" class="fa-brands fa-github text-lg mr-2"></i> Repository
+                    <i aria-hidden="true" class="fa-brands fa-github text-lg mr-2"></i> @Localizer["Repository"]
                 </a>
             </div>
         </div>
         
         <div class="border-t border-slate-100 dark:border-slate-800 pt-8 flex flex-col items-center justify-center gap-2">
-            <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">
-                FilmDB was coded by <span class="font-bold text-slate-900 dark:text-slate-200">Tobias Boyke</span> with loads of <i aria-hidden="true" class="fa-solid fa-mug-hot text-amber-600 fa-flip-horizontal fa-bounce mx-1" style="--fa-animation-duration: 3s;"></i>
+            <p class="text-sm text-slate-500 dark:text-slate-400 font-medium text-center">
+                @Localizer["CodedBy"] <span class="font-bold text-slate-900 dark:text-slate-200">Tobias Boyke</span> @Localizer["WithMug"] <i aria-hidden="true" class="fa-solid fa-mug-hot text-amber-600 fa-flip-horizontal fa-bounce mx-1" style="--fa-animation-duration: 3s;"></i>
             </p>
-            <p class="text-xs text-slate-400 dark:text-slate-500 flex items-center">
-                Made with <i aria-hidden="true" class="fa-solid fa-heart text-red-500 fa-beat mx-1" style="--fa-animation-duration: 2s;"></i> for NE4 Excellence
+            <p class="text-xs text-slate-400 dark:text-slate-500 flex items-center text-center">
+                @Localizer["MadeWith"] <i aria-hidden="true" class="fa-solid fa-heart text-red-500 fa-beat mx-1" style="--fa-animation-duration: 2s;"></i> @Localizer["ForExcellence"]
             </p>
             
             <div class="mt-4 flex gap-6 text-xs text-slate-500 dark:text-slate-400">
-                <a asp-controller="Home" asp-action="Impressum" class="hover:text-brand-primary transition-colors">Impressum</a>
-                <a asp-controller="Home" asp-action="Privacy" class="hover:text-brand-primary transition-colors">Datenschutz</a>
+                <a asp-controller="Home" asp-action="Impressum" class="hover:text-brand-primary transition-colors">@Localizer["Impressum"]</a>
+                <a asp-controller="Home" asp-action="Privacy" class="hover:text-brand-primary transition-colors">@Localizer["Privacy"]</a>
             </div>
         </div>
     </div>

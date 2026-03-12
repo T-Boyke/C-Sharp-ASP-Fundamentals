@@ -1,4 +1,6 @@
 @model _10_Filmdatenbank.Domain.Entities.Film
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = Model.Titel;
@@ -6,9 +8,9 @@
 
 <div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
     <!-- Breadcrumb & Back -->
-    <nav class="flex mb-8 items-center gap-4 text-sm font-bold text-text-muted uppercase tracking-widest" aria-label="Breadcrumb">
+    <nav class="flex mb-8 items-center gap-4 text-sm font-bold text-text-muted uppercase tracking-widest" aria-label='@Localizer["Breadcrumb"]'>
         <a asp-action="Index" class="nav-link">
-            <i aria-hidden="true" class="fa-solid fa-arrow-left"></i> Katalog
+            <i aria-hidden="true" class="fa-solid fa-arrow-left"></i> @Localizer["Catalog"]
         </a>
         <span class="h-1 w-1 rounded-full bg-border-default"></span>
         <span class="text-slate-900 dark:text-white border-b-2 border-brand-primary pb-0.5 transition-colors">@Model.Titel</span>
@@ -31,7 +33,8 @@
                     
                     <div class="absolute inset-x-0 bottom-0 p-8 bg-linear-to-t from-dark-surface/80 via-dark-surface/40 to-transparent">
                         <div class="flex items-center gap-3">
-                            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-primary/90 backdrop-blur-md text-white shadow-xl shadow-brand-shadow-lg border border-brand-primary/50">
+                            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-primary/90 backdrop-blur-md text-white shadow-xl shadow-brand-shadow-lg border border-brand-primary/50"
+                                 aria-label='@Localizer["Rating"]: @(Model.Nutzerwertung?.ToString("0.0") ?? "N/A")'>
                                 <i aria-hidden="true" class="fa-solid fa-star text-[10px] text-yellow-300"></i>
                                 <span class="text-xs font-black tracking-tighter">@(Model.Nutzerwertung?.ToString("0.0") ?? "N/A")</span>
                             </div>
@@ -46,20 +49,20 @@
                 </div>
                 <div class="p-8 space-y-6 bg-surface-overlay dark:bg-dark-surface-soft transition-colors">
                     <div>
-                        <h3 class="text-xs font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mb-4">Preisgestaltung</h3>
+                        <h3 class="text-xs font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mb-4">@Localizer["Pricing"]</h3>
                         <div class="flex items-baseline gap-2 text-3xl font-black text-slate-900 dark:text-white transition-colors">
                             @Model.Preis.ToString("C")
-                            <span class="text-sm font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-tighter">Inkl. MwSt</span>
+                            <span class="text-sm font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-tighter">@Localizer["IncVat"]</span>
                         </div>
                     </div>
 
                     @if (User.IsInRole("Admin"))
                     {
                         <div class="pt-6 border-t border-border-muted dark:border-dark-border flex gap-4 transition-colors">
-                            <a asp-action="Edit" asp-route-id="@Model.FilmID" class="btn-primary flex-1 shadow-lg shadow-brand-shadow">
-                                <i aria-hidden="true" class="fa-solid fa-pen-to-square mr-2"></i> Edit
+                            <a asp-action="Edit" asp-route-id="@Model.FilmID" class="btn-primary flex-1 shadow-lg shadow-brand-shadow" aria-label='@Localizer["Edit"]'>
+                                <i aria-hidden="true" class="fa-solid fa-pen-to-square mr-2"></i> @Localizer["Edit"]
                             </a>
-                            <a asp-action="Delete" asp-route-id="@Model.FilmID" class="btn-danger p-2.5 shadow-lg shadow-danger-primary/20">
+                            <a asp-action="Delete" asp-route-id="@Model.FilmID" class="btn-danger p-2.5 shadow-lg shadow-danger-primary/20" aria-label='@Localizer["Delete"]' title='@Localizer["Delete"]'>
                                 <i aria-hidden="true" class="fa-solid fa-trash-can"></i>
                             </a>
                         </div>
@@ -68,19 +71,19 @@
             </div>
             
             <div class="form-group-card p-8 border-l-4 border-l-brand-primary">
-                <h3 class="text-sm font-black text-brand-primary uppercase tracking-[0.2em] mb-6">Fakten zum Film</h3>
+                <h3 class="text-sm font-black text-brand-primary uppercase tracking-[0.2em] mb-6">@Localizer["MovieFacts"]</h3>
                 <div class="space-y-6">
                     <div class="flex flex-col">
-                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Genre</span>
+                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Genre"]</span>
                         <span class="text-sm font-black text-slate-900 dark:text-white transition-colors">@Model.Genre</span>
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Release</span>
+                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Release"]</span>
                         <span class="text-sm font-black text-slate-900 dark:text-white transition-colors">@(Model.Erscheinungsdatum.HasValue ? Model.Erscheinungsdatum.Value.ToString("dd.MM.yyyy") : Model.Erscheinungsjahr.ToString())</span>
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Laufzeit</span>
-                        <span class="text-sm font-black text-slate-900 dark:text-white transition-colors">@Model.Spieldauer min</span>
+                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Runtime"]</span>
+                        <span class="text-sm font-black text-slate-900 dark:text-white transition-colors">@Model.Spieldauer @Localizer["MinSuffix"]</span>
                     </div>
                 </div>
             </div>
@@ -88,7 +91,7 @@
             @if (!string.IsNullOrEmpty(Model.Tags))
             {
                 <div class="form-group-card p-8">
-                    <h3 class="text-xs font-black text-text-muted uppercase tracking-widest mb-4">Tags</h3>
+                    <h3 class="text-xs font-black text-text-muted uppercase tracking-widest mb-4">@Localizer["Tags"]</h3>
                     <div class="flex flex-wrap gap-2">
                         @foreach (var tag in Model.Tags.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
                         {
@@ -113,7 +116,7 @@
 
             <section>
                 <div class="form-group-header !mb-6">
-                    <h2 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Handlung</h2>
+                    <h2 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">@Localizer["Plot"]</h2>
                     <div class="h-1 w-12 bg-brand-primary rounded-full"></div>
                 </div>
                 <p class="text-lg text-slate-600 dark:text-dark-text-muted leading-relaxed pl-8 border-l-4 border-border-muted dark:border-dark-border transition-colors">
@@ -125,10 +128,10 @@
             <section>
                 <div class="form-group-header !mb-8 flex items-center justify-between">
                     <div>
-                        <h2 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Besetzung & Team</h2>
+                        <h2 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">@Localizer["CastTeam"]</h2>
                         <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
                     </div>
-                    <span class="badge-outline">@Model.PersonEigenschaftFilme.Count Mitwirkende</span>
+                    <span class="badge-outline">@Model.PersonEigenschaftFilme.Count @Localizer["ContributorsCount"]</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -139,7 +142,7 @@
                             <div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-border-muted dark:border-dark-border group-hover:shadow-lg transition-all">
                                 @if (!string.IsNullOrEmpty(participation.Person.ProfilBildUrl))
                                 {
-                                    <img src="@participation.Person.ProfilBildUrl" alt="" class="w-full h-full object-cover transition-transform group-hover:scale-110" />
+                                    <img src="@participation.Person.ProfilBildUrl" alt="@participation.Person.Vorname @participation.Person.Nachname" class="w-full h-full object-cover transition-transform group-hover:scale-110" />
                                 }
                                 else
                                 {

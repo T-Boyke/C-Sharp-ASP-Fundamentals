@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="CreatePageTitle" xml:space="preserve"><value>Yeni Kayıt</value></data>
+  <data name="CreateHeader" xml:space="preserve"><value>Yeni Katalog Girişi</value></data>
+  <data name="CreateSubheader" xml:space="preserve"><value>Film meta verilerini yakalayın</value></data>
+  <data name="Back" xml:space="preserve"><value>Geri</value></data>
+  <data name="BackToCatalog" xml:space="preserve"><value>Kataloğa geri dön</value></data>
+  <data name="MovieInfo" xml:space="preserve"><value>Film Bilgileri</value></data>
+  <data name="MovieInfoSub" xml:space="preserve"><value>Temel veriler ve meta veriler</value></data>
+  <data name="LabelTitle" xml:space="preserve"><value>Başlık</value></data>
+  <data name="PlaceholderTitle" xml:space="preserve"><value>örn. Matrix</value></data>
+  <data name="LabelGenre" xml:space="preserve"><value>Kategori / Tür</value></data>
+  <data name="PlaceholderGenre" xml:space="preserve"><value>Bilim Kurgu, Aksiyon</value></data>
+  <data name="LabelFsk" xml:space="preserve"><value>Yaş Sınırı (FSK)</value></data>
+  <data name="LabelYear" xml:space="preserve"><value>Yıl</value></data>
+  <data name="LabelDate" xml:space="preserve"><value>Tarih</value></data>
+  <data name="LabelRating" xml:space="preserve"><value>Başlangıç Puanı</value></data>
+  <data name="LabelRuntime" xml:space="preserve"><value>Süre (Dk.)</value></data>
+  <data name="LabelPrice" xml:space="preserve"><value>Fiyat (€)</value></data>
+  <data name="LabelPosterUrl" xml:space="preserve"><value>Poster Resim URL'si</value></data>
+  <data name="PlaceholderPosterUrl" xml:space="preserve"><value>https://image.tmdb.org/...</value></data>
+  <data name="LabelPlot" xml:space="preserve"><value>Konu / Özet</value></data>
+  <data name="PlaceholderPlot" xml:space="preserve"><value>Film ne hakkında?</value></data>
+  <data name="Cancel" xml:space="preserve"><value>İptal</value></data>
+  <data name="CreateButton" xml:space="preserve"><value>Film Oluştur</value></data>
+  <data name="ValidationNotice" xml:space="preserve"><value>Sistem doğrulaması aktif • Tüm değişiklikler anında katalogda görünür olacaktır.</value></data>
+</root>

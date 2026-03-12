@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _10_Filmdatenbank.Web.Controllers;
@@ -36,7 +37,24 @@ public class HomeController(ILogger<HomeController> logger) : Controller
     public IActionResult Error()
     {
         logger.LogError("Ein unbehandelter Fehler ist aufgetreten.");
-        // View("Error") oder ähnliches erfordert ein ErrorViewModel
         return View();
+    }
+
+    /// <summary>
+    /// Setzt die Sprache der Anwendung.
+    /// </summary>
+    /// <param name="culture">Die gewählte Kultur.</param>
+    /// <param name="returnUrl">Die URL, zu der zurückgekehrt werden soll.</param>
+    /// <returns>Ein LocalRedirect zur Rücksprung-URL.</returns>
+    [HttpPost]
+    public IActionResult SetLanguage(string culture, string returnUrl)
+    {
+        Response.Cookies.Append(
+            CookieRequestCultureProvider.DefaultCookieName,
+            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+            new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+        );
+
+        return LocalRedirect(returnUrl);
     }
 }

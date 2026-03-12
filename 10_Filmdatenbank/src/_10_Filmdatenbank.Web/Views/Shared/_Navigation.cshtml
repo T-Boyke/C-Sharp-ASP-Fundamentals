@@ -1,4 +1,6 @@
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @inject SignInManager<IdentityUser> SignInManager
 
 <header class="sticky top-0 z-50 w-full bg-nav-bg border-b border-nav-border shadow-xl transition-all duration-300">
@@ -14,16 +16,22 @@
 
             <!-- Primary Nav -->
             <div class="hidden lg:flex lg:gap-x-8">
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2">
-                    Home
+                <a asp-area="" asp-controller="Home" asp-action="Index" 
+                   class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2"
+                   aria-current='@(Context.Request.Path == "/" || Context.Request.Path == "/Home/Index" ? "page" : null)'>
+                    @Localizer["Home"]
                 </a>
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <a asp-area="" asp-controller="Film" asp-action="Index" class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2">
-                        Filme
+                    <a asp-area="" asp-controller="Film" asp-action="Index" 
+                       class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2"
+                       aria-current='@(Context.Request.Path.StartsWithSegments("/Film") ? "page" : null)'>
+                        @Localizer["Films"]
                     </a>
-                    <a asp-area="" asp-controller="Person" asp-action="Index" class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2">
-                        Mitwirkende
+                    <a asp-area="" asp-controller="Person" asp-action="Index" 
+                       class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2"
+                       aria-current='@(Context.Request.Path.StartsWithSegments("/Person") ? "page" : null)'>
+                        @Localizer["Contributors"]
                     </a>
                 }
             </div>
@@ -37,7 +45,7 @@
                 {
                     <a asp-controller="Film" asp-action="Create" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-primary text-white text-xs font-black hover:bg-brand-hover transition-all shadow-lg shadow-brand-primary/20 hover:-translate-y-0.5">
                         <i aria-hidden="true" class="fa-solid fa-plus-circle text-sm"></i>
-                        NEUER FILM
+                        @Localizer["NewFilm"]
                     </a>
                 }
 
@@ -46,12 +54,13 @@
                 <!-- User Profile / Logout -->
                 <div class="flex items-center gap-4">
                     <div class="flex flex-col items-end hidden md:flex">
-                        <span class="text-[9px] font-black text-text-muted uppercase tracking-widest leading-none mb-1">Signed in as</span>
+                        <span class="text-[9px] font-black text-text-muted uppercase tracking-widest leading-none mb-1">@Localizer["SignedInAs"]</span>
                         <span class="text-xs font-bold text-slate-200">@User.Identity?.Name</span>
                     </div>
                     
                     <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
-                        <button type="submit" class="w-9 h-9 flex items-center justify-center rounded-lg bg-nav-surface border border-nav-border text-nav-link hover:text-danger-primary hover:border-danger-primary/50 transition-all group" title="Abmelden">
+                        <button type="submit" class="w-9 h-9 flex items-center justify-center rounded-lg bg-nav-surface border border-nav-border text-nav-link hover:text-danger-primary hover:border-danger-primary/50 transition-all group" 
+                                title='@Localizer["Logout"]' aria-label='@Localizer["Logout"]'>
                             <i aria-hidden="true" class="fa-solid fa-power-off text-sm group-hover:rotate-12"></i>
                         </button>
                     </form>
@@ -61,10 +70,10 @@
             {
                 <div class="flex items-center gap-4">
                     <a asp-controller="Account" asp-action="Register" class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors">
-                        Registrieren
+                        @Localizer["Register"]
                     </a>
                     <a asp-controller="Account" asp-action="Login" class="px-5 py-2 rounded-lg bg-white text-slate-950 text-sm font-black hover:bg-slate-200 transition-all shadow-lg shadow-white/5 hover:-translate-y-0.5">
-                        Anmelden
+                        @Localizer["Login"]
                     </a>
                 </div>
             }

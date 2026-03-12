@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Home" xml:space="preserve"><value>Ana Sayfa</value></data>
+  <data name="Films" xml:space="preserve"><value>Filmler</value></data>
+  <data name="Contributors" xml:space="preserve"><value>Katılımcılar</value></data>
+  <data name="NewFilm" xml:space="preserve"><value>YENİ FİLM</value></data>
+  <data name="SignedInAs" xml:space="preserve"><value>Giriş yapıldı:</value></data>
+  <data name="Logout" xml:space="preserve"><value>Çıkış Yap</value></data>
+  <data name="Register" xml:space="preserve"><value>Kaydol</value></data>
+  <data name="Login" xml:space="preserve"><value>Giriş Yap</value></data>
+</root>

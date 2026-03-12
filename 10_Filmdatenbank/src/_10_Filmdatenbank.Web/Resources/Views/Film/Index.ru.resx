@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="LibraryTitle" xml:space="preserve"><value>Библиотека фильмов</value></data>
+  <data name="Inventory" xml:space="preserve"><value>Запасы</value></data>
+  <data name="CatalogHeader" xml:space="preserve"><value>Каталог фильмов</value></data>
+  <data name="CatalogDescription" xml:space="preserve"><value>Просмотрите нашу тщательно отобранную коллекцию первоклассных кинопродуктов.</value></data>
+  <data name="NewFilm" xml:space="preserve"><value>Новый фильм</value></data>
+  <data name="NoPoster" xml:space="preserve"><value>Нет постера</value></data>
+  <data name="Rating" xml:space="preserve"><value>Рейтинг</value></data>
+  <data name="MoreDetails" xml:space="preserve"><value>Подробнее</value></data>
+  <data name="Edit" xml:space="preserve"><value>Редактировать</value></data>
+  <data name="Delete" xml:space="preserve"><value>Удалить</value></data>
+  <data name="MinSuffix" xml:space="preserve"><value>мин</value></data>
+  <data name="RentalPrice" xml:space="preserve"><value>Цена аренды</value></data>
+</root>
