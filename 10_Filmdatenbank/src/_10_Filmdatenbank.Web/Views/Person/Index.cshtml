@@ -1,7 +1,9 @@
 @model IEnumerable<_10_Filmdatenbank.Domain.Entities.Person>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Schauspieler & Team";
+    ViewData["Title"] = Localizer["PersonPageTitle"];
 }
 
 <div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
@@ -9,17 +11,17 @@
         <div>
             <div class="flex items-center gap-2 mb-2">
                 <i aria-hidden="true" class="fa-solid fa-users text-brand-primary"></i>
-                <span class="text-xs font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest leading-none">Mitwirkende</span>
+                <span class="text-xs font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest leading-none">@Localizer["Contributors"]</span>
             </div>
-            <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors">Schauspieler & Team</h1>
-            <p class="mt-3 text-lg text-text-description dark:text-dark-text-muted max-w-2xl font-medium transition-colors">Entdecken Sie die Gesichter hinter unseren Filmproduktionen.</p>
+            <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors">@Localizer["PersonHeader"]</h1>
+            <p class="mt-3 text-lg text-text-description dark:text-dark-text-muted max-w-2xl font-medium transition-colors">@Localizer["PersonDescription"]</p>
         </div>
         @if (User.IsInRole("Admin"))
         {
             <div class="mt-6 md:mt-0">
-                <a asp-action="Create" class="btn-primary">
+                <a asp-action="Create" class="btn-primary" aria-label='@Localizer["AddPersonLabel"]'>
                     <i aria-hidden="true" class="fa-solid fa-plus mr-2"></i>
-                    Hinzufügen
+                    @Localizer["Add"]
                 </a>
             </div>
         }
@@ -48,7 +50,7 @@
                     {
                         <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-surface-overlay dark:bg-dark-surface border border-border-muted dark:border-dark-border shadow-lg whitespace-nowrap">
                             <span class="text-[9px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-tighter">
-                                Born: @person.Geburtsdatum.Value.ToString("yyyy")
+                                @Localizer["Born"]: @person.Geburtsdatum.Value.ToString("yyyy")
                             </span>
                         </div>
                     }
@@ -64,14 +66,18 @@
 
                     <!-- Actions -->
                     <div class="mt-auto pt-6 border-t border-border-muted dark:border-dark-border-muted flex flex-col gap-3">
-                        <a asp-action="Details" asp-route-id="@person.PersonID" class="btn-primary py-2.5 shadow-lg shadow-brand-shadow">Profil ansehen</a>
+                        <a asp-action="Details" asp-route-id="@person.PersonID" class="btn-primary py-2.5 shadow-lg shadow-brand-shadow" aria-label='@Localizer["ViewProfileLabel", person.Vorname + " " + person.Nachname]'>@Localizer["ViewProfile"]</a>
                         
-                            <a asp-action="Edit" asp-route-id="@person.PersonID" class="w-10 h-10 flex-center rounded-xl bg-surface-muted/50 dark:bg-dark-surface text-text-muted hover:text-brand-primary transition-all border border-border-muted dark:border-dark-border" title="Bearbeiten" aria-label="Bearbeiten">
-                                <i aria-hidden="true" class="fa-solid fa-pen text-sm"></i>
-                            </a>
-                            <a asp-action="Delete" asp-route-id="@person.PersonID" class="w-10 h-10 flex-center rounded-xl bg-surface-muted/50 dark:bg-dark-surface text-text-muted hover:text-danger-primary hover:bg-danger-bg dark:hover:bg-danger-dark-bg transition-all border border-border-muted dark:border-dark-border" title="Löschen" aria-label="Löschen">
-                                <i aria-hidden="true" class="fa-solid fa-trash text-sm"></i>
-                            </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="flex-center gap-3">
+                                <a asp-action="Edit" asp-route-id="@person.PersonID" class="w-10 h-10 flex-center rounded-xl bg-surface-muted/50 dark:bg-dark-surface text-text-muted hover:text-brand-primary transition-all border border-border-muted dark:border-dark-border" title='@Localizer["Edit"]' aria-label='@Localizer["EditLabel", person.Vorname + " " + person.Nachname]'>
+                                    <i aria-hidden="true" class="fa-solid fa-pen text-sm"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@person.PersonID" class="w-10 h-10 flex-center rounded-xl bg-surface-muted/50 dark:bg-dark-surface text-text-muted hover:text-danger-primary hover:bg-danger-bg dark:hover:bg-danger-dark-bg transition-all border border-border-muted dark:border-dark-border" title='@Localizer["Delete"]' aria-label='@Localizer["DeleteLabel", person.Vorname + " " + person.Nachname]'>
+                                    <i aria-hidden="true" class="fa-solid fa-trash text-sm"></i>
+                                </a>
+                            </div>
                         }
                     </div>
                 </div>
@@ -83,8 +89,8 @@
     {
         <div class="text-center py-20 px-6 rounded-3xl border-2 border-dashed border-border-muted dark:border-dark-border transition-colors">
             <i aria-hidden="true" class="fa-solid fa-user-group text-6xl text-slate-200 dark:text-dark-surface-soft mb-6"></i>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Keine Personen gefunden</h3>
-            <p class="mt-2 text-text-description dark:text-dark-text-muted max-w-sm mx-auto">Es sind noch keine Schauspieler oder Team-Mitglieder in der Datenbank hinterlegt.</p>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">@Localizer["NoPersonsFound"]</h3>
+            <p class="mt-2 text-text-description dark:text-dark-text-muted max-w-sm mx-auto">@Localizer["NoPersonsDescription"]</p>
         </div>
     }
 </div>

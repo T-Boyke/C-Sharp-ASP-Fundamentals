@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="BreadcrumbLabel" xml:space="preserve"><value>Brotkrumen-Navigation</value></data>
+  <data name="BackToTeamLabel" xml:space="preserve"><value>Zurück zum Team</value></data>
+  <data name="Team" xml:space="preserve"><value>Team</value></data>
+  <data name="ProfileInformation" xml:space="preserve"><value>Profil Informationen</value></data>
+  <data name="SystemID" xml:space="preserve"><value>System ID</value></data>
+  <data name="Born" xml:space="preserve"><value>Geboren</value></data>
+  <data name="NotAvailable" xml:space="preserve"><value>N/A</value></data>
+  <data name="Place" xml:space="preserve"><value>Ort</value></data>
+  <data name="Tags" xml:space="preserve"><value>Tags</value></data>
+  <data name="Edit" xml:space="preserve"><value>Bearbeiten</value></data>
+  <data name="EditLabel" xml:space="preserve"><value>Profil von {0} bearbeiten</value></data>
+  <data name="DeleteLabel" xml:space="preserve"><value>Profil von {0} löschen</value></data>
+  <data name="BornIn" xml:space="preserve"><value>in</value></data>
+  <data name="Biography" xml:space="preserve"><value>Biografie</value></data>
+  <data name="Filmography" xml:space="preserve"><value>Filmografie</value></data>
+  <data name="Projects" xml:space="preserve"><value>Projekte</value></data>
+  <data name="ViewFilmLabel" xml:space="preserve"><value>Film {0} ansehen</value></data>
+</root>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="EditPageTitle" xml:space="preserve"><value>تعديل الإدخال</value></data>
+  <data name="EditSubheader" xml:space="preserve"><value>تعديل إدخال الكتالوج</value></data>
+  <data name="Back" xml:space="preserve"><value>رجوع</value></data>
+  <data name="BackToCatalog" xml:space="preserve"><value>الرجوع إلى الكتالوج</value></data>
+  <data name="CatalogData" xml:space="preserve"><value>بيانات الكتالوج</value></data>
+  <data name="CatalogDataSub" xml:space="preserve"><value>تحديث البيانات الوصفية</value></data>
+  <data name="MovieInfo" xml:space="preserve"><value>معلومات الفيلم</value></data>
+  <data name="MovieInfoSub" xml:space="preserve"><value>البيانات الأساسية والبيانات الوصفية</value></data>
+  <data name="LabelTitle" xml:space="preserve"><value>العنوان</value></data>
+  <data name="PlaceholderTitle" xml:space="preserve"><value>مثلاً إنسيبشن</value></data>
+  <data name="LabelGenre" xml:space="preserve"><value>الفئة / النوع</value></data>
+  <data name="PlaceholderGenre" xml:space="preserve"><value>حركة، خيال علمي</value></data>
+  <data name="LabelFsk" xml:space="preserve"><value>التصنيف العمري (FSK)</value></data>
+  <data name="LabelYear" xml:space="preserve"><value>السنة</value></data>
+  <data name="LabelDate" xml:space="preserve"><value>التاريخ</value></data>
+  <data name="LabelRatingRange" xml:space="preserve"><value>التقييم (0.0 - 10.0)</value></data>
+  <data name="LabelRuntime" xml:space="preserve"><value>مدة العرض (دقيقة)</value></data>
+  <data name="LabelPrice" xml:space="preserve"><value>السعر (€)</value></data>
+  <data name="LabelPosterUrl" xml:space="preserve"><value>رابط صورة الملصق</value></data>
+  <data name="PlaceholderPosterUrl" xml:space="preserve"><value>https://image.tmdb.org/...</value></data>
+  <data name="LabelPlot" xml:space="preserve"><value>الحبكة / القصة</value></data>
+  <data name="PlaceholderPlot" xml:space="preserve"><value>عن ماذا يتحدث الفيلم؟</value></data>
+  <data name="LabelTags" xml:space="preserve"><value>الوسوم (مفصولة بفاصلة)</value></data>
+  <data name="PlaceholderTags" xml:space="preserve"><value>مثلاً خيال علمي، حركة، كلاسيك</value></data>
+  <data name="Cancel" xml:space="preserve"><value>إلغاء</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>حفظ التغييرات</value></data>
+  <data name="SaveNotice" xml:space="preserve"><value>سيتم حفظ التغييرات في قاعدة البيانات فوراً.</value></data>
+  <data name="Update" xml:space="preserve"><value>تحديث</value></data>
+</root>

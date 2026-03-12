@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="PersonPageTitle" xml:space="preserve"><value>Актеры и команда</value></data>
+  <data name="Contributors" xml:space="preserve"><value>Участники</value></data>
+  <data name="PersonHeader" xml:space="preserve"><value>Актеры и команда</value></data>
+  <data name="PersonDescription" xml:space="preserve"><value>Познакомьтесь с лицами, стоящими за нашими кинопроектами.</value></data>
+  <data name="Add" xml:space="preserve"><value>Добавить</value></data>
+  <data name="AddPersonLabel" xml:space="preserve"><value>Добавить нового человека</value></data>
+  <data name="Born" xml:space="preserve"><value>Дата рождения</value></data>
+  <data name="ViewProfile" xml:space="preserve"><value>Посмотреть профиль</value></data>
+  <data name="ViewProfileLabel" xml:space="preserve"><value>Посмотреть профиль {0}</value></data>
+  <data name="Edit" xml:space="preserve"><value>Редактировать</value></data>
+  <data name="EditLabel" xml:space="preserve"><value>Редактировать профиль {0}</value></data>
+  <data name="Delete" xml:space="preserve"><value>Удалить</value></data>
+  <data name="DeleteLabel" xml:space="preserve"><value>Удалить профиль {0}</value></data>
+  <data name="NoPersonsFound" xml:space="preserve"><value>Люди не найдены</value></data>
+  <data name="NoPersonsDescription" xml:space="preserve"><value>В базе данных пока нет актеров или членов команды.</value></data>
+</root>

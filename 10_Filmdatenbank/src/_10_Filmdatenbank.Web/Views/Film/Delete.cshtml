@@ -1,7 +1,9 @@
 @model _10_Filmdatenbank.Domain.Entities.Film
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Eintrag entfernen";
+    ViewData["Title"] = Localizer["DeletePageTitle"];
 }
 
 <div class="mx-auto max-w-2xl px-6 lg:px-8 py-24 flex flex-col items-center">
@@ -10,11 +12,11 @@
             <i aria-hidden="true" class="fa-solid fa-triangle-exclamation text-4xl"></i>
         </div>
         
-        <h1 class="text-4xl font-black tracking-tight text-slate-900 dark:text-white leading-none mb-6 transition-colors">Unwiderruflich löschen?</h1>
+        <h1 class="text-4xl font-black tracking-tight text-slate-900 dark:text-white leading-none mb-6 transition-colors">@Localizer["DeleteHeader"]</h1>
         
         <div class="max-w-md mx-auto">
             <p class="text-lg font-medium text-text-description dark:text-dark-text-muted leading-relaxed mb-10 transition-colors">
-                Sie beabsichtigen, den Film <span class="text-slate-900 dark:text-white font-black">"@Model.Titel"</span> dauerhaft aus der Datenbank zu entfernen. Dieser Vorgang ist <span class="text-danger-primary dark:text-danger-dark-content font-bold border-b-2 border-danger-border dark:border-danger-dark-border">nicht umkehrbar</span>.
+                @Localizer["DeleteWarningPrefix"] <span class="text-slate-900 dark:text-white font-black">"@Model.Titel"</span> @Localizer["DeleteWarningMid"] <span class="text-danger-primary dark:text-danger-dark-content font-bold border-b-2 border-danger-border dark:border-danger-dark-border">@Localizer["DeleteWarningSuffix"]</span>.
             </p>
         </div>
 
@@ -32,7 +34,7 @@
                 }
             </div>
             <div>
-                <div class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest mb-2 px-1">Metadaten Kontrolle</div>
+                <div class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest mb-2 px-1">@Localizer["MetadataControl"]</div>
                 <div class="space-y-3">
                     <div class="text-lg font-black text-slate-900 dark:text-white leading-tight">@Model.Titel</div>
                     <div class="flex wrap-gap items-center text-xs font-bold text-text-description dark:text-dark-text-muted">
@@ -49,12 +51,12 @@
         <div class="flex-center flex-wrap-gap">
             <form asp-action="Delete">
                 <input type="hidden" asp-for="FilmID" />
-                <button type="submit" class="w-full sm:w-auto btn-danger font-black rounded-xl hover:scale-105 flex items-center gap-3">
-                    <i aria-hidden="true" class="fa-solid fa-trash-can"></i> Bestätigen & Löschen
+                <button type="submit" class="w-full sm:w-auto btn-danger font-black rounded-xl hover:scale-105 flex items-center gap-3" aria-label='@Localizer["ConfirmDeleteLabel"]'>
+                    <i aria-hidden="true" class="fa-solid fa-trash-can"></i> @Localizer["ConfirmDeleteButton"]
                 </button>
             </form>
-            <a asp-action="Index" class="btn-secondary w-full sm:w-auto">
-                Abbruch
+            <a asp-action="Index" class="btn-secondary w-full sm:w-auto" aria-label='@Localizer["CancelLabel"]'>
+                @Localizer["Cancel"]
             </a>
         </div>
     </div>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="EditPageTitle" xml:space="preserve"><value>Editar Registro</value></data>
+  <data name="EditSubheader" xml:space="preserve"><value>Modificar entrada do catálogo</value></data>
+  <data name="Back" xml:space="preserve"><value>Voltar</value></data>
+  <data name="BackToCatalog" xml:space="preserve"><value>Voltar ao catálogo</value></data>
+  <data name="CatalogData" xml:space="preserve"><value>Dados do Catálogo</value></data>
+  <data name="CatalogDataSub" xml:space="preserve"><value>Atualizar metadados</value></data>
+  <data name="MovieInfo" xml:space="preserve"><value>Informações do Filme</value></data>
+  <data name="MovieInfoSub" xml:space="preserve"><value>Dados básicos e metadados</value></data>
+  <data name="LabelTitle" xml:space="preserve"><value>Título</value></data>
+  <data name="PlaceholderTitle" xml:space="preserve"><value>ex: Inception</value></data>
+  <data name="LabelGenre" xml:space="preserve"><value>Categoria / Gênero</value></data>
+  <data name="PlaceholderGenre" xml:space="preserve"><value>Ação, Sci-Fi</value></data>
+  <data name="LabelFsk" xml:space="preserve"><value>Classificação Etária (FSK)</value></data>
+  <data name="LabelYear" xml:space="preserve"><value>Ano</value></data>
+  <data name="LabelDate" xml:space="preserve"><value>Data</value></data>
+  <data name="LabelRatingRange" xml:space="preserve"><value>Avaliação (0.0 - 10.0)</value></data>
+  <data name="LabelRuntime" xml:space="preserve"><value>Duração (Min.)</value></data>
+  <data name="LabelPrice" xml:space="preserve"><value>Preço (€)</value></data>
+  <data name="LabelPosterUrl" xml:space="preserve"><value>URL da Imagem do Poster</value></data>
+  <data name="PlaceholderPosterUrl" xml:space="preserve"><value>https://image.tmdb.org/...</value></data>
+  <data name="LabelPlot" xml:space="preserve"><value>Enredo / Trama</value></data>
+  <data name="PlaceholderPlot" xml:space="preserve"><value>Sobre o que é o filme?</value></data>
+  <data name="LabelTags" xml:space="preserve"><value>Tags (separadas por vírgula)</value></data>
+  <data name="PlaceholderTags" xml:space="preserve"><value>ex: Sci-Fi, Ação, Culto</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Cancelar</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>Salvar Alterações</value></data>
+  <data name="SaveNotice" xml:space="preserve"><value>As alterações serão persistidas no banco de dados imediatamente.</value></data>
+  <data name="Update" xml:space="preserve"><value>Atualizar</value></data>
+</root>

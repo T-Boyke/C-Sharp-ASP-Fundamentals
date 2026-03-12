@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="PersonPageTitle" xml:space="preserve"><value>Oyuncular ve Ekip</value></data>
+  <data name="Contributors" xml:space="preserve"><value>Katkıda Bulunanlar</value></data>
+  <data name="PersonHeader" xml:space="preserve"><value>Oyuncular ve Ekip</value></data>
+  <data name="PersonDescription" xml:space="preserve"><value>Film yapımlarımızın arkasındaki yüzleri keşfedin.</value></data>
+  <data name="Add" xml:space="preserve"><value>Ekle</value></data>
+  <data name="AddPersonLabel" xml:space="preserve"><value>Yeni kişi ekle</value></data>
+  <data name="Born" xml:space="preserve"><value>Doğum</value></data>
+  <data name="ViewProfile" xml:space="preserve"><value>Profili Görüntüle</value></data>
+  <data name="ViewProfileLabel" xml:space="preserve"><value>{0} profilini görüntüle</value></data>
+  <data name="Edit" xml:space="preserve"><value>Düzenle</value></data>
+  <data name="EditLabel" xml:space="preserve"><value>{0} profilini düzenle</value></data>
+  <data name="Delete" xml:space="preserve"><value>Sil</value></data>
+  <data name="DeleteLabel" xml:space="preserve"><value>{0} profilini sil</value></data>
+  <data name="NoPersonsFound" xml:space="preserve"><value>Kişi bulunamadı</value></data>
+  <data name="NoPersonsDescription" xml:space="preserve"><value>Henüz veritabanında aktör veya ekip üyesi bulunmamaktadır.</value></data>
+</root>
