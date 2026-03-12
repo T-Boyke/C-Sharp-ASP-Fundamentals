@@ -84,6 +84,21 @@
                     </div>
                 </div>
             </div>
+
+            @if (!string.IsNullOrEmpty(Model.Tags))
+            {
+                <div class="form-group-card p-8">
+                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Tags</h3>
+                    <div class="flex flex-wrap gap-2">
+                        @foreach (var tag in Model.Tags.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            <span class="px-2 py-1 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tighter">
+                                #@tag
+                            </span>
+                        }
+                    </div>
+                </div>
+            }
         </div>
 
         <!-- Right: Content & Metadata -->
