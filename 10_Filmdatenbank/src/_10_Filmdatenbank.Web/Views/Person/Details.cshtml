@@ -17,26 +17,29 @@
     <div class="grid-details">
         
         <!-- Left: Profile Info -->
-        <div class="lg:col-span-1 flex-stack">
+        <div class="lg:col-span-1 flex-stack max-w-sm">
             <div class="card-premium overflow-hidden">
-                <div class="aspect-square bg-slate-50 dark:bg-slate-900 flex-center border-b border-slate-100 dark:border-slate-800 relative group transition-colors">
-                    <i aria-hidden="true" class="fa-solid fa-user-circle text-slate-200/60 dark:text-slate-800/60 text-9xl group-hover:scale-110 transition-transform duration-700"></i>
+                <div class="aspect-[4/5] bg-slate-50 dark:bg-slate-900 flex-center border-b border-slate-100 dark:border-slate-800 relative group transition-colors">
+                    <i aria-hidden="true" class="fa-solid fa-user-tie text-slate-200/60 dark:text-slate-800/60 text-8xl group-hover:scale-110 transition-transform duration-700"></i>
+                    <div class="absolute bottom-4 left-4 right-4 h-1 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div class="h-full w-1/3 bg-brand-primary animate-pulse"></div>
+                    </div>
                 </div>
-                <div class="p-8 space-y-6">
+                <div class="p-6 space-y-6">
                     <div>
-                        <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">Profil Details</h3>
+                        <h3 class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">Profil Informationen</h3>
                         <div class="space-y-4">
-                            <div class="flex items-center gap-3">
-                                <i aria-hidden="true" class="fa-solid fa-id-card text-slate-400 dark:text-slate-500"></i>
-                                <span class="text-sm font-bold text-slate-900 dark:text-white transition-colors">ID: @Model.PersonID</span>
+                            <div class="flex items-center justify-between py-2 border-b border-slate-50 dark:border-slate-800/50">
+                                <span class="text-xs font-bold text-slate-400">System ID</span>
+                                <span class="text-xs font-black text-slate-900 dark:text-white">#@Model.PersonID</span>
                             </div>
                             @{
                                 var rollen = Model.PersonEigenschaftFilme.Select(pef => pef.Eigenschaft.Bezeichnung).Distinct();
                             }
-                            <div class="flex-wrap-gap">
+                            <div class="flex-wrap-gap !gap-2">
                                 @foreach (var rolle in rollen)
                                 {
-                                    <span class="badge-premium px-2 py-1">@rolle</span>
+                                    <span class="badge-premium !px-3 !py-1 text-[10px]">@rolle</span>
                                 }
                             </div>
                         </div>

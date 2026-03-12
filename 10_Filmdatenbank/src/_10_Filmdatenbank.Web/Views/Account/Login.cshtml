@@ -35,9 +35,30 @@
                     <label asp-for="Password" class="form-label">
                         <i aria-hidden="true" class="fa-solid fa-key mr-1 text-slate-400 dark:text-slate-500"></i> Passwort
                     </label>
-                    <input asp-for="Password" type="password" autocomplete="current-password" required class="form-input" placeholder="••••••••">
+                    <div class="form-input-container">
+                        <input asp-for="Password" type="password" id="password_input" autocomplete="current-password" required class="form-input pr-12" placeholder="••••••••">
+                        <button type="button" onclick="togglePasswordVisibility()" class="form-input-icon-right" aria-label="Passwort anzeigen/verbergen">
+                            <i id="password_toggle_icon" class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
                     <span asp-validation-for="Password" class="form-error"></span>
                 </div>
+
+                <script>
+                    function togglePasswordVisibility() {
+                        const input = document.getElementById('password_input');
+                        const icon = document.getElementById('password_toggle_icon');
+                        if (input.type === 'password') {
+                            input.type = 'text';
+                            icon.classList.remove('fa-eye');
+                            icon.classList.add('fa-eye-slash');
+                        } else {
+                            input.type = 'password';
+                            icon.classList.remove('fa-eye-slash');
+                            icon.classList.add('fa-eye');
+                        }
+                    }
+                </script>
 
                 <div class="flex items-center gap-3">
                     <button type="submit" class="btn-primary flex-1">

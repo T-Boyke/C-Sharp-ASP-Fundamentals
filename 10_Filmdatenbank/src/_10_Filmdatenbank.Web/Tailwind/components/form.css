@@ -17,3 +17,17 @@
 @utility form-checkbox-premium {
   @apply h-4 w-4 rounded border-slate-300 text-brand-primary focus:ring-brand-primary dark:bg-slate-800 dark:border-slate-700 transition-all;
 }
+
+/* Hide native reveal icons in Edge/IE */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+@utility form-input-container {
+  @apply relative w-full group;
+}
+
+@utility form-input-icon-right {
+  @apply absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-brand-primary dark:hover:text-brand-primary transition-colors cursor-pointer p-1.5;
+}

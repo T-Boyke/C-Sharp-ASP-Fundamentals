@@ -29,62 +29,71 @@
         @foreach (var film in Model)
         {
             <div class="card-interactive overflow-hidden flex flex-col h-full group">
-                <div class="relative w-full aspect-[2/3] bg-linear-to-br from-brand-primary/80 to-indigo-900/90 flex items-center justify-center p-6 border-b border-slate-100 dark:border-slate-800 transition-colors">
-                    <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"></div>
-                    <i aria-hidden="true" class="fa-solid fa-film text-white/50 text-7xl group-hover:scale-110 group-hover:text-white/70 transition-all duration-500"></i>
+                <div class="relative w-full aspect-video bg-linear-to-br from-brand-primary to-indigo-900 flex items-center justify-center border-b border-slate-100 dark:border-slate-800 transition-colors">
+                    <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500"></div>
+                    <i aria-hidden="true" class="fa-solid fa-film text-white/40 text-5xl group-hover:scale-110 group-hover:text-white/60 transition-all duration-500"></i>
                     
                     @if (film.Erscheinungsjahr >= DateTime.Now.Year - 1)
                     {
-                        <div class="badge-status-new">
+                        <div class="badge-status-new left-4 top-4">
                             Neu
                         </div>
                     }
                     
-                    <div class="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                    <div class="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-slate-900/60 to-transparent pointer-events-none"></div>
                 </div>
                 
-                <div class="p-5 flex-1 flex flex-col justify-between bg-white dark:bg-slate-900 transition-colors">
-                    <div>
-                        <h3 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-brand-primary transition-colors line-clamp-2 h-[3.5rem]">
-                            @film.Titel
-                        </h3>
-                    
-                    <div class="flex-wrap-gap mt-2 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide">
-                        <span class="flex items-center gap-1">
-                            <i aria-hidden="true" class="fa-regular fa-calendar"></i> @film.Erscheinungsjahr
-                        </span>
-                        <span class="h-1 w-1 rounded-full bg-slate-300 dark:bg-slate-600"></span>
-                        <span class="flex items-center gap-1">
-                            <i aria-hidden="true" class="fa-regular fa-clock"></i> @film.Spieldauer min
-                        </span>
+                <div class="p-6 flex-1 flex flex-col justify-between bg-white dark:bg-slate-900 transition-colors">
+                    <div class="flex-stack">
+                        <div>
+                            <h3 class="text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-brand-primary transition-colors line-clamp-2 min-h-[3rem]">
+                                @film.Titel
+                            </h3>
+                            <div class="flex items-center gap-3 mt-2 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                                <span class="flex items-center gap-1.5">
+                                    <i aria-hidden="true" class="fa-regular fa-calendar opacity-70"></i> @film.Erscheinungsjahr
+                                </span>
+                                <span class="h-1 w-1 rounded-full bg-slate-200 dark:bg-slate-700"></span>
+                                <span class="flex items-center gap-1.5">
+                                    <i aria-hidden="true" class="fa-regular fa-clock opacity-70"></i> @film.Spieldauer min
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="flex-wrap-gap !gap-2 min-h-[4rem]">
+                            @foreach (var pef in film.PersonEigenschaftFilme.Take(3))
+                            {
+                                <span class="badge-outline !bg-transparent !py-0.5 !px-2 border-slate-100 dark:border-slate-800 flex items-center gap-1.5" title="@pef.Eigenschaft.Bezeichnung">
+                                    <i aria-hidden="true" class="fa-solid fa-user text-brand-primary/50 text-[10px]"></i>
+                                    <span class="text-[10px] truncate max-w-[80px]">@pef.Person.Nachname</span>
+                                </span>
+                            }
+                            @if (!film.PersonEigenschaftFilme.Any())
+                            {
+                                <span class="text-[10px] font-bold text-slate-300 dark:text-slate-600 uppercase tracking-widest italic py-1">Keine Besetzung</span>
+                            }
+                        </div>
                     </div>
 
-                    <div class="mt-5 flex-wrap-gap h-[52px] overflow-hidden">
-                        @foreach (var pef in film.PersonEigenschaftFilme.Take(2))
-                        {
-                            <span class="badge-outline py-1">
-                                <i aria-hidden="true" class="fa-solid fa-user text-brand-primary/70 mr-1.5 line-clamp-1"></i> @pef.Person.Nachname
+                    <div class="mt-8 pt-6 border-t border-slate-50 dark:border-slate-800/50 flex items-center justify-between">
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none mb-1">Kaufpreis</span>
+                            <span class="text-xl font-black text-slate-900 dark:text-white transition-colors">
+                                @film.Preis.ToString("C")
                             </span>
-                        }
-                    </div>
-                </div>
-
-                <div class="card-footer flex-between">
-                        <span class="text-lg font-extrabold text-slate-900 dark:text-slate-100 transition-colors">
-                            @film.Preis.ToString("C")
-                        </span>
+                        </div>
                         
                         <div class="flex gap-2">
-                             <a asp-action="Details" asp-route-id="@film.FilmID" class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-brand-primary hover:border-brand-primary dark:hover:border-brand-primary transition-all shadow-sm" title="Details" aria-label="Details">
-                                <i aria-hidden="true" class="fa-solid fa-magnifying-glass text-sm"></i>
+                             <a asp-action="Details" asp-route-id="@film.FilmID" class="w-10 h-10 flex-center rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-400 hover:text-brand-primary hover:bg-brand-soft dark:hover:bg-slate-800 transition-all border border-slate-100 dark:border-slate-800" title="Details" aria-label="Details">
+                                <i aria-hidden="true" class="fa-solid fa-arrow-right text-sm"></i>
                             </a>
                             @if (User.IsInRole("Admin"))
                             {
-                                <a asp-action="Edit" asp-route-id="@film.FilmID" class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-200 dark:hover:border-emerald-700 transition-all shadow-sm" title="Bearbeiten" aria-label="Bearbeiten">
-                                    <i aria-hidden="true" class="fa-solid fa-pen-to-square text-sm"></i>
+                                <a asp-action="Edit" asp-route-id="@film.FilmID" class="w-10 h-10 flex-center rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all border border-slate-100 dark:border-slate-800" title="Bearbeiten" aria-label="Bearbeiten">
+                                    <i aria-hidden="true" class="fa-solid fa-pen text-sm"></i>
                                 </a>
-                                <a asp-action="Delete" asp-route-id="@film.FilmID" class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-700 transition-all shadow-sm" title="Löschen" aria-label="Löschen">
-                                    <i aria-hidden="true" class="fa-solid fa-trash-can text-sm"></i>
+                                <a asp-action="Delete" asp-route-id="@film.FilmID" class="w-10 h-10 flex-center rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all border border-slate-100 dark:border-slate-800" title="Löschen" aria-label="Löschen">
+                                    <i aria-hidden="true" class="fa-solid fa-trash text-sm"></i>
                                 </a>
                             }
                         </div>
