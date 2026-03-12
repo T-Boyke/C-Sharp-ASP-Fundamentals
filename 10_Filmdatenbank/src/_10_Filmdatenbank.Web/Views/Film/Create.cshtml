@@ -133,6 +133,9 @@
                     </div>
                     
                     <input type="hidden" name="SelectedCastJson" id="inputSelectedCastJson" />
+                    <input type="hidden" name="SelectedGenresJson" id="inputSelectedGenresJson" />
+                    <input type="hidden" name="SelectedKeywordsJson" id="inputSelectedKeywordsJson" />
+                    <input type="hidden" name="SelectedCompaniesJson" id="inputSelectedCompaniesJson" />
                 </div>
 
                 <!-- Hidden TMDB alignment fields -->
@@ -153,6 +156,8 @@
                 <input type="hidden" asp-for="Status" id="inputStatus" />
                 <input type="hidden" asp-for="TrailerUrl" id="inputTrailerUrl" />
                 <input type="hidden" asp-for="CollectionID" id="inputCollectionID" />
+                <input type="hidden" name="TmdbCollectionId" id="inputTmdbCollectionId" />
+                <input type="hidden" name="TmdbCollectionName" id="inputTmdbCollectionName" />
 
                 <div class="flex items-center gap-3 px-1">
                     <input asp-for="Adult" id="inputAdult" type="checkbox" class="w-5 h-5 rounded border-border-default dark:border-dark-border text-brand-primary focus:ring-brand-primary" />
@@ -295,7 +300,8 @@
                 setVal('inputStatus', data.status || '');
                 setVal('inputHomepage', data.homepage || '');
                 setVal('inputTrailerUrl', data.trailerKey ? `https://www.youtube.com/embed/${data.trailerKey}` : '');
-                setVal('inputCollectionID', data.collectionId || '');
+                setVal('inputTmdbCollectionId', data.collectionId || '');
+                setVal('inputTmdbCollectionName', data.collectionName || '');
 
                 const adultCheck = document.getElementById('inputAdult');
                 if (adultCheck) adultCheck.checked = data.adult || false;

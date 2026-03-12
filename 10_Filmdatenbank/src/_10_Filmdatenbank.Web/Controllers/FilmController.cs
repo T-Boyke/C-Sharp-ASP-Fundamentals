@@ -82,13 +82,14 @@ public class FilmController(ApplicationDbContext context) : Controller
     /// <returns>Redirect zur Index-View bei Erfolg, andernfalls die Create-View mit Fehlern.</returns>
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Create(Film film, string? SelectedCastJson = null, string? SelectedGenresJson = null, string? SelectedKeywordsJson = null, string? SelectedCompaniesJson = null)
+    public async Task<IActionResult> Create(Film film, string? SelectedCastJson = null, string? SelectedGenresJson = null, string? SelectedKeywordsJson = null, string? SelectedCompaniesJson = null, int? TmdbCollectionId = null, string? TmdbCollectionName = null)
     {
         // Wir entfernen die Validierung für PersonEigenschaftFilme, da diese erst nach dem Film-Save verknüpft werden
         ModelState.Remove(nameof(film.PersonEigenschaftFilme));
         ModelState.Remove(nameof(film.Genres));
         ModelState.Remove(nameof(film.Keywords));
         ModelState.Remove(nameof(film.ProductionCompanies));
+        ModelState.Remove(nameof(film.Collection));
 
         if (film.TmdbId.HasValue && await context.Filme.AnyAsync(f => f.TmdbId == film.TmdbId))
         {
@@ -99,6 +100,27 @@ public class FilmController(ApplicationDbContext context) : Controller
 
         if (ModelState.IsValid)
         {
+            // Handle Collection Synchronization
+            if (TmdbCollectionId.HasValue)
+            {
+                var collection = await context.Collections.FirstOrDefaultAsync(c => c.TmdbId == TmdbCollectionId.Value);
+                if (collection == null && !string.IsNullOrEmpty(TmdbCollectionName))
+                {
+                    collection = new Collection
+                    {
+                        TmdbId = TmdbCollectionId.Value,
+                        Name = TmdbCollectionName
+                    };
+                    context.Collections.Add(collection);
+                    await context.SaveChangesAsync();
+                }
+                
+                if (collection != null)
+                {
+                    film.CollectionID = collection.CollectionID;
+                }
+            }
+
             context.Filme.Add(film);
             await context.SaveChangesAsync();
             TempData["Success"] = $"Film '{film.Titel}' wurde erfolgreich erstellt.";
