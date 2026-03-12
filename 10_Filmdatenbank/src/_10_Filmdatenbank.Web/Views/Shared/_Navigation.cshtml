@@ -1,7 +1,7 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 
-<header class="sticky top-0 z-50 w-full bg-slate-950 border-b border-slate-800 shadow-xl transition-all duration-300">
+<header class="sticky top-0 z-50 w-full bg-nav-bg border-b border-nav-border shadow-xl transition-all duration-300">
     <nav class="mx-auto flex max-w-7xl items-center justify-between p-3 px-6 lg:px-8" aria-label="Global">
         <div class="flex items-center gap-10">
             <!-- Logo -->
@@ -14,15 +14,15 @@
 
             <!-- Primary Nav -->
             <div class="hidden lg:flex lg:gap-x-8">
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="text-sm font-bold text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2">
                     Home
                 </a>
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <a asp-area="" asp-controller="Film" asp-action="Index" class="text-sm font-bold text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                    <a asp-area="" asp-controller="Film" asp-action="Index" class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2">
                         Filme
                     </a>
-                    <a asp-area="" asp-controller="Person" asp-action="Index" class="text-sm font-bold text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                    <a asp-area="" asp-controller="Person" asp-action="Index" class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2">
                         Mitwirkende
                     </a>
                 }
@@ -41,17 +41,17 @@
                     </a>
                 }
 
-                <div class="h-6 w-px bg-slate-800 hidden sm:block"></div>
+                <div class="h-6 w-px bg-nav-accent hidden sm:block"></div>
 
                 <!-- User Profile / Logout -->
                 <div class="flex items-center gap-4">
                     <div class="flex flex-col items-end hidden md:flex">
-                        <span class="text-[9px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">Signed in as</span>
+                        <span class="text-[9px] font-black text-text-muted uppercase tracking-widest leading-none mb-1">Signed in as</span>
                         <span class="text-xs font-bold text-slate-200">@User.Identity?.Name</span>
                     </div>
                     
                     <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
-                        <button type="submit" class="w-9 h-9 flex items-center justify-center rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-red-500 hover:border-red-900/50 transition-all group" title="Abmelden">
+                        <button type="submit" class="w-9 h-9 flex items-center justify-center rounded-lg bg-nav-surface border border-nav-border text-nav-link hover:text-danger-primary hover:border-danger-primary/50 transition-all group" title="Abmelden">
                             <i aria-hidden="true" class="fa-solid fa-power-off text-sm group-hover:rotate-12"></i>
                         </button>
                     </form>
@@ -60,7 +60,7 @@
             else
             {
                 <div class="flex items-center gap-4">
-                    <a asp-controller="Account" asp-action="Register" class="text-sm font-bold text-slate-400 hover:text-white transition-colors">
+                    <a asp-controller="Account" asp-action="Register" class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors">
                         Registrieren
                     </a>
                     <a asp-controller="Account" asp-action="Login" class="px-5 py-2 rounded-lg bg-white text-slate-950 text-sm font-black hover:bg-slate-200 transition-all shadow-lg shadow-white/5 hover:-translate-y-0.5">

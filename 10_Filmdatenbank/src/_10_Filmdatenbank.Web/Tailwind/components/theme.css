@@ -1,10 +1,7 @@
+@import "./brand-color.css";
+
 @theme {
   --font-sans: "Noto Sans Variable", ui-sans-serif, system-ui;
-  --color-brand-primary: #7c3aed; /* Violet 600 */
-  --color-brand-hover: #6d28d9; /* Violet 700 */
-  --color-brand-soft: #f5f3ff; /* Violet 50 */
-  --color-brand-border: #ddd6fe; /* Violet 200 */
-  --color-brand-bg: #fafafa;
 
   @keyframes fade-in {
     from { opacity: 0; transform: translateY(10px); }

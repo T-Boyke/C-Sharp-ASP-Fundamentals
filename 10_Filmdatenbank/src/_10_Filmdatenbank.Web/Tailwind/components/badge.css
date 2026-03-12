@@ -3,23 +3,23 @@
 }
 
 @utility badge-success {
-  @apply inline-flex items-center px-2 py-0.5 rounded bg-emerald-50 text-[10px] font-bold text-emerald-700 border border-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-800/50;
+  @apply inline-flex items-center px-2 py-0.5 rounded bg-success-bg text-[10px] font-bold text-success-content border border-success-border dark:bg-success-dark-bg dark:text-success-dark-content dark:border-success-dark-border;
 }
 
 @utility badge-warning {
-  @apply inline-flex items-center px-2 py-0.5 rounded bg-amber-50 text-[10px] font-bold text-amber-700 border border-amber-100 dark:bg-amber-950/30 dark:text-amber-400 dark:border-amber-800/50;
+  @apply inline-flex items-center px-2 py-0.5 rounded bg-warning-bg text-[10px] font-bold text-warning-content border border-warning-border dark:bg-warning-dark-bg dark:text-warning-dark-content dark:border-warning-dark-border;
 }
 
 @utility badge-danger {
-  @apply inline-flex items-center px-2 py-0.5 rounded bg-red-50 text-[10px] font-bold text-red-700 border border-red-100 dark:bg-red-950/30 dark:text-red-400 dark:border-red-800/50;
+  @apply inline-flex items-center px-2 py-0.5 rounded bg-danger-bg text-[10px] font-bold text-danger-content border border-danger-border dark:bg-danger-dark-bg dark:text-danger-dark-content dark:border-danger-dark-border;
 }
 
 @utility badge-info {
-  @apply inline-flex items-center px-2 py-0.5 rounded bg-sky-50 text-[10px] font-bold text-sky-700 border border-sky-100 dark:bg-sky-950/30 dark:text-sky-400 dark:border-sky-800/50;
+  @apply inline-flex items-center px-2 py-0.5 rounded bg-info-bg text-[10px] font-bold text-info-content border border-info-border dark:bg-info-dark-bg dark:text-info-dark-content dark:border-info-dark-border;
 }
 
 @utility badge-outline {
-  @apply inline-flex items-center px-2 py-0.5 rounded bg-transparent text-[10px] font-bold text-slate-500 border border-slate-200 dark:text-slate-400 dark:border-slate-700;
+  @apply inline-flex items-center px-2 py-0.5 rounded bg-transparent text-[10px] font-bold text-slate-500 border border-border-default dark:text-slate-400 dark:border-dark-border;
 }
 
 @utility badge-status-new {

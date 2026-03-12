@@ -1,9 +1,9 @@
 @utility hero-container {
-  @apply relative isolate px-6 pt-14 lg:px-8 bg-brand-soft dark:bg-slate-900 rounded-3xl mx-4 my-8 overflow-hidden shadow-sm border border-brand-border dark:border-slate-800;
+  @apply relative isolate px-6 pt-14 lg:px-8 bg-brand-soft dark:bg-dark-surface-soft rounded-3xl mx-4 my-8 overflow-hidden shadow-sm border border-brand-border dark:border-dark-border;
 }
 
 @utility hero-glass {
-  @apply relative animate-fade-in py-16 px-6 sm:py-24 lg:px-8 bg-linear-to-b from-brand-soft to-white dark:from-slate-900 dark:to-slate-950 border-b border-brand-border/30 dark:border-slate-800/50;
+  @apply relative animate-fade-in py-16 px-6 sm:py-24 lg:px-8 bg-linear-to-b from-brand-soft to-white dark:from-dark-surface-soft dark:to-dark-surface border-b border-brand-border/30 dark:border-dark-border/50;
 }
 
 @utility hero-badge {

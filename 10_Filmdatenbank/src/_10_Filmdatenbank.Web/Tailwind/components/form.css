@@ -1,5 +1,5 @@
 @utility form-input {
-  @apply block w-full rounded-lg bg-white border-0 py-2.5 px-4 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-brand-primary sm:text-sm sm:leading-6 dark:bg-slate-900 dark:text-slate-100 dark:ring-slate-700 dark:placeholder:text-slate-500 transition-all duration-200;
+  @apply block w-full rounded-lg bg-white border-0 py-2.5 px-4 text-slate-900 shadow-sm ring-1 ring-inset ring-border-default placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-brand-primary sm:text-sm sm:leading-6 dark:bg-dark-surface-soft dark:text-slate-100 dark:ring-dark-border dark:placeholder:text-slate-500 transition-all duration-200;
 }
 
 @utility form-label {
@@ -7,15 +7,15 @@
 }
 
 @utility form-error {
-  @apply mt-1 text-sm text-red-600 dark:text-red-400 font-medium;
+  @apply mt-1 text-sm text-danger-content dark:text-danger-dark-content font-medium;
 }
 
 @utility form-group {
-  @apply space-y-6 bg-white/30 dark:bg-slate-900/20 p-6 rounded-2xl border border-slate-100 dark:border-slate-800;
+  @apply space-y-6 bg-white/30 dark:bg-dark-surface-soft/20 p-6 rounded-2xl border border-border-muted dark:border-dark-border;
 }
 
 @utility form-checkbox-premium {
-  @apply h-4 w-4 rounded border-slate-300 text-brand-primary focus:ring-brand-primary dark:bg-slate-800 dark:border-slate-700 transition-all;
+  @apply h-4 w-4 rounded border-border-default text-brand-primary focus:ring-brand-primary dark:bg-dark-surface-soft dark:border-dark-border transition-all;
 }
 
 /* Hide native reveal icons in Edge/IE */

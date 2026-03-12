@@ -6,40 +6,40 @@
 
 <div class="mx-auto max-w-2xl px-6 lg:px-8 py-24 flex flex-col items-center">
     <div class="w-full text-center">
-        <div class="inline-flex flex-center w-20 h-20 rounded-2xl bg-red-50 text-red-600 mb-10 shadow-sm border border-red-100 animate-pulse">
+        <div class="inline-flex flex-center w-20 h-20 rounded-2xl bg-danger-bg dark:bg-danger-dark-bg text-danger-primary dark:text-danger-dark-content mb-10 shadow-sm border border-danger-border dark:border-danger-dark-border animate-pulse">
             <i aria-hidden="true" class="fa-solid fa-triangle-exclamation text-4xl"></i>
         </div>
         
         <h1 class="text-4xl font-black tracking-tight text-slate-900 dark:text-white leading-none mb-6 transition-colors">Unwiderruflich löschen?</h1>
         
         <div class="max-w-md mx-auto">
-            <p class="text-lg font-medium text-slate-500 dark:text-slate-400 leading-relaxed mb-10 transition-colors">
-                Sie beabsichtigen, den Film <span class="text-slate-900 dark:text-white font-black">"@Model.Titel"</span> dauerhaft aus der Datenbank zu entfernen. Dieser Vorgang ist <span class="text-red-600 dark:text-red-500 font-bold border-b-2 border-red-200 dark:border-red-900/50">nicht umkehrbar</span>.
+            <p class="text-lg font-medium text-text-description dark:text-dark-text-muted leading-relaxed mb-10 transition-colors">
+                Sie beabsichtigen, den Film <span class="text-slate-900 dark:text-white font-black">"@Model.Titel"</span> dauerhaft aus der Datenbank zu entfernen. Dieser Vorgang ist <span class="text-danger-primary dark:text-danger-dark-content font-bold border-b-2 border-danger-border dark:border-danger-dark-border">nicht umkehrbar</span>.
             </p>
         </div>
 
-        <div class="card-premium p-6 text-left mb-12 flex items-center gap-6 bg-slate-50/50 dark:bg-slate-800/50">
-            <div class="w-20 h-28 flex-none rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+        <div class="card-premium p-6 text-left mb-12 flex items-center gap-6 bg-surface-muted/50 dark:bg-dark-surface-soft/50">
+            <div class="w-20 h-28 flex-none rounded-lg bg-surface-overlay dark:bg-dark-surface-soft border border-border-default dark:border-dark-border overflow-hidden shadow-sm">
                 @if (!string.IsNullOrEmpty(Model.PosterUrl))
                 {
                     <img src="@Model.PosterUrl" alt="@Model.Titel" class="w-full h-full object-cover" />
                 }
                 else
                 {
-                    <div class="w-full h-full flex items-center justify-center text-slate-300 dark:text-slate-600">
+                    <div class="w-full h-full flex items-center justify-center text-text-muted dark:text-dark-text-muted">
                         <i aria-hidden="true" class="fa-solid fa-film text-3xl"></i>
                     </div>
                 }
             </div>
             <div>
-                <div class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 px-1">Metadaten Kontrolle</div>
+                <div class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest mb-2 px-1">Metadaten Kontrolle</div>
                 <div class="space-y-3">
                     <div class="text-lg font-black text-slate-900 dark:text-white leading-tight">@Model.Titel</div>
-                    <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-bold text-slate-500 dark:text-slate-400">
+                    <div class="flex wrap-gap items-center text-xs font-bold text-text-description dark:text-dark-text-muted">
                          <span><i aria-hidden="true" class="fa-solid fa-calendar mr-1.5 opacity-50"></i> @Model.Erscheinungsjahr</span>
-                         <span class="w-1 h-1 rounded-full bg-slate-200 dark:bg-slate-700"></span>
+                         <span class="w-1 h-1 rounded-full bg-border-default dark:border-dark-border"></span>
                          <span><i aria-hidden="true" class="fa-solid fa-layer-group mr-1.5 opacity-50"></i> @Model.Genre</span>
-                         <span class="w-1 h-1 rounded-full bg-slate-200 dark:bg-slate-700"></span>
+                         <span class="w-1 h-1 rounded-full bg-border-default dark:border-dark-border"></span>
                          <span><i aria-hidden="true" class="fa-solid fa-shield-halved mr-1.5 opacity-50"></i> @Model.FskRating</span>
                     </div>
                 </div>

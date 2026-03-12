@@ -6,11 +6,11 @@
 
 <div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
     <!-- Breadcrumb & Back -->
-    <nav class="flex mb-12 items-center gap-4 text-sm font-bold text-slate-400 uppercase tracking-widest" aria-label="Breadcrumb">
+    <nav class="flex mb-12 items-center gap-4 text-sm font-bold text-text-muted uppercase tracking-widest" aria-label="Breadcrumb">
         <a asp-action="Index" class="nav-link">
             <i aria-hidden="true" class="fa-solid fa-arrow-left"></i> Team
         </a>
-        <span class="h-1 w-1 rounded-full bg-slate-300"></span>
+        <span class="h-1 w-1 rounded-full bg-border-default"></span>
         <span class="text-slate-900 dark:text-white border-b-2 border-brand-primary pb-0.5 transition-colors">@Model.Vorname @Model.Nachname</span>
     </nav>
 
@@ -19,32 +19,32 @@
         <!-- Left: Profile Info -->
         <div class="lg:col-span-1 space-y-8">
             <div class="card-premium overflow-hidden group">
-                <div class="aspect-[4/5] bg-slate-100 dark:bg-slate-900 flex items-center justify-center transition-colors relative">
+                <div class="aspect-[4/5] bg-surface-subtle dark:bg-dark-surface-soft flex items-center justify-center transition-colors relative">
                     @if (!string.IsNullOrEmpty(Model.ProfilBildUrl))
                     {
                         <img src="@Model.ProfilBildUrl" alt="@Model.Vorname @Model.Nachname" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     }
                     else
                     {
-                        <i aria-hidden="true" class="fa-solid fa-user-tie text-slate-300 dark:text-slate-800 text-9xl"></i>
+                        <i aria-hidden="true" class="fa-solid fa-user-tie text-slate-300 dark:text-dark-surface-muted text-9xl"></i>
                     }
                 </div>
-                <div class="p-8 space-y-6 bg-white dark:bg-slate-900 transition-colors">
+                <div class="p-8 space-y-6 bg-surface-overlay dark:bg-dark-surface-soft transition-colors">
                     <div>
-                        <h3 class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">Profil Informationen</h3>
+                        <h3 class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest mb-4">Profil Informationen</h3>
                         <div class="space-y-4">
-                            <div class="flex items-center justify-between py-2 border-b border-slate-50 dark:border-slate-800/50">
-                                <span class="text-xs font-bold text-slate-400">System ID</span>
+                            <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted">
+                                <span class="text-xs font-bold text-text-muted">System ID</span>
                                 <span class="text-xs font-black text-slate-900 dark:text-white">#@Model.PersonID</span>
                             </div>
-                            <div class="flex items-center justify-between py-2 border-b border-slate-50 dark:border-slate-800/50">
-                                <span class="text-xs font-bold text-slate-400">Geboren</span>
+                            <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted">
+                                <span class="text-xs font-bold text-text-muted">Geboren</span>
                                 <span class="text-xs font-black text-slate-900 dark:text-white">@(Model.Geburtsdatum?.ToString("dd.MM.yyyy") ?? "N/A")</span>
                             </div>
                             @if (!string.IsNullOrEmpty(Model.Geburtsort))
                             {
-                                <div class="flex items-center justify-between py-2 border-b border-slate-50 dark:border-slate-800/50">
-                                    <span class="text-xs font-bold text-slate-400">Ort</span>
+                                <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted">
+                                    <span class="text-xs font-bold text-text-muted">Ort</span>
                                     <span class="text-xs font-black text-slate-900 dark:text-white">@Model.Geburtsort</span>
                                 </div>
                             }
@@ -63,8 +63,8 @@
 
                     @if (!string.IsNullOrEmpty(Model.Tags))
                     {
-                        <div class="pt-6 border-t border-slate-100 dark:border-slate-800">
-                             <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Tags</h3>
+                        <div class="pt-6 border-t border-border-muted dark:border-dark-border">
+                             <h3 class="text-[10px] font-black text-text-muted uppercase tracking-widest mb-3">Tags</h3>
                              <div class="flex flex-wrap gap-2">
                                 @foreach (var tag in Model.Tags.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
                                 {
@@ -78,11 +78,11 @@
 
                     @if (User.IsInRole("Admin"))
                     {
-                        <div class="pt-6 border-t border-slate-100 dark:border-slate-800 flex gap-4 transition-colors">
-                            <a asp-action="Edit" asp-route-id="@Model.PersonID" class="btn-primary flex-1 shadow-lg shadow-brand-primary/20">
+                        <div class="pt-6 border-t border-border-muted dark:border-dark-border flex gap-4 transition-colors">
+                            <a asp-action="Edit" asp-route-id="@Model.PersonID" class="btn-primary flex-1 shadow-lg shadow-brand-shadow">
                                 <i aria-hidden="true" class="fa-solid fa-pen-to-square mr-2"></i> Edit
                             </a>
-                            <a asp-action="Delete" asp-route-id="@Model.PersonID" class="btn-danger p-2.5 shadow-lg shadow-red-500/20">
+                            <a asp-action="Delete" asp-route-id="@Model.PersonID" class="btn-danger p-2.5 shadow-lg shadow-danger-primary/20">
                                 <i aria-hidden="true" class="fa-solid fa-trash-can"></i>
                             </a>
                         </div>
@@ -109,7 +109,7 @@
                     <h2 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Biografie</h2>
                     <div class="h-1 w-12 bg-brand-primary rounded-full"></div>
                 </div>
-                <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed italic pl-8 border-l-4 border-slate-100 dark:border-slate-800 transition-colors">
+                <p class="text-lg text-slate-600 dark:text-dark-text-muted leading-relaxed italic pl-8 border-l-4 border-border-muted dark:border-dark-border transition-colors">
                     @Model.Biografie
                 </p>
             </section>
@@ -129,14 +129,14 @@
                     {
                         <a asp-controller="Film" asp-action="Details" asp-route-id="@participation.FilmID" 
                            class="form-group-card flex items-center p-6 group hover:border-brand-primary/30 transition-all border-l-4 border-l-brand-primary/20 hover:border-l-brand-primary">
-                            <div class="w-16 h-24 rounded-lg overflow-hidden shrink-0 border border-slate-100 dark:border-slate-800 group-hover:shadow-lg transition-all">
+                            <div class="w-16 h-24 rounded-lg overflow-hidden shrink-0 border border-border-muted dark:border-dark-border group-hover:shadow-lg transition-all">
                                 @if (!string.IsNullOrEmpty(participation.Film.PosterUrl))
                                 {
                                     <img src="@participation.Film.PosterUrl" alt="" class="w-full h-full object-cover transition-transform group-hover:scale-110" />
                                 }
                                 else
                                 {
-                                    <div class="w-full h-full flex items-center justify-center bg-slate-50 dark:bg-slate-900 transition-colors">
+                                    <div class="w-full h-full flex items-center justify-center bg-surface-muted dark:bg-dark-surface-soft transition-colors">
                                         <i aria-hidden="true" class="fa-solid fa-film text-2xl text-slate-300"></i>
                                     </div>
                                 }
@@ -144,16 +144,16 @@
                             <div class="ml-8 flex-grow">
                                 <div class="flex items-center justify-between">
                                     <p class="text-xl font-black text-slate-900 dark:text-white group-hover:text-brand-primary transition-colors">@participation.Film.Titel</p>
-                                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">@participation.Film.Erscheinungsjahr</span>
+                                    <span class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest">@participation.Film.Erscheinungsjahr</span>
                                 </div>
                                 <div class="flex items-center gap-3 mt-3">
                                     <span class="px-2 py-0.5 rounded bg-brand-primary/5 text-brand-primary text-[10px] font-black uppercase tracking-tighter border border-brand-primary/10">
                                         @participation.Eigenschaft.Bezeichnung
                                     </span>
-                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">@participation.Film.Genre</span>
+                                    <span class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest italic">@participation.Film.Genre</span>
                                 </div>
                             </div>
-                            <i aria-hidden="true" class="fa-solid fa-arrow-right-long ml-6 text-slate-200 dark:text-slate-800 transition-transform group-hover:translate-x-2"></i>
+                            <i aria-hidden="true" class="fa-solid fa-arrow-right-long ml-6 text-slate-200 dark:text-dark-surface-muted transition-transform group-hover:translate-x-2"></i>
                         </a>
                     }
                 </div>

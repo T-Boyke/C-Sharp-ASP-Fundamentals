@@ -5,14 +5,14 @@
 }
 
 <div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-slate-200 dark:border-slate-800 pb-8 transition-colors duration-300">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-border-default dark:border-dark-border pb-8 transition-colors duration-300">
         <div>
             <div class="flex items-center gap-2 mb-2">
                 <i aria-hidden="true" class="fa-solid fa-rectangle-list text-brand-primary"></i>
-                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none">Bestand</span>
+                <span class="text-xs font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest leading-none">Bestand</span>
             </div>
             <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors">Film-Katalog</h1>
-            <p class="mt-3 text-lg text-slate-500 dark:text-slate-400 max-w-2xl font-medium transition-colors">Durchsuchen Sie unsere kuratierte Sammlung erstklassiger Filmproduktionen.</p>
+            <p class="mt-3 text-lg text-text-description dark:text-dark-text-muted max-w-2xl font-medium transition-colors">Durchsuchen Sie unsere kuratierte Sammlung erstklassiger Filmproduktionen.</p>
         </div>
         
         @if (User.IsInRole("Admin"))
@@ -29,16 +29,16 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         @foreach (var item in Model)
         {
-            <div class="card-premium group hover:shadow-2xl hover:shadow-brand-primary/10 flex flex-col h-full overflow-hidden transition-all duration-500">
+            <div class="card-premium group hover:shadow-2xl hover:shadow-brand-shadow flex flex-col h-full overflow-hidden transition-all duration-500">
                 <!-- Poster Area -->
-                <div class="relative aspect-[2/3] overflow-hidden bg-slate-100 dark:bg-slate-900 transition-colors">
+                <div class="relative aspect-[2/3] overflow-hidden bg-surface-subtle dark:bg-dark-surface-soft transition-colors">
                     @if (!string.IsNullOrEmpty(item.PosterUrl))
                     {
                         <img src="@item.PosterUrl" alt="@item.Titel" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     }
                     else
                     {
-                        <div class="w-full h-full flex flex-col items-center justify-center text-slate-300 dark:text-slate-800 p-6">
+                        <div class="w-full h-full flex flex-col items-center justify-center text-slate-300 dark:text-dark-surface-muted p-6">
                             <i aria-hidden="true" class="fa-solid fa-film text-5xl mb-4 opacity-20"></i>
                             <span class="text-[10px] uppercase font-black tracking-widest text-center">Kein Poster</span>
                         </div>
@@ -55,14 +55,14 @@
                     </div>
 
                     <div class="absolute top-4 right-4 animate-in fade-in zoom-in duration-500">
-                        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-primary/90 backdrop-blur-md text-white shadow-xl shadow-brand-primary/20 border border-brand-primary/50">
+                        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-primary/90 backdrop-blur-md text-white shadow-xl shadow-brand-shadow-lg border border-brand-primary/50">
                             <i aria-hidden="true" class="fa-solid fa-star text-[10px] text-yellow-300"></i>
                             <span class="text-xs font-black tracking-tighter">@(item.Nutzerwertung?.ToString("0.0") ?? "N/A")</span>
                         </div>
                     </div>
 
                     <!-- Hover Overlay Actions -->
-                    <div class="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[2px]">
+                    <div class="absolute inset-0 bg-dark-surface/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[2px]">
                         <div class="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 flex flex-col gap-3 items-center px-6 w-full">
                             <a asp-action="Details" asp-route-id="@item.FilmID" class="btn-primary w-full shadow-2xl">Mehr Details</a>
                             @if (User.IsInRole("Admin"))
@@ -71,7 +71,7 @@
                                     <a asp-action="Edit" asp-route-id="@item.FilmID" class="flex-1 p-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/10 transition-colors flex items-center justify-center" title="Bearbeiten">
                                         <i aria-hidden="true" class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@item.FilmID" class="flex-1 p-2.5 rounded-lg bg-red-500/80 hover:bg-red-600 text-white backdrop-blur-md border border-red-400/20 transition-colors flex items-center justify-center" title="Löschen">
+                                    <a asp-action="Delete" asp-route-id="@item.FilmID" class="flex-1 p-2.5 rounded-lg bg-danger-primary/80 hover:bg-danger-primary text-white backdrop-blur-md border border-danger-primary/20 transition-colors flex items-center justify-center" title="Löschen">
                                         <i aria-hidden="true" class="fa-solid fa-trash-can"></i>
                                     </a>
                                 </div>
@@ -81,30 +81,30 @@
                 </div>
 
                 <!-- Content -->
-                <div class="p-6 flex flex-col flex-grow bg-white dark:bg-slate-900 transition-colors">
+                <div class="p-6 flex flex-col flex-grow bg-surface-overlay dark:bg-dark-surface-soft transition-colors">
                     <div class="mb-4">
                         <div class="flex items-center gap-2 mb-1">
                             <span class="text-[9px] font-black text-brand-primary uppercase tracking-[0.2em] px-2 py-0.5 rounded-full bg-brand-primary/5">@item.Genre</span>
                         </div>
                         <h2 class="text-lg font-black text-slate-900 dark:text-white leading-tight line-clamp-1 transition-colors">@item.Titel</h2>
-                        <p class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-1 italic transition-colors">
+                        <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mt-1 italic transition-colors">
                             @item.Erscheinungsjahr &bull; @item.Spieldauer min
                         </p>
                     </div>
                     
-                    <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 mb-6 leading-relaxed flex-grow transition-colors">
+                    <p class="text-xs text-text-description dark:text-dark-text-muted line-clamp-3 mb-6 leading-relaxed flex-grow transition-colors">
                         @item.Handlung
                     </p>
 
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800/50 mt-auto transition-colors">
+                    <div class="flex items-center justify-between pt-4 border-t border-border-muted dark:border-dark-border-muted mt-auto transition-colors">
                         <div class="flex flex-col">
-                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Leihpreis</span>
+                            <span class="text-[9px] font-bold text-text-muted uppercase tracking-widest">Leihpreis</span>
                             <span class="text-lg font-black text-slate-900 dark:text-white tracking-tighter transition-colors">@item.Preis.ToString("C")</span>
                         </div>
                         <div class="flex -space-x-2">
                             @foreach (var participation in item.PersonEigenschaftFilme.Take(3))
                             {
-                                <div class="w-8 h-8 rounded-full border-2 border-white dark:border-slate-900 bg-slate-200 overflow-hidden" title="@participation.Person.Vorname @participation.Person.Nachname (@participation.Eigenschaft.Bezeichnung)">
+                                <div class="w-8 h-8 rounded-full border-2 border-surface-overlay dark:border-dark-surface-soft bg-surface-subtle overflow-hidden" title="@participation.Person.Vorname @participation.Person.Nachname (@participation.Eigenschaft.Bezeichnung)">
                                     @if (!string.IsNullOrEmpty(participation.Person.ProfilBildUrl))
                                     {
                                         <img src="@participation.Person.ProfilBildUrl" alt="Avatar" class="w-full h-full object-cover" />
@@ -117,7 +117,7 @@
                             }
                             @if (item.PersonEigenschaftFilme.Count > 3)
                             {
-                                <div class="w-8 h-8 rounded-full border-2 border-white dark:border-slate-900 bg-slate-100 flex items-center justify-center text-[9px] font-black text-slate-400">
+                                <div class="w-8 h-8 rounded-full border-2 border-surface-overlay dark:border-dark-surface-soft bg-surface-muted flex items-center justify-center text-[9px] font-black text-text-muted">
                                     +@(item.PersonEigenschaftFilme.Count - 3)
                                 </div>
                             }

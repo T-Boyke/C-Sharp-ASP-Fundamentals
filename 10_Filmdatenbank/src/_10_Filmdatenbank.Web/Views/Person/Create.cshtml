@@ -12,10 +12,10 @@
             </div>
             <div>
                 <h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-none transition-colors">Neuer Mitwirkender</h1>
-                <p class="mt-2 text-sm font-bold text-slate-400 uppercase tracking-widest">Personendaten erfassen</p>
+                <p class="mt-2 text-sm font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest">Personendaten erfassen</p>
             </div>
         </div>
-        <a asp-action="Index" class="text-sm font-bold text-slate-400 hover:text-brand-primary transition-all flex items-center gap-2 uppercase tracking-widest">
+        <a asp-action="Index" class="text-sm font-bold text-text-muted hover:text-brand-primary transition-all flex items-center gap-2 uppercase tracking-widest">
             <i aria-hidden="true" class="fa-solid fa-chevron-left"></i> Zurück
         </a>
     </div>
@@ -25,58 +25,58 @@
             <div class="form-group-header">
                 <div>
                     <h2 class="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Personalien</h2>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Eintrag vervollständigen</p>
+                    <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mt-1">Eintrag vervollständigen</p>
                 </div>
-                <i aria-hidden="true" class="fa-solid fa-id-card text-slate-200 dark:text-slate-800 text-2xl"></i>
+                <i aria-hidden="true" class="fa-solid fa-id-card text-slate-200 dark:text-dark-surface-muted text-2xl"></i>
             </div>
 
-            <div asp-validation-summary="ModelOnly" role="alert" class="p-4 rounded-xl bg-red-50 text-red-600 text-sm font-bold border border-red-100 italic mb-8"></div>
+            <div asp-validation-summary="ModelOnly" role="alert" class="p-4 rounded-xl bg-danger-bg dark:bg-danger-dark-bg text-danger-content dark:text-danger-dark-content text-sm font-bold border border-danger-border dark:border-danger-dark-border italic mb-8"></div>
 
             <div class="space-y-8">
                 <div class="form-group-row">
                     <div class="flex flex-col gap-1.5 flex-grow">
-                        <label asp-for="Vorname" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Vorname</label>
-                        <input asp-for="Vorname" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="z.B. Keanu" />
-                        <span asp-validation-for="Vorname" class="text-[10px] font-bold text-red-500 mt-1 px-1"></span>
+                        <label asp-for="Vorname" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Vorname</label>
+                        <input asp-for="Vorname" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="z.B. Keanu" />
+                        <span asp-validation-for="Vorname" class="text-[10px] font-bold text-danger-primary mt-1 px-1"></span>
                     </div>
 
                     <div class="flex flex-col gap-1.5 flex-grow">
-                        <label asp-for="Nachname" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Nachname</label>
-                        <input asp-for="Nachname" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="z.B. Reeves" />
-                        <span asp-validation-for="Nachname" class="text-[10px] font-bold text-red-500 mt-1 px-1"></span>
+                        <label asp-for="Nachname" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Nachname</label>
+                        <input asp-for="Nachname" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="z.B. Reeves" />
+                        <span asp-validation-for="Nachname" class="text-[10px] font-bold text-danger-primary mt-1 px-1"></span>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Geburtsdatum" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Geburtsdatum</label>
-                        <input asp-for="Geburtsdatum" type="date" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
+                        <label asp-for="Geburtsdatum" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Geburtsdatum</label>
+                        <input asp-for="Geburtsdatum" type="date" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Geburtsort" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Geburtsort</label>
-                        <input asp-for="Geburtsort" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="z.B. Beirut, Libanon" />
+                        <label asp-for="Geburtsort" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Geburtsort</label>
+                        <input asp-for="Geburtsort" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="z.B. Beirut, Libanon" />
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="ProfilBildUrl" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Profilbild URL</label>
-                        <input asp-for="ProfilBildUrl" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="https://image.tmdb.org/..." />
+                        <label asp-for="ProfilBildUrl" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Profilbild URL</label>
+                        <input asp-for="ProfilBildUrl" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="https://image.tmdb.org/..." />
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Tags" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Tags (kommagetrennt)</label>
-                        <input asp-for="Tags" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="z.B. Action, Wholesome" />
+                        <label asp-for="Tags" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Tags (kommagetrennt)</label>
+                        <input asp-for="Tags" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="z.B. Action, Wholesome" />
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label asp-for="Biografie" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Biografie</label>
-                    <textarea asp-for="Biografie" rows="6" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-medium text-slate-700 dark:text-slate-300" placeholder="Biografie hier eingeben..."></textarea>
+                    <label asp-for="Biografie" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Biografie</label>
+                    <textarea asp-for="Biografie" rows="6" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-medium text-text-description dark:text-dark-text-muted" placeholder="Biografie hier eingeben..."></textarea>
                 </div>
             </div>
 
             <div class="form-group-footer">
-                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] max-w-[200px] leading-relaxed">
+                 <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-[0.2em] max-w-[200px] leading-relaxed">
                     Bitte achten Sie auf die korrekte Schreibweise des Namens.
                 </p>
                 <div class="flex flex-col gap-3">

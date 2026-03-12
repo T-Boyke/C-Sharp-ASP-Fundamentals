@@ -12,41 +12,41 @@
             </div>
             <div>
                 <h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-none transition-colors">Neuer Katalogeintrag</h1>
-                <p class="mt-2 text-sm font-bold text-slate-400 uppercase tracking-widest">Film-Metadaten erfassen</p>
+                <p class="mt-2 text-sm font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest">Film-Metadaten erfassen</p>
             </div>
         </div>
-        <a asp-action="Index" class="text-sm font-bold text-slate-400 hover:text-brand-primary transition-all flex items-center gap-2 uppercase tracking-widest">
+        <a asp-action="Index" class="text-sm font-bold text-text-muted hover:text-brand-primary transition-all flex items-center gap-2 uppercase tracking-widest">
             <i aria-hidden="true" class="fa-solid fa-chevron-left"></i> Zurück
         </a>
     </div>
 
     <form asp-action="Create" class="space-y-8">
-        <div asp-validation-summary="ModelOnly" role="alert" class="p-4 rounded-xl bg-red-50 text-red-600 text-sm font-bold border border-red-100 italic mb-8"></div>
+        <div asp-validation-summary="ModelOnly" role="alert" class="p-4 rounded-xl bg-danger-bg dark:bg-danger-dark-bg text-danger-content dark:text-danger-dark-content text-sm font-bold border border-danger-border dark:border-danger-dark-border italic mb-8"></div>
 
         <div class="form-group-card">
             <div class="form-group-header">
                 <h2 class="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Filminformationen</h2>
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Basisdaten und Metadaten</p>
+                <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mt-1">Basisdaten und Metadaten</p>
             </div>
 
             <div class="p-8 space-y-8">
                 <!-- Title row -->
                 <div class="form-group-row">
                     <div class="flex flex-col gap-1.5 flex-grow">
-                        <label asp-for="Titel" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Titel</label>
-                        <input asp-for="Titel" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="z.B. Matrix" />
-                        <span asp-validation-for="Titel" class="text-[10px] font-bold text-red-500 mt-1 px-1"></span>
+                        <label asp-for="Titel" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Titel</label>
+                        <input asp-for="Titel" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="z.B. Matrix" />
+                        <span asp-validation-for="Titel" class="text-[10px] font-bold text-danger-primary mt-1 px-1"></span>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Genre" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Kategorie / Genre</label>
-                        <input asp-for="Genre" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="Sci-Fi, Action" />
+                        <label asp-for="Genre" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Kategorie / Genre</label>
+                        <input asp-for="Genre" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="Sci-Fi, Action" />
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="FskRating" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Altersfreigabe (FSK)</label>
-                        <select asp-for="FskRating" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white">
+                        <label asp-for="FskRating" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Altersfreigabe (FSK)</label>
+                        <select asp-for="FskRating" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white">
                             <option value="FSK 0">FSK 0</option>
                             <option value="FSK 6">FSK 6</option>
                             <option value="FSK 12">FSK 12</option>
@@ -58,51 +58,51 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Erscheinungsjahr" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Jahr</label>
-                        <input asp-for="Erscheinungsjahr" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
+                        <label asp-for="Erscheinungsjahr" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Jahr</label>
+                        <input asp-for="Erscheinungsjahr" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Erscheinungsdatum" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Datum</label>
-                        <input asp-for="Erscheinungsdatum" type="date" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
+                        <label asp-for="Erscheinungsdatum" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Datum</label>
+                        <input asp-for="Erscheinungsdatum" type="date" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Nutzerwertung" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Anfängl. Wertung</label>
-                        <input asp-for="Nutzerwertung" type="number" step="0.1" min="0" max="10" value="0.0" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
+                        <label asp-for="Nutzerwertung" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Anfängl. Wertung</label>
+                        <input asp-for="Nutzerwertung" type="number" step="0.1" min="0" max="10" value="0.0" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Spieldauer" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Laufzeit (Min.)</label>
-                        <input asp-for="Spieldauer" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
+                        <label asp-for="Spieldauer" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Laufzeit (Min.)</label>
+                        <input asp-for="Spieldauer" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Preis" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Preis (€)</label>
-                        <input asp-for="Preis" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
+                        <label asp-for="Preis" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Preis (€)</label>
+                        <input asp-for="Preis" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label asp-for="PosterUrl" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Poster Bild-URL</label>
-                    <input asp-for="PosterUrl" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="https://image.tmdb.org/..." />
+                    <label asp-for="PosterUrl" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Poster Bild-URL</label>
+                    <input asp-for="PosterUrl" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder="https://image.tmdb.org/..." />
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label asp-for="Handlung" class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Handlung / Plot</label>
-                    <textarea asp-for="Handlung" rows="5" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-medium text-slate-700 dark:text-slate-300" placeholder="Worüber handelt der Film?"></textarea>
+                    <label asp-for="Handlung" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Handlung / Plot</label>
+                    <textarea asp-for="Handlung" rows="5" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-medium text-text-description dark:text-dark-text-muted" placeholder="Worüber handelt der Film?"></textarea>
                 </div>
             </div>
 
             <div class="form-group-footer">
                 <a asp-action="Index" class="btn-secondary px-8">Abbrechen</a>
-                <button type="submit" class="btn-primary px-10 shadow-xl shadow-brand-primary/20">
+                <button type="submit" class="btn-primary px-10 shadow-xl shadow-brand-shadow">
                     <i aria-hidden="true" class="fa-solid fa-plus-circle mr-2"></i> Film erstellen
                 </button>
             </div>
         </div>
     </form>
     
-    <p class="mt-4 text-center text-[9px] text-slate-400 dark:text-slate-600 italic">
+    <p class="mt-4 text-center text-[9px] text-text-muted dark:text-dark-text-muted italic">
         System-Validierung aktiv &bull; Alle Änderungen werden sofort im Katalog sichtbar.
     </p>
 </div>

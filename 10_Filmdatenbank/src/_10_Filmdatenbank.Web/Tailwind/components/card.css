@@ -1,5 +1,5 @@
 @utility card-premium {
-  @apply bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-300;
+  @apply bg-white dark:bg-dark-surface-soft border border-border-default dark:border-dark-border rounded-xl shadow-sm hover:shadow-md transition-all duration-300;
 }
 
 @utility card-interactive {
@@ -7,9 +7,9 @@
 }
 
 @utility card-glass {
-  @apply bg-white/70 dark:bg-slate-900/70 border border-white/20 dark:border-slate-800/50 backdrop-blur-md rounded-2xl shadow-xl transition-all;
+  @apply bg-white/70 dark:bg-dark-surface-soft/70 border border-white/20 dark:border-dark-border/50 backdrop-blur-md rounded-2xl shadow-xl transition-all;
 }
 
 @utility card-footer {
-  @apply p-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 rounded-b-xl;
+  @apply p-6 border-t border-border-muted dark:border-dark-border bg-surface-muted/50 dark:bg-dark-surface-soft/30 rounded-b-xl;
 }
