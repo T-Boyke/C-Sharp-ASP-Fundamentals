@@ -18,5 +18,5 @@ public interface ITmdbService
     Task<Collection> GetCollectionDetailsAsync(int tmdbId, string language = "de-DE");
     
     Task<IEnumerable<SearchCompany>> SearchCompaniesAsync(string query, string language = "de-DE");
-    Task<ProductionCompany> GetCompanyDetailsAsync(int tmdbId);
+    Task<TMDbLib.Objects.Companies.Company> GetCompanyDetailsAsync(int tmdbId);
 }

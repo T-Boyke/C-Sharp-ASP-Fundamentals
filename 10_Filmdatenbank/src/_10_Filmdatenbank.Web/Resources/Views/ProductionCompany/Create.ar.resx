@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="CreateTitle" xml:space="preserve"><value>استوديو جديد</value></data>
+  <data name="TmdbSearchLabel" xml:space="preserve"><value>بحث TMDB</value></data>
+  <data name="TmdbSearchPlaceholder" xml:space="preserve"><value>بحث عن اسم الاستوديو...</value></data>
+  <data name="SectionHeader" xml:space="preserve"><value>معلومات الاستوديو</value></data>
+  <data name="SectionSubheader" xml:space="preserve"><value>البيانات الأساسية لشركة الإنتاج</value></data>
+  <data name="LabelName" xml:space="preserve"><value>الاسم</value></data>
+  <data name="LabelDescription" xml:space="preserve"><value>الوصف</value></data>
+  <data name="LabelLogoUrl" xml:space="preserve"><value>رابط الشعار</value></data>
+  <data name="LabelOriginCountry" xml:space="preserve"><value>بلد المنشأ (ISO)</value></data>
+  <data name="LabelHeadquarters" xml:space="preserve"><value>المقر الرئيسي</value></data>
+  <data name="LabelHomepage" xml:space="preserve"><value>الموقع الإلكتروني</value></data>
+  <data name="Cancel" xml:space="preserve"><value>إلغاء</value></data>
+  <data name="Create" xml:space="preserve"><value>إنشاء</value></data>
+  <data name="LoadingDetails" xml:space="preserve"><value>جاري تحميل التفاصيل...</value></data>
+  <data name="DataLoaded" xml:space="preserve"><value>تم تحميل البيانات!</value></data>
+</root>

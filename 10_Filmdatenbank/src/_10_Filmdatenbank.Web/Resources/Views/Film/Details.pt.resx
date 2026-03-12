@@ -4,7 +4,7 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="Breadcrumb" xml:space="preserve"><value>Caminho de Navegação</value></data>
+  <data name="Breadcrumb" xml:space="preserve"><value>Navegação</value></data>
   <data name="Catalog" xml:space="preserve"><value>Catálogo</value></data>
   <data name="Rating" xml:space="preserve"><value>Avaliação</value></data>
   <data name="Pricing" xml:space="preserve"><value>Preços</value></data>
@@ -17,7 +17,26 @@
   <data name="Runtime" xml:space="preserve"><value>Duração</value></data>
   <data name="MinSuffix" xml:space="preserve"><value>min</value></data>
   <data name="Tags" xml:space="preserve"><value>Tags</value></data>
-  <data name="Plot" xml:space="preserve"><value>Enredo</value></data>
+  <data name="Plot" xml:space="preserve"><value>Sinopse</value></data>
   <data name="CastTeam" xml:space="preserve"><value>Elenco e Equipe</value></data>
-  <data name="ContributorsCount" xml:space="preserve"><value>Colaboradores</value></data>
+  <data name="ContributorsCount" xml:space="preserve"><value>Contribuidores</value></data>
+  <data name="TmdbScore" xml:space="preserve"><value>Pontuação TMDB</value></data>
+  <data name="OriginalTitle" xml:space="preserve"><value>Título Original</value></data>
+  <data name="Popularity" xml:space="preserve"><value>Popularidade</value></data>
+  <data name="Votes" xml:space="preserve"><value>Votos</value></data>
+  <data name="CollectionSeries" xml:space="preserve"><value>Parte da Série</value></data>
+  <data name="Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Budget" xml:space="preserve"><value>Orçamento</value></data>
+  <data name="Revenue" xml:space="preserve"><value>Receita</value></data>
+  <data name="ProductionCountries" xml:space="preserve"><value>Países de Produção</value></data>
+  <data name="SpokenLanguages" xml:space="preserve"><value>Idiomas Falados</value></data>
+  <data name="Website" xml:space="preserve"><value>Website Oficial</value></data>
+  <data name="Awards" xml:space="preserve"><value>Prêmios e Nomeações</value></data>
+  <data name="AdultContent" xml:space="preserve"><value>Conteúdo Adulto</value></data>
+  <data name="TrailerPlayerTitle" xml:space="preserve"><value>Reprodutor de Vídeo do YouTube</value></data>
+  <data name="SimilarFilms" xml:space="preserve"><value>Filmes Semelhantes</value></data>
+  <data name="RecommendedFilms" xml:space="preserve"><value>Recomendado para Você</value></data>
+  <data name="Trailer" xml:space="preserve"><value>Trailer</value></data>
+  <data name="PosterOf" xml:space="preserve"><value>Cartaz de {0}</value></data>
+  <data name="Studios" xml:space="preserve"><value>Estúdios</value></data>
 </root>

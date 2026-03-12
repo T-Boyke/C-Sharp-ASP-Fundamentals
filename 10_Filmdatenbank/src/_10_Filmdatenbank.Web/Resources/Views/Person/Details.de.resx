@@ -21,4 +21,16 @@
   <data name="Filmography" xml:space="preserve"><value>Filmografie</value></data>
   <data name="Projects" xml:space="preserve"><value>Projekte</value></data>
   <data name="ViewFilmLabel" xml:space="preserve"><value>Film {0} ansehen</value></data>
+  <data name="Died" xml:space="preserve"><value>Gestorben</value></data>
+  <data name="Department" xml:space="preserve"><value>Bereich</value></data>
+  <data name="Popularity" xml:space="preserve"><value>Popularität</value></data>
+  <data name="VisitWebsite" xml:space="preserve"><value>Webseite besuchen</value></data>
+  <data name="Gender" xml:space="preserve"><value>Geschlecht</value></data>
+  <data name="Male" xml:space="preserve"><value>Männlich</value></data>
+  <data name="Female" xml:space="preserve"><value>Weiblich</value></data>
+  <data name="NonBinary" xml:space="preserve"><value>Nicht-binär</value></data>
+  <data name="Unknown" xml:space="preserve"><value>Unbekannt</value></data>
+  <data name="Awards" xml:space="preserve"><value>Auszeichnungen &amp; Nominierungen</value></data>
+  <data name="ProfileImageOf" xml:space="preserve"><value>Profilbild von {0}</value></data>
+  <data name="OnlyAdults" xml:space="preserve"><value>Nur für Erwachsene</value></data>
 </root>

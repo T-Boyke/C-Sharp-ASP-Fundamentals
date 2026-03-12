@@ -267,12 +267,22 @@
                 setVal('inputTagline', data.tagline || '');
                 setVal('inputRating', (data.voteAverage || 0).toFixed(1));
                 
+                // Special: Trailer URL
+                if (data.trailerKey) {
+                    setVal('inputTrailerUrl', `https://www.youtube.com/embed/${data.trailerKey}`);
+                }
+
                 // Hidden Fields
                 setVal('inputTmdbId', data.id);
                 setVal('inputImdbId', data.imdbId || '');
                 setVal('inputFacebookId', data.facebookId || '');
                 setVal('inputInstagramId', data.instagramId || '');
                 setVal('inputTwitterId', data.twitterId || '');
+
+                // Metadata Serialization
+                setVal('inputSelectedGenresJson', JSON.stringify(data.genres || []));
+                setVal('inputSelectedKeywordsJson', JSON.stringify(data.keywords || []));
+                setVal('inputSelectedCompaniesJson', JSON.stringify(data.productionCompanies || []));
                 setVal('inputWikidataId', data.wikidataId || '');
                 setVal('inputOriginalTitle', data.originalTitle || '');
                 setVal('inputOriginalLanguage', data.originalLanguage || '');

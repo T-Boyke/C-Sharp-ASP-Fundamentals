@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="CreateTitle" xml:space="preserve"><value>Yeni Stüdyo</value></data>
+  <data name="TmdbSearchLabel" xml:space="preserve"><value>TMDB Arama</value></data>
+  <data name="TmdbSearchPlaceholder" xml:space="preserve"><value>Stüdyo adı ara...</value></data>
+  <data name="SectionHeader" xml:space="preserve"><value>Stüdyo Bilgileri</value></data>
+  <data name="SectionSubheader" xml:space="preserve"><value>Yapım şirketinin ana verileri</value></data>
+  <data name="LabelName" xml:space="preserve"><value>İsim</value></data>
+  <data name="LabelDescription" xml:space="preserve"><value>Açıklama</value></data>
+  <data name="LabelLogoUrl" xml:space="preserve"><value>Logo URL</value></data>
+  <data name="LabelOriginCountry" xml:space="preserve"><value>Menşei Ülke (ISO)</value></data>
+  <data name="LabelHeadquarters" xml:space="preserve"><value>Merkez</value></data>
+  <data name="LabelHomepage" xml:space="preserve"><value>Websitesi</value></data>
+  <data name="Cancel" xml:space="preserve"><value>İptal</value></data>
+  <data name="Create" xml:space="preserve"><value>Oluştur</value></data>
+  <data name="LoadingDetails" xml:space="preserve"><value>Detaylar yükleniyor...</value></data>
+  <data name="DataLoaded" xml:space="preserve"><value>Veriler yüklendi!</value></data>
+</root>

@@ -52,13 +52,22 @@ public class TmdbController(ITmdbService tmdbService) : ControllerBase
             TrailerKey = movie.Videos?.Results?.FirstOrDefault(v => v.Site == "YouTube" && v.Type == "Trailer")?.Key,
             PosterUrl = string.IsNullOrEmpty(movie.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{movie.PosterPath}",
             BackdropUrl = string.IsNullOrEmpty(movie.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{movie.BackdropPath}",
-            Genres = string.Join(", ", movie.Genres.Select(g => g.Name)),
+            Genres = movie.Genres.Select(g => g.Name),
+            Keywords = movie.Keywords?.Keywords?.Select(k => k.Name) ?? [],
+            ProductionCompanies = movie.ProductionCompanies?.Select(pc => new 
+            {
+                pc.Id,
+                pc.Name,
+                LogoUrl = string.IsNullOrEmpty(pc.LogoPath) ? null : $"https://image.tmdb.org/t/p/w500{pc.LogoPath}",
+                pc.OriginCountry
+            }) ?? [],
             ImdbId = movie.ExternalIds?.ImdbId,
             FacebookId = movie.ExternalIds?.FacebookId,
             InstagramId = movie.ExternalIds?.InstagramId,
             TwitterId = movie.ExternalIds?.TwitterId,
             WikidataId = movie.ExternalIds?.WikidataId,
             CollectionId = movie.BelongsToCollection?.Id,
+            CollectionName = movie.BelongsToCollection?.Name,
             Cast = movie.Credits?.Cast?.Take(10).Select(c => new
             {
                 c.Id,
@@ -74,7 +83,7 @@ public class TmdbController(ITmdbService tmdbService) : ControllerBase
     {
         if (string.IsNullOrWhiteSpace(query)) return BadRequest();
         var results = await tmdbService.SearchPersonsAsync(query);
-        return Ok(results.Select(r => new { r.Id, r.Name, r.ProfilePath, Department = r.KnownForDepartment }));
+        return Ok(results.Select(r => new { r.Id, r.Name, r.ProfilePath, Department = r.MediaType == TMDbLib.Objects.General.MediaType.Person ? "Person" : "Movie" }));
     }
 
     [HttpGet("person/{id}")]
@@ -98,7 +107,7 @@ public class TmdbController(ITmdbService tmdbService) : ControllerBase
             tmdbWikidataId = person.ExternalIds?.WikidataId,
             ProfileUrl = string.IsNullOrEmpty(person.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w500{person.ProfilePath}",
             person.Popularity,
-            Gender = person.Gender == TMDbLib.Objects.General.Gender.Female ? 1 : person.Gender == TMDbLib.Objects.General.Gender.Male ? 2 : 0,
+            Gender = (int)person.Gender,
             Deathday = person.Deathday?.ToString("yyyy-MM-dd"),
             person.KnownForDepartment,
             person.Adult,

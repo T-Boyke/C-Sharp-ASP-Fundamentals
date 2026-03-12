@@ -8,17 +8,29 @@
   <data name="BackToTeamLabel" xml:space="preserve"><value>Ekibe Geri Dön</value></data>
   <data name="Team" xml:space="preserve"><value>Ekip</value></data>
   <data name="ProfileInformation" xml:space="preserve"><value>Profil Bilgileri</value></data>
-  <data name="SystemID" xml:space="preserve"><value>Sistem ID</value></data>
-  <data name="Born" xml:space="preserve"><value>Doğum Tarihi</value></data>
-  <data name="NotAvailable" xml:space="preserve"><value>YOK</value></data>
+  <data name="SystemID" xml:space="preserve"><value>Sistem Kimliği</value></data>
+  <data name="Born" xml:space="preserve"><value>Doğum</value></data>
+  <data name="NotAvailable" xml:space="preserve"><value>Bilinmiyor</value></data>
   <data name="Place" xml:space="preserve"><value>Yer</value></data>
   <data name="Tags" xml:space="preserve"><value>Etiketler</value></data>
   <data name="Edit" xml:space="preserve"><value>Düzenle</value></data>
   <data name="EditLabel" xml:space="preserve"><value>{0} profilini düzenle</value></data>
   <data name="DeleteLabel" xml:space="preserve"><value>{0} profilini sil</value></data>
-  <data name="BornIn" xml:space="preserve"><value>yer:</value></data>
+  <data name="BornIn" xml:space="preserve"><value>yerinde</value></data>
   <data name="Biography" xml:space="preserve"><value>Biyografi</value></data>
   <data name="Filmography" xml:space="preserve"><value>Filmografi</value></data>
-  <data name="Projects" xml:space="preserve"><value>Proje</value></data>
+  <data name="Projects" xml:space="preserve"><value>Projeler</value></data>
   <data name="ViewFilmLabel" xml:space="preserve"><value>{0} filmini görüntüle</value></data>
+  <data name="Died" xml:space="preserve"><value>Ölüm</value></data>
+  <data name="Department" xml:space="preserve"><value>Bölüm</value></data>
+  <data name="Popularity" xml:space="preserve"><value>Popülerlik</value></data>
+  <data name="VisitWebsite" xml:space="preserve"><value>Resmi Web Sitesini Ziyaret Et</value></data>
+  <data name="Gender" xml:space="preserve"><value>Cinsiyet</value></data>
+  <data name="Male" xml:space="preserve"><value>Erkek</value></data>
+  <data name="Female" xml:space="preserve"><value>Kadın</value></data>
+  <data name="NonBinary" xml:space="preserve"><value>Non-binary</value></data>
+  <data name="Unknown" xml:space="preserve"><value>Bilinmiyor</value></data>
+  <data name="Awards" xml:space="preserve"><value>Ödüller ve Adaylıklar</value></data>
+  <data name="ProfileImageOf" xml:space="preserve"><value>{0} profil resmi</value></data>
+  <data name="OnlyAdults" xml:space="preserve"><value>Sadece Yetişkinler İçin</value></data>
 </root>

@@ -2,6 +2,7 @@ using _10_Filmdatenbank.Web.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -9,10 +10,12 @@ namespace _10_Filmdatenbank.UnitTests.Web
 {
     public class HomeControllerTests
     {
+        private readonly Mock<ILogger<HomeController>> _mockLogger = new();
+
         [Fact]
         public void Index_Returns_View()
         {
-            var controller = new HomeController();
+            var controller = new HomeController(_mockLogger.Object);
             var result = controller.Index();
             Assert.IsType<ViewResult>(result);
         }
@@ -20,7 +23,7 @@ namespace _10_Filmdatenbank.UnitTests.Web
         [Fact]
         public void Privacy_Returns_View()
         {
-            var controller = new HomeController();
+            var controller = new HomeController(_mockLogger.Object);
             var result = controller.Privacy();
             Assert.IsType<ViewResult>(result);
         }

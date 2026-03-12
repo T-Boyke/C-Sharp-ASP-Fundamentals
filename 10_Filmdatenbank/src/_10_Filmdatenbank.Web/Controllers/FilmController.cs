@@ -20,7 +20,7 @@ public class FilmController(ApplicationDbContext context) : Controller
     /// </summary>
     /// <param name="searchString">Optionaler Suchbegriff.</param>
     /// <returns>Die Index-View mit einer Liste von Filmen.</returns>
-    public async Task<IActionResult> Index(string? searchString)
+    public async Task<IActionResult> Index(string? searchString = null)
     {
         var query = context.Filme.AsQueryable();
 
@@ -53,6 +53,11 @@ public class FilmController(ApplicationDbContext context) : Controller
             .Include(f => f.ProductionCompanies)
             .Include(f => f.Collection)
             .Include(f => f.Releases)
+            .Include(f => f.ProductionCountries)
+            .Include(f => f.SpokenLanguages)
+            .Include(f => f.AlternativeTitles)
+            .Include(f => f.SimilarFilms)
+            .Include(f => f.RecommendedFilms)
             .Include(f => f.PersonEigenschaftFilme)
                 .ThenInclude(pef => pef.Person)
             .Include(f => f.PersonEigenschaftFilme)
@@ -77,10 +82,13 @@ public class FilmController(ApplicationDbContext context) : Controller
     /// <returns>Redirect zur Index-View bei Erfolg, andernfalls die Create-View mit Fehlern.</returns>
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Create(Film film, string? SelectedCastJson)
+    public async Task<IActionResult> Create(Film film, string? SelectedCastJson = null, string? SelectedGenresJson = null, string? SelectedKeywordsJson = null, string? SelectedCompaniesJson = null)
     {
         // Wir entfernen die Validierung für PersonEigenschaftFilme, da diese erst nach dem Film-Save verknüpft werden
         ModelState.Remove(nameof(film.PersonEigenschaftFilme));
+        ModelState.Remove(nameof(film.Genres));
+        ModelState.Remove(nameof(film.Keywords));
+        ModelState.Remove(nameof(film.ProductionCompanies));
 
         if (film.TmdbId.HasValue && await context.Filme.AnyAsync(f => f.TmdbId == film.TmdbId))
         {
@@ -94,6 +102,63 @@ public class FilmController(ApplicationDbContext context) : Controller
             context.Filme.Add(film);
             await context.SaveChangesAsync();
             TempData["Success"] = $"Film '{film.Titel}' wurde erfolgreich erstellt.";
+
+            // Handle Genres
+            if (!string.IsNullOrEmpty(SelectedGenresJson))
+            {
+                var genreNames = System.Text.Json.JsonSerializer.Deserialize<List<string>>(SelectedGenresJson);
+                if (genreNames != null)
+                {
+                    foreach (var name in genreNames)
+                    {
+                        var genre = await context.Genres.FirstOrDefaultAsync(g => g.Name == name)
+                                    ?? new Genre { Name = name };
+                        film.Genres.Add(genre);
+                    }
+                }
+            }
+
+            // Handle Keywords
+            if (!string.IsNullOrEmpty(SelectedKeywordsJson))
+            {
+                var keywordNames = System.Text.Json.JsonSerializer.Deserialize<List<string>>(SelectedKeywordsJson);
+                if (keywordNames != null)
+                {
+                    foreach (var name in keywordNames)
+                    {
+                        var keyword = await context.Keywords.FirstOrDefaultAsync(k => k.Name == name)
+                                      ?? new Keyword { Name = name };
+                        film.Keywords.Add(keyword);
+                    }
+                }
+            }
+
+            // Handle Production Companies
+            if (!string.IsNullOrEmpty(SelectedCompaniesJson))
+            {
+                var companies = System.Text.Json.JsonSerializer.Deserialize<List<CompanyDto>>(SelectedCompaniesJson);
+                if (companies != null)
+                {
+                    foreach (var item in companies)
+                    {
+                        var company = await context.ProductionCompanies.FirstOrDefaultAsync(c => c.TmdbId == item.Id)
+                                      ?? await context.ProductionCompanies.FirstOrDefaultAsync(c => c.Name == item.Name);
+                        
+                        if (company == null)
+                        {
+                            company = new ProductionCompany
+                            {
+                                Name = item.Name,
+                                TmdbId = item.Id,
+                                LogoUrl = item.LogoUrl,
+                                OriginCountry = item.OriginCountry
+                            };
+                            context.ProductionCompanies.Add(company);
+                        }
+                        film.ProductionCompanies.Add(company);
+                    }
+                }
+            }
 
             // Handle Cast Synchronization
             if (!string.IsNullOrEmpty(SelectedCastJson))
@@ -141,7 +206,6 @@ public class FilmController(ApplicationDbContext context) : Controller
                             };
                             context.PersonEigenschaftFilme.Add(pef);
                         }
-                        await context.SaveChangesAsync();
                     }
                 }
                 catch (Exception ex)
@@ -151,6 +215,7 @@ public class FilmController(ApplicationDbContext context) : Controller
                 }
             }
 
+            await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -161,6 +226,14 @@ public class FilmController(ApplicationDbContext context) : Controller
         }
 
         return View(film);
+    }
+
+    private class CompanyDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string? LogoUrl { get; set; }
+        public string? OriginCountry { get; set; }
     }
 
     private class CastMemberDto

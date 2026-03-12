@@ -69,8 +69,8 @@
                                 <span asp-validation-for="Titel" class="text-[10px] font-bold text-danger-primary mt-1 px-1"></span>
                             </div>
                             <div class="flex flex-col gap-1.5 flex-grow">
-                                <label asp-for="OriginalTitel" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Originaltitel</label>
-                                <input asp-for="OriginalTitel" id="inputOriginalTitle" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
+                                <label asp-for="OriginalTitle" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Originaltitel</label>
+                                <input asp-for="OriginalTitle" id="inputOriginalTitle" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
                             </div>
                         </div>
 
@@ -177,4 +177,78 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        const tmdbSearch = document.getElementById('tmdbMovieSearch');
+        const searchResults = document.getElementById('searchResults');
+
+        tmdbSearch.addEventListener('input', async (e) => {
+            const query = e.target.value;
+            if (query.length < 2) {
+                searchResults.classList.add('hidden');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/tmdb/search-movie?query=${encodeURIComponent(query)}`);
+                const movies = await response.json();
+
+                if (movies.length > 0) {
+                    searchResults.innerHTML = movies.map(movie => `
+                        <div onclick="selectMovie(${movie.id})" class="p-4 hover:bg-brand-soft/30 cursor-pointer border-b border-border-muted last:border-0 flex gap-4 items-center">
+                            <img src="${movie.posterPath || 'https://via.placeholder.com/45x68?text=?'}" class="w-11 h-16 rounded-md object-cover shadow-sm" />
+                            <div class="flex-grow min-w-0">
+                                <div class="font-black text-text-main dark:text-white truncate uppercase tracking-tight text-xs">${movie.title}</div>
+                                <div class="text-[10px] font-bold text-text-muted mt-0.5">${movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : 'Unbekannt'}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                    searchResults.classList.remove('hidden');
+                } else {
+                    searchResults.innerHTML = '<div class="p-6 text-center text-xs font-bold text-text-muted uppercase tracking-widest italic">Keine Filme gefunden</div>';
+                    searchResults.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+            }
+        });
+
+        async function selectMovie(id) {
+            try {
+                const response = await fetch(`/api/tmdb/movie/${id}`);
+                const movie = await response.json();
+
+                document.getElementById('inputTmdbId').value = movie.id || '';
+                document.getElementById('inputTitle').value = movie.title || '';
+                document.getElementById('inputOriginalTitle').value = movie.originalTitle || '';
+                document.getElementById('inputTagline').value = movie.tagline || '';
+                document.getElementById('inputYear').value = movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : '';
+                document.getElementById('inputDate').value = movie.releaseDate ? movie.releaseDate.split('T')[0] : '';
+                document.getElementById('inputRating').value = (movie.voteAverage || 0).toFixed(1);
+                document.getElementById('inputRuntime').value = movie.runtime || '';
+                document.getElementById('inputPosterUrl').value = movie.posterPath || '';
+                document.getElementById('inputPlot').value = movie.overview || '';
+                document.getElementById('inputBudget').value = movie.budget || 0;
+                document.getElementById('inputRevenue').value = movie.revenue || 0;
+
+                // Social IDs
+                if (document.getElementById('inputImdbId')) document.getElementById('inputImdbId').value = movie.imdbId || '';
+                if (document.getElementById('inputFacebookId')) document.getElementById('inputFacebookId').value = movie.facebookId || '';
+                if (document.getElementById('inputInstagramId')) document.getElementById('inputInstagramId').value = movie.instagramId || '';
+                if (document.getElementById('inputTwitterId')) document.getElementById('inputTwitterId').value = movie.twitterId || '';
+                if (document.getElementById('inputWikidataId')) document.getElementById('inputWikidataId').value = movie.wikidataId || '';
+                if (document.getElementById('inputPopularity')) document.getElementById('inputPopularity').value = movie.popularity || 0;
+
+                searchResults.classList.add('hidden');
+                tmdbSearch.value = movie.title;
+            } catch (error) {
+                console.error('Detail fetch error:', error);
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!tmdbSearch.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.classList.add('hidden');
+            }
+        });
+    </script>
 }

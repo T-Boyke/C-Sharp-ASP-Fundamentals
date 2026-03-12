@@ -1,21 +1,23 @@
 @model IEnumerable<_10_Filmdatenbank.Domain.Entities.ProductionCompany>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Studios";
+    ViewData["Title"] = Localizer["PageTitle"];
 }
 
 <div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
         <div>
-            <h1 class="text-5xl font-black tracking-tighter text-text-main dark:text-white leading-none transition-colors">Studios</h1>
-            <p class="mt-4 text-sm font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-[0.3em]">DIE SCHÖPFER DER GESCHICHTEN</p>
+            <h1 class="text-5xl font-black tracking-tighter text-text-main dark:text-white leading-none transition-colors">@Localizer["Heading"]</h1>
+            <p class="mt-4 text-sm font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-[0.3em]">@Localizer["Subheading"]</p>
         </div>
         
         <div class="flex-grow max-w-md">
             <form asp-action="Index" method="get" class="relative group">
                 <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" 
                        class="w-full pl-12 pr-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" 
-                       placeholder="Studios suchen..." />
+                       placeholder="@Localizer["SearchPlaceholder"]" />
                 <div class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-brand-primary transition-colors">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
@@ -32,7 +34,7 @@
         {
             <a asp-action="Create" class="btn-primary shadow-xl shadow-brand-shadow flex items-center gap-2 group">
                 <i class="fa-solid fa-building-circle-plus text-lg transition-transform group-hover:scale-110"></i>
-                <span class="font-black uppercase tracking-widest text-xs">Neues Studio</span>
+                <span class="font-black uppercase tracking-widest text-xs">@Localizer["NewStudio"]</span>
             </a>
         }
     </div>

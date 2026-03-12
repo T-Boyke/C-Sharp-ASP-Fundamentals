@@ -4,7 +4,7 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="BreadcrumbLabel" xml:space="preserve"><value>Навигация (хлебные крошки)</value></data>
+  <data name="BreadcrumbLabel" xml:space="preserve"><value>Навигация</value></data>
   <data name="BackToTeamLabel" xml:space="preserve"><value>Назад к команде</value></data>
   <data name="Team" xml:space="preserve"><value>Команда</value></data>
   <data name="ProfileInformation" xml:space="preserve"><value>Информация профиля</value></data>
@@ -21,4 +21,16 @@
   <data name="Filmography" xml:space="preserve"><value>Фильмография</value></data>
   <data name="Projects" xml:space="preserve"><value>Проекты</value></data>
   <data name="ViewFilmLabel" xml:space="preserve"><value>Посмотреть фильм {0}</value></data>
+  <data name="Died" xml:space="preserve"><value>Дата смерти</value></data>
+  <data name="Department" xml:space="preserve"><value>Отдел</value></data>
+  <data name="Popularity" xml:space="preserve"><value>Популярность</value></data>
+  <data name="VisitWebsite" xml:space="preserve"><value>Посетить официальный сайт</value></data>
+  <data name="Gender" xml:space="preserve"><value>Пол</value></data>
+  <data name="Male" xml:space="preserve"><value>Мужской</value></data>
+  <data name="Female" xml:space="preserve"><value>Женский</value></data>
+  <data name="NonBinary" xml:space="preserve"><value>Небинарный</value></data>
+  <data name="Unknown" xml:space="preserve"><value>Неизвестно</value></data>
+  <data name="Awards" xml:space="preserve"><value>Награды и номинации</value></data>
+  <data name="ProfileImageOf" xml:space="preserve"><value>Фото профиля {0}</value></data>
+  <data name="OnlyAdults" xml:space="preserve"><value>Только для взрослых</value></data>
 </root>

@@ -22,6 +22,14 @@
             <div class="absolute inset-0 bg-linear-to-t from-dark-surface via-dark-surface-soft/40 to-transparent"></div>
             <div class="absolute bottom-8 left-8 right-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
+                    <div class="badge-premium px-3 py-1 mb-4 inline-flex">
+                        <i aria-hidden="true" class="fa-solid fa-hashtag text-brand-primary"></i> @Model.FilmID
+                        @if (Model.TmdbId.HasValue)
+                        {
+                            <span class="mx-2 text-white/20">|</span>
+                            <span class="text-[10px] font-black text-white/60 uppercase tracking-widest">TMDB: @Model.TmdbId</span>
+                        }
+                    </div>
                    <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter drop-shadow-2xl">@Model.Titel</h1>
                    @if (!string.IsNullOrEmpty(Model.Tagline))
                    {
@@ -34,7 +42,7 @@
                             <i class="fa-solid fa-star"></i>
                         </div>
                         <div>
-                            <p class="text-[10px] font-black text-white/60 uppercase tracking-widest">TMDB Score</p>
+                            <p class="text-[10px] font-black text-white/60 uppercase tracking-widest">@Localizer["TmdbScore"]</p>
                             <p class="text-xl font-black text-white">@(Model.VoteAverage?.ToString("0.0") ?? "N/A")</p>
                         </div>
                     </div>
@@ -110,12 +118,12 @@
                         </span>
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Originaltitel</span>
+                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["OriginalTitle"]</span>
                         <span class="text-sm font-black text-text-main dark:text-white">@Model.OriginalTitle (@Model.OriginalLanguage?.ToUpper())</span>
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Popularität</span>
-                        <span class="text-sm font-black text-text-main dark:text-white">@(Model.Popularity?.ToString("0.0") ?? "N/A") (@Model.VoteCount Stimmen)</span>
+                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Popularity"]</span>
+                        <span class="text-sm font-black text-text-main dark:text-white">@(Model.Popularity?.ToString("0.0") ?? "N/A") (@Model.VoteCount @Localizer["Votes"])</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Release"]</span>
@@ -128,7 +136,7 @@
                     @if (Model.Collection != null)
                     {
                         <div class="flex flex-col">
-                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Filmreihe</span>
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["CollectionSeries"]</span>
                             <a asp-controller="Collection" asp-action="Details" asp-route-id="@Model.CollectionID" class="text-sm font-black text-brand-primary hover:text-brand-hover transition-colors">
                                 @Model.Collection.Name
                             </a>
@@ -137,11 +145,11 @@
                     @if (Model.ProductionCompanies?.Any() == true)
                     {
                         <div class="flex flex-col">
-                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Studios</span>
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Studios"]</span>
                             <div class="flex flex-wrap gap-2 mt-1">
                                 @foreach (var studio in Model.ProductionCompanies)
                                 {
-                                    <a asp-controller="ProductionCompany" asp-action="Details" asp-route-id="@studio.CompanyID" class="text-xs font-bold text-text-main dark:text-white hover:text-brand-primary transition-colors flex items-center gap-1">
+                                    <a asp-controller="ProductionCompany" asp-action="Details" asp-route-id="@studio.ProductionCompanyID" class="text-xs font-bold text-text-main dark:text-white hover:text-brand-primary transition-colors flex items-center gap-1">
                                         @if (!string.IsNullOrEmpty(studio.LogoUrl))
                                         {
                                             <img src="@studio.LogoUrl" alt="" class="w-4 h-4 object-contain" />
@@ -155,22 +163,36 @@
                     @if (!string.IsNullOrEmpty(Model.Status))
                     {
                         <div class="flex flex-col">
-                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Status</span>
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Status"]</span>
                             <span class="text-sm font-black text-text-main dark:text-white">@Model.Status</span>
                         </div>
                     }
                      @if (Model.Budget > 0)
                     {
                         <div class="flex flex-col">
-                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Budget</span>
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Budget"]</span>
                             <span class="text-sm font-black text-text-main dark:text-white">$@Model.Budget?.ToString("N0")</span>
                         </div>
                     }
                     @if (Model.Revenue > 0)
                     {
                         <div class="flex flex-col">
-                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Einnahmen</span>
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Revenue"]</span>
                             <span class="text-sm font-black text-text-main dark:text-white">$@Model.Revenue?.ToString("N0")</span>
+                        </div>
+                    }
+                    @if (Model.ProductionCountries?.Any() == true)
+                    {
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["ProductionCountries"]</span>
+                            <span class="text-xs font-black text-text-main dark:text-white">@(string.Join(", ", Model.ProductionCountries.Select(c => c.Name)))</span>
+                        </div>
+                    }
+                    @if (Model.SpokenLanguages?.Any() == true)
+                    {
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["SpokenLanguages"]</span>
+                            <span class="text-xs font-black text-text-main dark:text-white">@(string.Join(", ", Model.SpokenLanguages.Select(l => l.Name)))</span>
                         </div>
                     }
                     
@@ -212,7 +234,7 @@
                     @if (!string.IsNullOrEmpty(Model.Homepage))
                     {
                         <div class="flex flex-col">
-                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Webseite</span>
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Website"]</span>
                             <a href="@Model.Homepage" target="_blank" class="text-xs font-black text-brand-primary hover:text-brand-hover transition-colors truncate">
                                 <i class="fa-solid fa-link mr-1"></i> @Model.Homepage
                             </a>
@@ -256,6 +278,21 @@
                 </p>
             </header>
 
+            @if (!string.IsNullOrEmpty(Model.Awards))
+            {
+                <section>
+                    <div class="glass-premium p-8 rounded-3xl border border-brand-primary/20 flex items-center gap-6 shadow-2xl">
+                        <div class="w-16 h-16 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black text-brand-primary uppercase tracking-[0.25em] mb-2">@Localizer["Awards"]</h3>
+                            <p class="text-lg font-bold text-text-main dark:text-white leading-tight">@Model.Awards</p>
+                        </div>
+                    </div>
+                </section>
+            }
+
             <section>
                 <div class="form-group-header !mb-6">
                     <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["Plot"]</h2>
@@ -270,14 +307,14 @@
             {
                 <section>
                     <div class="form-group-header !mb-8">
-                        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">Trailer</h2>
+                        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["Trailer"]</h2>
                         <div class="h-1 w-12 bg-brand-primary rounded-full mt-1"></div>
                     </div>
                     
                     <div class="card-glass overflow-hidden aspect-video border border-border-default dark:border-dark-border shadow-2xl relative group">
                         <iframe width="100%" height="100%" 
                                 src="@Model.TrailerUrl" 
-                                title="YouTube video player" 
+                                title='@Localizer["TrailerPlayerTitle"]' 
                                 frameborder="0" 
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                                 referrerpolicy="strict-origin-when-cross-origin" 
@@ -324,7 +361,47 @@
                         </a>
                     }
                 </div>
-            </section>
+            @if (Model.SimilarFilms?.Any() == true)
+            {
+                <section>
+                    <div class="form-group-header !mb-8">
+                        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["SimilarFilms"]</h2>
+                        <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        @foreach (var sim in Model.SimilarFilms.Take(4))
+                        {
+                            <a asp-action="Details" asp-route-id="@sim.FilmID" class="group block">
+                                <div class="aspect-[2/3] rounded-xl overflow-hidden border border-border-muted transition-all group-hover:border-brand-primary shadow-sm hover:shadow-xl">
+                                    <img src="@sim.PosterUrl" alt="@sim.Titel" class="w-full h-full object-cover transition-transform group-hover:scale-110" />
+                                </div>
+                                <p class="mt-2 text-[10px] font-black text-text-main dark:text-white truncate">@sim.Titel</p>
+                            </a>
+                        }
+                    </div>
+                </section>
+            }
+
+            @if (Model.RecommendedFilms?.Any() == true)
+            {
+                <section>
+                    <div class="form-group-header !mb-8">
+                        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["RecommendedFilms"]</h2>
+                        <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        @foreach (var rec in Model.RecommendedFilms.Take(4))
+                        {
+                            <a asp-action="Details" asp-route-id="@rec.FilmID" class="group block">
+                                <div class="aspect-[2/3] rounded-xl overflow-hidden border border-border-muted transition-all group-hover:border-brand-primary shadow-sm hover:shadow-xl">
+                                    <img src="@rec.PosterUrl" alt="@rec.Titel" class="w-full h-full object-cover transition-transform group-hover:scale-110" />
+                                </div>
+                                <p class="mt-2 text-[10px] font-black text-text-main dark:text-white truncate">@rec.Titel</p>
+                            </a>
+                        }
+                    </div>
+                </section>
+            }
         </div>
     </div>
 </div>

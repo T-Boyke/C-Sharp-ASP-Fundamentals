@@ -161,7 +161,7 @@
                 }
 
                 searchTimeout = setTimeout(function() {
-                    $.get('/Tmdb/search-person?query=' + encodeURIComponent(query), function(data) {
+                    $.get('/api/tmdb/search-person?query=' + encodeURIComponent(query), function(data) {
                         $results.empty().show();
                         if (data.length === 0) {
                             $results.append('<div class="p-4 text-sm text-text-muted">Keine Ergebnisse gefunden</div>');
@@ -191,7 +191,7 @@
                 $results.hide();
                 $search.val('Lade Details...');
 
-                $.get('/Tmdb/person/' + id, function(p) {
+                $.get('/api/tmdb/person/' + id, function(p) {
                     $search.val(p.name);
                     
                     // Split name

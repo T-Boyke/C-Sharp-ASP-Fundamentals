@@ -11,13 +11,32 @@
   <data name="IncVat" xml:space="preserve"><value>KDV Dahil</value></data>
   <data name="Edit" xml:space="preserve"><value>Düzenle</value></data>
   <data name="Delete" xml:space="preserve"><value>Sil</value></data>
-  <data name="MovieFacts" xml:space="preserve"><value>Film Hakkında</value></data>
+  <data name="MovieFacts" xml:space="preserve"><value>Film Hakkında Bilgiler</value></data>
   <data name="Genre" xml:space="preserve"><value>Tür</value></data>
-  <data name="Release" xml:space="preserve"><value>Yayın</value></data>
+  <data name="Release" xml:space="preserve"><value>Yayınlanma</value></data>
   <data name="Runtime" xml:space="preserve"><value>Süre</value></data>
   <data name="MinSuffix" xml:space="preserve"><value>dk</value></data>
   <data name="Tags" xml:space="preserve"><value>Etiketler</value></data>
-  <data name="Plot" xml:space="preserve"><value>Konu</value></data>
-  <data name="CastTeam" xml:space="preserve"><value>Oyuncu Kadrosu ve Ekip</value></data>
+  <data name="Plot" xml:space="preserve"><value>Özet</value></data>
+  <data name="CastTeam" xml:space="preserve"><value>Oyuncular ve Ekip</value></data>
   <data name="ContributorsCount" xml:space="preserve"><value>Katılımcı</value></data>
+  <data name="TmdbScore" xml:space="preserve"><value>TMDB Puanı</value></data>
+  <data name="OriginalTitle" xml:space="preserve"><value>Orijinal Başlık</value></data>
+  <data name="Popularity" xml:space="preserve"><value>Popülerlik</value></data>
+  <data name="Votes" xml:space="preserve"><value>Oylar</value></data>
+  <data name="CollectionSeries" xml:space="preserve"><value>Serinin Parçası</value></data>
+  <data name="Status" xml:space="preserve"><value>Durum</value></data>
+  <data name="Budget" xml:space="preserve"><value>Bütçe</value></data>
+  <data name="Revenue" xml:space="preserve"><value>Gelir</value></data>
+  <data name="ProductionCountries" xml:space="preserve"><value>Yapım Ülkeleri</value></data>
+  <data name="SpokenLanguages" xml:space="preserve"><value>Konuşulan Diller</value></data>
+  <data name="Website" xml:space="preserve"><value>Resmi Web Sitesi</value></data>
+  <data name="Awards" xml:space="preserve"><value>Ödüller ve Adaylıklar</value></data>
+  <data name="AdultContent" xml:space="preserve"><value>Yetişkin İçeriği</value></data>
+  <data name="TrailerPlayerTitle" xml:space="preserve"><value>YouTube Video Oynatıcı</value></data>
+  <data name="SimilarFilms" xml:space="preserve"><value>Benzer Filmler</value></data>
+  <data name="RecommendedFilms" xml:space="preserve"><value>Sizin İçin Önerilenler</value></data>
+  <data name="Trailer" xml:space="preserve"><value>Fragman</value></data>
+  <data name="PosterOf" xml:space="preserve"><value>{0} Afişi</value></data>
+  <data name="Studios" xml:space="preserve"><value>Stüdyolar</value></data>
 </root>

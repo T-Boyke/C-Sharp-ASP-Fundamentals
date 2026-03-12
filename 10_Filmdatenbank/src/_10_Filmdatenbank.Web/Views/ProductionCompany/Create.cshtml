@@ -1,16 +1,18 @@
 @model _10_Filmdatenbank.Domain.Entities.ProductionCompany
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Neues Studio";
+    ViewData["Title"] = Localizer["CreateTitle"];
 }
 
 <div class="mx-auto max-w-3xl px-6 lg:px-8 py-16">
     <div class="mb-8">
-        <label for="tmdbStudioSearch" class="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em] mb-3 block px-1">TMDB Suche</label>
+        <label for="tmdbStudioSearch" class="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em] mb-3 block px-1">@Localizer["TmdbSearchLabel"]</label>
         <div class="relative group">
             <input type="text" id="tmdbStudioSearch" 
                    class="w-full pl-12 pr-4 py-4 rounded-2xl bg-surface-overlay dark:bg-dark-surface-soft border-2 border-border-default dark:border-dark-border focus:border-brand-primary outline-hidden transition-all font-black text-text-main dark:text-white shadow-lg group-hover:border-brand-primary/50" 
-                   placeholder="Name des Studios suchen..." />
+                   placeholder="@Localizer["TmdbSearchPlaceholder"]" />
             <div class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-brand-primary transition-colors">
                 <i class="fa-solid fa-magnifying-glass text-xl"></i>
             </div>
@@ -26,50 +28,50 @@
 
             <div class="form-group-header">
                 <div>
-                    <h2 class="text-xl font-black text-text-main dark:text-white uppercase tracking-tight">Studio-Informationen</h2>
-                    <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mt-1">Stammdaten des Produktionsunternehmens</p>
+                    <h2 class="text-xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["SectionHeader"]</h2>
+                    <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mt-1">@Localizer["SectionSubheader"]</p>
                 </div>
                 <i class="fa-solid fa-industry text-border-default dark:text-dark-surface-muted text-2xl"></i>
             </div>
 
             <div class="space-y-8">
                 <div class="flex flex-col gap-1.5">
-                    <label asp-for="Name" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Name</label>
+                    <label asp-for="Name" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelName"]</label>
                     <input asp-for="Name" id="inputName" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
                     <span asp-validation-for="Name" class="text-[10px] font-bold text-danger-primary mt-1 px-1"></span>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label asp-for="Description" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Beschreibung</label>
+                    <label asp-for="Description" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelDescription"]</label>
                     <textarea asp-for="Description" id="inputDescription" rows="4" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:border-brand-primary outline-hidden transition-all font-medium text-text-description dark:text-dark-text-muted"></textarea>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="LogoUrl" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Logo URL</label>
+                        <label asp-for="LogoUrl" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelLogoUrl"]</label>
                         <input asp-for="LogoUrl" id="inputLogoUrl" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="OriginCountry" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Herkunftsland (ISO)</label>
+                        <label asp-for="OriginCountry" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelOriginCountry"]</label>
                         <input asp-for="OriginCountry" id="inputOriginCountry" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Headquarters" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Hauptsitz</label>
+                        <label asp-for="Headquarters" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelHeadquarters"]</label>
                         <input asp-for="Headquarters" id="inputHeadquarters" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Homepage" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Webseite</label>
+                        <label asp-for="Homepage" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelHomepage"]</label>
                         <input asp-for="Homepage" id="inputHomepage" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
                     </div>
                 </div>
             </div>
 
             <div class="form-group-footer">
-                <a asp-action="Index" class="btn-secondary">Abbrechen</a>
-                <button type="submit" class="btn-primary">Erstellen</button>
+                <a asp-action="Index" class="btn-secondary">@Localizer["Cancel"]</a>
+                <button type="submit" class="btn-primary">@Localizer["Create"]</button>
             </div>
         </form>
     </div>
@@ -91,7 +93,7 @@
                 }
 
                 searchTimeout = setTimeout(function() {
-                    $.get('/Tmdb/search-studio?query=' + encodeURIComponent(query), function(data) {
+                    $.get('/api/tmdb/search-studio?query=' + encodeURIComponent(query), function(data) {
                         $results.empty().show();
                         data.forEach(s => {
                             const html = `
@@ -111,9 +113,9 @@
             $(document).on('click', '.select-studio', function() {
                 const id = $(this).data('id');
                 $results.hide();
-                $search.val('Lade Details...');
+                $search.val('@Localizer["LoadingDetails"]');
 
-                $.get('/Tmdb/studio/' + id, function(s) {
+                $.get('/api/tmdb/studio/' + id, function(s) {
                     $search.val(s.name);
                     $('#inputName').val(s.name);
                     $('#inputDescription').val(s.description);
@@ -122,7 +124,7 @@
                     $('#inputHeadquarters').val(s.headquarters);
                     $('#inputHomepage').val(s.homepage);
                     $('#inputTmdbId').val(s.id);
-                    toastr.success('Daten geladen!');
+                    toastr.success('@Localizer["DataLoaded"]');
                 });
             });
         });

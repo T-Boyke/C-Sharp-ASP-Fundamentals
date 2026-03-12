@@ -11,7 +11,7 @@ public class ProductionCompany
     /// <summary>
     /// Die eindeutige Kennung der Firma in der lokalen Datenbank.
     /// </summary>
-    public int CompanyID { get; set; }
+    public int ProductionCompanyID { get; set; }
 
     /// <summary>
     /// Die ID der Firma auf TMDB.
@@ -28,7 +28,7 @@ public class ProductionCompany
     /// <summary>
     /// Der Pfad zum Logo der Firma.
     /// </summary>
-    public string? LogoPath { get; set; }
+    public string? LogoUrl { get; set; }
 
     /// <summary>
     /// Das Herkunftsland der Firma (ISO 3166-1).

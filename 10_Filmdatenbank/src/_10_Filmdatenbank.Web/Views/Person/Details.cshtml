@@ -46,7 +46,7 @@
                             @if (Model.Deathday.HasValue)
                             {
                                 <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted text-danger-primary">
-                                    <span class="text-xs font-bold">Gestorben</span>
+                                    <span class="text-xs font-bold">@Localizer["Died"]</span>
                                     <span class="text-xs font-black">@Model.Deathday.Value.ToString("dd.MM.yyyy")</span>
                                 </div>
                             }
@@ -57,23 +57,35 @@
                                     <span class="text-xs font-black text-text-main dark:text-white">@Model.Geburtsort</span>
                                 </div>
                             }
+                            <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted">
+                                <span class="text-xs font-bold text-text-muted">@Localizer["Gender"]</span>
+                                <span class="text-xs font-black text-text-main dark:text-white">
+                                    @(Model.Gender switch
+                                    {
+                                        1 => Localizer["Female"].Value,
+                                        2 => Localizer["Male"].Value,
+                                        3 => Localizer["NonBinary"].Value,
+                                        _ => Localizer["Unknown"].Value
+                                    })
+                                </span>
+                            </div>
                             @if (!string.IsNullOrEmpty(Model.KnownForDepartment))
                             {
                                 <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted">
-                                    <span class="text-xs font-bold text-text-muted">Bereich</span>
+                                    <span class="text-xs font-bold text-text-muted">@Localizer["Department"]</span>
                                     <span class="text-xs font-black text-text-main dark:text-white">@Model.KnownForDepartment</span>
                                 </div>
                             }
                             <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted">
-                                <span class="text-xs font-bold text-text-muted">Popularität</span>
-                                <span class="text-xs font-black text-text-main dark:text-white">@(Model.Popularity?.ToString("0.0") ?? "N/A")</span>
+                                <span class="text-xs font-bold text-text-muted">@Localizer["Popularity"]</span>
+                                <span class="text-xs font-black text-text-main dark:text-white transition-colors">@(Model.Popularity?.ToString("0.0") ?? "N/A")</span>
                             </div>
                             
                             @if (!string.IsNullOrEmpty(Model.Homepage))
                             {
                                 <div class="py-2 border-b border-border-muted dark:border-dark-border-muted">
                                     <a href="@Model.Homepage" target="_blank" class="text-xs font-black text-brand-primary hover:text-brand-hover flex items-center gap-2">
-                                        <i class="fa-solid fa-link"></i> Webseite besuchen
+                                        <i class="fa-solid fa-link"></i> @Localizer["VisitWebsite"]
                                     </a>
                                 </div>
                             }
@@ -111,7 +123,7 @@
                                 }
                                 @if (Model.Adult)
                                 {
-                                    <span class="px-2 py-1 rounded bg-danger-primary text-white text-[10px] font-black uppercase tracking-tighter shadow-lg" title="Nur für Erwachsene">
+                                    <span class="px-2 py-1 rounded bg-danger-primary text-white text-[10px] font-black uppercase tracking-tighter shadow-lg" title='@Localizer["OnlyAdults"]'>
                                         18+
                                     </span>
                                 }
@@ -183,10 +195,25 @@
                 }
             </header>
 
+            @if (!string.IsNullOrEmpty(Model.Awards))
+            {
+                <section>
+                    <div class="glass-premium p-8 rounded-3xl border border-brand-primary/20 flex items-center gap-6 shadow-2xl">
+                        <div class="w-16 h-16 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black text-brand-primary uppercase tracking-[0.25em] mb-2">@Localizer["Awards"]</h3>
+                            <p class="text-lg font-bold text-text-main dark:text-white leading-tight">@Model.Awards</p>
+                        </div>
+                    </div>
+                </section>
+            }
+
             <section>
                 <div class="form-group-header !mb-6">
                     <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["Biography"]</h2>
-                    <div class="h-1 w-12 bg-brand-primary rounded-full"></div>
+                    <div class="h-1 w-12 bg-brand-primary rounded-full transition-colors"></div>
                 </div>
                 <p class="text-lg text-text-description dark:text-dark-text-muted leading-relaxed italic pl-8 border-l-4 border-border-muted dark:border-dark-border transition-colors">
                     @Model.Biografie

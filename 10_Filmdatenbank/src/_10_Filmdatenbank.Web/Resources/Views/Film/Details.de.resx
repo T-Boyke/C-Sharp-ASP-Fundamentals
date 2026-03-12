@@ -20,4 +20,23 @@
   <data name="Plot" xml:space="preserve"><value>Handlung</value></data>
   <data name="CastTeam" xml:space="preserve"><value>Besetzung &amp; Team</value></data>
   <data name="ContributorsCount" xml:space="preserve"><value>Mitwirkende</value></data>
+  <data name="TmdbScore" xml:space="preserve"><value>TMDB Bewertung</value></data>
+  <data name="OriginalTitle" xml:space="preserve"><value>Originaltitel</value></data>
+  <data name="Popularity" xml:space="preserve"><value>Popularität</value></data>
+  <data name="Votes" xml:space="preserve"><value>Stimmen</value></data>
+  <data name="CollectionSeries" xml:space="preserve"><value>Filmreihe</value></data>
+  <data name="Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Budget" xml:space="preserve"><value>Budget</value></data>
+  <data name="Revenue" xml:space="preserve"><value>Einnahmen</value></data>
+  <data name="ProductionCountries" xml:space="preserve"><value>Produktionsländer</value></data>
+  <data name="SpokenLanguages" xml:space="preserve"><value>Gesprochene Sprachen</value></data>
+  <data name="Website" xml:space="preserve"><value>Offizielle Webseite</value></data>
+  <data name="Awards" xml:space="preserve"><value>Auszeichnungen &amp; Nominierungen</value></data>
+  <data name="AdultContent" xml:space="preserve"><value>Inhalt für Erwachsene</value></data>
+  <data name="TrailerPlayerTitle" xml:space="preserve"><value>YouTube-Videoplayer</value></data>
+  <data name="SimilarFilms" xml:space="preserve"><value>Ähnliche Filme</value></data>
+  <data name="RecommendedFilms" xml:space="preserve"><value>Für dich empfohlen</value></data>
+  <data name="Trailer" xml:space="preserve"><value>Trailer</value></data>
+  <data name="PosterOf" xml:space="preserve"><value>Poster von {0}</value></data>
+  <data name="Studios" xml:space="preserve"><value>Studios</value></data>
 </root>

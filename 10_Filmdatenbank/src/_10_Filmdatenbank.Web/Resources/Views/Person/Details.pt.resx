@@ -4,13 +4,13 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="BreadcrumbLabel" xml:space="preserve"><value>Navegação Breadcrumb</value></data>
+  <data name="BreadcrumbLabel" xml:space="preserve"><value>Navegação</value></data>
   <data name="BackToTeamLabel" xml:space="preserve"><value>Voltar para a Equipe</value></data>
   <data name="Team" xml:space="preserve"><value>Equipe</value></data>
   <data name="ProfileInformation" xml:space="preserve"><value>Informações do Perfil</value></data>
   <data name="SystemID" xml:space="preserve"><value>ID do Sistema</value></data>
-  <data name="Born" xml:space="preserve"><value>Nascido em</value></data>
-  <data name="NotAvailable" xml:space="preserve"><value>N/D</value></data>
+  <data name="Born" xml:space="preserve"><value>Nascimento</value></data>
+  <data name="NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Place" xml:space="preserve"><value>Local</value></data>
   <data name="Tags" xml:space="preserve"><value>Tags</value></data>
   <data name="Edit" xml:space="preserve"><value>Editar</value></data>
@@ -21,4 +21,16 @@
   <data name="Filmography" xml:space="preserve"><value>Filmografia</value></data>
   <data name="Projects" xml:space="preserve"><value>Projetos</value></data>
   <data name="ViewFilmLabel" xml:space="preserve"><value>Ver filme {0}</value></data>
+  <data name="Died" xml:space="preserve"><value>Falecimento</value></data>
+  <data name="Department" xml:space="preserve"><value>Departamento</value></data>
+  <data name="Popularity" xml:space="preserve"><value>Popularidade</value></data>
+  <data name="VisitWebsite" xml:space="preserve"><value>Visitar Website Oficial</value></data>
+  <data name="Gender" xml:space="preserve"><value>Gênero</value></data>
+  <data name="Male" xml:space="preserve"><value>Masculino</value></data>
+  <data name="Female" xml:space="preserve"><value>Feminino</value></data>
+  <data name="NonBinary" xml:space="preserve"><value>Não binário</value></data>
+  <data name="Unknown" xml:space="preserve"><value>Desconhecido</value></data>
+  <data name="Awards" xml:space="preserve"><value>Prêmios e Nomeações</value></data>
+  <data name="ProfileImageOf" xml:space="preserve"><value>Foto de perfil de {0}</value></data>
+  <data name="OnlyAdults" xml:space="preserve"><value>Apenas para Adultos</value></data>
 </root>

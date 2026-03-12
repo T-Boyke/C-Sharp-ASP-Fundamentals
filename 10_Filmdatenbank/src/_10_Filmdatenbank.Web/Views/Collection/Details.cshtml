@@ -9,47 +9,59 @@
 <div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
     <nav class="flex mb-8 items-center gap-4 text-sm font-bold text-text-muted uppercase tracking-widest">
         <a asp-action="Index" class="nav-link">
-            <i class="fa-solid fa-arrow-left"></i> Reihen
+            <i class="fa-solid fa-arrow-left"></i> @Localizer["BackToCollections"]
         </a>
         <span class="h-1 w-1 rounded-full bg-border-default"></span>
     </nav>
 
-    <div class="relative w-full h-80 md:h-[450px] rounded-3xl overflow-hidden mb-12 shadow-2xl transition-all">
+    <div class="relative w-full h-[500px] rounded-3xl overflow-hidden mb-12 shadow-2xl transition-all group">
         @if (!string.IsNullOrEmpty(Model.BackdropUrl))
         {
-            <img src="@Model.BackdropUrl" alt="" class="w-full h-full object-cover" />
+            <img src="@Model.BackdropUrl" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         }
         else
         {
             <div class="w-full h-full bg-dark-surface-soft"></div>
         }
-        <div class="absolute inset-0 bg-linear-to-t from-dark-surface via-dark-surface/40 to-transparent"></div>
-        <div class="absolute bottom-12 left-12 right-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
-            <div class="max-w-2xl">
+        <div class="absolute inset-0 bg-linear-to-t from-dark-surface via-dark-surface/60 to-transparent"></div>
+        
+        <div class="absolute bottom-12 left-12 right-12 flex flex-col md:flex-row gap-12 items-end">
+            @if (!string.IsNullOrEmpty(Model.PosterUrl))
+            {
+                <div class="hidden md:block w-48 shrink-0 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10 transition-transform hover:scale-105">
+                    <img src="@Model.PosterUrl" alt="@Model.Name Poster" class="w-full h-full object-cover" />
+                </div>
+            }
+            <div class="flex-grow">
                 <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter drop-shadow-2xl">@Model.Name</h1>
                 @if (!string.IsNullOrEmpty(Model.Overview))
                 {
-                    <p class="mt-6 text-lg text-white/80 font-medium leading-relaxed drop-shadow-lg">@Model.Overview</p>
+                    <p class="mt-6 text-lg text-white/90 font-medium leading-relaxed drop-shadow-lg max-w-3xl line-clamp-3">@Model.Overview</p>
                 }
-                @if (Model.TmdbId > 0)
-                {
-                    <div class="mt-4 flex items-center gap-2 text-[10px] font-black text-white/60 uppercase tracking-widest">
-                        <i class="fa-solid fa-database"></i> TMDB #@Model.TmdbId
+                <div class="mt-6 flex flex-wrap gap-4">
+                    @if (Model.TmdbId > 0)
+                    {
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-black text-white uppercase tracking-widest leading-none">
+                            <i class="fa-solid fa-database"></i> TMDB #@Model.TmdbId
+                        </div>
+                    }
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-black text-white uppercase tracking-widest leading-none">
+                        <i class="fa-solid fa-film"></i> @Model.Films.Count @Localizer["Films"]
                     </div>
-                }
+                </div>
             </div>
             
             @if (User.IsInRole("Admin"))
             {
-                <div class="flex gap-4">
-                    <a asp-action="Edit" asp-route-id="@Model.CollectionID" class="btn-primary">Bearbeiten</a>
+                <div class="shrink-0 mb-2">
+                    <a asp-action="Edit" asp-route-id="@Model.CollectionID" class="btn-primary">@Localizer["Edit"]</a>
                 </div>
             }
         </div>
     </div>
 
     <div class="form-group-header !mb-12">
-        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">Filme in dieser Reihe</h2>
+        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["FilmsInCollectionHeader"]</h2>
         <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
     </div>
 

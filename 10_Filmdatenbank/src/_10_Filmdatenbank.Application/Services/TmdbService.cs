@@ -54,7 +54,7 @@ public class TmdbService : ITmdbService
 
     public async Task<Collection> GetCollectionDetailsAsync(int tmdbId, string language = "de-DE")
     {
-        return await _client.GetCollectionAsync(tmdbId, language: language);
+        return await _client.GetCollectionAsync(tmdbId, language, null, (CollectionMethods)0);
     }
 
     public async Task<IEnumerable<SearchCompany>> SearchCompaniesAsync(string query, string language = "de-DE")
@@ -63,7 +63,7 @@ public class TmdbService : ITmdbService
         return results.Results;
     }
 
-    public async Task<ProductionCompany> GetCompanyDetailsAsync(int tmdbId)
+    public async Task<TMDbLib.Objects.Companies.Company> GetCompanyDetailsAsync(int tmdbId)
     {
         return await _client.GetCompanyAsync(tmdbId);
     }

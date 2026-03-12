@@ -102,7 +102,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
                 .WithMany(pc => pc.Films)
                 .UsingEntity<Dictionary<string, object>>(
                     "FilmProductionCompanies",
-                    j => j.HasOne<ProductionCompany>().WithMany().HasForeignKey("CompanyID"),
+                    j => j.HasOne<ProductionCompany>().WithMany().HasForeignKey("ProductionCompanyID"),
                     j => j.HasOne<Film>().WithMany().HasForeignKey("FilmID"),
                     j => j.ToTable("FilmProductionCompanies"));
 
@@ -159,7 +159,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         builder.Entity<Genre>(entity => entity.HasKey(g => g.GenreID));
         builder.Entity<Keyword>(entity => entity.HasKey(k => k.KeywordID));
         builder.Entity<Collection>(entity => entity.HasKey(c => c.CollectionID));
-        builder.Entity<ProductionCompany>(entity => entity.HasKey(pc => pc.CompanyID));
+        builder.Entity<ProductionCompany>(entity => entity.HasKey(pc => pc.ProductionCompanyID));
         builder.Entity<Eigenschaft>(entity => entity.HasKey(e => e.EigenschaftID));
         builder.Entity<Country>(entity => entity.HasKey(c => c.Iso_3166_1));
         builder.Entity<Language>(entity => entity.HasKey(l => l.Iso_639_1));

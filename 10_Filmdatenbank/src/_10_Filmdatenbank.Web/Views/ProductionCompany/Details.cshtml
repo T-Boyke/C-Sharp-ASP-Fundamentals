@@ -1,4 +1,6 @@
 @model _10_Filmdatenbank.Domain.Entities.ProductionCompany
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = Model.Name;
@@ -7,7 +9,7 @@
 <div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
     <nav class="flex mb-12 items-center gap-4 text-sm font-bold text-text-muted uppercase tracking-widest">
         <a asp-action="Index" class="nav-link">
-            <i class="fa-solid fa-arrow-left"></i> Studios
+            <i class="fa-solid fa-arrow-left"></i> @Localizer["BackToStudios"]
         </a>
         <span class="h-1 w-1 rounded-full bg-border-default"></span>
     </nav>
@@ -45,7 +47,7 @@
                     @if (!string.IsNullOrEmpty(Model.Homepage))
                     {
                         <a href="@Model.Homepage" target="_blank" class="text-xs font-black text-brand-primary hover:underline flex items-center gap-2">
-                            <i class="fa-solid fa-globe"></i> Offizielle Webseite
+                            <i class="fa-solid fa-globe"></i> @Localizer["OfficialWebsite"]
                         </a>
                     }
                 </div>
@@ -58,22 +60,37 @@
                 </div>
             }
 
+            <div class="flex flex-wrap gap-4 pt-6">
+                @if (Model.TmdbId > 0)
+                {
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-subtle dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest">
+                        <i class="fa-solid fa-database"></i> @Localizer["TmdbId"] #@Model.TmdbId
+                    </div>
+                }
+                @if (Model.ParentCompany != null)
+                {
+                    <a asp-action="Details" asp-route-id="@Model.ParentCompanyID" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-brand-primary/5 hover:bg-brand-primary/10 border border-brand-primary/20 text-[10px] font-black text-brand-primary uppercase tracking-widest transition-colors">
+                        <i class="fa-solid fa-sitemap"></i> @Localizer["ParentCompany"]: @Model.ParentCompany.Name
+                    </a>
+                }
+            </div>
+
             @if (User.IsInRole("Admin"))
             {
                 <div class="pt-6 border-t border-border-muted dark:border-dark-border">
-                    <a asp-action="Edit" asp-route-id="@Model.ProductionCompanyID" class="btn-primary">Bearbeiten</a>
+                    <a asp-action="Edit" asp-route-id="@Model.ProductionCompanyID" class="btn-primary">@Localizer["Edit"]</a>
                 </div>
             }
         </div>
     </div>
 
     <div class="form-group-header !mb-12">
-        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">Produzierte Filme</h2>
+        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["ProducedFilmsHeader"]</h2>
         <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        @foreach (var film in Model.ProduzierteFilme.OrderByDescending(f => f.Erscheinungsjahr))
+        @foreach (var film in Model.Films.OrderByDescending(f => f.Erscheinungsjahr))
         {
             <a asp-controller="Film" asp-action="Details" asp-route-id="@film.FilmID" class="card-premium group flex flex-col">
                 <div class="aspect-[2/3] relative overflow-hidden bg-surface-subtle dark:bg-dark-surface-soft">

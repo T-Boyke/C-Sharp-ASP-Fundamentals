@@ -54,15 +54,15 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
             modelBuilder.Entity("FilmProductionCompanies", b =>
                 {
-                    b.Property<int>("CompanyID")
-                        .HasColumnType("int");
-
                     b.Property<int>("FilmID")
                         .HasColumnType("int");
 
-                    b.HasKey("CompanyID", "FilmID");
+                    b.Property<int>("ProductionCompanyID")
+                        .HasColumnType("int");
 
-                    b.HasIndex("FilmID");
+                    b.HasKey("FilmID", "ProductionCompanyID");
+
+                    b.HasIndex("ProductionCompanyID");
 
                     b.ToTable("FilmProductionCompanies", (string)null);
                 });
@@ -757,11 +757,11 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.ProductionCompany", b =>
                 {
-                    b.Property<int>("CompanyID")
+                    b.Property<int>("ProductionCompanyID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompanyID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductionCompanyID"));
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -772,7 +772,7 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<string>("Homepage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LogoPath")
+                    b.Property<string>("LogoUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -788,7 +788,7 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<int>("TmdbId")
                         .HasColumnType("int");
 
-                    b.HasKey("CompanyID");
+                    b.HasKey("ProductionCompanyID");
 
                     b.HasIndex("ParentCompanyID");
 
@@ -830,15 +830,15 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
             modelBuilder.Entity("FilmProductionCompanies", b =>
                 {
-                    b.HasOne("_10_Filmdatenbank.Domain.Entities.ProductionCompany", null)
-                        .WithMany()
-                        .HasForeignKey("CompanyID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("_10_Filmdatenbank.Domain.Entities.Film", null)
                         .WithMany()
                         .HasForeignKey("FilmID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("_10_Filmdatenbank.Domain.Entities.ProductionCompany", null)
+                        .WithMany()
+                        .HasForeignKey("ProductionCompanyID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -4,7 +4,7 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="Breadcrumb" xml:space="preserve"><value>مسار التنقل</value></data>
+  <data name="Breadcrumb" xml:space="preserve"><value>التنقل بالتفصيل</value></data>
   <data name="Catalog" xml:space="preserve"><value>الكتالوج</value></data>
   <data name="Rating" xml:space="preserve"><value>التقييم</value></data>
   <data name="Pricing" xml:space="preserve"><value>التسعير</value></data>
@@ -16,8 +16,27 @@
   <data name="Release" xml:space="preserve"><value>الإصدار</value></data>
   <data name="Runtime" xml:space="preserve"><value>مدة العرض</value></data>
   <data name="MinSuffix" xml:space="preserve"><value>دقيقة</value></data>
-  <data name="Tags" xml:space="preserve"><value>الوسوم</value></data>
-  <data name="Plot" xml:space="preserve"><value>الحبكة</value></data>
-  <data name="CastTeam" xml:space="preserve"><value>طاقم العمل والفريق</value></data>
-  <data name="ContributorsCount" xml:space="preserve"><value>مساهم</value></data>
+  <data name="Tags" xml:space="preserve"><value>العلامات</value></data>
+  <data name="Plot" xml:space="preserve"><value>القصة</value></data>
+  <data name="CastTeam" xml:space="preserve"><value>طاقم العمل والتمثيل</value></data>
+  <data name="ContributorsCount" xml:space="preserve"><value>المساهمون</value></data>
+  <data name="TmdbScore" xml:space="preserve"><value>تقييم TMDB</value></data>
+  <data name="OriginalTitle" xml:space="preserve"><value>العنوان الأصلي</value></data>
+  <data name="Popularity" xml:space="preserve"><value>الشعبية</value></data>
+  <data name="Votes" xml:space="preserve"><value>أصوات</value></data>
+  <data name="CollectionSeries" xml:space="preserve"><value>جزء من سلسلة</value></data>
+  <data name="Status" xml:space="preserve"><value>الحالة</value></data>
+  <data name="Budget" xml:space="preserve"><value>الميزانية</value></data>
+  <data name="Revenue" xml:space="preserve"><value>الإيرادات</value></data>
+  <data name="ProductionCountries" xml:space="preserve"><value>دول الإنتاج</value></data>
+  <data name="SpokenLanguages" xml:space="preserve"><value>اللغات المحكية</value></data>
+  <data name="Website" xml:space="preserve"><value>الموقع الرسمي</value></data>
+  <data name="Awards" xml:space="preserve"><value>الجوائز والترشيحات</value></data>
+  <data name="AdultContent" xml:space="preserve"><value>محتوى للبالغين</value></data>
+  <data name="TrailerPlayerTitle" xml:space="preserve"><value>مشغل فيديو يوتيوب</value></data>
+  <data name="SimilarFilms" xml:space="preserve"><value>أفلام مشابهة</value></data>
+  <data name="RecommendedFilms" xml:space="preserve"><value>موصل به لك</value></data>
+  <data name="Trailer" xml:space="preserve"><value>تريلر</value></data>
+  <data name="PosterOf" xml:space="preserve"><value>ملصق {0}</value></data>
+  <data name="Studios" xml:space="preserve"><value>ستوديوهات</value></data>
 </root>
