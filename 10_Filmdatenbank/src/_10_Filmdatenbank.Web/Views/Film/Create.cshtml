@@ -242,30 +242,35 @@
                 
                 const data = await response.json();
                 
+                const setVal = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el) el.value = val ?? '';
+                };
+
                 // Populate Form Fields
-                document.getElementById('inputTitel').value = data.title;
-                document.getElementById('inputYear').value = data.releaseYear || 0;
-                document.getElementById('inputDate').value = data.releaseDate || '';
-                document.getElementById('inputRuntime').value = data.runtime || 0;
-                document.getElementById('inputGenre').value = data.genres;
-                document.getElementById('inputPosterUrl').value = data.posterUrl || '';
-                document.getElementById('inputPlot').value = data.overview || '';
-                document.getElementById('inputTagline').value = data.tagline || '';
-                document.getElementById('inputRating').value = (data.voteAverage || 0).toFixed(1);
+                setVal('inputTitel', data.title);
+                setVal('inputYear', data.releaseYear || 0);
+                setVal('inputDate', data.releaseDate || '');
+                setVal('inputRuntime', data.runtime || 0);
+                setVal('inputPosterUrl', data.posterUrl || '');
+                setVal('inputPlot', data.overview || '');
+                setVal('inputTagline', data.tagline || '');
+                setVal('inputRating', (data.voteAverage || 0).toFixed(1));
                 
                 // Hidden Fields
-                document.getElementById('inputTmdbId').value = data.id;
-                document.getElementById('inputImdbId').value = data.imdbId || '';
-                document.getElementById('inputOriginalTitle').value = data.originalTitle || '';
-                document.getElementById('inputOriginalLanguage').value = data.originalLanguage || '';
-                document.getElementById('inputBackdropUrl').value = data.backdropUrl || '';
-                document.getElementById('inputPopularity').value = data.popularity || 0;
-                document.getElementById('inputVoteCount').value = data.voteCount || 0;
-                document.getElementById('inputBudget').value = data.budget || 0;
-                document.getElementById('inputRevenue').value = data.revenue || 0;
-                document.getElementById('inputStatus').value = data.status || '';
-                document.getElementById('inputHomepage').value = data.homepage || '';
-                document.getElementById('inputTrailerUrl').value = data.trailerKey ? `https://www.youtube.com/embed/${data.trailerKey}` : '';
+                setVal('inputTmdbId', data.id);
+                setVal('inputImdbId', data.imdbId || '');
+                setVal('inputOriginalTitle', data.originalTitle || '');
+                setVal('inputOriginalLanguage', data.originalLanguage || '');
+                setVal('inputBackdropUrl', data.backdropUrl || '');
+                setVal('inputPopularity', data.popularity || 0);
+                setVal('inputVoteCount', data.voteCount || 0);
+                setVal('inputBudget', data.budget || 0);
+                setVal('inputRevenue', data.revenue || 0);
+                setVal('inputVoteAverage', data.voteAverage || 0);
+                setVal('inputStatus', data.status || '');
+                setVal('inputHomepage', data.homepage || '');
+                setVal('inputTrailerUrl', data.trailerKey ? `https://www.youtube.com/embed/${data.trailerKey}` : '');
 
                 // Handle Cast
                 const castSection = document.getElementById('castSection');

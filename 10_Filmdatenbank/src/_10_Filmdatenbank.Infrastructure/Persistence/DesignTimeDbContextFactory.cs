@@ -18,7 +18,7 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Applicatio
     public ApplicationDbContext CreateDbContext(string[] args)
     {
         var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-        builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Filmdatenbank_V2;Trusted_Connection=True;MultipleActiveResultSets=true", 
+        builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Filmdatenbank;Trusted_Connection=True;MultipleActiveResultSets=true", 
             b => b.MigrationsAssembly("_10_Filmdatenbank.Infrastructure"));
 
         return new ApplicationDbContext(builder.Options);

@@ -15,7 +15,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     /// Initialisiert eine neue Instanz des Datenbankkontexts.
     /// </summary>
     /// <param name="options">Die Optionen für diesen Kontext.</param>
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    public ApplicationDbContext(DbContextOptions options)
         : base(options)
     {
     }
@@ -100,31 +100,59 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 
             entity.HasMany(f => f.ProductionCompanies)
                 .WithMany(pc => pc.Films)
-                .UsingEntity(j => j.ToTable("FilmProductionCompanies"));
+                .UsingEntity<Dictionary<string, object>>(
+                    "FilmProductionCompanies",
+                    j => j.HasOne<ProductionCompany>().WithMany().HasForeignKey("CompanyID"),
+                    j => j.HasOne<Film>().WithMany().HasForeignKey("FilmID"),
+                    j => j.ToTable("FilmProductionCompanies"));
 
             entity.HasMany(f => f.Genres)
                 .WithMany(g => g.Films)
-                .UsingEntity(j => j.ToTable("FilmGenres"));
+                .UsingEntity<Dictionary<string, object>>(
+                    "FilmGenres",
+                    j => j.HasOne<Genre>().WithMany().HasForeignKey("GenreID"),
+                    j => j.HasOne<Film>().WithMany().HasForeignKey("FilmID"),
+                    j => j.ToTable("FilmGenres"));
 
             entity.HasMany(f => f.Keywords)
                 .WithMany(k => k.Films)
-                .UsingEntity(j => j.ToTable("FilmKeywords"));
+                .UsingEntity<Dictionary<string, object>>(
+                    "FilmKeywords",
+                    j => j.HasOne<Keyword>().WithMany().HasForeignKey("KeywordID"),
+                    j => j.HasOne<Film>().WithMany().HasForeignKey("FilmID"),
+                    j => j.ToTable("FilmKeywords"));
 
             entity.HasMany(f => f.ProductionCountries)
                 .WithMany(c => c.ProductionFilms)
-                .UsingEntity(j => j.ToTable("FilmProductionCountries_ISO"));
+                .UsingEntity<Dictionary<string, object>>(
+                    "FilmProductionCountries_ISO",
+                    j => j.HasOne<Country>().WithMany().HasForeignKey("Iso_3166_1"),
+                    j => j.HasOne<Film>().WithMany().HasForeignKey("FilmID"),
+                    j => j.ToTable("FilmProductionCountries_ISO"));
 
             entity.HasMany(f => f.SpokenLanguages)
                 .WithMany(l => l.SpokenInFilms)
-                .UsingEntity(j => j.ToTable("FilmSpokenLanguages"));
+                .UsingEntity<Dictionary<string, object>>(
+                    "FilmSpokenLanguages",
+                    j => j.HasOne<Language>().WithMany().HasForeignKey("Iso_639_1"),
+                    j => j.HasOne<Film>().WithMany().HasForeignKey("FilmID"),
+                    j => j.ToTable("FilmSpokenLanguages"));
 
             entity.HasMany(f => f.SimilarFilms)
                 .WithMany()
-                .UsingEntity(j => j.ToTable("FilmSimilar"));
+                .UsingEntity<Dictionary<string, object>>(
+                    "FilmSimilar",
+                    j => j.HasOne<Film>().WithMany().HasForeignKey("SimilarFilmID").OnDelete(DeleteBehavior.NoAction),
+                    j => j.HasOne<Film>().WithMany().HasForeignKey("FilmID").OnDelete(DeleteBehavior.NoAction),
+                    j => j.ToTable("FilmSimilar"));
 
             entity.HasMany(f => f.RecommendedFilms)
                 .WithMany()
-                .UsingEntity(j => j.ToTable("FilmRecommended"));
+                .UsingEntity<Dictionary<string, object>>(
+                    "FilmRecommended",
+                    j => j.HasOne<Film>().WithMany().HasForeignKey("RecommendedFilmID").OnDelete(DeleteBehavior.NoAction),
+                    j => j.HasOne<Film>().WithMany().HasForeignKey("FilmID").OnDelete(DeleteBehavior.NoAction),
+                    j => j.ToTable("FilmRecommended"));
         });
 
         builder.Entity<Person>(entity => entity.HasKey(p => p.PersonID));
