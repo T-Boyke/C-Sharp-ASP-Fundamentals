@@ -50,6 +50,36 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<ProductionCompany> ProductionCompanies { get; set; } = null!;
 
     /// <summary>
+    /// Die Tabelle für Filmgenres.
+    /// </summary>
+    public DbSet<Genre> Genres { get; set; } = null!;
+
+    /// <summary>
+    /// Die Tabelle für Filmschlagworte (Keywords).
+    /// </summary>
+    public DbSet<Keyword> Keywords { get; set; } = null!;
+
+    /// <summary>
+    /// Die Tabelle für Länder.
+    /// </summary>
+    public DbSet<Country> Countries { get; set; } = null!;
+
+    /// <summary>
+    /// Die Tabelle für Sprachen.
+    /// </summary>
+    public DbSet<Language> Languages { get; set; } = null!;
+
+    /// <summary>
+    /// Die Tabelle für alternative Filmtitel.
+    /// </summary>
+    public DbSet<AlternativeTitle> AlternativeTitles { get; set; } = null!;
+
+    /// <summary>
+    /// Die Tabelle für länderspezifische Filmveröffentlichungen.
+    /// </summary>
+    public DbSet<FilmRelease> FilmReleases { get; set; } = null!;
+
+    /// <summary>
     /// Konfiguriert das Datenbankmodell, insbesondere Beziehungen und initiale Daten.
     /// </summary>
     /// <param name="builder">Der ModelBuilder zum Konfigurieren des Modells.</param>
@@ -89,21 +119,54 @@ public class ApplicationDbContext : IdentityDbContext
                 entity.HasMany(f => f.ProductionCompanies)
                     .WithMany(pc => pc.Films)
                     .UsingEntity(j => j.ToTable("FilmProductionCompanies"));
+
+                entity.HasMany(f => f.Genres)
+                    .WithMany(g => g.Films)
+                    .UsingEntity(j => j.ToTable("FilmGenres"));
+
+                entity.HasMany(f => f.Keywords)
+                    .WithMany(k => k.Films)
+                    .UsingEntity(j => j.ToTable("FilmKeywords"));
+
+                entity.HasMany(f => f.ProductionCountries)
+                    .WithMany(c => c.ProductionFilms)
+                    .UsingEntity(j => j.ToTable("FilmProductionCountries_ISO"));
+
+                entity.HasMany(f => f.SpokenLanguages)
+                    .WithMany(l => l.SpokenInFilms)
+                    .UsingEntity(j => j.ToTable("FilmSpokenLanguages"));
+
+                entity.HasMany(f => f.SimilarFilms)
+                    .WithMany()
+                    .UsingEntity(j => j.ToTable("FilmSimilar"));
+
+                entity.HasMany(f => f.RecommendedFilms)
+                    .WithMany()
+                    .UsingEntity(j => j.ToTable("FilmRecommended"));
             });
+
+        builder.Entity<Genre>()
+            .HasIndex(g => g.TmdbId)
+            .IsUnique();
+
+        builder.Entity<Keyword>()
+            .HasIndex(k => k.TmdbId)
+            .IsUnique();
 
         builder.Entity<Collection>()
             .HasIndex(c => c.TmdbId)
             .IsUnique();
 
-        builder.Entity<ProductionCompany>()
-            .HasIndex(pc => pc.TmdbId)
-            .IsUnique();
+        builder.Entity<ProductionCompany>(entity =>
+            {
+                entity.HasIndex(pc => pc.TmdbId)
+                    .IsUnique();
 
-        // Seed initial properties/roles as per assignment
-        builder.Entity<Eigenschaft>().HasData(
-            new Eigenschaft { EigenschaftID = 1, Bezeichnung = "Regisseur" },
-            new Eigenschaft { EigenschaftID = 2, Bezeichnung = "Produzent" },
-            new Eigenschaft { EigenschaftID = 3, Bezeichnung = "Schauspieler" }
-        );
+                entity.HasOne(pc => pc.ParentCompany)
+                    .WithMany()
+                    .HasForeignKey(pc => pc.ParentCompanyID)
+                    .OnDelete(DeleteBehavior.NoAction);
+            });
+
     }
 }

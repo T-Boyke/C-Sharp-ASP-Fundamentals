@@ -62,4 +62,9 @@ public class PersonEigenschaftFilm
     /// Die Reihenfolge in der Besetzungsliste.
     /// </summary>
     public int? Order { get; set; }
+
+    /// <summary>
+    /// Die eindeutige Credit-ID von TMDB für diese Mitwirkung.
+    /// </summary>
+    public string? CreditId { get; set; }
 }

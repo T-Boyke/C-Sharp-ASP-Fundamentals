@@ -59,24 +59,14 @@ public class Film
     public DateTime? Erscheinungsdatum { get; set; }
 
     /// <summary>
-    /// Die Altersfreigabe (z.B. FSK 12).
+    /// Die durchschnittliche Nutzerwertung (0-10).
     /// </summary>
-    public string? FskRating { get; set; }
-
-    /// <summary>
-    /// Das Genre oder die Kategorie des Films.
-    /// </summary>
-    public string? Genre { get; set; }
 
     /// <summary>
     /// Die durchschnittliche Nutzerwertung (0-10).
     /// </summary>
     public double? Nutzerwertung { get; set; }
 
-    /// <summary>
-    /// Tags oder Schlagworte für den Film.
-    /// </summary>
-    public string? Tags { get; set; }
 
     // --- TMDB PERFECT ALIGNMENT ---
 
@@ -139,6 +129,66 @@ public class Film
     /// Die URL zum Hintergrundbild (Backdrop).
     /// </summary>
     public string? BackdropUrl { get; set; }
+
+    /// <summary>
+    /// Die ID des Films auf Wikidata.
+    /// </summary>
+    public string? WikidataId { get; set; }
+
+    /// <summary>
+    /// Die Facebook-ID des Films.
+    /// </summary>
+    public string? FacebookId { get; set; }
+
+    /// <summary>
+    /// Die Instagram-ID des Films.
+    /// </summary>
+    public string? InstagramId { get; set; }
+
+    /// <summary>
+    /// Die Twitter-ID des Films.
+    /// </summary>
+    public string? TwitterId { get; set; }
+
+    /// <summary>
+    /// Die Genres, die diesem Film zugeordnet sind.
+    /// </summary>
+    public ICollection<Genre> Genres { get; set; } = [];
+
+    /// <summary>
+    /// Die Schlagworte (Keywords) zum Film.
+    /// </summary>
+    public ICollection<Keyword> Keywords { get; set; } = [];
+
+    /// <summary>
+    /// Die Produktionsländer (ISO 3166-1).
+    /// </summary>
+    public ICollection<Country> ProductionCountries { get; set; } = [];
+
+    /// <summary>
+    /// Die im Film gesprochenen Sprachen (ISO 639-1).
+    /// </summary>
+    public ICollection<Language> SpokenLanguages { get; set; } = [];
+
+    /// <summary>
+    /// Alternative Titel des Films in verschiedenen Sprachen/Ländern.
+    /// </summary>
+    public ICollection<AlternativeTitle> AlternativeTitles { get; set; } = [];
+
+    /// <summary>
+    /// Länderspezifische Release-Informationen (Ratings, Daten).
+    /// </summary>
+    public ICollection<FilmRelease> Releases { get; set; } = [];
+
+    /// <summary>
+    /// Ähnliche Filme von TMDB.
+    /// </summary>
+    public ICollection<Film> SimilarFilms { get; set; } = [];
+
+    /// <summary>
+    /// Empfohlene Filme von TMDB.
+    /// </summary>
+    public ICollection<Film> RecommendedFilms { get; set; } = [];
 
     /// <summary>
     /// Die URL zum offiziellen Trailer (meist YouTube Embed URL).

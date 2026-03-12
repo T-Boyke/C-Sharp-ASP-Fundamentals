@@ -36,6 +36,31 @@ public class ProductionCompany
     public string? OriginCountry { get; set; }
 
     /// <summary>
+    /// Eine Beschreibung der Produktionsfirma.
+    /// </summary>
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// Der Hauptsitz der Firma.
+    /// </summary>
+    public string? Headquarters { get; set; }
+
+    /// <summary>
+    /// Die offizielle Homepage der Firma.
+    /// </summary>
+    public string? Homepage { get; set; }
+
+    /// <summary>
+    /// Die ID der Muttergesellschaft (falls vorhanden).
+    /// </summary>
+    public int? ParentCompanyID { get; set; }
+
+    /// <summary>
+    /// Die Muttergesellschaft.
+    /// </summary>
+    public ProductionCompany? ParentCompany { get; set; }
+
+    /// <summary>
     /// Die Filme, an deren Produktion diese Firma beteiligt war.
     /// </summary>
     public ICollection<Film> Films { get; set; } = [];
