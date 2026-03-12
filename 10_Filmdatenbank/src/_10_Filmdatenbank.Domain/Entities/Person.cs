@@ -39,6 +39,16 @@ public class Person
     public DateTime? Geburtsdatum { get; set; }
 
     /// <summary>
+    /// Der Geburtsort der Person.
+    /// </summary>
+    public string? Geburtsort { get; set; }
+
+    /// <summary>
+    /// Tags oder Schlagworte für die Person.
+    /// </summary>
+    public string? Tags { get; set; }
+
+    /// <summary>
     /// Eine Sammlung von Filmen und Eigenschaften, an denen die Person mitgewirkt hat.
     /// </summary>
     public ICollection<PersonEigenschaftFilm> PersonEigenschaftFilme { get; set; } = [];

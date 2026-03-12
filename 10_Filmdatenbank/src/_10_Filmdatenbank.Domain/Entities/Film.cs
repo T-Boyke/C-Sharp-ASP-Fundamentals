@@ -64,6 +64,11 @@ public class Film
     public double? Nutzerwertung { get; set; }
 
     /// <summary>
+    /// Tags oder Schlagworte für den Film.
+    /// </summary>
+    public string? Tags { get; set; }
+
+    /// <summary>
     /// Eine Sammlung von Personen und ihren Eigenschaften, die an diesem Film mitgewirkt haben.
     /// </summary>
     public ICollection<PersonEigenschaftFilm> PersonEigenschaftFilme { get; set; } = [];
