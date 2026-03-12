@@ -19,7 +19,7 @@
         <!-- Left: Profile Info -->
         <div class="lg:col-span-1 space-y-8">
             <div class="card-premium overflow-hidden">
-                <div class="aspect-square bg-slate-50 dark:bg-slate-800 flex items-center justify-center border-b border-slate-100 dark:border-slate-800 relative group transition-colors">
+                <div class="aspect-square bg-slate-50 dark:bg-slate-900 flex items-center justify-center border-b border-slate-100 dark:border-slate-800 relative group transition-colors">
                     <i aria-hidden="true" class="fa-solid fa-user-circle text-slate-200/60 dark:text-slate-800/60 text-9xl group-hover:scale-110 transition-transform duration-700"></i>
                 </div>
                 <div class="p-8 space-y-6">
@@ -67,7 +67,7 @@
                     @foreach (var pef in Model.PersonEigenschaftFilme)
                     {
                         <a asp-controller="Film" asp-action="Details" asp-route-id="@pef.Film.FilmID" class="flex items-center p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:border-brand-primary/20 dark:hover:border-brand-primary/20 transition-all group">
-                            <div class="w-12 h-12 rounded-lg bg-brand-soft flex items-center justify-center text-brand-primary group-hover:scale-105 transition-transform">
+                            <div class="w-12 h-12 rounded-lg bg-brand-soft dark:bg-slate-900/50 flex items-center justify-center text-brand-primary group-hover:scale-105 transition-transform">
                                 <i aria-hidden="true" class="fa-solid fa-film"></i>
                             </div>
                             <div class="ml-4 flex-grow">
