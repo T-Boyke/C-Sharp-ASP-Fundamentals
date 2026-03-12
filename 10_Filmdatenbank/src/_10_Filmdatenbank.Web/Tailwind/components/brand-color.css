@@ -18,6 +18,25 @@
   --color-surface-overlay: var(--color-white);
   --color-dark-surface-overlay: var(--color-slate-950);
 
+  /* New Neutral Surface Variables */
+  --color-surface-bright: var(--color-white);
+  --color-surface-soft: var(--color-slate-100);
+  --color-surface-muted: var(--color-slate-50);
+  --color-surface-subtle: var(--color-slate-50);
+
+  /* Star Highlight */
+  --color-star-primary: #fcd34d; /* Yellow 300 */
+  
+  /* New Semantic Text Variables */
+  --color-text-main: var(--color-slate-900);
+  --color-dark-text-main: var(--color-white);
+  --color-text-secondary: var(--color-slate-700);
+  --color-dark-text-secondary: var(--color-slate-200);
+  --color-text-muted: var(--color-slate-500);
+  --color-dark-text-muted: var(--color-slate-400);
+  --color-text-subtle: var(--color-slate-400);
+  --color-dark-text-subtle: var(--color-slate-500);
+  
   /* 
      ==========================================================================
      NAVIGATION SYSTEM
@@ -64,6 +83,7 @@
   --color-success-dark-content: var(--color-emerald-400);
   --color-success-dark-bg: color-mix(in srgb, var(--color-emerald-950), transparent 70%);
   --color-success-dark-border: color-mix(in srgb, var(--color-emerald-800), transparent 50%);
+  --color-success-vibrant: var(--color-emerald-500);
 
   /* Danger / Error (Red) */
   --color-danger-primary: var(--color-red-600);
@@ -73,6 +93,8 @@
   --color-danger-dark-content: var(--color-red-400);
   --color-danger-dark-bg: color-mix(in srgb, var(--color-red-950), transparent 70%);
   --color-danger-dark-border: color-mix(in srgb, var(--color-red-800), transparent 50%);
+  --color-danger-vibrant: var(--color-red-500);
+  --color-danger-hover: var(--color-red-700);
 
   /* Warning (Amber) */
   --color-warning-primary: var(--color-amber-600);
@@ -99,6 +121,10 @@
   */
   --color-accent-coffee: var(--color-amber-600);
   --color-accent-heart: var(--color-red-500);
+  --color-rating-star: var(--color-yellow-300);
+  
+  /* Overlays */
+  --color-overlay-dark: color-mix(in srgb, black, transparent 20%);
   
   /* Decorative Gradients (Light) */
   --color-grad-hero-from: var(--color-brand-soft);

@@ -9,10 +9,10 @@
 <div class="flex min-h-[60vh] items-center justify-center px-4 py-20 animate-fade-in">
     <div class="w-full max-w-md">
         <div class="text-center mb-10">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-soft shadow-sm border border-brand-border mb-6">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-soft shadow-sm border border-brand-border mb-6" aria-hidden="true">
                 <i aria-hidden="true" class="fa-solid fa-user-plus text-brand-primary text-3xl"></i>
             </div>
-            <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white transition-colors">@Localizer["CreateAccount"]</h2>
+            <h2 class="text-3xl font-extrabold text-text-main dark:text-white transition-colors">@Localizer["CreateAccount"]</h2>
             <p class="mt-2 text-text-description dark:text-dark-text-muted font-medium transition-colors">@Localizer["RegisterSubtitle"]</p>
         </div>
 
@@ -34,8 +34,8 @@
                     </label>
                     <div class="form-input-container group">
                         <input asp-for="Password" type="password" id="password_input" autocomplete="new-password" required class="form-input pr-12" placeholder="••••••••">
-                        <button type="button" onclick="togglePasswordVisibility('password_input', 'password_toggle_icon')" class="form-input-icon-right" aria-label='@Localizer["TogglePasswordVisibility"]'>
-                            <i id="password_toggle_icon" class="fa-solid fa-eye"></i>
+                        <button type="button" onclick="togglePasswordVisibility('password_input', 'password_toggle_icon', this)" class="form-input-icon-right focus:text-brand-primary outline-hidden" aria-label='@Localizer["TogglePasswordVisibility"]'>
+                            <i id="password_toggle_icon" class="fa-solid fa-eye" aria-hidden="true"></i>
                         </button>
                     </div>
                     <span asp-validation-for="Password" class="form-error"></span>
@@ -47,8 +47,8 @@
                     </label>
                     <div class="form-input-container group">
                         <input asp-for="ConfirmPassword" type="password" id="confirm_password_input" autocomplete="new-password" required class="form-input pr-12" placeholder="••••••••">
-                        <button type="button" onclick="togglePasswordVisibility('confirm_password_input', 'confirm_password_toggle_icon')" class="form-input-icon-right" aria-label='@Localizer["TogglePasswordVisibility"]'>
-                            <i id="confirm_password_toggle_icon" class="fa-solid fa-eye"></i>
+                        <button type="button" onclick="togglePasswordVisibility('confirm_password_input', 'confirm_password_toggle_icon', this)" class="form-input-icon-right focus:text-brand-primary outline-hidden" aria-label='@Localizer["TogglePasswordVisibility"]'>
+                            <i id="confirm_password_toggle_icon" class="fa-solid fa-eye" aria-hidden="true"></i>
                         </button>
                     </div>
                     <span asp-validation-for="ConfirmPassword" class="form-error"></span>
@@ -66,17 +66,19 @@
             </form>
 
             <script>
-                function togglePasswordVisibility(inputId, iconId) {
+                function togglePasswordVisibility(inputId, iconId, button) {
                     const input = document.getElementById(inputId);
                     const icon = document.getElementById(iconId);
                     if (input.type === 'password') {
                         input.type = 'text';
                         icon.classList.remove('fa-eye');
                         icon.classList.add('fa-eye-slash');
+                        button.setAttribute('aria-label', '@Localizer["HidePassword"]');
                     } else {
                         input.type = 'password';
                         icon.classList.remove('fa-eye-slash');
                         icon.classList.add('fa-eye');
+                        button.setAttribute('aria-label', '@Localizer["ShowPassword"]');
                     }
                 }
             </script>

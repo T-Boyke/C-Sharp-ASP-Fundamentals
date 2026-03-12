@@ -17,9 +17,9 @@
     
     @if (!string.IsNullOrEmpty(Model.BackdropUrl))
     {
-        <div class="relative w-full h-64 md:h-96 rounded-3xl overflow-hidden mb-12 group shadow-2xl">
-            <img src="@Model.BackdropUrl" alt="Backdrop" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-            <div class="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-900/40 to-transparent"></div>
+        <div class="relative w-full h-64 md:h-96 rounded-3xl overflow-hidden mb-12 group shadow-2xl" aria-hidden="true">
+            <img src="@Model.BackdropUrl" alt="" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <div class="absolute inset-0 bg-linear-to-t from-dark-surface via-dark-surface-soft/40 to-transparent"></div>
             <div class="absolute bottom-8 left-8 right-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                    <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter drop-shadow-2xl">@Model.Titel</h1>
@@ -29,7 +29,7 @@
                    }
                 </div>
                 <div class="flex items-center gap-4">
-                    <div class="glass-premium px-6 py-3 rounded-2xl flex items-center gap-3 border border-white/20">
+                    <div class="glass-premium px-6 py-3 rounded-2xl flex items-center gap-3 border border-surface-bright/20">
                         <div class="w-10 h-10 rounded-full bg-brand-primary flex items-center justify-center text-white shadow-lg">
                             <i class="fa-solid fa-star"></i>
                         </div>
@@ -48,26 +48,26 @@
         <!-- Left: Poster / Key Info -->
         <div class="lg:col-span-1 space-y-8">
             <div class="card-premium overflow-hidden group">
-                <div class="aspect-[2/3] bg-surface-subtle dark:bg-dark-surface-soft flex items-center justify-center transition-colors relative">
+                <div class="aspect-[2/3] bg-surface-subtle dark:bg-dark-surface-soft flex items-center justify-center transition-colors relative" aria-hidden="true">
                     @if (!string.IsNullOrEmpty(Model.PosterUrl))
                     {
-                        <img src="@Model.PosterUrl" alt="@Model.Titel" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                        <img src="@Model.PosterUrl" alt='@Localizer["PosterOf", Model.Titel]' class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     }
                     else
                     {
-                        <i aria-hidden="true" class="fa-solid fa-film text-slate-300 dark:text-dark-surface-muted text-9xl"></i>
+                        <i aria-hidden="true" class="fa-solid fa-film text-text-muted dark:text-dark-surface-muted text-9xl"></i>
                     }
                     
                     <div class="absolute inset-x-0 bottom-0 p-8 bg-linear-to-t from-dark-surface/80 via-dark-surface/40 to-transparent">
                         <div class="flex items-center gap-3">
                             <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-primary/90 backdrop-blur-md text-white shadow-xl shadow-brand-shadow-lg border border-brand-primary/50"
                                  aria-label='@Localizer["Rating"]: @(Model.Nutzerwertung?.ToString("0.0") ?? "N/A")'>
-                                <i aria-hidden="true" class="fa-solid fa-star text-[10px] text-yellow-300"></i>
+                                <i aria-hidden="true" class="fa-solid fa-star text-[10px] text-star-primary"></i>
                                 <span class="text-xs font-black tracking-tighter">@(Model.Nutzerwertung?.ToString("0.0") ?? "N/A")</span>
                             </div>
                             @if (!string.IsNullOrEmpty(Model.FskRating))
                             {
-                                <span class="px-2 py-1 rounded bg-black/80 backdrop-blur-md text-[10px] font-black text-white border border-white/10 uppercase tracking-tighter">
+                                <span class="px-2 py-1 rounded bg-dark-surface/80 backdrop-blur-md text-[10px] font-black text-white border border-white/10 uppercase tracking-tighter">
                                     @Model.FskRating
                                 </span>
                             }
@@ -77,7 +77,7 @@
                 <div class="p-8 space-y-6 bg-surface-overlay dark:bg-dark-surface-soft transition-colors">
                     <div>
                         <h3 class="text-xs font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mb-4">@Localizer["Pricing"]</h3>
-                        <div class="flex items-baseline gap-2 text-3xl font-black text-slate-900 dark:text-white transition-colors">
+                        <div class="flex items-baseline gap-2 text-3xl font-black text-text-main dark:text-white transition-colors">
                             @Model.Preis.ToString("C")
                             <span class="text-sm font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-tighter">@Localizer["IncVat"]</span>
                         </div>
@@ -102,15 +102,15 @@
                 <div class="space-y-6">
                     <div class="flex flex-col">
                         <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Genre"]</span>
-                        <span class="text-sm font-black text-slate-900 dark:text-white transition-colors">@Model.Genre</span>
+                        <span class="text-sm font-black text-text-main dark:text-white transition-colors">@Model.Genre</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Release"]</span>
-                        <span class="text-sm font-black text-slate-900 dark:text-white transition-colors">@(Model.Erscheinungsdatum.HasValue ? Model.Erscheinungsdatum.Value.ToString("dd.MM.yyyy") : Model.Erscheinungsjahr.ToString())</span>
+                        <span class="text-sm font-black text-text-main dark:text-white transition-colors">@(Model.Erscheinungsdatum.HasValue ? Model.Erscheinungsdatum.Value.ToString("dd.MM.yyyy") : Model.Erscheinungsjahr.ToString())</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Runtime"]</span>
-                        <span class="text-sm font-black text-slate-900 dark:text-white transition-colors">@Model.Spieldauer @Localizer["MinSuffix"]</span>
+                        <span class="text-sm font-black text-text-main dark:text-white transition-colors">@Model.Spieldauer @Localizer["MinSuffix"]</span>
                     </div>
                     @if (!string.IsNullOrEmpty(Model.Homepage))
                     {
@@ -148,7 +148,7 @@
                 </div>
                 @if (string.IsNullOrEmpty(Model.BackdropUrl))
                 {
-                    <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-slate-900 dark:text-white leading-none transition-colors">@Model.Titel</h1>
+                    <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-text-main dark:text-white leading-none transition-colors">@Model.Titel</h1>
                     @if (!string.IsNullOrEmpty(Model.Tagline))
                     {
                         <p class="mt-4 text-2xl font-black text-brand-primary/80 italic tracking-tight transition-colors">@Model.Tagline</p>
@@ -159,10 +159,10 @@
 
             <section>
                 <div class="form-group-header !mb-6">
-                    <h2 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">@Localizer["Plot"]</h2>
+                    <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["Plot"]</h2>
                     <div class="h-1 w-12 bg-brand-primary rounded-full"></div>
                 </div>
-                <p class="text-lg text-slate-600 dark:text-dark-text-muted leading-relaxed pl-8 border-l-4 border-border-muted dark:border-dark-border transition-colors">
+                <p class="text-lg text-text-description dark:text-dark-text-muted leading-relaxed pl-8 border-l-4 border-border-muted dark:border-dark-border transition-colors">
                     @Model.Handlung
                 </p>
             </section>
@@ -171,11 +171,11 @@
             {
                 <section>
                     <div class="form-group-header !mb-8">
-                        <h2 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Trailer</h2>
+                        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">Trailer</h2>
                         <div class="h-1 w-12 bg-brand-primary rounded-full mt-1"></div>
                     </div>
                     
-                    <div class="card-glass overflow-hidden aspect-video border border-slate-200 dark:border-slate-800 shadow-2xl relative group">
+                    <div class="card-glass overflow-hidden aspect-video border border-border-default dark:border-dark-border shadow-2xl relative group">
                         <iframe width="100%" height="100%" 
                                 src="@Model.TrailerUrl" 
                                 title="YouTube video player" 
@@ -194,7 +194,7 @@
             <section>
                 <div class="form-group-header !mb-8 flex items-center justify-between">
                     <div>
-                        <h2 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">@Localizer["CastTeam"]</h2>
+                        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["CastTeam"]</h2>
                         <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
                     </div>
                     <span class="badge-outline">@Model.PersonEigenschaftFilme.Count @Localizer["ContributorsCount"]</span>
@@ -213,15 +213,15 @@
                                 else
                                 {
                                     <div class="w-full h-full flex items-center justify-center bg-surface-muted dark:bg-dark-surface-soft transition-colors">
-                                        <i aria-hidden="true" class="fa-solid fa-user text-2xl text-slate-300"></i>
+                                        <i aria-hidden="true" class="fa-solid fa-user text-2xl text-text-muted"></i>
                                     </div>
                                 }
                             </div>
                             <div class="ml-5">
-                                <p class="text-md font-black text-slate-900 dark:text-white group-hover:text-brand-primary transition-colors">@participation.Person.Vorname @participation.Person.Nachname</p>
+                                <p class="text-md font-black text-text-main dark:text-white group-hover:text-brand-primary transition-colors">@participation.Person.Vorname @participation.Person.Nachname</p>
                                 <p class="text-[10px] font-bold text-text-muted uppercase tracking-widest mt-1">@participation.Eigenschaft.Bezeichnung</p>
                             </div>
-                            <i aria-hidden="true" class="fa-solid fa-chevron-right ml-auto text-slate-200 dark:text-dark-surface-muted transition-transform group-hover:translate-x-2"></i>
+                            <i aria-hidden="true" class="fa-solid fa-chevron-right ml-auto text-border-default dark:text-dark-surface-muted transition-transform group-hover:translate-x-2"></i>
                         </a>
                     }
                 </div>

@@ -9,11 +9,11 @@
 <div class="mx-auto max-w-3xl px-6 lg:px-8 py-16">
     <div class="flex items-center justify-between mb-12">
         <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-xl bg-brand-soft border border-brand-border flex items-center justify-center text-brand-primary shadow-sm transition-transform hover:scale-105">
+            <div class="w-12 h-12 rounded-xl bg-brand-soft border border-brand-border flex items-center justify-center text-brand-primary shadow-sm transition-transform hover:scale-105" aria-hidden="true">
                 <i aria-hidden="true" class="fa-solid fa-user-plus text-2xl"></i>
             </div>
             <div>
-                <h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white leading-none transition-colors">@Localizer["NewContributor"]</h1>
+                <h1 class="text-3xl font-black tracking-tight text-text-main dark:text-white leading-none transition-colors">@Localizer["NewContributor"]</h1>
                 <p class="mt-2 text-sm font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest">@Localizer["CapturePersonalData"]</p>
             </div>
         </div>
@@ -26,10 +26,10 @@
         <form asp-action="Create" class="p-10 space-y-10">
             <div class="form-group-header">
                 <div>
-                    <h2 class="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">@Localizer["PersonalInfo"]</h2>
+                    <h2 class="text-xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["PersonalInfo"]</h2>
                     <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mt-1">@Localizer["CompleteEntry"]</p>
                 </div>
-                <i aria-hidden="true" class="fa-solid fa-id-card text-slate-200 dark:text-dark-surface-muted text-2xl"></i>
+                <i aria-hidden="true" class="fa-solid fa-id-card text-border-default dark:text-dark-surface-muted text-2xl"></i>
             </div>
 
             <div asp-validation-summary="ModelOnly" role="alert" class="p-4 rounded-xl bg-danger-bg dark:bg-danger-dark-bg text-danger-content dark:text-danger-dark-content text-sm font-bold border border-danger-border dark:border-danger-dark-border italic mb-8"></div>
@@ -38,13 +38,13 @@
                 <div class="form-group-row">
                     <div class="flex flex-col gap-1.5 flex-grow">
                         <label asp-for="Vorname" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["FirstName"]</label>
-                        <input asp-for="Vorname" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder='@Localizer["FirstNamePlaceholder"]' />
+                        <input asp-for="Vorname" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" placeholder='@Localizer["FirstNamePlaceholder"]' />
                         <span asp-validation-for="Vorname" class="text-[10px] font-bold text-danger-primary mt-1 px-1"></span>
                     </div>
 
                     <div class="flex flex-col gap-1.5 flex-grow">
                         <label asp-for="Nachname" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LastName"]</label>
-                        <input asp-for="Nachname" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder='@Localizer["LastNamePlaceholder"]' />
+                        <input asp-for="Nachname" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" placeholder='@Localizer["LastNamePlaceholder"]' />
                         <span asp-validation-for="Nachname" class="text-[10px] font-bold text-danger-primary mt-1 px-1"></span>
                     </div>
                 </div>
@@ -52,22 +52,22 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="flex flex-col gap-1.5">
                         <label asp-for="Geburtsdatum" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["DateOfBirth"]</label>
-                        <input asp-for="Geburtsdatum" type="date" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" />
+                        <input asp-for="Geburtsdatum" type="date" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <label asp-for="Geburtsort" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["PlaceOfBirth"]</label>
-                        <input asp-for="Geburtsort" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder='@Localizer["PlaceOfBirthPlaceholder"]' />
+                        <input asp-for="Geburtsort" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" placeholder='@Localizer["PlaceOfBirthPlaceholder"]' />
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="flex flex-col gap-1.5">
                         <label asp-for="ProfilBildUrl" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["ProfilePictureUrl"]</label>
-                        <input asp-for="ProfilBildUrl" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder='@Localizer["ProfilePictureUrlPlaceholder"]' />
+                        <input asp-for="ProfilBildUrl" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" placeholder='@Localizer["ProfilePictureUrlPlaceholder"]' />
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <label asp-for="Tags" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["TagsLabel"]</label>
-                        <input asp-for="Tags" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-slate-900 dark:text-white" placeholder='@Localizer["TagsPlaceholder"]' />
+                        <input asp-for="Tags" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" placeholder='@Localizer["TagsPlaceholder"]' />
                     </div>
                 </div>
 

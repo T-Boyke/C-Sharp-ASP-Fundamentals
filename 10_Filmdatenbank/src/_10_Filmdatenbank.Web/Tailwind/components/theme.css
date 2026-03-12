@@ -15,11 +15,11 @@
 /* Base Body Styles for Light / Dark Mode Handling */
 @layer base {
   body {
-    @apply bg-brand-bg text-slate-900 font-sans antialiased transition-colors duration-300;
+    @apply bg-brand-bg text-text-main font-sans antialiased transition-colors duration-300;
   }
   
   .dark body {
-    @apply bg-slate-950 text-slate-100;
+    @apply bg-dark-surface text-dark-text-main;
   }
 
   /* Standardized focus styles for links and other interactive elements */

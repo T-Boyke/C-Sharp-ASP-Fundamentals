@@ -11,7 +11,7 @@
         <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-danger-bg dark:bg-danger-dark-bg border border-danger-border dark:border-danger-dark-border text-danger-primary mb-6 shadow-sm animate-pulse">
             <i aria-hidden="true" class="fa-solid fa-triangle-exclamation text-4xl"></i>
         </div>
-        <h1 class="text-4xl font-black tracking-tighter text-slate-900 dark:text-white mb-4 transition-colors">@Localizer["DeleteEntryQuestion"]</h1>
+        <h1 class="text-4xl font-black tracking-tighter text-text-main dark:text-white mb-4 transition-colors">@Localizer["DeleteEntryQuestion"]</h1>
         <p class="text-lg text-text-description dark:text-dark-text-muted font-medium max-w-md mx-auto transition-colors">
             @Localizer["DeleteConfirmationMessage", Model.Vorname + " " + Model.Nachname]
         </p>
@@ -30,7 +30,7 @@
                 }
             </div>
             <div>
-                <h3 class="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight transition-colors">@Model.Vorname @Model.Nachname</h3>
+                <h3 class="text-xl font-black text-text-main dark:text-white uppercase tracking-tight transition-colors">@Model.Vorname @Model.Nachname</h3>
                 <div class="flex items-center gap-3 text-sm font-bold text-text-description dark:text-dark-text-muted uppercase tracking-widest mt-1">
                     <span>@Localizer["IdLabel"]: #@Model.PersonID</span>
                     @if (Model.Geburtsdatum.HasValue)

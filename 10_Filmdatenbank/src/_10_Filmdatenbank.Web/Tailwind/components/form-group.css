@@ -1,5 +1,5 @@
 @utility form-group-card {
-  @apply bg-white/50 dark:bg-dark-surface-soft/50 p-6 rounded-2xl border border-border-muted dark:border-dark-border shadow-sm transition-all duration-300;
+  @apply bg-surface-bright/50 dark:bg-dark-surface-soft/50 p-6 rounded-2xl border border-border-muted dark:border-dark-border shadow-sm transition-all duration-300;
 }
 
 @utility form-group-row {
@@ -11,7 +11,7 @@
 }
 
 @utility form-group-accent {
-  @apply border-l-4 border-brand-primary pl-6 py-2 bg-brand-soft/30 dark:bg-brand-soft/10 rounded-r-2xl;
+  @apply border-l-4 border-brand-primary ml-1 pl-6 py-2 bg-brand-soft/30 dark:bg-brand-soft/10 rounded-r-2xl;
 }
 
 @utility form-group-header {

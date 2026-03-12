@@ -9,17 +9,17 @@
 <div id="toast-container" class="fixed bottom-8 right-8 z-[100] flex flex-col gap-4 pointer-events-none">
     @if (!string.IsNullOrEmpty(successMessage))
     {
-        <div class="toast-item pointer-events-auto flex items-center gap-4 px-6 py-4 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-emerald-500/20 shadow-2xl shadow-emerald-500/10 transform transition-all duration-500 translate-y-20 opacity-0" 
+        <div class="toast-item pointer-events-auto flex items-center gap-4 px-6 py-4 rounded-2xl bg-surface-bright/80 dark:bg-dark-surface-soft/80 backdrop-blur-xl border border-success-primary/20 shadow-2xl shadow-success-primary/10 transform transition-all duration-500 translate-y-20 opacity-0" 
              role="alert" 
              data-type="success">
-            <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white shrink-0 shadow-lg shadow-emerald-500/20">
+            <div class="w-10 h-10 rounded-full bg-success-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-success-primary/20">
                 <i class="fa-solid fa-check"></i>
             </div>
             <div class="flex flex-col">
-                <span class="text-[10px] font-black text-emerald-500 uppercase tracking-widest">@Localizer["SuccessLabel"]</span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">@successMessage</span>
+                <span class="text-[10px] font-black text-success-content dark:text-success-dark-content uppercase tracking-widest">@Localizer["SuccessLabel"]</span>
+                <span class="text-sm font-bold text-text-main dark:text-white">@successMessage</span>
             </div>
-            <button onclick="this.parentElement.remove()" class="ml-4 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors">
+            <button onclick="this.parentElement.remove()" class="ml-4 text-text-muted hover:text-text-main dark:hover:text-white transition-colors">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
@@ -27,17 +27,17 @@
 
     @if (!string.IsNullOrEmpty(errorMessage))
     {
-        <div class="toast-item pointer-events-auto flex items-center gap-4 px-6 py-4 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-red-500/20 shadow-2xl shadow-red-500/10 transform transition-all duration-500 translate-y-20 opacity-0" 
+        <div class="toast-item pointer-events-auto flex items-center gap-4 px-6 py-4 rounded-2xl bg-surface-bright/80 dark:bg-dark-surface-soft/80 backdrop-blur-xl border border-danger-primary/20 shadow-2xl shadow-danger-primary/10 transform transition-all duration-500 translate-y-20 opacity-0" 
              role="alert" 
              data-type="error">
-            <div class="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center text-white shrink-0 shadow-lg shadow-red-500/20">
+            <div class="w-10 h-10 rounded-full bg-danger-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-danger-primary/20">
                 <i class="fa-solid fa-circle-exclamation"></i>
             </div>
             <div class="flex flex-col">
-                <span class="text-[10px] font-black text-red-500 uppercase tracking-widest">@Localizer["ErrorLabel"]</span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">@errorMessage</span>
+                <span class="text-[10px] font-black text-danger-content dark:text-danger-dark-content uppercase tracking-widest">@Localizer["ErrorLabel"]</span>
+                <span class="text-sm font-bold text-text-main dark:text-white">@errorMessage</span>
             </div>
-            <button onclick="this.parentElement.remove()" class="ml-4 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors">
+            <button onclick="this.parentElement.remove()" class="ml-4 text-text-muted hover:text-text-main dark:hover:text-white transition-colors">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>

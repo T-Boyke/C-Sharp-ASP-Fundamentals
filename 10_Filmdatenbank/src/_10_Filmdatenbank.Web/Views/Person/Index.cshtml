@@ -13,7 +13,7 @@
                 <i aria-hidden="true" class="fa-solid fa-users text-brand-primary"></i>
                 <span class="text-xs font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest leading-none">@Localizer["Contributors"]</span>
             </div>
-            <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors">@Localizer["PersonHeader"]</h1>
+            <h1 class="text-4xl font-extrabold tracking-tight text-text-main dark:text-white transition-colors">@Localizer["PersonHeader"]</h1>
             <p class="mt-3 text-lg text-text-description dark:text-dark-text-muted max-w-2xl font-medium transition-colors">@Localizer["PersonDescription"]</p>
         </div>
         @if (User.IsInRole("Admin"))
@@ -36,11 +36,11 @@
                     <div class="w-32 h-32 rounded-full border-4 border-surface-overlay dark:border-dark-surface-soft shadow-2xl overflow-hidden bg-surface-subtle dark:bg-dark-surface-soft ring-1 ring-border-muted dark:ring-dark-border">
                         @if (!string.IsNullOrEmpty(person.ProfilBildUrl))
                         {
-                            <img src="@person.ProfilBildUrl" alt="@person.Vorname @person.Nachname" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                            <img src="@person.ProfilBildUrl" alt='@Localizer["ProfileImageOf", person.Vorname + " " + person.Nachname]' class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                         }
                         else
                         {
-                            <div class="w-full h-full flex items-center justify-center text-slate-300 dark:text-dark-surface-muted">
+                            <div class="w-full h-full flex items-center justify-center text-text-muted dark:text-dark-surface-muted" aria-hidden="true">
                                 <i aria-hidden="true" class="fa-solid fa-user text-5xl opacity-20"></i>
                             </div>
                         }
@@ -58,7 +58,7 @@
 
                 <!-- Content -->
                 <div class="flex-grow flex flex-col">
-                    <h2 class="text-xl font-black text-slate-900 dark:text-white tracking-tight mb-2">@person.Vorname @person.Nachname</h2>
+                    <h2 class="text-xl font-black text-text-main dark:text-white tracking-tight mb-2">@person.Vorname @person.Nachname</h2>
                     
                     <p class="text-xs text-text-description dark:text-dark-text-muted line-clamp-3 mb-8 leading-relaxed italic">
                         "@person.Biografie"
@@ -88,8 +88,8 @@
     @if (!Model.Any())
     {
         <div class="text-center py-20 px-6 rounded-3xl border-2 border-dashed border-border-muted dark:border-dark-border transition-colors">
-            <i aria-hidden="true" class="fa-solid fa-user-group text-6xl text-slate-200 dark:text-dark-surface-soft mb-6"></i>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white">@Localizer["NoPersonsFound"]</h3>
+            <i aria-hidden="true" class="fa-solid fa-user-group text-6xl text-border-muted dark:text-dark-surface-soft mb-6"></i>
+            <h3 class="text-xl font-bold text-text-main dark:text-white">@Localizer["NoPersonsFound"]</h3>
             <p class="mt-2 text-text-description dark:text-dark-text-muted max-w-sm mx-auto">@Localizer["NoPersonsDescription"]</p>
         </div>
     }

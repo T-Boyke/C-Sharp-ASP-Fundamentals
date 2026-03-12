@@ -13,7 +13,7 @@
             <i aria-hidden="true" class="fa-solid fa-arrow-left"></i> @Localizer["Team"]
         </a>
         <span class="h-1 w-1 rounded-full bg-border-default"></span>
-        <span class="text-slate-900 dark:text-white border-b-2 border-brand-primary pb-0.5 transition-colors">@Model.Vorname @Model.Nachname</span>
+        <span class="text-text-main dark:text-white border-b-2 border-brand-primary pb-0.5 transition-colors">@Model.Vorname @Model.Nachname</span>
     </nav>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -21,14 +21,14 @@
         <!-- Left: Profile Info -->
         <div class="lg:col-span-1 space-y-8">
             <div class="card-premium overflow-hidden group">
-                <div class="aspect-[4/5] bg-surface-subtle dark:bg-dark-surface-soft flex items-center justify-center transition-colors relative">
+                <div class="aspect-[4/5] bg-surface-subtle dark:bg-dark-surface-soft flex items-center justify-center transition-colors relative" aria-hidden="true">
                     @if (!string.IsNullOrEmpty(Model.ProfilBildUrl))
                     {
-                        <img src="@Model.ProfilBildUrl" alt="@Model.Vorname @Model.Nachname" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                        <img src="@Model.ProfilBildUrl" alt='@Localizer["ProfileImageOf", Model.Vorname + " " + Model.Nachname]' class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     }
                     else
                     {
-                        <i aria-hidden="true" class="fa-solid fa-user-tie text-slate-300 dark:text-dark-surface-muted text-9xl"></i>
+                        <i aria-hidden="true" class="fa-solid fa-user-tie text-text-muted dark:text-dark-surface-muted text-9xl"></i>
                     }
                 </div>
                 <div class="p-8 space-y-6 bg-surface-overlay dark:bg-dark-surface-soft transition-colors">
@@ -37,17 +37,17 @@
                         <div class="space-y-4">
                             <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted">
                                 <span class="text-xs font-bold text-text-muted">@Localizer["SystemID"]</span>
-                                <span class="text-xs font-black text-slate-900 dark:text-white">#@Model.PersonID</span>
+                                <span class="text-xs font-black text-text-main dark:text-white">#@Model.PersonID</span>
                             </div>
                             <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted">
                                 <span class="text-xs font-bold text-text-muted">@Localizer["Born"]</span>
-                                <span class="text-xs font-black text-slate-900 dark:text-white">@(Model.Geburtsdatum?.ToString("dd.MM.yyyy") ?? Localizer["NotAvailable"].Value)</span>
+                                <span class="text-xs font-black text-text-main dark:text-white">@(Model.Geburtsdatum?.ToString("dd.MM.yyyy") ?? Localizer["NotAvailable"].Value)</span>
                             </div>
                             @if (!string.IsNullOrEmpty(Model.Geburtsort))
                             {
                                 <div class="flex items-center justify-between py-2 border-b border-border-muted dark:border-dark-border-muted">
                                     <span class="text-xs font-bold text-text-muted">@Localizer["Place"]</span>
-                                    <span class="text-xs font-black text-slate-900 dark:text-white">@Model.Geburtsort</span>
+                                    <span class="text-xs font-black text-text-main dark:text-white">@Model.Geburtsort</span>
                                 </div>
                             }
                             
@@ -96,7 +96,7 @@
         <!-- Right: Content & Filmography -->
         <div class="lg:col-span-2 space-y-16">
             <header>
-                <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-slate-900 dark:text-white leading-none transition-colors">@Model.Vorname @Model.Nachname</h1>
+                <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-text-main dark:text-white leading-none transition-colors">@Model.Vorname @Model.Nachname</h1>
                 @if (Model.Geburtsdatum.HasValue)
                 {
                     <p class="mt-4 text-xl text-brand-primary font-black uppercase tracking-widest">
@@ -108,10 +108,10 @@
 
             <section>
                 <div class="form-group-header !mb-6">
-                    <h2 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">@Localizer["Biography"]</h2>
+                    <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["Biography"]</h2>
                     <div class="h-1 w-12 bg-brand-primary rounded-full"></div>
                 </div>
-                <p class="text-lg text-slate-600 dark:text-dark-text-muted leading-relaxed italic pl-8 border-l-4 border-border-muted dark:border-dark-border transition-colors">
+                <p class="text-lg text-text-description dark:text-dark-text-muted leading-relaxed italic pl-8 border-l-4 border-border-muted dark:border-dark-border transition-colors">
                     @Model.Biografie
                 </p>
             </section>
@@ -120,7 +120,7 @@
             <section>
                 <div class="form-group-header !mb-8 flex items-center justify-between">
                     <div>
-                        <h2 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">@Localizer["Filmography"]</h2>
+                        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["Filmography"]</h2>
                         <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
                     </div>
                     <span class="badge-outline">@Model.PersonEigenschaftFilme.Count @Localizer["Projects"]</span>
@@ -132,7 +132,7 @@
                         <a asp-controller="Film" asp-action="Details" asp-route-id="@participation.FilmID" 
                            class="form-group-card flex items-center p-6 group hover:border-brand-primary/30 transition-all border-l-4 border-l-brand-primary/20 hover:border-l-brand-primary"
                            aria-label='@Localizer["ViewFilmLabel", participation.Film.Titel]'>
-                            <div class="w-16 h-24 rounded-lg overflow-hidden shrink-0 border border-border-muted dark:border-dark-border group-hover:shadow-lg transition-all">
+                            <div class="w-16 h-24 rounded-lg overflow-hidden shrink-0 border border-border-muted dark:border-dark-border group-hover:shadow-lg transition-all" aria-hidden="true">
                                 @if (!string.IsNullOrEmpty(participation.Film.PosterUrl))
                                 {
                                     <img src="@participation.Film.PosterUrl" alt="" class="w-full h-full object-cover transition-transform group-hover:scale-110" />
@@ -140,13 +140,13 @@
                                 else
                                 {
                                     <div class="w-full h-full flex items-center justify-center bg-surface-muted dark:bg-dark-surface-soft transition-colors">
-                                        <i aria-hidden="true" class="fa-solid fa-film text-2xl text-slate-300"></i>
+                                        <i aria-hidden="true" class="fa-solid fa-film text-2xl text-text-muted"></i>
                                     </div>
                                 }
                             </div>
                             <div class="ml-8 flex-grow">
                                 <div class="flex items-center justify-between">
-                                    <p class="text-xl font-black text-slate-900 dark:text-white group-hover:text-brand-primary transition-colors">@participation.Film.Titel</p>
+                                    <p class="text-xl font-black text-text-main dark:text-white group-hover:text-brand-primary transition-colors">@participation.Film.Titel</p>
                                     <span class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest">@participation.Film.Erscheinungsjahr</span>
                                 </div>
                                 <div class="flex items-center gap-3 mt-3">
@@ -156,7 +156,7 @@
                                     <span class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest italic">@participation.Film.Genre</span>
                                 </div>
                             </div>
-                            <i aria-hidden="true" class="fa-solid fa-arrow-right-long ml-6 text-slate-200 dark:text-dark-surface-muted transition-transform group-hover:translate-x-2"></i>
+                            <i aria-hidden="true" class="fa-solid fa-arrow-right-long ml-6 text-border-muted dark:text-dark-surface-muted transition-transform group-hover:translate-x-2"></i>
                         </a>
                     }
                 </div>

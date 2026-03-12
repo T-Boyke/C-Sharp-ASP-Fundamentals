@@ -19,9 +19,9 @@
 }
 
 @utility badge-outline {
-  @apply inline-flex items-center px-2 py-0.5 rounded bg-transparent text-[10px] font-bold text-slate-500 border border-border-default dark:text-slate-400 dark:border-dark-border;
+  @apply inline-flex items-center px-2 py-0.5 rounded bg-transparent text-[10px] font-bold text-text-muted border border-border-default dark:text-dark-text-muted dark:border-dark-border;
 }
 
 @utility badge-status-new {
-  @apply absolute top-4 right-4 bg-brand-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-tighter shadow-sm dark:bg-brand-primary dark:text-slate-100;
+  @apply absolute top-4 right-4 bg-brand-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-tighter shadow-sm dark:bg-brand-primary dark:text-dark-text-secondary;
 }

@@ -1,9 +1,9 @@
 @utility form-input {
-  @apply block w-full rounded-lg bg-white border-0 py-2.5 px-4 text-slate-900 shadow-sm ring-1 ring-inset ring-border-default placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-brand-primary sm:text-sm sm:leading-6 dark:bg-dark-surface-soft dark:text-slate-100 dark:ring-dark-border dark:placeholder:text-slate-500 transition-all duration-200;
+  @apply block w-full rounded-lg bg-surface-bright border-0 py-2.5 px-4 text-text-main shadow-sm ring-1 ring-inset ring-border-default placeholder:text-text-muted focus:ring-2 focus:ring-inset focus:ring-brand-primary sm:text-sm sm:leading-6 dark:bg-dark-surface-soft dark:text-dark-text-main dark:ring-dark-border dark:placeholder:text-dark-text-muted transition-all duration-200;
 }
 
 @utility form-label {
-  @apply block text-sm font-bold leading-6 text-slate-900 dark:text-slate-200 mb-1;
+  @apply block text-sm font-bold leading-6 text-text-main dark:text-dark-text-secondary mb-1;
 }
 
 @utility form-error {
@@ -11,7 +11,7 @@
 }
 
 @utility form-group {
-  @apply space-y-6 bg-white/30 dark:bg-dark-surface-soft/20 p-6 rounded-2xl border border-border-muted dark:border-dark-border;
+  @apply space-y-6 bg-surface-bright/30 dark:bg-dark-surface-soft/20 p-6 rounded-2xl border border-border-muted dark:border-dark-border;
 }
 
 @utility form-checkbox-premium {
@@ -29,5 +29,5 @@ input[type="password"]::-ms-clear {
 }
 
 @utility form-input-icon-right {
-  @apply absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-brand-primary dark:hover:text-brand-primary transition-colors cursor-pointer p-1.5;
+  @apply absolute right-3 top-1/2 -translate-y-1/2 text-text-muted dark:text-dark-text-muted hover:text-brand-primary dark:hover:text-brand-primary transition-colors cursor-pointer p-1.5;
 }

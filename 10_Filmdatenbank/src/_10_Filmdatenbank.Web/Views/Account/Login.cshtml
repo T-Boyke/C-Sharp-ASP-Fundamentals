@@ -9,10 +9,10 @@
 <div class="flex min-h-[60vh] items-center justify-center px-4 py-20">
     <div class="w-full max-w-md">
         <div class="text-center mb-10">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-soft shadow-sm border border-brand-border mb-6">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-soft shadow-sm border border-brand-border mb-6" aria-hidden="true">
                 <i aria-hidden="true" class="fa-solid fa-lock text-brand-primary text-3xl"></i>
             </div>
-            <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white transition-colors">@Localizer["WelcomeBack"]</h2>
+            <h2 class="text-3xl font-extrabold text-text-main dark:text-white transition-colors">@Localizer["WelcomeBack"]</h2>
             <p class="mt-2 text-text-description dark:text-dark-text-muted font-medium transition-colors">@Localizer["LoginSubtitle"]</p>
         </div>
 
@@ -39,8 +39,8 @@
                     </label>
                     <div class="form-input-container group">
                         <input asp-for="Password" type="password" id="password_input" autocomplete="current-password" required class="form-input pr-12" placeholder="••••••••">
-                        <button type="button" onclick="togglePasswordVisibility()" class="form-input-icon-right" aria-label='@Localizer["TogglePasswordVisibility"]'>
-                            <i id="password_toggle_icon" class="fa-solid fa-eye"></i>
+                        <button type="button" onclick="togglePasswordVisibility()" class="form-input-icon-right focus:text-brand-primary outline-hidden" aria-label='@Localizer["TogglePasswordVisibility"]' id="password_toggle_button">
+                            <i id="password_toggle_icon" class="fa-solid fa-eye" aria-hidden="true"></i>
                         </button>
                     </div>
                     <span asp-validation-for="Password" class="form-error"></span>
@@ -50,14 +50,17 @@
                     function togglePasswordVisibility() {
                         const input = document.getElementById('password_input');
                         const icon = document.getElementById('password_toggle_icon');
+                        const button = document.getElementById('password_toggle_button');
                         if (input.type === 'password') {
                             input.type = 'text';
                             icon.classList.remove('fa-eye');
                             icon.classList.add('fa-eye-slash');
+                            button.setAttribute('aria-label', '@Localizer["HidePassword"]');
                         } else {
                             input.type = 'password';
                             icon.classList.remove('fa-eye-slash');
                             icon.classList.add('fa-eye');
+                            button.setAttribute('aria-label', '@Localizer["ShowPassword"]');
                         }
                     }
                 </script>
@@ -78,7 +81,7 @@
                     <i aria-hidden="true" class="fa-solid fa-circle-info text-brand-primary text-xl"></i>
                     <div class="text-xs text-text-muted dark:text-dark-text-muted font-medium">
                         <p>@Localizer["TestAccessAdmin"]:</p>
-                        <p class="font-bold text-slate-900 dark:text-white mt-0.5">admin@film.de | Admin123!</p>
+                        <p class="font-bold text-text-main dark:text-white mt-0.5">admin@film.de | Admin123!</p>
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 }
 
 @utility hero-glass {
-  @apply relative animate-fade-in py-16 px-6 sm:py-24 lg:px-8 bg-linear-to-b from-brand-soft to-white dark:from-dark-surface-soft dark:to-dark-surface border-b border-brand-border/30 dark:border-dark-border/50;
+  @apply relative animate-fade-in py-16 px-6 sm:py-24 lg:px-8 bg-linear-to-b from-brand-soft to-surface-bright dark:from-dark-surface-soft dark:to-dark-surface border-b border-brand-border/30 dark:border-dark-border/50;
 }
 
 @utility hero-badge {
