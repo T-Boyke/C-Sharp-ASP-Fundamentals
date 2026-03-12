@@ -16,10 +16,10 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid-cards">
         @foreach (var person in Model)
         {
-            <div class="group relative flex flex-col p-6 rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-primary/20 dark:hover:border-brand-primary/20 transition-all hover:shadow-xl hover:shadow-brand-primary/5">
+            <div class="card-interactive p-6">
                 <div class="flex items-center gap-4">
                     <div class="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800/50 flex items-center justify-center text-slate-400 dark:text-slate-500 group-hover:bg-brand-soft group-hover:text-brand-primary transition-colors">
                         <i aria-hidden="true" class="fa-solid fa-user-circle text-2xl"></i>
@@ -31,16 +31,16 @@
                         @{
                             var rollen = person.PersonEigenschaftFilme.Select(pef => pef.Eigenschaft.Bezeichnung).Distinct();
                         }
-                        <div class="flex flex-wrap gap-1 mt-1">
+                        <div class="flex-wrap-gap mt-1">
                             @foreach (var rolle in rollen)
                             {
-                                <span class="text-[9px] font-bold text-brand-primary uppercase tracking-widest bg-brand-soft/50 px-1.5 py-0.5 rounded">@rolle</span>
+                                <span class="badge-premium px-1.5 py-0.5">@rolle</span>
                             }
                         </div>
                     </div>
                 </div>
                 
-                <div class="mt-6 pt-6 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between transition-colors">
+                <div class="mt-6 pt-6 border-t border-slate-50 dark:border-slate-800 flex-between transition-colors">
                     <span class="text-xs font-medium text-slate-400 dark:text-slate-500">
                         @person.PersonEigenschaftFilme.Count() Filme
                     </span>

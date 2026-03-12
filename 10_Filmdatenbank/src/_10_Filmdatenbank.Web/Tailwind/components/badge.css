@@ -2,6 +2,26 @@
   @apply inline-flex items-center px-2 py-0.5 rounded bg-brand-soft text-[10px] font-bold text-brand-primary border border-brand-border dark:bg-brand-primary/20 dark:text-brand-soft dark:border-brand-primary/40;
 }
 
+@utility badge-success {
+  @apply inline-flex items-center px-2 py-0.5 rounded bg-emerald-50 text-[10px] font-bold text-emerald-700 border border-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-800/50;
+}
+
+@utility badge-warning {
+  @apply inline-flex items-center px-2 py-0.5 rounded bg-amber-50 text-[10px] font-bold text-amber-700 border border-amber-100 dark:bg-amber-950/30 dark:text-amber-400 dark:border-amber-800/50;
+}
+
+@utility badge-danger {
+  @apply inline-flex items-center px-2 py-0.5 rounded bg-red-50 text-[10px] font-bold text-red-700 border border-red-100 dark:bg-red-950/30 dark:text-red-400 dark:border-red-800/50;
+}
+
+@utility badge-info {
+  @apply inline-flex items-center px-2 py-0.5 rounded bg-sky-50 text-[10px] font-bold text-sky-700 border border-sky-100 dark:bg-sky-950/30 dark:text-sky-400 dark:border-sky-800/50;
+}
+
+@utility badge-outline {
+  @apply inline-flex items-center px-2 py-0.5 rounded bg-transparent text-[10px] font-bold text-slate-500 border border-slate-200 dark:text-slate-400 dark:border-slate-700;
+}
+
 @utility badge-status-new {
   @apply absolute top-4 right-4 bg-brand-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-tighter shadow-sm dark:bg-brand-primary dark:text-slate-100;
 }

@@ -4,13 +4,11 @@
 
 <div class="bg-transparent transition-colors duration-300">
     <!-- Hero Section -->
-    <div class="relative isolate overflow-hidden">
+    <div class="hero-container relative isolate overflow-hidden">
         <div class="mx-auto max-w-7xl px-6 pt-10 pb-24 sm:pb-32 lg:flex lg:px-8 lg:py-40">
-            <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8">
-                <div class="mt-24 sm:mt-32 lg:mt-16">
-                    <a href="#" class="inline-flex space-x-6">
-                        <span class="rounded-full bg-brand-soft px-3 py-1 text-sm font-semibold text-brand-primary ring-1 ring-inset ring-brand-border/20">Version 4.2 Release</span>
-                    </a>
+            <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8 flex-stack">
+                <div>
+                     <span class="badge-premium px-3 py-1">Version 4.2 Release</span>
                 </div>
                 <h1 class="mt-10 text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-6xl text-balance">
                     Professionelle <span class="text-brand-primary">Filmdaten-Verwaltung</span>
@@ -18,11 +16,11 @@
                 <p class="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-400 text-pretty">
                     Verwalten Sie Ihre Filmkollektion mit System. Unsere Plattform bietet Ihnen alle Werkzeuge für eine strukturierte Datenbankpflege – effizient, sicher und modern.
                 </p>
-                <div class="mt-10 flex items-center gap-x-6">
+                <div class="mt-10 flex-wrap-gap">
                     <a asp-controller="Film" asp-action="Index" class="btn-primary">
                         <i aria-hidden="true" class="fa-solid fa-play mr-2"></i> Jetzt starten
                     </a>
-                    <a href="#features" class="btn-secondary">
+                    <a href="#features" class="btn-secondary px-6 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm">
                         <i aria-hidden="true" class="fa-solid fa-circle-info mr-2"></i> Mehr erfahren
                     </a>
                 </div>
@@ -32,22 +30,22 @@
             <div class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32" id="features">
                 <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-white/50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:border-brand-primary/30 group backdrop-blur-sm">
+                        <div class="card-glass p-6 group">
                             <i aria-hidden="true" class="fa-solid fa-layer-group text-2xl text-brand-primary mb-3"></i>
                             <h3 class="font-bold text-slate-900 dark:text-white">Clean Arch</h3>
                             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">Domain-Driven Design (DDD) Struktur.</p>
                         </div>
-                        <div class="bg-white/50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:border-brand-primary/30 group backdrop-blur-sm">
+                        <div class="card-glass p-6 group">
                             <i aria-hidden="true" class="fa-solid fa-box-open text-2xl text-brand-primary mb-3"></i>
                             <h3 class="font-bold text-slate-900 dark:text-white">Node-Free</h3>
                             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">LibMan & Tailwind CLI Integration.</p>
                         </div>
-                        <div class="bg-white/50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:border-brand-primary/30 group backdrop-blur-sm">
+                        <div class="card-glass p-6 group">
                             <i aria-hidden="true" class="fa-solid fa-shield-halved text-2xl text-brand-primary mb-3"></i>
                             <h3 class="font-bold text-slate-900 dark:text-white">Identity</h3>
                             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">Robustes IAM via .NET Identity.</p>
                         </div>
-                        <div class="bg-white/50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:border-brand-primary/30 group backdrop-blur-sm">
+                        <div class="card-glass p-6 group">
                             <i aria-hidden="true" class="fa-solid fa-gauge-high text-2xl text-brand-primary mb-3"></i>
                             <h3 class="font-bold text-slate-900 dark:text-white">Performance</h3>
                             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">Optimierte Queries & lokales Hosting.</p>

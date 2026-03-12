@@ -14,16 +14,16 @@
             <p class="mt-2 text-slate-500 dark:text-slate-400 font-medium transition-colors">Melden Sie sich an, um Ihre Datenbank zu verwalten.</p>
         </div>
 
-        <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl transition-colors">
+        <div class="card-glass p-8 group">
             <form class="space-y-6" asp-action="Login" method="post">
-                <div asp-validation-summary="ModelOnly" role="alert" class="p-4 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-bold border border-red-100 dark:border-red-900/30 italic flex flex-col items-center gap-4">
+                <div asp-validation-summary="ModelOnly" role="alert" class="p-4 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-bold border border-red-100 dark:border-red-900/30 italic flex-col-center gap-4">
                     @if (ViewBag.LoginFailed == true)
                     {
                         <img src="~/wrongPW.gif" alt="Falsches Passwort" class="w-32 h-32 rounded-lg shadow-md border-2 border-red-200 dark:border-red-800" />
                     }
                 </div>
                 
-                <div>
+                <div class="form-group">
                     <label asp-for="Email" class="form-label">
                         <i aria-hidden="true" class="fa-solid fa-envelope mr-1 text-slate-400 dark:text-slate-500"></i> Email Adresse
                     </label>
@@ -31,7 +31,7 @@
                     <span asp-validation-for="Email" class="form-error"></span>
                 </div>
 
-                <div>
+                <div class="form-group">
                     <label asp-for="Password" class="form-label">
                         <i aria-hidden="true" class="fa-solid fa-key mr-1 text-slate-400 dark:text-slate-500"></i> Passwort
                     </label>

@@ -6,7 +6,7 @@
 
 <div class="mx-auto max-w-2xl px-6 lg:px-8 py-24 flex flex-col items-center">
     <div class="w-full text-center">
-        <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-red-50 text-red-600 mb-10 shadow-sm border border-red-100 animate-pulse">
+        <div class="inline-flex flex-center w-20 h-20 rounded-2xl bg-red-50 text-red-600 mb-10 shadow-sm border border-red-100 animate-pulse">
             <i aria-hidden="true" class="fa-solid fa-triangle-exclamation text-4xl"></i>
         </div>
         
@@ -18,23 +18,23 @@
             </p>
         </div>
 
-        <div class="card-premium p-6 text-left mb-12 flex items-center gap-6 bg-slate-50/50 dark:bg-slate-800/50">
-            <div class="w-16 h-16 flex-none rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center justify-center text-slate-300 dark:text-slate-600">
+        <div class="card-premium p-6 text-left mb-12 flex items-center gap-6 bg-slate-50/50 dark:bg-slate-800/50 items-start">
+            <div class="w-16 h-16 flex-none rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex-center text-slate-300 dark:text-slate-600 mt-1">
                 <i aria-hidden="true" class="fa-solid fa-film text-2xl"></i>
             </div>
             <div>
                 <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Datensatz-Vorschau</div>
-                <div class="text-sm font-bold text-slate-700 dark:text-slate-300">
-                    <i aria-hidden="true" class="fa-solid fa-calendar mr-2 opacity-40"></i> @Model.Erscheinungsjahr 
-                    <span class="mx-2 text-slate-300">|</span>
-                    <i aria-hidden="true" class="fa-solid fa-stopwatch mr-2 opacity-40"></i> @Model.Spieldauer min
-                    <span class="mx-2 text-slate-300">|</span>
-                    <i aria-hidden="true" class="fa-solid fa-tag mr-2 opacity-40"></i> @Model.Preis.ToString("C")
+                <div class="text-sm font-bold text-slate-700 dark:text-slate-300 flex-wrap-gap">
+                    <span><i aria-hidden="true" class="fa-solid fa-calendar mr-2 opacity-40"></i> @Model.Erscheinungsjahr</span>
+                    <span class="hidden sm:inline text-slate-300">|</span>
+                    <span><i aria-hidden="true" class="fa-solid fa-stopwatch mr-2 opacity-40"></i> @Model.Spieldauer min</span>
+                    <span class="hidden sm:inline text-slate-300">|</span>
+                    <span><i aria-hidden="true" class="fa-solid fa-tag mr-2 opacity-40"></i> @Model.Preis.ToString("C")</span>
                 </div>
             </div>
         </div>
 
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+        <div class="flex-center flex-wrap-gap">
             <form asp-action="Delete">
                 <input type="hidden" asp-for="FilmID" />
                 <button type="submit" class="w-full sm:w-auto btn-danger font-black rounded-xl hover:scale-105 flex items-center gap-3">

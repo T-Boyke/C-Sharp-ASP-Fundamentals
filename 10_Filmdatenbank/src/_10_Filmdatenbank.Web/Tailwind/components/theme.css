@@ -16,7 +16,7 @@
   }
   
   .dark body {
-    @apply bg-slate-950 text-white;
+    @apply bg-slate-950 text-slate-100;
   }
 
   /* Standardized focus styles for links and other interactive elements */

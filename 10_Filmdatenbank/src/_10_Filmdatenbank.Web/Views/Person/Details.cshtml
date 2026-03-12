@@ -14,12 +14,12 @@
         <span class="text-slate-900 dark:text-white border-b-2 border-brand-primary pb-0.5 transition-colors">@Model.Vorname @Model.Nachname</span>
     </nav>
 
-    <div class="grid grid-cols-1 gap-12 lg:grid-cols-3 items-start">
+    <div class="grid-details">
         
         <!-- Left: Profile Info -->
-        <div class="lg:col-span-1 space-y-8">
+        <div class="lg:col-span-1 flex-stack">
             <div class="card-premium overflow-hidden">
-                <div class="aspect-square bg-slate-50 dark:bg-slate-900 flex items-center justify-center border-b border-slate-100 dark:border-slate-800 relative group transition-colors">
+                <div class="aspect-square bg-slate-50 dark:bg-slate-900 flex-center border-b border-slate-100 dark:border-slate-800 relative group transition-colors">
                     <i aria-hidden="true" class="fa-solid fa-user-circle text-slate-200/60 dark:text-slate-800/60 text-9xl group-hover:scale-110 transition-transform duration-700"></i>
                 </div>
                 <div class="p-8 space-y-6">
@@ -33,10 +33,10 @@
                             @{
                                 var rollen = Model.PersonEigenschaftFilme.Select(pef => pef.Eigenschaft.Bezeichnung).Distinct();
                             }
-                            <div class="flex flex-wrap gap-2">
+                            <div class="flex-wrap-gap">
                                 @foreach (var rolle in rollen)
                                 {
-                                    <span class="text-[10px] font-bold text-brand-primary uppercase tracking-widest bg-brand-soft px-2 py-1 rounded">@rolle</span>
+                                    <span class="badge-premium px-2 py-1">@rolle</span>
                                 }
                             </div>
                         </div>
@@ -53,12 +53,12 @@
             </header>
 
             <section>
-                <div class="flex items-center justify-between mb-8 border-b border-slate-100 dark:border-slate-800 pb-4 transition-colors">
+                <div class="flex-between mb-8 border-b border-slate-100 dark:border-slate-800 pb-4 transition-colors">
                     <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 transition-colors">
                         <i aria-hidden="true" class="fa-solid fa-clapperboard text-brand-primary"></i>
                         Filmografie
                     </h2>
-                    <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                    <span class="badge-outline">
                         @Model.PersonEigenschaftFilme.Count Produktionen
                     </span>
                 </div>
@@ -66,20 +66,20 @@
                 <div class="grid grid-cols-1 gap-4">
                     @foreach (var pef in Model.PersonEigenschaftFilme)
                     {
-                        <a asp-controller="Film" asp-action="Details" asp-route-id="@pef.Film.FilmID" class="flex items-center p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:border-brand-primary/20 dark:hover:border-brand-primary/20 transition-all group">
-                            <div class="w-12 h-12 rounded-lg bg-brand-soft dark:bg-slate-900/50 flex items-center justify-center text-brand-primary group-hover:scale-105 transition-transform">
+                        <a asp-controller="Film" asp-action="Details" asp-route-id="@pef.Film.FilmID" class="card-interactive flex items-center p-4 !translate-y-0 hover:!border-brand-primary/20 bg-white dark:bg-slate-900">
+                            <div class="w-12 h-12 rounded-lg bg-brand-soft dark:bg-slate-900/50 flex-center text-brand-primary group-hover:scale-105 transition-transform">
                                 <i aria-hidden="true" class="fa-solid fa-film"></i>
                             </div>
                             <div class="ml-4 flex-grow">
                                 <div class="text-sm font-black text-slate-900 dark:text-white transition-colors">@pef.Film.Titel</div>
-                                <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Als @pef.Eigenschaft.Bezeichnung (@pef.Film.Erscheinungsjahr)</div>
+                                <div class="badge-outline !bg-transparent !p-0 border-none !text-[10px]">Als @pef.Eigenschaft.Bezeichnung (@pef.Film.Erscheinungsjahr)</div>
                             </div>
                             <i aria-hidden="true" class="fa-solid fa-chevron-right text-slate-200 dark:text-slate-700 group-hover:translate-x-1 transition-transform"></i>
                         </a>
                     }
                     @if (!Model.PersonEigenschaftFilme.Any())
                     {
-                         <div class="p-12 rounded-2xl border-2 border-dashed border-slate-100 dark:border-slate-800 flex flex-col items-center text-slate-400 dark:text-slate-500 transition-colors">
+                         <div class="p-12 rounded-2xl border-2 border-dashed border-slate-100 dark:border-slate-800 flex-col-center text-slate-400 dark:text-slate-500 transition-colors">
                             <i aria-hidden="true" class="fa-solid fa-box-open text-4xl mb-3"></i>
                             <p class="text-sm font-medium">Bisher keine Film-Mitwirkungen verknüpft.</p>
                         </div>
@@ -88,4 +88,5 @@
             </section>
         </div>
     </div>
+
 </div>

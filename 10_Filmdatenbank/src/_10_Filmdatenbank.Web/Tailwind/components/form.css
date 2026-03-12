@@ -9,3 +9,11 @@
 @utility form-error {
   @apply mt-1 text-sm text-red-600 dark:text-red-400 font-medium;
 }
+
+@utility form-group {
+  @apply space-y-6 bg-white/30 dark:bg-slate-900/20 p-6 rounded-2xl border border-slate-100 dark:border-slate-800;
+}
+
+@utility form-checkbox-premium {
+  @apply h-4 w-4 rounded border-slate-300 text-brand-primary focus:ring-brand-primary dark:bg-slate-800 dark:border-slate-700 transition-all;
+}
