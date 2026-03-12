@@ -20,18 +20,29 @@
         </a>
     </div>
 
-    <div class="card-premium overflow-hidden">
+    <div class="form-group-card overflow-hidden !p-0">
         <form asp-action="Edit" class="p-10 space-y-10">
             <input type="hidden" asp-for="PersonID" />
-            <div asp-validation-summary="ModelOnly" role="alert" class="p-4 rounded-xl bg-red-50 text-red-600 text-sm font-bold border border-red-100 italic"></div>
+            
+            <div class="form-group-header">
+                <div>
+                    <h2 class="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Profil bearbeiten</h2>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Stammdaten synchronisieren</p>
+                </div>
+                <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-[10px] font-black text-slate-400 uppercase">
+                    Mitarbeiter: #@Model.PersonID
+                </div>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" role="alert" class="p-4 rounded-xl bg-red-50 text-red-600 text-sm font-bold border border-red-100 italic mb-8"></div>
 
             <div class="space-y-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="form-group-row">
                     <div class="form-group">
                         <label asp-for="Vorname" class="form-label">
                             <i aria-hidden="true" class="fa-solid fa-signature mr-1 text-slate-400 dark:text-slate-500"></i> Vorname
                         </label>
-                        <input asp-for="Vorname" class="form-input" placeholder="z.B. Keanu" />
+                        <input asp-for="Vorname" class="form-input" />
                         <span asp-validation-for="Vorname" class="form-error"></span>
                     </div>
 
@@ -39,21 +50,21 @@
                         <label asp-for="Nachname" class="form-label">
                             <i aria-hidden="true" class="fa-solid fa-signature mr-1 text-slate-400 dark:text-slate-500"></i> Nachname
                         </label>
-                        <input asp-for="Nachname" class="form-input" placeholder="z.B. Reeves" />
+                        <input asp-for="Nachname" class="form-input" />
                         <span asp-validation-for="Nachname" class="form-error"></span>
                     </div>
                 </div>
             </div>
 
-            <div class="card-footer flex-between gap-6">
+            <div class="form-group-footer">
                  <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] max-w-[200px] leading-relaxed">
-                    Aktualisieren Sie die Daten und speichern Sie die Änderungen.
+                    Änderungen werden sofort im gesamten System übernommen.
                 </p>
                 <div class="flex flex-col gap-3">
                     <div class="flex-wrap-gap">
                         <a asp-action="Index" class="btn-secondary">Abbrechen</a>
                         <button type="submit" class="btn-primary">
-                            <i aria-hidden="true" class="fa-solid fa-floppy-disk mr-2"></i> Änderungen speichern
+                            <i aria-hidden="true" class="fa-solid fa-floppy-disk mr-2"></i> Daten speichern
                         </button>
                     </div>
                 </div>

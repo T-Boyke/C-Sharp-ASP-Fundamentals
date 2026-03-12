@@ -20,36 +20,46 @@
         </a>
     </div>
 
-    <div class="card-premium overflow-hidden">
+    <div class="form-group-card overflow-hidden !p-0">
         <form asp-action="Edit" class="p-10 space-y-10">
             <input type="hidden" asp-for="FilmID" />
-            <div asp-validation-summary="ModelOnly" role="alert" class="p-4 rounded-xl bg-red-50 text-red-600 text-sm font-bold border border-red-100 italic"></div>
+            
+            <div class="form-group-header">
+                <div>
+                    <h2 class="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Katalogdaten</h2>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Metadaten aktualisieren</p>
+                </div>
+                <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-[10px] font-black text-slate-400 uppercase">
+                    ID: #@Model.FilmID
+                </div>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" role="alert" class="p-4 rounded-xl bg-red-50 text-red-600 text-sm font-bold border border-red-100 italic mb-8"></div>
 
             <div class="space-y-8">
-                <!-- Basic Info -->
-                <div class="grid grid-cols-1 gap-8">
+                <div class="form-group">
+                    <label asp-for="Titel" class="form-label">
+                        <i aria-hidden="true" class="fa-solid fa-heading mr-1 text-slate-400 dark:text-slate-500"></i> Film-Titel
+                    </label>
+                    <input asp-for="Titel" class="form-input" placeholder="Aktueller Titel" />
+                    <span asp-validation-for="Titel" class="form-error"></span>
+                </div>
+
+                <div class="form-group-row">
                     <div class="form-group">
-                        <label asp-for="Titel" class="form-label">
-                            <i aria-hidden="true" class="fa-solid fa-heading mr-1 text-slate-400 dark:text-slate-500"></i> Film-Titel
+                        <label asp-for="Erscheinungsjahr" class="form-label">
+                            <i aria-hidden="true" class="fa-solid fa-calendar mr-1 text-slate-400 dark:text-slate-500"></i> Jahr
                         </label>
-                        <input asp-for="Titel" class="form-input" placeholder="Aktueller Titel" />
-                        <span asp-validation-for="Titel" class="form-error"></span>
+                        <input asp-for="Erscheinungsjahr" class="form-input" />
+                        <span asp-validation-for="Erscheinungsjahr" class="form-error"></span>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                        <div class="form-group">
-                            <label asp-for="Erscheinungsjahr" class="form-label">
-                                <i aria-hidden="true" class="fa-solid fa-calendar mr-1 text-slate-400 dark:text-slate-500"></i> Jahr
-                            </label>
-                             <input asp-for="Erscheinungsjahr" class="form-input" placeholder="Erscheinungsjahr" />
-                            <span asp-validation-for="Erscheinungsjahr" class="form-error"></span>
-                        </div>
-
+                    <div class="grid grid-cols-2 gap-6">
                         <div class="form-group">
                             <label asp-for="Spieldauer" class="form-label">
                                 <i aria-hidden="true" class="fa-solid fa-stopwatch mr-1 text-slate-400 dark:text-slate-500"></i> Dauer (min)
                             </label>
-                             <input asp-for="Spieldauer" class="form-input" placeholder="Dauer in Min." />
+                            <input asp-for="Spieldauer" class="form-input" />
                             <span asp-validation-for="Spieldauer" class="form-error"></span>
                         </div>
 
@@ -57,27 +67,24 @@
                             <label asp-for="Preis" class="form-label">
                                 <i aria-hidden="true" class="fa-solid fa-tag mr-1 text-slate-400 dark:text-slate-500"></i> Preis (€)
                             </label>
-                             <input asp-for="Preis" class="form-input" placeholder="Preis in Euro" />
+                            <input asp-for="Preis" class="form-input" />
                             <span asp-validation-for="Preis" class="form-error"></span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card-footer flex-between gap-6">
+            <div class="form-group-footer">
                  <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] max-w-[200px] leading-relaxed">
                     Änderungen werden sofort in der Datenbank persistiert.
                 </p>
                 <div class="flex flex-col gap-3">
                     <div class="flex-wrap-gap">
                         <a asp-action="Index" class="btn-secondary">Abbrechen</a>
-                        <button type="submit" class="btn-primary bg-emerald-600 hover:bg-emerald-700 px-8 shadow-lg shadow-emerald-600/20">
+                        <button type="submit" class="btn-primary bg-emerald-600 hover:bg-emerald-700 px-8 shadow-lg shadow-emerald-600/20 border-emerald-500">
                             <i aria-hidden="true" class="fa-solid fa-check mr-2 font-light"></i> Aktualisieren
                         </button>
                     </div>
-                    <p class="text-xs text-slate-400 dark:text-slate-500">
-                        Mit dem Speichern der Daten bestätigen Sie unsere <a asp-controller="Home" asp-action="Privacy" class="underline hover:text-brand-primary">Datenschutzbestimmungen</a>. Die eingegebenen Daten werden ausschließlich projektintern gespeichert.
-                    </p>
                 </div>
             </div>
         </form>
