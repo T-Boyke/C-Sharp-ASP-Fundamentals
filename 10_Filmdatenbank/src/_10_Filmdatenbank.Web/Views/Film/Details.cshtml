@@ -112,6 +112,15 @@
                         <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Runtime"]</span>
                         <span class="text-sm font-black text-slate-900 dark:text-white transition-colors">@Model.Spieldauer @Localizer["MinSuffix"]</span>
                     </div>
+                    @if (!string.IsNullOrEmpty(Model.Homepage))
+                    {
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Webseite</span>
+                            <a href="@Model.Homepage" target="_blank" class="text-xs font-black text-brand-primary hover:text-brand-hover transition-colors truncate">
+                                <i class="fa-solid fa-link mr-1"></i> @Model.Homepage
+                            </a>
+                        </div>
+                    }
                 </div>
             </div>
 
@@ -157,6 +166,29 @@
                     @Model.Handlung
                 </p>
             </section>
+
+            @if (!string.IsNullOrEmpty(Model.TrailerUrl))
+            {
+                <section>
+                    <div class="form-group-header !mb-8">
+                        <h2 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Trailer</h2>
+                        <div class="h-1 w-12 bg-brand-primary rounded-full mt-1"></div>
+                    </div>
+                    
+                    <div class="card-glass overflow-hidden aspect-video border border-slate-200 dark:border-slate-800 shadow-2xl relative group">
+                        <iframe width="100%" height="100%" 
+                                src="@Model.TrailerUrl" 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerpolicy="strict-origin-when-cross-origin" 
+                                allowfullscreen
+                                class="rounded-2xl"></iframe>
+                        
+                        <div class="absolute inset-x-0 -bottom-1 h-2 bg-brand-primary opacity-50 group-hover:opacity-100 transition-opacity blur-sm"></div>
+                    </div>
+                </section>
+            }
 
             <!-- Cast Section -->
             <section>

@@ -29,6 +29,6 @@ public class TmdbService : ITmdbService
 
     public async Task<Movie> GetMovieDetailsAsync(int tmdbId, string language = "de-DE")
     {
-        return await _client.GetMovieAsync(tmdbId, language: language, extraMethods: MovieMethods.Credits | MovieMethods.ExternalIds | MovieMethods.Keywords);
+        return await _client.GetMovieAsync(tmdbId, language: language, extraMethods: MovieMethods.Credits | MovieMethods.ExternalIds | MovieMethods.Keywords | MovieMethods.Videos);
     }
 }

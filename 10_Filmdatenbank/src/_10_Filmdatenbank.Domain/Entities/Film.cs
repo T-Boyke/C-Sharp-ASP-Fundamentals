@@ -141,6 +141,11 @@ public class Film
     public string? BackdropUrl { get; set; }
 
     /// <summary>
+    /// Die URL zum offiziellen Trailer (meist YouTube Embed URL).
+    /// </summary>
+    public string? TrailerUrl { get; set; }
+
+    /// <summary>
     /// Eine Sammlung von Personen und ihren Eigenschaften, die an diesem Film mitgewirkt haben.
     /// </summary>
     public ICollection<PersonEigenschaftFilm> PersonEigenschaftFilme { get; set; } = [];
