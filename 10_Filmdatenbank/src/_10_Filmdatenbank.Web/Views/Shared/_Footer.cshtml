@@ -31,7 +31,7 @@
                 <div class="flex flex-wrap items-center justify-center gap-2">
                     @foreach (var culture in new[] { ("de", "DE"), ("en", "EN"), ("pt", "PT"), ("ru", "RU"), ("ar", "AR"), ("tr", "TR") })
                     {
-                        <form asp-controller="HomeController" asp-action="SetLanguage" asp-route-culture="@culture.Item1" asp-route-returnUrl="@Context.Request.Path" method="post" class="inline">
+                        <form asp-controller="Home" asp-action="SetLanguage" asp-route-culture="@culture.Item1" asp-route-returnUrl="@Context.Request.Path" method="post" class="inline">
                             <button type="submit" 
                                     class='px-2 py-1 text-[10px] font-black rounded border transition-all @(System.Globalization.CultureInfo.CurrentCulture.Name.StartsWith(culture.Item1) ? "bg-brand-primary text-white border-brand-primary shadow-lg shadow-brand-primary/20" : "bg-slate-50 dark:bg-slate-900 text-slate-500 border-slate-200 dark:border-slate-800 hover:border-brand-primary hover:text-brand-primary")'>
                                 @culture.Item2
