@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # Tailwind CSS 4 Styleguide - The Ultimate Reference
 
 Dieses Dokument ist die **vollumfängliche, verbindliche Referenz** für den
@@ -14,7 +18,14 @@ Tailwind v4 ist vollständig CSS-gesteuert. Es gibt keine `tailwind.config.js`
 mehr.
 
 - **Initialization**: `@import "tailwindcss";` am Anfang der `input.css`.
+- **Source Folder**: Alle Quell-CSS-Dateien liegen im `Tailwind/` Verzeichnis.
 - **Theme Customization**: Nutze die `@theme`-Direktive.
+- **Scanning (@source)**: Um Klassen in Views und JS zuverlässig zu erkennen, müssen `@source` Direktiven in der `input.css` verwendet werden:
+
+  ```css
+  @source "../Views/**/*.cshtml";
+  @source "../wwwroot/js/**/*.js";
+  ```
 
   ```css
   @theme {
@@ -29,7 +40,19 @@ mehr.
 
   ```css
   @utility card-premium {
-    @apply bg-white border border-slate-200 rounded-xl shadow-sm;
+    @apply bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm transition-all duration-300;
+  }
+
+  @utility nav-link {
+    @apply text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 flex items-center gap-2;
+  }
+
+  @utility btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-2.5 bg-brand-primary text-white font-bold rounded-lg hover:bg-brand-hover transition-all duration-200 shadow-sm hover:shadow-brand-border/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary;
+  }
+
+  @utility btn-danger {
+    @apply inline-flex items-center justify-center px-6 py-2.5 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition-all duration-200 shadow-sm hover:shadow-red-200/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600;
   }
   ```
 
@@ -272,14 +295,3 @@ Wenn wir fertige UI-Blöcke (Tailark, TailwindUI) adaptieren:
    unsere CSS-Variablen in `theme.css` oder Custom-Klassen (`bg-brand-primary`)
    angepasst werden.
 
----
-
-## 19. Datenschutz (DSGVO / GDPR) & CDNs
-
-- **Local Assets Only**: Beziehe Fonts, Icons oder externe Scripte **niemals**
-  über CDNs. Nutze LibMan für lokale Kopien (`/wwwroot/lib`). Dies ist eine
-  strikte DSGVO-Anforderung, um den unaufgeforderten Datentransfer (z.B.
-  IP-Adressen) an Drittserver (USA) zu unterbinden.
-- **Privacy by Design**: Formulare, die personenbezogene Daten erfassen, müssen
-  transparent gestaltet sein und klare Opt-in Checkboxen für die Speicherung
-  anbieten.

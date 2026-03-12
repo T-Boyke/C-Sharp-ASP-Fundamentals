@@ -24,6 +24,9 @@
     <TailwindConfigDir>$(MSBuildProjectDirectory)\Tailwind\</TailwindConfigDir>
     <TailwindInputFile>input.css</TailwindInputFile>
     <TailwindOutputFile>..\wwwroot\css\site.css</TailwindOutputFile>
+    <!-- Standardized Build Flags -->
+    <TailwindMinify Condition="'$(Configuration)' == 'Release'">true</TailwindMinify>
+    <TailwindWatch Condition="'$(BuildingInsideVisualStudio)' == 'true' or '$(DotNetWatchBuild)' == 'true'">true</TailwindWatch>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -13,17 +13,17 @@
         </div>
         
         <div class="hidden lg:flex lg:gap-x-10">
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link text-slate-700 dark:text-slate-300 hover:text-brand-primary dark:hover:text-brand-primary font-medium flex items-center gap-2 transition-colors">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">
                 <i aria-hidden="true" class="fa-solid fa-house-chimney text-slate-400 dark:text-slate-500"></i>
                 Home
             </a>
             @if (SignInManager.IsSignedIn(User))
             {
-                <a asp-area="" asp-controller="Film" asp-action="Index" class="nav-link text-slate-700 dark:text-slate-300 hover:text-brand-primary dark:hover:text-brand-primary font-medium flex items-center gap-2 transition-colors">
+                <a asp-area="" asp-controller="Film" asp-action="Index" class="nav-link">
                     <i aria-hidden="true" class="fa-solid fa-film text-slate-400 dark:text-slate-500"></i>
                     Filme
                 </a>
-                <a asp-area="" asp-controller="Person" asp-action="Index" class="nav-link text-slate-700 dark:text-slate-300 hover:text-brand-primary dark:hover:text-brand-primary font-medium flex items-center gap-2 transition-colors">
+                <a asp-area="" asp-controller="Person" asp-action="Index" class="nav-link">
                     <i aria-hidden="true" class="fa-solid fa-masks-theater text-slate-400 dark:text-slate-500"></i>
                     Schauspieler
                 </a>

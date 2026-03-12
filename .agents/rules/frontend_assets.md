@@ -29,10 +29,14 @@ Icons) in the repository.
 ## 4. Project Configuration
 
 - **Tailwind Setup**:
-  - Input file: `wwwroot/css/input.css`
-  - Output file: `wwwroot/css/site.css`
-  - Properties: `<TailwindCSSInputFile>` and `<TailwindCSSOutputFile>` in the
-    `.csproj`.
+  - **Source Folder**: `Tailwind/` (contains `input.css` and `components/*.css`).
+  - **Output File**: `wwwroot/css/site.css` (generated artifact).
+  - **MSBuild Configuration**: Use standardized properties in `.csproj`:
+    - `<TailwindVersion>latest</TailwindVersion>`
+    - `<TailwindConfigDir>$(MSBuildProjectDirectory)\Tailwind\</TailwindConfigDir>`
+    - `<TailwindInputFile>input.css</TailwindInputFile>`
+    - `<TailwindOutputFile>..\wwwroot\css\site.css</TailwindOutputFile>`
+    - `<TailwindMinify Condition="'$(Configuration)' == 'Release'">true</TailwindMinify>`
 - **LibMan Setup**:
   - Configuration file: `libman.json` at the project root.
   - Assets MUST be restored to `wwwroot/lib/`.

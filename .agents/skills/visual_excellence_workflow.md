@@ -33,8 +33,10 @@ CSS 4.2.
   `transition-all duration-300 ease-in-out`.
 - **Hover-Effekte**: Nutze `hover:scale-[1.02]`, `hover:shadow-indigo-500/10`
   oder leichte Farbverschiebungen.
-- **Buttons**: Ein Premium-Button hat einen leichten `inner-shadow` und eine
-  subtile Animation beim Klicken.
+- **Buttons**: Verwende die standardisierten utilities `btn-primary` und
+  `btn-danger` für konsistente Abstände, Schatten und Fokus-States.
+- **Focus Rings**: Alle interaktiven Elemente müssen den violetten Standard-Ring
+  besitzen (`focus-visible:outline-brand-primary`).
 
 ## ♿ Phase 5: Barrierefreiheit (BTHG/ARIA) & Datenschutz (DSGVO)
 

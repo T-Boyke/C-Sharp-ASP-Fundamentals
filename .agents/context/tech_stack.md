@@ -10,7 +10,7 @@ Verified and required versions for the repository.
 
 ## Frontend
 
-- **Styling**: Tailwind CSS 4.2.1 (Local Binary / Tailwind.MSBuild)
+- **Styling**: Tailwind CSS 4.2.x (Standalone CLI / Tailwind.MSBuild)
 - **Icons**: Font Awesome 7.2.0 Free (Local LibMan)
 - **Typography**: Google Sans Flex (Variable Font, Local LibMan)
 - **Framework**: ASP.NET Core MVC & Blazor

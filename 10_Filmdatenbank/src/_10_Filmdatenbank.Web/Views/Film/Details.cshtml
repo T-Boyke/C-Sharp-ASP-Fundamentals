@@ -7,7 +7,7 @@
 <div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
     <!-- Breadcrumb & Back -->
     <nav class="flex mb-8 items-center gap-4 text-sm font-bold text-slate-400 uppercase tracking-widest" aria-label="Breadcrumb">
-        <a asp-action="Index" class="hover:text-brand-primary transition-colors flex items-center gap-2">
+        <a asp-action="Index" class="nav-link">
             <i aria-hidden="true" class="fa-solid fa-arrow-left"></i> Katalog
         </a>
         <span class="h-1 w-1 rounded-full bg-slate-300"></span>
@@ -48,7 +48,7 @@
                             <a asp-action="Edit" asp-route-id="@Model.FilmID" class="btn-primary flex-1">
                                 <i aria-hidden="true" class="fa-solid fa-pen-to-square mr-2"></i> Edit
                             </a>
-                            <a asp-action="Delete" asp-route-id="@Model.FilmID" class="px-3 py-2.5 rounded-lg border border-red-100 dark:border-red-900/50 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                            <a asp-action="Delete" asp-route-id="@Model.FilmID" class="btn-danger p-2.5">
                                 <i aria-hidden="true" class="fa-solid fa-trash-can"></i>
                             </a>
                         </div>
