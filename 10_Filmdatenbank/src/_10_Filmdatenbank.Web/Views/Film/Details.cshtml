@@ -13,8 +13,35 @@
             <i aria-hidden="true" class="fa-solid fa-arrow-left"></i> @Localizer["Catalog"]
         </a>
         <span class="h-1 w-1 rounded-full bg-border-default"></span>
-        <span class="text-slate-900 dark:text-white border-b-2 border-brand-primary pb-0.5 transition-colors">@Model.Titel</span>
     </nav>
+    
+    @if (!string.IsNullOrEmpty(Model.BackdropUrl))
+    {
+        <div class="relative w-full h-64 md:h-96 rounded-3xl overflow-hidden mb-12 group shadow-2xl">
+            <img src="@Model.BackdropUrl" alt="Backdrop" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <div class="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-900/40 to-transparent"></div>
+            <div class="absolute bottom-8 left-8 right-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                   <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter drop-shadow-2xl">@Model.Titel</h1>
+                   @if (!string.IsNullOrEmpty(Model.Tagline))
+                   {
+                       <p class="mt-2 text-xl md:text-2xl font-bold text-brand-primary italic drop-shadow-lg">@Model.Tagline</p>
+                   }
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="glass-premium px-6 py-3 rounded-2xl flex items-center gap-3 border border-white/20">
+                        <div class="w-10 h-10 rounded-full bg-brand-primary flex items-center justify-center text-white shadow-lg">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black text-white/60 uppercase tracking-widest">TMDB Score</p>
+                            <p class="text-xl font-black text-white">@(Model.VoteAverage?.ToString("0.0") ?? "N/A")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
         
@@ -110,10 +137,13 @@
                 <div class="badge-premium px-3 py-1 mb-4">
                     <i aria-hidden="true" class="fa-solid fa-hashtag text-brand-primary"></i> @Model.FilmID
                 </div>
-                <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-slate-900 dark:text-white leading-none transition-colors">@Model.Titel</h1>
-                @if (!string.IsNullOrEmpty(Model.Tagline))
+                @if (string.IsNullOrEmpty(Model.BackdropUrl))
                 {
-                    <p class="mt-4 text-2xl font-black text-brand-primary/80 italic tracking-tight transition-colors">@Model.Tagline</p>
+                    <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-slate-900 dark:text-white leading-none transition-colors">@Model.Titel</h1>
+                    @if (!string.IsNullOrEmpty(Model.Tagline))
+                    {
+                        <p class="mt-4 text-2xl font-black text-brand-primary/80 italic tracking-tight transition-colors">@Model.Tagline</p>
+                    }
                 }
                 <p class="mt-6 text-xl text-text-description dark:text-dark-text-muted font-medium italic transition-colors leading-relaxed">@Model.Genre &bull; @Model.Erscheinungsjahr</p>
             </header>

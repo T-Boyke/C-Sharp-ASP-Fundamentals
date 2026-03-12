@@ -51,7 +51,14 @@ public class TmdbController(ITmdbService tmdbService) : ControllerBase
             PosterUrl = string.IsNullOrEmpty(movie.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{movie.PosterPath}",
             BackdropUrl = string.IsNullOrEmpty(movie.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{movie.BackdropPath}",
             Genres = string.Join(", ", movie.Genres.Select(g => g.Name)),
-            ImdbId = movie.ExternalIds?.ImdbId
+            ImdbId = movie.ExternalIds?.ImdbId,
+            Cast = movie.Credits?.Cast?.Take(10).Select(c => new
+            {
+                c.Id,
+                c.Name,
+                c.Character,
+                ProfileUrl = string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}"
+            })
         });
     }
 }

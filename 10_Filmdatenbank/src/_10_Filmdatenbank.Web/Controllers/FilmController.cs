@@ -59,18 +59,94 @@ public class FilmController(ApplicationDbContext context) : Controller
     /// Erstellt einen neuen Film in der Datenbank.
     /// </summary>
     /// <param name="film">Das zu erstellende Film-Objekt.</param>
+    /// <param name="SelectedCastJson">JSON-String der ausgewählten Cast-Mitglieder.</param>
     /// <returns>Redirect zur Index-View bei Erfolg, andernfalls die Create-View mit Fehlern.</returns>
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Create(Film film)
+    public async Task<IActionResult> Create(Film film, string? SelectedCastJson)
     {
+        // Wir entfernen die Validierung für PersonEigenschaftFilme, da diese erst nach dem Film-Save verknüpft werden
+        ModelState.Remove(nameof(film.PersonEigenschaftFilme));
+
         if (ModelState.IsValid)
         {
             context.Filme.Add(film);
             await context.SaveChangesAsync();
+
+            // Handle Cast Synchronization
+            if (!string.IsNullOrEmpty(SelectedCastJson))
+            {
+                try
+                {
+                    var castItems = System.Text.Json.JsonSerializer.Deserialize<List<CastMemberDto>>(SelectedCastJson);
+                    if (castItems != null && castItems.Any())
+                    {
+                        var actorProperty = await context.Eigenschaften.FirstOrDefaultAsync(e => e.Bezeichnung == "Actor")
+                                            ?? new Eigenschaft { Bezeichnung = "Actor" };
+
+                        if (actorProperty.EigenschaftID == 0)
+                        {
+                            context.Eigenschaften.Add(actorProperty);
+                            await context.SaveChangesAsync();
+                        }
+
+                        foreach (var item in castItems)
+                        {
+                            // Smart Lookup: TmdbId first, then name match
+                            var person = await context.Personen.FirstOrDefaultAsync(p => p.TmdbId == item.id)
+                                         ?? await context.Personen.FirstOrDefaultAsync(p => (p.Vorname + " " + p.Nachname).Trim() == item.name.Trim());
+
+                            if (person == null)
+                            {
+                                var names = item.name.Split(' ', 2);
+                                person = new Person
+                                {
+                                    Vorname = names[0],
+                                    Nachname = names.Length > 1 ? names[1] : string.Empty,
+                                    TmdbId = item.id,
+                                    ProfilBildUrl = item.profileUrl,
+                                    Biografie = $"Automatischer Import von TMDB. Charakter: {item.character}"
+                                };
+                                context.Personen.Add(person);
+                                await context.SaveChangesAsync();
+                            }
+
+                            var pef = new PersonEigenschaftFilm
+                            {
+                                FilmID = film.FilmID,
+                                PersonID = person.PersonID,
+                                EigenschaftID = actorProperty.EigenschaftID
+                            };
+                            context.PersonEigenschaftFilme.Add(pef);
+                        }
+                        await context.SaveChangesAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log error but allow film creation to proceed
+                    Console.WriteLine($"Cast Sync Error: {ex.Message}");
+                }
+            }
+
             return RedirectToAction(nameof(Index));
         }
+
+        // Log validation errors for debugging
+        foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+        {
+            Console.WriteLine($"Validation Error: {error.ErrorMessage}");
+        }
+
         return View(film);
+    }
+
+    private class CastMemberDto
+    {
+        public int id { get; set; }
+        public string name { get; set; } = string.Empty;
+        public string character { get; set; } = string.Empty;
+        public string? profileUrl { get; set; }
     }
 
     /// <summary>
