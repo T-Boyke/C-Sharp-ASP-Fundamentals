@@ -1,5 +1,5 @@
 @utility hero-container {
-  @apply relative isolate px-6 pt-14 lg:px-8 bg-brand-soft dark:bg-slate-900/40 rounded-3xl mx-4 my-8 overflow-hidden shadow-sm border border-brand-border dark:border-slate-800/60;
+  @apply relative isolate px-6 pt-14 lg:px-8 bg-brand-soft dark:bg-slate-900 rounded-3xl mx-4 my-8 overflow-hidden shadow-sm border border-brand-border dark:border-slate-800;
 }
 
 @utility hero-glass {

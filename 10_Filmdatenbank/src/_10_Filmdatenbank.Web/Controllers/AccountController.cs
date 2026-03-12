@@ -7,20 +7,10 @@ namespace _10_Filmdatenbank.Web.Controllers;
 /// <summary>
 /// Verwaltet Benutzerkonten, Anmeldungen und Abmeldungen.
 /// </summary>
-/// <param name="signInManager">Manager für den Anmeldeprozess.</param>
-public class AccountController(SignInManager<IdentityUser> signInManager) : Controller
+public class AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager) : Controller
 {
-    /// <summary>
-    /// Zeigt die Anmeldeseite an.
-    /// </summary>
-    /// <returns>Die Login-View.</returns>
     public IActionResult Login() => View();
 
-    /// <summary>
-    /// Verarbeitet den Anmeldeversuch eines Benutzers.
-    /// </summary>
-    /// <param name="model">Das ViewModel mit den Login-Daten.</param>
-    /// <returns>Redirect zur Startseite bei Erfolg, andernfalls die Login-View mit Fehlermeldung.</returns>
     [HttpPost]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
@@ -34,10 +24,32 @@ public class AccountController(SignInManager<IdentityUser> signInManager) : Cont
         return View(model);
     }
 
-    /// <summary>
-    /// Meldet den aktuellen Benutzer ab.
-    /// </summary>
-    /// <returns>Redirect zur Startseite.</returns>
+    public IActionResult Register() => View();
+
+    [HttpPost]
+    public async Task<IActionResult> Register(RegisterViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var user = new IdentityUser { UserName = model.Email, Email = model.Email, EmailConfirmed = true };
+            var result = await userManager.CreateAsync(user, model.Password);
+
+            if (result.Succeeded)
+            {
+                // Assign Member role by default
+                await userManager.AddToRoleAsync(user, "Member");
+                await signInManager.SignInAsync(user, isPersistent: false);
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
+        return View(model);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Logout()
     {
@@ -45,27 +57,29 @@ public class AccountController(SignInManager<IdentityUser> signInManager) : Cont
         return RedirectToAction("Index", "Home");
     }
 
-    /// <summary>
-    /// Zeigt die Seite für verweigerten Zugriff an.
-    /// </summary>
-    /// <returns>Die AccessDenied-View.</returns>
     public IActionResult AccessDenied() => View();
 }
 
-/// <summary>
-/// ViewModel für den Login-Prozess.
-/// </summary>
 public class LoginViewModel
 {
-    /// <summary>
-    /// Die E-Mail-Adresse des Benutzers.
-    /// </summary>
     [Required, EmailAddress]
     public string Email { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Das Passwort des Benutzers.
-    /// </summary>
     [Required, DataType(DataType.Password)]
     public string Password { get; set; } = string.Empty;
+}
+
+public class RegisterViewModel
+{
+    [Required, EmailAddress]
+    public string Email { get; set; } = string.Empty;
+
+    [Required, DataType(DataType.Password)]
+    [StringLength(100, ErrorMessage = "Das {0} muss mindestens {2} Zeichen lang sein.", MinimumLength = 6)]
+    public string Password { get; set; } = string.Empty;
+
+    [DataType(DataType.Password)]
+    [Display(Name = "Passwort bestätigen")]
+    [Compare("Password", ErrorMessage = "Die Passwörter stimmen nicht überein.")]
+    public string ConfirmPassword { get; set; } = string.Empty;
 }

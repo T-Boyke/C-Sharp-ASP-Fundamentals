@@ -1,0 +1,43 @@
+@model _10_Filmdatenbank.Domain.Entities.Person
+
+@{
+    ViewData["Title"] = "Löschen bestätigen";
+}
+
+<div class="mx-auto max-w-2xl px-6 lg:px-8 py-16">
+    <div class="text-center mb-12">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 text-red-600 mb-6 shadow-sm animate-pulse">
+            <i aria-hidden="true" class="fa-solid fa-triangle-exclamation text-4xl"></i>
+        </div>
+        <h1 class="text-4xl font-black tracking-tighter text-slate-900 dark:text-white mb-4 transition-colors">Eintrag löschen?</h1>
+        <p class="text-lg text-slate-500 dark:text-slate-400 font-medium max-w-md mx-auto transition-colors">
+            Sind Sie sicher, dass Sie <span class="text-slate-900 dark:text-white font-black">@Model.Vorname @Model.Nachname</span> unwiderruflich aus der Datenbank entfernen möchten?
+        </p>
+    </div>
+
+    <div class="card-premium overflow-hidden p-8 border-red-100 dark:border-red-900 group">
+        <div class="flex items-center gap-6 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 mb-8 transition-colors">
+            <div class="w-16 h-16 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-slate-400 dark:text-slate-500 shadow-sm transition-colors">
+                <i aria-hidden="true" class="fa-solid fa-user-circle text-3xl"></i>
+            </div>
+            <div>
+                <h3 class="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight transition-colors">@Model.Vorname @Model.Nachname</h3>
+                <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">System-ID: #@Model.PersonID</p>
+            </div>
+        </div>
+
+        <form asp-action="Delete" class="flex flex-col sm:flex-row gap-4">
+            <input type="hidden" asp-for="PersonID" />
+            <a asp-action="Index" class="btn-secondary flex-1 justify-center py-4">
+                <i aria-hidden="true" class="fa-solid fa-xmark mr-2"></i> Abbrechen
+            </a>
+            <button type="submit" class="btn-danger flex-[1.5] justify-center py-4 font-black">
+                <i aria-hidden="true" class="fa-solid fa-trash-can mr-2"></i> Ja, Unwiderruflich löschen
+            </button>
+        </form>
+
+        <p class="mt-8 text-center text-[10px] font-bold text-slate-400 dark:text-slate-600 uppercase tracking-[0.2em] leading-relaxed">
+            <i aria-hidden="true" class="fa-solid fa-circle-info mr-1"></i> Dieser Vorgang kann nicht rückgängig gemacht werden. Alle verknüpften Film-Beziehungen werden ebenfalls entfernt.
+        </p>
+    </div>
+</div>

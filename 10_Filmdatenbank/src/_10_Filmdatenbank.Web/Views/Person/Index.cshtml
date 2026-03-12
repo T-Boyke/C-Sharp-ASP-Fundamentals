@@ -14,6 +14,15 @@
             <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors">Schauspieler & Team</h1>
             <p class="mt-3 text-lg text-slate-500 dark:text-slate-400 max-w-2xl font-medium transition-colors">Entdecken Sie die Gesichter hinter unseren Filmproduktionen.</p>
         </div>
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="mt-6 md:mt-0">
+                <a asp-action="Create" class="btn-primary">
+                    <i aria-hidden="true" class="fa-solid fa-plus mr-2"></i>
+                    Hinzufügen
+                </a>
+            </div>
+        }
     </div>
 
     <div class="grid-cards">
@@ -40,13 +49,24 @@
                     </div>
                 </div>
                 
-                <div class="mt-6 pt-6 border-t border-slate-50 dark:border-slate-800 flex-between transition-colors">
+                <div class="mt-6 pt-6 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between transition-colors">
                     <span class="text-xs font-medium text-slate-400 dark:text-slate-500">
                         @person.PersonEigenschaftFilme.Count() Filme
                     </span>
-                    <a asp-action="Details" asp-route-id="@person.PersonID" class="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 text-slate-400 hover:text-brand-primary hover:bg-white dark:hover:bg-slate-800 transition-all shadow-sm border border-transparent hover:border-slate-200 dark:hover:border-slate-700" title="Profil ansehen" aria-label="Profil ansehen">
-                        <i aria-hidden="true" class="fa-solid fa-arrow-right-to-bracket text-sm"></i>
-                    </a>
+                    <div class="flex gap-2">
+                        <a asp-action="Details" asp-route-id="@person.PersonID" class="w-10 h-10 flex-center rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-400 hover:text-brand-primary hover:bg-brand-soft dark:hover:bg-slate-800 transition-all border border-slate-100 dark:border-slate-800" title="Profil ansehen" aria-label="Profil ansehen">
+                            <i aria-hidden="true" class="fa-solid fa-arrow-right text-sm"></i>
+                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@person.PersonID" class="w-10 h-10 flex-center rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all border border-slate-100 dark:border-slate-800" title="Bearbeiten" aria-label="Bearbeiten">
+                                <i aria-hidden="true" class="fa-solid fa-pen text-sm"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@person.PersonID" class="w-10 h-10 flex-center rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all border border-slate-100 dark:border-slate-800" title="Löschen" aria-label="Löschen">
+                                <i aria-hidden="true" class="fa-solid fa-trash text-sm"></i>
+                            </a>
+                        }
+                    </div>
                 </div>
             </div>
         }

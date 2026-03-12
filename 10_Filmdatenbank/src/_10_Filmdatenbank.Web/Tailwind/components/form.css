@@ -25,7 +25,7 @@ input[type="password"]::-ms-clear {
 }
 
 @utility form-input-container {
-  @apply relative w-full group;
+  @apply relative w-full;
 }
 
 @utility form-input-icon-right {

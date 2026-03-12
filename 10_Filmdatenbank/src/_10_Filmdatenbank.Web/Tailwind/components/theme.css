@@ -5,9 +5,15 @@
   --color-brand-soft: #f5f3ff; /* Violet 50 */
   --color-brand-border: #ddd6fe; /* Violet 200 */
   --color-brand-bg: #fafafa;
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  --animate-fade-in: fade-in 0.6s ease-out;
 }
 
-@custom-variant dark (&:where(.dark, .dark *));
+@variant dark (&:where(.dark, .dark *));
 
 /* Base Body Styles for Light / Dark Mode Handling */
 @layer base {

@@ -31,8 +31,6 @@ public class PersonController(ApplicationDbContext context) : Controller
     /// <summary>
     /// Zeigt die Details einer bestimmten Person an.
     /// </summary>
-    /// <param name="id">Die ID der Person.</param>
-    /// <returns>Die Details-View der Person oder NotFound.</returns>
     public async Task<IActionResult> Details(int id)
     {
         var person = await context.Personen
@@ -45,5 +43,61 @@ public class PersonController(ApplicationDbContext context) : Controller
         if (person == null) return NotFound();
 
         return View(person);
+    }
+
+    [Authorize(Roles = "Admin")]
+    public IActionResult Create() => View();
+
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Create(_10_Filmdatenbank.Domain.Entities.Person person)
+    {
+        if (ModelState.IsValid)
+        {
+            context.Personen.Add(person);
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(person);
+    }
+
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var person = await context.Personen.FindAsync(id);
+        return person == null ? NotFound() : View(person);
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Edit(_10_Filmdatenbank.Domain.Entities.Person person)
+    {
+        if (ModelState.IsValid)
+        {
+            context.Update(person);
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(person);
+    }
+
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var person = await context.Personen.FindAsync(id);
+        return person == null ? NotFound() : View(person);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var person = await context.Personen.FindAsync(id);
+        if (person != null)
+        {
+            context.Personen.Remove(person);
+            await context.SaveChangesAsync();
+        }
+        return RedirectToAction(nameof(Index));
     }
 }

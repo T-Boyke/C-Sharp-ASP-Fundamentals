@@ -1,0 +1,83 @@
+@model _10_Filmdatenbank.Web.Controllers.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Registrieren";
+}
+
+<div class="flex min-h-[60vh] items-center justify-center px-4 py-20 animate-fade-in">
+    <div class="w-full max-w-md">
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-soft shadow-sm border border-brand-border mb-6">
+                <i aria-hidden="true" class="fa-solid fa-user-plus text-brand-primary text-3xl"></i>
+            </div>
+            <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white transition-colors">Konto erstellen</h2>
+            <p class="mt-2 text-slate-500 dark:text-slate-400 font-medium transition-colors">Treten Sie unserer Film-Community bei.</p>
+        </div>
+
+        <div class="card-glass p-8 group">
+            <form class="space-y-6" asp-action="Register" method="post">
+                <div asp-validation-summary="All" role="alert" class="text-xs text-red-600 dark:text-red-400 font-medium ml-2"></div>
+                
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">
+                        <i aria-hidden="true" class="fa-solid fa-envelope mr-1 text-slate-400 dark:text-slate-500"></i> Email Adresse
+                    </label>
+                    <input asp-for="Email" type="email" autocomplete="email" required class="form-input" placeholder="ihre@email.de">
+                    <span asp-validation-for="Email" class="form-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="form-label">
+                        <i aria-hidden="true" class="fa-solid fa-key mr-1 text-slate-400 dark:text-slate-500"></i> Passwort
+                    </label>
+                    <div class="form-input-container group">
+                        <input asp-for="Password" type="password" id="password_input" autocomplete="new-password" required class="form-input pr-12" placeholder="••••••••">
+                        <button type="button" onclick="togglePasswordVisibility('password_input', 'password_toggle_icon')" class="form-input-icon-right" aria-label="Passwort anzeigen/verbergen">
+                            <i id="password_toggle_icon" class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="Password" class="form-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="form-label">
+                        <i aria-hidden="true" class="fa-solid fa-check-double mr-1 text-slate-400 dark:text-slate-500"></i> Passwort bestätigen
+                    </label>
+                    <div class="form-input-container group">
+                        <input asp-for="ConfirmPassword" type="password" id="confirm_password_input" autocomplete="new-password" required class="form-input pr-12" placeholder="••••••••">
+                        <button type="button" onclick="togglePasswordVisibility('confirm_password_input', 'confirm_password_toggle_icon')" class="form-input-icon-right" aria-label="Passwort anzeigen/verbergen">
+                            <i id="confirm_password_toggle_icon" class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="ConfirmPassword" class="form-error"></span>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button type="submit" class="btn-primary flex-1">
+                        <i aria-hidden="true" class="fa-solid fa-user-plus mr-2"></i> Mitglied werden
+                    </button>
+                </div>
+                
+                <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 text-center">
+                    Bereits ein Konto? <a asp-action="Login" class="font-bold text-brand-primary hover:underline">Hier anmelden</a>.
+                </p>
+            </form>
+
+            <script>
+                function togglePasswordVisibility(inputId, iconId) {
+                    const input = document.getElementById(inputId);
+                    const icon = document.getElementById(iconId);
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                }
+            </script>
+        </div>
+    </div>
+</div>

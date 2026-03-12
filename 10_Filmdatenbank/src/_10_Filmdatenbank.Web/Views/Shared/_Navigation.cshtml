@@ -1,61 +1,72 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 
-<header class="sticky top-0 z-50 w-full bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
-    <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 px-6 lg:px-8" aria-label="Global">
-        <div class="flex lg:flex-1">
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="-m-1.5 p-1.5 flex items-center gap-3 group">
-                <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-brand-primary shadow-sm group-hover:bg-brand-hover transition-colors duration-300">
-                    <i aria-hidden="true" class="fa-solid fa-clapperboard text-slate-100 text-xl shadow-sm"></i>
+<header class="sticky top-0 z-50 w-full bg-slate-950 border-b border-slate-800 shadow-xl transition-all duration-300">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between p-3 px-6 lg:px-8" aria-label="Global">
+        <div class="flex items-center gap-10">
+            <!-- Logo -->
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="flex items-center gap-3 group">
+                <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-brand-primary shadow-lg shadow-brand-primary/20 group-hover:bg-brand-hover transition-all duration-300 group-hover:scale-105">
+                    <i aria-hidden="true" class="fa-solid fa-clapperboard text-white text-lg"></i>
                 </div>
-                <span class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors duration-300">Film<span class="text-brand-primary">Catalog</span></span>
+                <span class="text-lg font-black tracking-tighter text-white">Film<span class="text-brand-primary">DB</span></span>
             </a>
+
+            <!-- Primary Nav -->
+            <div class="hidden lg:flex lg:gap-x-8">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="text-sm font-bold text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                    Home
+                </a>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a asp-area="" asp-controller="Film" asp-action="Index" class="text-sm font-bold text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                        Filme
+                    </a>
+                    <a asp-area="" asp-controller="Person" asp-action="Index" class="text-sm font-bold text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                        Mitwirkende
+                    </a>
+                }
+            </div>
         </div>
         
-        <div class="hidden lg:flex lg:gap-x-10">
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">
-                <i aria-hidden="true" class="fa-solid fa-house-chimney text-slate-400 dark:text-slate-500"></i>
-                Home
-            </a>
+        <div class="flex items-center gap-6">
             @if (SignInManager.IsSignedIn(User))
             {
-                <a asp-area="" asp-controller="Film" asp-action="Index" class="nav-link">
-                    <i aria-hidden="true" class="fa-solid fa-film text-slate-400 dark:text-slate-500"></i>
-                    Filme
-                </a>
-                <a asp-area="" asp-controller="Person" asp-action="Index" class="nav-link">
-                    <i aria-hidden="true" class="fa-solid fa-masks-theater text-slate-400 dark:text-slate-500"></i>
-                    Schauspieler
-                </a>
-            }
-        </div>
-        
-        <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-6 items-center">
-            @if (SignInManager.IsSignedIn(User))
-            {
+                <!-- Quick Action for Admins -->
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Film" asp-action="Create" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-primary text-white text-xs font-black hover:bg-brand-hover transition-all shadow-lg shadow-brand-primary/20 hover:-translate-y-0.5">
+                        <i aria-hidden="true" class="fa-solid fa-plus-circle text-sm"></i>
+                        NEUER FILM
+                    </a>
+                }
+
+                <div class="h-6 w-px bg-slate-800 hidden sm:block"></div>
+
+                <!-- User Profile / Logout -->
                 <div class="flex items-center gap-4">
-                    <div class="flex flex-col items-end">
-                        <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none mb-1">Authentifiziert</span>
-                        <span class="text-sm font-bold text-brand-primary flex items-center gap-2">
-                            <i aria-hidden="true" class="fa-solid fa-circle-user"></i>
-                            @User.Identity?.Name
-                        </span>
+                    <div class="flex flex-col items-end hidden md:flex">
+                        <span class="text-[9px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">Signed in as</span>
+                        <span class="text-xs font-bold text-slate-200">@User.Identity?.Name</span>
                     </div>
-                    <div class="h-8 w-px bg-slate-200 dark:bg-slate-700"></div>
+                    
                     <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
-                        <button type="submit" class="group flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-300">
-                            Logout 
-                            <i aria-hidden="true" class="fa-solid fa-power-off group-hover:rotate-90 transition-transform duration-300"></i>
+                        <button type="submit" class="w-9 h-9 flex items-center justify-center rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-red-500 hover:border-red-900/50 transition-all group" title="Abmelden">
+                            <i aria-hidden="true" class="fa-solid fa-power-off text-sm group-hover:rotate-12"></i>
                         </button>
                     </form>
                 </div>
             }
             else
             {
-                <a asp-controller="Account" asp-action="Login" class="btn-primary">
-                    <i aria-hidden="true" class="fa-solid fa-circle-arrow-right mr-2"></i>
-                    Anmelden
-                </a>
+                <div class="flex items-center gap-4">
+                    <a asp-controller="Account" asp-action="Register" class="text-sm font-bold text-slate-400 hover:text-white transition-colors">
+                        Registrieren
+                    </a>
+                    <a asp-controller="Account" asp-action="Login" class="px-5 py-2 rounded-lg bg-white text-slate-950 text-sm font-black hover:bg-slate-200 transition-all shadow-lg shadow-white/5 hover:-translate-y-0.5">
+                        Anmelden
+                    </a>
+                </div>
             }
         </div>
     </nav>

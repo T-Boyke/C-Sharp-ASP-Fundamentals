@@ -17,9 +17,10 @@
         
         @if (User.IsInRole("Admin"))
         {
-            <div class="flex-shrink-0">
+            <div class="mt-6 md:mt-0">
                 <a asp-action="Create" class="btn-primary">
-                    <i aria-hidden="true" class="fa-solid fa-square-plus mr-2"></i> Neuer Eintrag
+                    <i aria-hidden="true" class="fa-solid fa-plus mr-2"></i>
+                    Neuer Film
                 </a>
             </div>
         }

@@ -44,6 +44,18 @@
                             </div>
                         </div>
                     </div>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="pt-6 border-t border-slate-100 dark:border-slate-800 flex gap-4 transition-colors">
+                            <a asp-action="Edit" asp-route-id="@Model.PersonID" class="btn-primary flex-1">
+                                <i aria-hidden="true" class="fa-solid fa-pen-to-square mr-2"></i> Edit
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@Model.PersonID" class="btn-danger p-2.5">
+                                <i aria-hidden="true" class="fa-solid fa-trash-can"></i>
+                            </a>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
