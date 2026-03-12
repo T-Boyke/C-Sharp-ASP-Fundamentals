@@ -28,38 +28,45 @@
     <div class="grid-cards">
         @foreach (var person in Model)
         {
-            <div class="card-interactive p-6">
-                <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800/50 flex items-center justify-center text-slate-400 dark:text-slate-500 group-hover:bg-brand-soft group-hover:text-brand-primary transition-colors">
-                        <i aria-hidden="true" class="fa-solid fa-user-circle text-2xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-black text-slate-900 dark:text-white transition-colors">
-                            @person.Vorname @person.Nachname
-                        </h3>
-                        @{
-                            var rollen = person.PersonEigenschaftFilme.Select(pef => pef.Eigenschaft.Bezeichnung).Distinct();
-                        }
-                        <div class="flex-wrap-gap mt-1">
-                            @foreach (var rolle in rollen)
-                            {
-                                <span class="badge-premium px-1.5 py-0.5">@rolle</span>
-                            }
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mt-6 pt-6 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between transition-colors">
-                    <span class="text-xs font-medium text-slate-400 dark:text-slate-500">
-                        @person.PersonEigenschaftFilme.Count() Filme
-                    </span>
-                    <div class="flex gap-2">
-                        <a asp-action="Details" asp-route-id="@person.PersonID" class="w-10 h-10 flex-center rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-400 hover:text-brand-primary hover:bg-brand-soft dark:hover:bg-slate-800 transition-all border border-slate-100 dark:border-slate-800" title="Profil ansehen" aria-label="Profil ansehen">
-                            <i aria-hidden="true" class="fa-solid fa-arrow-right text-sm"></i>
-                        </a>
-                        @if (User.IsInRole("Admin"))
+            <div class="card-premium group hover:shadow-2xl hover:shadow-brand-primary/10 flex flex-col items-center p-8 text-center transition-all duration-500 overflow-hidden">
+                <!-- Profile Image -->
+                <div class="relative mb-6">
+                    <div class="w-32 h-32 rounded-full border-4 border-white dark:border-slate-950 shadow-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 ring-1 ring-slate-100 dark:ring-slate-800">
+                        @if (!string.IsNullOrEmpty(person.ProfilBildUrl))
                         {
-                            <a asp-action="Edit" asp-route-id="@person.PersonID" class="w-10 h-10 flex-center rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all border border-slate-100 dark:border-slate-800" title="Bearbeiten" aria-label="Bearbeiten">
+                            <img src="@person.ProfilBildUrl" alt="@person.Vorname @person.Nachname" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        }
+                        else
+                        {
+                            <div class="w-full h-full flex items-center justify-center text-slate-300 dark:text-slate-800">
+                                <i aria-hidden="true" class="fa-solid fa-user text-5xl opacity-20"></i>
+                            </div>
+                        }
+                    </div>
+                    
+                    @if (person.Geburtsdatum.HasValue)
+                    {
+                        <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-lg whitespace-nowrap">
+                            <span class="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter">
+                                Born: @person.Geburtsdatum.Value.ToString("yyyy")
+                            </span>
+                        </div>
+                    }
+                </div>
+
+                <!-- Content -->
+                <div class="flex-grow flex flex-col">
+                    <h2 class="text-xl font-black text-slate-900 dark:text-white tracking-tight mb-2">@person.Vorname @person.Nachname</h2>
+                    
+                    <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 mb-8 leading-relaxed italic">
+                        "@person.Biografie"
+                    </p>
+
+                    <!-- Actions -->
+                    <div class="mt-auto pt-6 border-t border-slate-50 dark:border-slate-800/50 flex flex-col gap-3">
+                        <a asp-action="Details" asp-route-id="@person.PersonID" class="btn-primary py-2.5 shadow-lg shadow-brand-primary/10">Profil ansehen</a>
+                        
+                            <a asp-action="Edit" asp-route-id="@person.PersonID" class="w-10 h-10 flex-center rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-400 hover:text-brand-primary transition-all border border-slate-100 dark:border-slate-800" title="Bearbeiten" aria-label="Bearbeiten">
                                 <i aria-hidden="true" class="fa-solid fa-pen text-sm"></i>
                             </a>
                             <a asp-action="Delete" asp-route-id="@person.PersonID" class="w-10 h-10 flex-center rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all border border-slate-100 dark:border-slate-800" title="Löschen" aria-label="Löschen">

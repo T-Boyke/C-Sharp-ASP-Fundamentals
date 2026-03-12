@@ -17,12 +17,26 @@
 
     <div class="card-premium overflow-hidden p-8 border-red-100 dark:border-red-900 group">
         <div class="flex items-center gap-6 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 mb-8 transition-colors">
-            <div class="w-16 h-16 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-slate-400 dark:text-slate-500 shadow-sm transition-colors">
-                <i aria-hidden="true" class="fa-solid fa-user-circle text-3xl"></i>
+            <div class="w-16 h-16 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-slate-400 dark:text-slate-500 shadow-sm transition-colors overflow-hidden border border-slate-200 dark:border-slate-700">
+                @if (!string.IsNullOrEmpty(Model.ProfilBildUrl))
+                {
+                    <img src="@Model.ProfilBildUrl" alt="@Model.Vorname @Model.Nachname" class="w-full h-full object-cover" />
+                }
+                else
+                {
+                    <i aria-hidden="true" class="fa-solid fa-user-circle text-3xl"></i>
+                }
             </div>
             <div>
                 <h3 class="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight transition-colors">@Model.Vorname @Model.Nachname</h3>
-                <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">System-ID: #@Model.PersonID</p>
+                <div class="flex items-center gap-3 text-sm font-bold text-slate-400 uppercase tracking-widest mt-1">
+                    <span>ID: #@Model.PersonID</span>
+                    @if (Model.Geburtsdatum.HasValue)
+                    {
+                        <span class="w-1 h-1 rounded-full bg-slate-300"></span>
+                        <span>Geb. @Model.Geburtsdatum.Value.ToString("yyyy")</span>
+                    }
+                </div>
             </div>
         </div>
 

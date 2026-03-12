@@ -6,7 +6,7 @@
 
 <div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
     <!-- Breadcrumb & Back -->
-    <nav class="flex mb-8 items-center gap-4 text-sm font-bold text-slate-400 uppercase tracking-widest" aria-label="Breadcrumb">
+    <nav class="flex mb-12 items-center gap-4 text-sm font-bold text-slate-400 uppercase tracking-widest" aria-label="Breadcrumb">
         <a asp-action="Index" class="nav-link">
             <i aria-hidden="true" class="fa-solid fa-arrow-left"></i> Team
         </a>
@@ -14,18 +14,22 @@
         <span class="text-slate-900 dark:text-white border-b-2 border-brand-primary pb-0.5 transition-colors">@Model.Vorname @Model.Nachname</span>
     </nav>
 
-    <div class="grid-details">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
         
         <!-- Left: Profile Info -->
-        <div class="lg:col-span-1 flex-stack max-w-sm">
-            <div class="card-premium overflow-hidden">
-                <div class="aspect-[4/5] bg-slate-50 dark:bg-slate-900 flex-center border-b border-slate-100 dark:border-slate-800 relative group transition-colors">
-                    <i aria-hidden="true" class="fa-solid fa-user-tie text-slate-200/60 dark:text-slate-800/60 text-8xl group-hover:scale-110 transition-transform duration-700"></i>
-                    <div class="absolute bottom-4 left-4 right-4 h-1 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full w-1/3 bg-brand-primary animate-pulse"></div>
-                    </div>
+        <div class="lg:col-span-1 space-y-8">
+            <div class="card-premium overflow-hidden group">
+                <div class="aspect-[4/5] bg-slate-100 dark:bg-slate-900 flex items-center justify-center transition-colors relative">
+                    @if (!string.IsNullOrEmpty(Model.ProfilBildUrl))
+                    {
+                        <img src="@Model.ProfilBildUrl" alt="@Model.Vorname @Model.Nachname" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    }
+                    else
+                    {
+                        <i aria-hidden="true" class="fa-solid fa-user-tie text-slate-300 dark:text-slate-800 text-9xl"></i>
+                    }
                 </div>
-                <div class="p-6 space-y-6">
+                <div class="p-8 space-y-6 bg-white dark:bg-slate-900 transition-colors">
                     <div>
                         <h3 class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">Profil Informationen</h3>
                         <div class="space-y-4">
@@ -33,10 +37,15 @@
                                 <span class="text-xs font-bold text-slate-400">System ID</span>
                                 <span class="text-xs font-black text-slate-900 dark:text-white">#@Model.PersonID</span>
                             </div>
+                            <div class="flex items-center justify-between py-2 border-b border-slate-50 dark:border-slate-800/50">
+                                <span class="text-xs font-bold text-slate-400">Geboren</span>
+                                <span class="text-xs font-black text-slate-900 dark:text-white">@(Model.Geburtsdatum?.ToString("dd.MM.yyyy") ?? "N/A")</span>
+                            </div>
+                            
                             @{
                                 var rollen = Model.PersonEigenschaftFilme.Select(pef => pef.Eigenschaft.Bezeichnung).Distinct();
                             }
-                            <div class="flex-wrap-gap !gap-2">
+                            <div class="flex-wrap-gap !gap-2 mt-4">
                                 @foreach (var rolle in rollen)
                                 {
                                     <span class="badge-premium !px-3 !py-1 text-[10px]">@rolle</span>
@@ -48,10 +57,10 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <div class="pt-6 border-t border-slate-100 dark:border-slate-800 flex gap-4 transition-colors">
-                            <a asp-action="Edit" asp-route-id="@Model.PersonID" class="btn-primary flex-1">
+                            <a asp-action="Edit" asp-route-id="@Model.PersonID" class="btn-primary flex-1 shadow-lg shadow-brand-primary/20">
                                 <i aria-hidden="true" class="fa-solid fa-pen-to-square mr-2"></i> Edit
                             </a>
-                            <a asp-action="Delete" asp-route-id="@Model.PersonID" class="btn-danger p-2.5">
+                            <a asp-action="Delete" asp-route-id="@Model.PersonID" class="btn-danger p-2.5 shadow-lg shadow-red-500/20">
                                 <i aria-hidden="true" class="fa-solid fa-trash-can"></i>
                             </a>
                         </div>
@@ -60,48 +69,70 @@
             </div>
         </div>
 
-        <!-- Right: Filmography -->
-        <div class="lg:col-span-2 space-y-12">
+        <!-- Right: Content & Filmography -->
+        <div class="lg:col-span-2 space-y-16">
             <header>
-                <h1 class="text-5xl font-black tracking-tighter text-slate-900 dark:text-white leading-none transition-colors">@Model.Vorname @Model.Nachname</h1>
-                <p class="mt-4 text-lg text-slate-500 dark:text-slate-400 font-medium transition-colors">Hintergrundinformationen und Mitwirkung an Filmprojekten.</p>
+                <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-slate-900 dark:text-white leading-none transition-colors">@Model.Vorname @Model.Nachname</h1>
+                @if (Model.Geburtsdatum.HasValue)
+                {
+                    <p class="mt-4 text-xl text-brand-primary font-black uppercase tracking-widest">* @Model.Geburtsdatum.Value.ToString("yyyy")</p>
+                }
             </header>
 
             <section>
-                <div class="flex-between mb-8 border-b border-slate-100 dark:border-slate-800 pb-4 transition-colors">
-                    <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 transition-colors">
-                        <i aria-hidden="true" class="fa-solid fa-clapperboard text-brand-primary"></i>
-                        Filmografie
-                    </h2>
-                    <span class="badge-outline">
-                        @Model.PersonEigenschaftFilme.Count Produktionen
-                    </span>
+                <div class="form-group-header !mb-6">
+                    <h2 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Biografie</h2>
+                    <div class="h-1 w-12 bg-brand-primary rounded-full"></div>
+                </div>
+                <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed italic pl-8 border-l-4 border-slate-100 dark:border-slate-800 transition-colors">
+                    @Model.Biografie
+                </p>
+            </section>
+
+            <!-- Filmography Section -->
+            <section>
+                <div class="form-group-header !mb-8 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Filmografie</h2>
+                        <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
+                    </div>
+                    <span class="badge-outline">@Model.PersonEigenschaftFilme.Count Projekte</span>
                 </div>
 
-                <div class="grid grid-cols-1 gap-4">
-                    @foreach (var pef in Model.PersonEigenschaftFilme)
+                <div class="space-y-4">
+                    @foreach (var participation in Model.PersonEigenschaftFilme)
                     {
-                        <a asp-controller="Film" asp-action="Details" asp-route-id="@pef.Film.FilmID" class="card-interactive flex items-center p-4 !translate-y-0 hover:!border-brand-primary/20 bg-white dark:bg-slate-900">
-                            <div class="w-12 h-12 rounded-lg bg-brand-soft dark:bg-slate-900/50 flex-center text-brand-primary group-hover:scale-105 transition-transform">
-                                <i aria-hidden="true" class="fa-solid fa-film"></i>
+                        <a asp-controller="Film" asp-action="Details" asp-route-id="@participation.FilmID" 
+                           class="form-group-card flex items-center p-6 group hover:border-brand-primary/30 transition-all border-l-4 border-l-brand-primary/20 hover:border-l-brand-primary">
+                            <div class="w-16 h-24 rounded-lg overflow-hidden shrink-0 border border-slate-100 dark:border-slate-800 group-hover:shadow-lg transition-all">
+                                @if (!string.IsNullOrEmpty(participation.Film.PosterUrl))
+                                {
+                                    <img src="@participation.Film.PosterUrl" alt="" class="w-full h-full object-cover transition-transform group-hover:scale-110" />
+                                }
+                                else
+                                {
+                                    <div class="w-full h-full flex items-center justify-center bg-slate-50 dark:bg-slate-900 transition-colors">
+                                        <i aria-hidden="true" class="fa-solid fa-film text-2xl text-slate-300"></i>
+                                    </div>
+                                }
                             </div>
-                            <div class="ml-4 flex-grow">
-                                <div class="text-sm font-black text-slate-900 dark:text-white transition-colors">@pef.Film.Titel</div>
-                                <div class="badge-outline !bg-transparent !p-0 border-none !text-[10px]">Als @pef.Eigenschaft.Bezeichnung (@pef.Film.Erscheinungsjahr)</div>
+                            <div class="ml-8 flex-grow">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-xl font-black text-slate-900 dark:text-white group-hover:text-brand-primary transition-colors">@participation.Film.Titel</p>
+                                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">@participation.Film.Erscheinungsjahr</span>
+                                </div>
+                                <div class="flex items-center gap-3 mt-3">
+                                    <span class="px-2 py-0.5 rounded bg-brand-primary/5 text-brand-primary text-[10px] font-black uppercase tracking-tighter border border-brand-primary/10">
+                                        @participation.Eigenschaft.Bezeichnung
+                                    </span>
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">@participation.Film.Genre</span>
+                                </div>
                             </div>
-                            <i aria-hidden="true" class="fa-solid fa-chevron-right text-slate-200 dark:text-slate-700 group-hover:translate-x-1 transition-transform"></i>
+                            <i aria-hidden="true" class="fa-solid fa-arrow-right-long ml-6 text-slate-200 dark:text-slate-800 transition-transform group-hover:translate-x-2"></i>
                         </a>
-                    }
-                    @if (!Model.PersonEigenschaftFilme.Any())
-                    {
-                         <div class="p-12 rounded-2xl border-2 border-dashed border-slate-100 dark:border-slate-800 flex-col-center text-slate-400 dark:text-slate-500 transition-colors">
-                            <i aria-hidden="true" class="fa-solid fa-box-open text-4xl mb-3"></i>
-                            <p class="text-sm font-medium">Bisher keine Film-Mitwirkungen verknüpft.</p>
-                        </div>
                     }
                 </div>
             </section>
         </div>
     </div>
-
 </div>
