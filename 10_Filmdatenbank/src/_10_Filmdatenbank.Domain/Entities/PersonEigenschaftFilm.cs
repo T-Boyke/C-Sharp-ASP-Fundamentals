@@ -37,9 +37,29 @@ public class PersonEigenschaftFilm
     /// Die Fremdschlüssel-ID der Eigenschaft.
     /// </summary>
     public int EigenschaftID { get; set; }
-    
+
     /// <summary>
     /// Die referenzierte Eigenschaft (Rolle).
     /// </summary>
     public Eigenschaft Eigenschaft { get; set; } = null!;
+
+    /// <summary>
+    /// Der spezifische Job (nur für Crew, z.B. Director).
+    /// </summary>
+    public string? Job { get; set; }
+
+    /// <summary>
+    /// Der Rollenname (nur für Schauspieler).
+    /// </summary>
+    public string? Character { get; set; }
+
+    /// <summary>
+    /// Die Abteilung (z.B. Directing, Production).
+    /// </summary>
+    public string? Department { get; set; }
+
+    /// <summary>
+    /// Die Reihenfolge in der Besetzungsliste.
+    /// </summary>
+    public int? Order { get; set; }
 }

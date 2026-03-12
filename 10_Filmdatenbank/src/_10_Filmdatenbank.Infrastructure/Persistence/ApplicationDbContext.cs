@@ -40,6 +40,16 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<PersonEigenschaftFilm> PersonEigenschaftFilme { get; set; } = null!;
 
     /// <summary>
+    /// Die Tabelle für Filmkollektionen.
+    /// </summary>
+    public DbSet<Collection> Collections { get; set; } = null!;
+
+    /// <summary>
+    /// Die Tabelle für Produktionsfirmen.
+    /// </summary>
+    public DbSet<ProductionCompany> ProductionCompanies { get; set; } = null!;
+
+    /// <summary>
     /// Konfiguriert das Datenbankmodell, insbesondere Beziehungen und initiale Daten.
     /// </summary>
     /// <param name="builder">Der ModelBuilder zum Konfigurieren des Modells.</param>
@@ -68,6 +78,26 @@ public class ApplicationDbContext : IdentityDbContext
                     .WithMany(eg => eg.PersonEigenschaftFilme)
                     .HasForeignKey(e => e.EigenschaftID);
             });
+
+        builder.Entity<Film>(entity =>
+            {
+                entity.HasOne(f => f.Collection)
+                    .WithMany(c => c.Films)
+                    .HasForeignKey(f => f.CollectionID)
+                    .OnDelete(DeleteBehavior.SetNull);
+
+                entity.HasMany(f => f.ProductionCompanies)
+                    .WithMany(pc => pc.Films)
+                    .UsingEntity(j => j.ToTable("FilmProductionCompanies"));
+            });
+
+        builder.Entity<Collection>()
+            .HasIndex(c => c.TmdbId)
+            .IsUnique();
+
+        builder.Entity<ProductionCompany>()
+            .HasIndex(pc => pc.TmdbId)
+            .IsUnique();
 
         // Seed initial properties/roles as per assignment
         builder.Entity<Eigenschaft>().HasData(

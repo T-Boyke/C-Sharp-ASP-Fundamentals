@@ -81,6 +81,22 @@ public class Person
     public double? Popularity { get; set; }
 
     /// <summary>
+    /// Informationen über gewonnene Auszeichnungen oder Nominierungen der Person.
+    /// </summary>
+    public string? Awards { get; set; }
+
+    /// <summary>
+    /// Der Bereich, für den die Person bekannt ist (z.B. acting, directing).
+    /// </summary>
+    public string? KnownForDepartment { get; set; }
+
+    /// <summary>
+    /// Rohdaten der vollständigen Filmografie von TMDB (JSON).
+    /// Enthält auch Filme, die nicht in der lokalen Datenbank vorhanden sind.
+    /// </summary>
+    public string? TmdbFilmographyJson { get; set; }
+
+    /// <summary>
     /// Eine Sammlung von Filmen und Eigenschaften, an denen die Person mitgewirkt hat.
     /// </summary>
     public ICollection<PersonEigenschaftFilm> PersonEigenschaftFilme { get; set; } = [];

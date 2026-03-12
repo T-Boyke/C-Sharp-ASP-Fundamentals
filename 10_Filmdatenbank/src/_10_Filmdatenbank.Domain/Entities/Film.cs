@@ -146,6 +146,31 @@ public class Film
     public string? TrailerUrl { get; set; }
 
     /// <summary>
+    /// Informationen über gewonnene Auszeichnungen oder Nominierungen.
+    /// </summary>
+    public string? Awards { get; set; }
+
+    /// <summary>
+    /// Gibt an, ob der Film nur für Erwachsene (Jugendschutz) geeignet ist.
+    /// </summary>
+    public bool Adult { get; set; }
+
+    /// <summary>
+    /// Die Fremdschlüssel-ID der Kollektion, zu der der Film gehört.
+    /// </summary>
+    public int? CollectionID { get; set; }
+
+    /// <summary>
+    /// Die Kollektion (Filmreihe), zu der dieser Film gehört.
+    /// </summary>
+    public Collection? Collection { get; set; }
+
+    /// <summary>
+    /// Die Produktionsfirmen, die an diesem Film beteiligt waren.
+    /// </summary>
+    public ICollection<ProductionCompany> ProductionCompanies { get; set; } = [];
+
+    /// <summary>
     /// Eine Sammlung von Personen und ihren Eigenschaften, die an diesem Film mitgewirkt haben.
     /// </summary>
     public ICollection<PersonEigenschaftFilm> PersonEigenschaftFilme { get; set; } = [];
