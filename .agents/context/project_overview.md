@@ -13,6 +13,7 @@ This repository is the successor to [C-Sharp-OOP-Fundamentals](https://github.co
 - **DDD (Domain-Driven Design)**: Focus on the business domain and logic.
 - **TDD (Test-Driven Development)**: Red-Green-Refactor approach for 100% coverage.
 - **Clean Architecture**: Decoupling the business logic from infrastructure and UI.
+- **External Data Enrichment**: Pattern for integrating high-fidelity third-party data (TMDB) into local domain entities via dedicated services and alignment fields.
 - **Local-Only UI**: High-performance, Node-free frontends powered by Tailwind 4.2 and local assets.
 
 ## Project Structure

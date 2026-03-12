@@ -10,8 +10,9 @@ Stell dir vor, du bist der Betreiber einer Videothek oder eines Streaming-Dienst
 ### Die wichtigsten Regeln, die hier genutzt werden:
 1. **Clean Architecture (DDD)**: Das Programm ist in klare Schichten unterteilt. Der Kern (die Filme) ist streng getrennt von der Speicherung (Datenbank) und der Darstellung (Webseite).
 2. **Identity & RBAC**: Es gibt verschiedene Rollen (Admin, Member). Nur wer angemeldet ist, sieht die Details, und nur Admins dürfen Daten ändern.
-3. **Automatisches Seeding**: Beim ersten Start füllt sich die Datenbank automatisch mit über 50 realistischen Filmen und Personen – dank **Bogus**.
-4. **Kein Bootstrap**: Wir setzen zu 100% auf **Tailwind CSS 4.2** für maximale Design-Freiheit und Performance. ✨
+3. **TMDB Integration & Smart Sync**: Echtzeit-Suche via TMDB API. Film-Metadaten (Budget, Revenue, Tagline) werden automatisch geladen.
+4. **Smart Cast Sync**: Besetzungslisten werden automatisch von TMDB abgerufen. Schauspieler werden bei Bedarf angelegt oder mit existierenden Personen verknüpft.
+5. **Premium UI & Glassmorphism**: Wir setzen zu 100% auf **Tailwind CSS 4.2** kombiniert mit Backdrop-Effekten und dynamischen Grid-Layouts. ✨
 
 ---
 

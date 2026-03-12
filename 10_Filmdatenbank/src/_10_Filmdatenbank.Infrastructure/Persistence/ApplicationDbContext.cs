@@ -61,7 +61,8 @@ public class ApplicationDbContext : IdentityDbContext
 
                 entity.HasOne(e => e.Film)
                     .WithMany(f => f.PersonEigenschaftFilme)
-                    .HasForeignKey(e => e.FilmID);
+                    .HasForeignKey(e => e.FilmID)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasOne(e => e.Eigenschaft)
                     .WithMany(eg => eg.PersonEigenschaftFilme)

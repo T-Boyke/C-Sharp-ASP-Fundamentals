@@ -26,6 +26,11 @@ High-performance data access with EF Core 10.
   to avoid Cartesian explosion.
 - **JSON Columns**: Utilize native JSON support for semi-structured data.
 
+## Integration & Alignment
+
+- **External Metadata Alignment**: Use high-fidelity external IDs (e.g., `TmdbId`, `ImdbId`) to synchronize local data with trusted third-party APIs.
+- **Smart Sync Pattern**: Implement logic to look up existing entities by external ID before creating duplicates.
+
 ## DDD Integration
 
 - **Owned Types**: Use for Value Objects.

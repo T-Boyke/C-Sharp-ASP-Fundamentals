@@ -7,6 +7,7 @@ Verified and required versions for the repository.
 - **Runtime**: .NET 10.0.3 (Preview/Stable as available)
 - **Language**: C# 14
 - **ORM**: Entity Framework Core 10
+- **External APIs**: TMDB (The Movie Database) via `TMDbLib`
 
 ## Frontend
 

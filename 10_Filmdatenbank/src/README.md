@@ -8,33 +8,23 @@ Dieses Verzeichnis enthält den Quellcode der Film-Management-Applikation, unter
 
 Der Kern der Anwendung. Enthält die Geschäftslogik und die Datenmodelle.
 
-* **Entitäten**: `Film`, `Person`, `Eigenschaft`.
+* **Entitäten**: `Film`, `Person`, `Eigenschaft` (Erweitert um TMDB "Perfect Alignment" Felder).
 * **Beziehungen**: Komplexe Viele-zu-Viele-zu-Viele-Verknüpfung über `PersonEigenschaftFilm`.
-* **Eigenschaften**: Definition von Rollen (z.B. Regisseur, Schauspieler).
 
 ### 2. [_10_Filmdatenbank.Application](./_10_Filmdatenbank.Application)
 
 Schnittstelle zwischen Domäne und Infrastruktur.
 
-* **Interfaces**: Definition von Diensten.
-* **DTOs**: Datenübertragungsobjekte für die Kommunikation nach außen.
+* **Interfaces**: `ITmdbService` für externe Datenanreicherung.
+* **Services**: Implementierung der TMDB-Logik via `TMDbLib`.
 
-### 3. [_10_Filmdatenbank.Infrastructure](./_10_Filmdatenbank.Infrastructure)
-
-Die Anbindung an die Außenwelt (Datenbank, Dateisystem).
-
-* **Persistence**: EF Core `ApplicationDbContext` und Fluent API Konfigurationen.
-* **Identity**: Integration von ASP.NET Core Identity für die Benutzerverwaltung.
-* **Migrations**: Datenbank-Versionierung.
-
-### 4. [_10_Filmdatenbank.Web](./_10_Filmdatenbank.Web)
+### 3. [_10_Filmdatenbank.Web](./_10_Filmdatenbank.Web)
 
 Das eigentliche Startprojekt (MVC).
 
-* **Controllers**: Steuerung des FLusses (Film, Account, Home).
-* **Views**: Premium UI mit Tailwind CSS 4, Font-Awesome und Inter-Font.
-* **StaticAssets**: Konfiguriertes Asset-Management für moderne Webstandards.
-* **Seeding**: Initialisierung der Datenbank mit 50+ Testdatensätzen via **Bogus**.
+* **Controllers**: `Film`, `Tmdb` (API für Echtzeit-Suche), `Account`, `Home`.
+* **Views**: Premium UI mit Backdrop-Hero-Sektionen und dynamischer Cast-Auswahl.
+* **Seeding**: Initialisierung mit **Bogus** und TMDB-kompatiblen Primärschlüsseln.
 
 ## 🚀 Ausführung
 

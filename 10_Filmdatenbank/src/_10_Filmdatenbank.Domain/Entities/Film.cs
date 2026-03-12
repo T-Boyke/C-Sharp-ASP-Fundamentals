@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace _10_Filmdatenbank.Domain.Entities;
 
@@ -16,6 +17,7 @@ public class Film
     /// <summary>
     /// Der Titel des Films.
     /// </summary>
+    [Required]
     public string Titel { get; set; } = string.Empty;
 
     /// <summary>
@@ -26,11 +28,14 @@ public class Film
     /// <summary>
     /// Die Spieldauer des Films in Minuten.
     /// </summary>
+    [Range(1, 1000)]
     public int Spieldauer { get; set; }
 
     /// <summary>
     /// Der Preis des Films in Euro.
     /// </summary>
+    [DataType(DataType.Currency)]
+    [Range(0.01, 1000.00)]
     public decimal Preis { get; set; }
 
     /// <summary>
@@ -42,7 +47,6 @@ public class Film
     /// Ein kurzer Werbespruch zum Film.
     /// </summary>
     public string? Tagline { get; set; }
-
 
     /// <summary>
     /// Die URL zum Poster-Bild.
