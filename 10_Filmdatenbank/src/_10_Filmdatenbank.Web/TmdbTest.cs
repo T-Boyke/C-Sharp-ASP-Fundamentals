@@ -4,9 +4,9 @@ using _10_Filmdatenbank.Web.Utilities;
 
 namespace _10_Filmdatenbank.Web;
 
-public class Program
+public class TmdbTest
 {
-    public static async Task Main(string[] args)
+    public static async Task RunAsync()
     {
         var tool = new TmdbEnrichmentTool();
         var data = await tool.GetMovieDataAsync("Inception", 2010);
