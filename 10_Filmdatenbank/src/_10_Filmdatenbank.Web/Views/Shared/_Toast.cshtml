@@ -1,0 +1,63 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    var successMessage = TempData["Success"]?.ToString();
+    var errorMessage = TempData["Error"]?.ToString();
+}
+
+<div id="toast-container" class="fixed bottom-8 right-8 z-[100] flex flex-col gap-4 pointer-events-none">
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="toast-item pointer-events-auto flex items-center gap-4 px-6 py-4 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-emerald-500/20 shadow-2xl shadow-emerald-500/10 transform transition-all duration-500 translate-y-20 opacity-0" 
+             role="alert" 
+             data-type="success">
+            <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white shrink-0 shadow-lg shadow-emerald-500/20">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[10px] font-black text-emerald-500 uppercase tracking-widest">@Localizer["SuccessLabel"]</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">@successMessage</span>
+            </div>
+            <button onclick="this.parentElement.remove()" class="ml-4 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="toast-item pointer-events-auto flex items-center gap-4 px-6 py-4 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-red-500/20 shadow-2xl shadow-red-500/10 transform transition-all duration-500 translate-y-20 opacity-0" 
+             role="alert" 
+             data-type="error">
+            <div class="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center text-white shrink-0 shadow-lg shadow-red-500/20">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[10px] font-black text-red-500 uppercase tracking-widest">@Localizer["ErrorLabel"]</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">@errorMessage</span>
+            </div>
+            <button onclick="this.parentElement.remove()" class="ml-4 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    }
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const items = document.querySelectorAll('.toast-item');
+        items.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.remove('translate-y-20', 'opacity-0');
+                item.classList.add('translate-y-0', 'opacity-100');
+                
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    item.classList.add('translate-y-20', 'opacity-0');
+                    setTimeout(() => item.remove(), 500);
+                }, 5000);
+            }, index * 100);
+        });
+    });
+</script>

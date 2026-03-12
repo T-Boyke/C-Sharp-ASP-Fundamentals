@@ -68,10 +68,18 @@ public class FilmController(ApplicationDbContext context) : Controller
         // Wir entfernen die Validierung für PersonEigenschaftFilme, da diese erst nach dem Film-Save verknüpft werden
         ModelState.Remove(nameof(film.PersonEigenschaftFilme));
 
+        if (film.TmdbId.HasValue && await context.Filme.AnyAsync(f => f.TmdbId == film.TmdbId))
+        {
+            var msg = "Dieser Film existiert bereits in der Datenbank.";
+            ModelState.AddModelError("", msg);
+            TempData["Error"] = msg;
+        }
+
         if (ModelState.IsValid)
         {
             context.Filme.Add(film);
             await context.SaveChangesAsync();
+            TempData["Success"] = $"Film '{film.Titel}' wurde erfolgreich erstellt.";
 
             // Handle Cast Synchronization
             if (!string.IsNullOrEmpty(SelectedCastJson))
@@ -174,6 +182,7 @@ public class FilmController(ApplicationDbContext context) : Controller
         {
             context.Update(film);
             await context.SaveChangesAsync();
+            TempData["Success"] = "Änderungen wurden gespeichert.";
             return RedirectToAction(nameof(Index));
         }
         return View(film);
@@ -198,13 +207,15 @@ public class FilmController(ApplicationDbContext context) : Controller
     /// <returns>Redirect zur Index-View.</returns>
     [HttpPost, ActionName("Delete")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmed(int FilmID)
     {
-        var film = await context.Filme.FindAsync(id);
+        var film = await context.Filme.FindAsync(FilmID);
         if (film != null)
         {
+            var titel = film.Titel;
             context.Filme.Remove(film);
             await context.SaveChangesAsync();
+            TempData["Success"] = $"Film '{titel}' wurde gelöscht.";
         }
         return RedirectToAction(nameof(Index));
     }

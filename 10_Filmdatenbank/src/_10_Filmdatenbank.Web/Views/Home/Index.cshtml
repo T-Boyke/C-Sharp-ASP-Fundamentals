@@ -7,19 +7,19 @@
 <div class="bg-transparent transition-colors duration-300">
     <!-- Hero Section -->
     <div class="hero-container relative isolate overflow-hidden">
-        <div class="mx-auto max-w-7xl px-6 pt-10 pb-24 sm:pb-32 lg:flex lg:px-8 lg:py-40">
-            <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8 flex-stack">
+        <div class="mx-auto max-w-screen-2xl px-6 pt-10 pb-24 sm:pb-32 lg:flex lg:px-8 lg:py-40">
+            <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-2xl lg:flex-shrink-0 lg:pt-8 flex-stack">
                 <div>
                      <span class="badge-premium px-3 py-1">Version 4.2 Release</span>
                 </div>
-                <h1 class="mt-10 text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-6xl text-balance">
+                <h1 class="mt-10 text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-7xl text-balance">
                     @Localizer["HeroTitlePrefix"] <span class="text-brand-primary">@Localizer["HeroTitleHighlight"]</span>
                 </h1>
-                <p class="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-400 text-pretty">
+                <p class="mt-6 text-xl leading-9 text-slate-600 dark:text-slate-400 text-pretty">
                     @Localizer["HeroDescription"]
                 </p>
-                <div class="mt-10 flex-wrap-gap">
-                    <a asp-controller="Film" asp-action="Index" class="btn-primary">
+                <div class="mt-12 flex-wrap-gap">
+                    <a asp-controller="Film" asp-action="Index" class="btn-primary scale-110 origin-left">
                         <i aria-hidden="true" class="fa-solid fa-play mr-2"></i> @Localizer["GetStarted"]
                     </a>
                     <a href="#features" class="btn-secondary px-6 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm">
@@ -29,9 +29,9 @@
             </div>
             
             <!-- Feature Grid Side -->
-            <div class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32" id="features">
-                <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-                    <div class="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <div class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-1 xl:ml-32" id="features">
+                <div class="w-full">
+                    <div class="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-8">
                         <div class="card-glass p-8 group aspect-[2/3] flex flex-col justify-center items-center text-center transition-all duration-500 hover:-translate-y-2">
                             <i aria-hidden="true" class="fa-solid fa-layer-group text-2xl text-brand-primary mb-3"></i>
                             <h3 class="font-bold text-slate-900 dark:text-white">@Localizer["Feature1Title"]</h3>
