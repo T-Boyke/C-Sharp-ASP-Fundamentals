@@ -40,9 +40,9 @@
                     <div class="flex wrap-gap items-center text-xs font-bold text-text-description dark:text-dark-text-muted">
                          <span><i aria-hidden="true" class="fa-solid fa-calendar mr-1.5 opacity-50"></i> @Model.Erscheinungsjahr</span>
                          <span class="w-1 h-1 rounded-full bg-border-default dark:border-dark-border"></span>
-                         <span><i aria-hidden="true" class="fa-solid fa-layer-group mr-1.5 opacity-50"></i> @Model.Genre</span>
+                         <span><i aria-hidden="true" class="fa-solid fa-layer-group mr-1.5 opacity-50"></i> @(string.Join(", ", Model.Genres?.Select(g => g.Name).Where(n => !string.IsNullOrEmpty(n)) ?? Array.Empty<string>()))</span>
                          <span class="w-1 h-1 rounded-full bg-border-default dark:border-dark-border"></span>
-                         <span><i aria-hidden="true" class="fa-solid fa-shield-halved mr-1.5 opacity-50"></i> @Model.FskRating</span>
+                         <span><i aria-hidden="true" class="fa-solid fa-shield-halved mr-1.5 opacity-50"></i> @Model.Releases?.FirstOrDefault()?.Certification</span>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 using _10_Filmdatenbank.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +9,7 @@ namespace _10_Filmdatenbank.Infrastructure.Persistence;
 /// Der Entity Framework Core Datenbankkontext für die Anwendung.
 /// Erweitert IdentityDbContext für die Benutzer- und Rollenverwaltung.
 /// </summary>
-public class ApplicationDbContext : IdentityDbContext
+public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 {
     /// <summary>
     /// Initialisiert eine neue Instanz des Datenbankkontexts.
@@ -87,9 +88,55 @@ public class ApplicationDbContext : IdentityDbContext
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<Film>()
-            .Property(f => f.Preis)
-            .HasPrecision(18, 2);
+        builder.Entity<Film>(entity =>
+        {
+            entity.HasKey(f => f.FilmID);
+            entity.Property(f => f.Preis).HasPrecision(18, 2);
+            
+            entity.HasOne(f => f.Collection)
+                .WithMany(c => c.Films)
+                .HasForeignKey(f => f.CollectionID)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            entity.HasMany(f => f.ProductionCompanies)
+                .WithMany(pc => pc.Films)
+                .UsingEntity(j => j.ToTable("FilmProductionCompanies"));
+
+            entity.HasMany(f => f.Genres)
+                .WithMany(g => g.Films)
+                .UsingEntity(j => j.ToTable("FilmGenres"));
+
+            entity.HasMany(f => f.Keywords)
+                .WithMany(k => k.Films)
+                .UsingEntity(j => j.ToTable("FilmKeywords"));
+
+            entity.HasMany(f => f.ProductionCountries)
+                .WithMany(c => c.ProductionFilms)
+                .UsingEntity(j => j.ToTable("FilmProductionCountries_ISO"));
+
+            entity.HasMany(f => f.SpokenLanguages)
+                .WithMany(l => l.SpokenInFilms)
+                .UsingEntity(j => j.ToTable("FilmSpokenLanguages"));
+
+            entity.HasMany(f => f.SimilarFilms)
+                .WithMany()
+                .UsingEntity(j => j.ToTable("FilmSimilar"));
+
+            entity.HasMany(f => f.RecommendedFilms)
+                .WithMany()
+                .UsingEntity(j => j.ToTable("FilmRecommended"));
+        });
+
+        builder.Entity<Person>(entity => entity.HasKey(p => p.PersonID));
+        builder.Entity<Genre>(entity => entity.HasKey(g => g.GenreID));
+        builder.Entity<Keyword>(entity => entity.HasKey(k => k.KeywordID));
+        builder.Entity<Collection>(entity => entity.HasKey(c => c.CollectionID));
+        builder.Entity<ProductionCompany>(entity => entity.HasKey(pc => pc.CompanyID));
+        builder.Entity<Eigenschaft>(entity => entity.HasKey(e => e.EigenschaftID));
+        builder.Entity<Country>(entity => entity.HasKey(c => c.Iso_3166_1));
+        builder.Entity<Language>(entity => entity.HasKey(l => l.Iso_639_1));
+        builder.Entity<AlternativeTitle>(entity => entity.HasKey(at => at.AlternativeTitleID));
+        builder.Entity<FilmRelease>(entity => entity.HasKey(r => r.ReleaseID));
 
         builder.Entity<PersonEigenschaftFilm>(entity =>
             {
@@ -107,42 +154,6 @@ public class ApplicationDbContext : IdentityDbContext
                 entity.HasOne(e => e.Eigenschaft)
                     .WithMany(eg => eg.PersonEigenschaftFilme)
                     .HasForeignKey(e => e.EigenschaftID);
-            });
-
-        builder.Entity<Film>(entity =>
-            {
-                entity.HasOne(f => f.Collection)
-                    .WithMany(c => c.Films)
-                    .HasForeignKey(f => f.CollectionID)
-                    .OnDelete(DeleteBehavior.SetNull);
-
-                entity.HasMany(f => f.ProductionCompanies)
-                    .WithMany(pc => pc.Films)
-                    .UsingEntity(j => j.ToTable("FilmProductionCompanies"));
-
-                entity.HasMany(f => f.Genres)
-                    .WithMany(g => g.Films)
-                    .UsingEntity(j => j.ToTable("FilmGenres"));
-
-                entity.HasMany(f => f.Keywords)
-                    .WithMany(k => k.Films)
-                    .UsingEntity(j => j.ToTable("FilmKeywords"));
-
-                entity.HasMany(f => f.ProductionCountries)
-                    .WithMany(c => c.ProductionFilms)
-                    .UsingEntity(j => j.ToTable("FilmProductionCountries_ISO"));
-
-                entity.HasMany(f => f.SpokenLanguages)
-                    .WithMany(l => l.SpokenInFilms)
-                    .UsingEntity(j => j.ToTable("FilmSpokenLanguages"));
-
-                entity.HasMany(f => f.SimilarFilms)
-                    .WithMany()
-                    .UsingEntity(j => j.ToTable("FilmSimilar"));
-
-                entity.HasMany(f => f.RecommendedFilms)
-                    .WithMany()
-                    .UsingEntity(j => j.ToTable("FilmRecommended"));
             });
 
         builder.Entity<Genre>()
@@ -167,6 +178,5 @@ public class ApplicationDbContext : IdentityDbContext
                     .HasForeignKey(pc => pc.ParentCompanyID)
                     .OnDelete(DeleteBehavior.NoAction);
             });
-
     }
 }

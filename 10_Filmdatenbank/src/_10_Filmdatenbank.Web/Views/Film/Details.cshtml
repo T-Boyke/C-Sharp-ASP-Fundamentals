@@ -65,12 +65,15 @@
                                 <i aria-hidden="true" class="fa-solid fa-star text-[10px] text-star-primary"></i>
                                 <span class="text-xs font-black tracking-tighter">@(Model.Nutzerwertung?.ToString("0.0") ?? "N/A")</span>
                             </div>
-                            @if (!string.IsNullOrEmpty(Model.FskRating))
-                            {
-                                <span class="px-2 py-1 rounded bg-dark-surface/80 backdrop-blur-md text-[10px] font-black text-white border border-white/10 uppercase tracking-tighter">
-                                    @Model.FskRating
-                                </span>
-                            }
+                             @{
+                                 var primaryRelease = Model.Releases?.FirstOrDefault();
+                                 if (primaryRelease != null)
+                                 {
+                                    <span class="px-2 py-1 rounded bg-dark-surface/80 backdrop-blur-md text-[10px] font-black text-white border border-white/10 uppercase tracking-tighter">
+                                        @primaryRelease.Certification
+                                    </span>
+                                 }
+                             }
                         </div>
                     </div>
                 </div>
@@ -102,7 +105,9 @@
                 <div class="space-y-6">
                     <div class="flex flex-col">
                         <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Genre"]</span>
-                        <span class="text-sm font-black text-text-main dark:text-white transition-colors">@Model.Genre</span>
+                        <span class="text-sm font-black text-text-main dark:text-white transition-colors">
+                            @(string.Join(", ", Model.Genres?.Select(g => g.Name).Where(n => !string.IsNullOrEmpty(n)) ?? Array.Empty<string>()))
+                        </span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Release"]</span>
@@ -124,15 +129,15 @@
                 </div>
             </div>
 
-            @if (!string.IsNullOrEmpty(Model.Tags))
+            @if (Model.Keywords?.Any() == true)
             {
                 <div class="form-group-card p-8">
                     <h3 class="text-xs font-black text-text-muted uppercase tracking-widest mb-4">@Localizer["Tags"]</h3>
                     <div class="flex flex-wrap gap-2">
-                        @foreach (var tag in Model.Tags.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+                        @foreach (var fk in Model.Keywords)
                         {
                             <span class="px-2 py-1 rounded-lg bg-surface-muted dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-[10px] font-bold text-text-description dark:text-dark-text-muted uppercase tracking-tighter">
-                                #@tag
+                                #@fk.Name
                             </span>
                         }
                     </div>
@@ -154,7 +159,9 @@
                         <p class="mt-4 text-2xl font-black text-brand-primary/80 italic tracking-tight transition-colors">@Model.Tagline</p>
                     }
                 }
-                <p class="mt-6 text-xl text-text-description dark:text-dark-text-muted font-medium italic transition-colors leading-relaxed">@Model.Genre &bull; @Model.Erscheinungsjahr</p>
+                <p class="mt-6 text-xl text-text-description dark:text-dark-text-muted font-medium italic transition-colors leading-relaxed">
+                    @(string.Join(", ", Model.Genres?.Select(g => g.Name).Where(n => !string.IsNullOrEmpty(n)) ?? Array.Empty<string>())) &bull; @Model.Erscheinungsjahr
+                </p>
             </header>
 
             <section>

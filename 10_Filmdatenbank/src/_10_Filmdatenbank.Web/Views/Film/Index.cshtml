@@ -47,12 +47,15 @@
                     }
                     
                     <!-- Badges Overlays -->
-                    <div class="absolute top-4 left-4 flex flex-col gap-2">
-                         @if (!string.IsNullOrEmpty(item.FskRating))
-                         {
-                            <span class="px-2 py-1 rounded bg-dark-surface/80 backdrop-blur-md text-[10px] font-black text-white border border-white/10 uppercase tracking-tighter shadow-lg">
-                                @item.FskRating
-                            </span>
+                     <div class="absolute top-4 left-4 flex flex-col gap-2">
+                         @{
+                             var primaryRelease = item.Releases?.FirstOrDefault();
+                             if (primaryRelease != null)
+                             {
+                                <span class="px-2 py-1 rounded bg-dark-surface/80 backdrop-blur-md text-[10px] font-black text-white border border-white/10 uppercase tracking-tighter shadow-lg">
+                                    @primaryRelease.Certification
+                                </span>
+                             }
                          }
                     </div>
 
@@ -89,7 +92,9 @@
                 <div class="p-6 flex flex-col flex-grow bg-surface-overlay dark:bg-dark-surface-soft transition-colors">
                     <div class="mb-4">
                         <div class="flex items-center gap-2 mb-1">
-                            <span class="text-[9px] font-black text-brand-primary uppercase tracking-[0.2em] px-2 py-0.5 rounded-full bg-brand-primary/5">@item.Genre</span>
+                            <span class="text-[9px] font-black text-brand-primary uppercase tracking-[0.2em] px-2 py-0.5 rounded-full bg-brand-primary/5">
+                                @(string.Join(", ", item.Genres?.Select(g => g.Name).Where(n => !string.IsNullOrEmpty(n)) ?? Array.Empty<string>()))
+                            </span>
                         </div>
                         <h2 class="text-lg font-black text-text-main dark:text-white leading-tight line-clamp-1 transition-colors">@item.Titel</h2>
                         <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mt-1 italic transition-colors">
