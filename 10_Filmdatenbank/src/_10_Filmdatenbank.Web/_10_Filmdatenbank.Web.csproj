@@ -18,12 +18,18 @@
     </PackageReference>
   </ItemGroup>
 
+  <PropertyGroup Label="Tailwind Properties">
+    <TailwindVersion>latest</TailwindVersion>
+    <TailwindInstallPath>$(BaseIntermediateOutputPath)\tailwind-cli\</TailwindInstallPath>
+    <TailwindConfigDir>$(MSBuildProjectDirectory)\Tailwind\</TailwindConfigDir>
+    <TailwindInputFile>input.css</TailwindInputFile>
+    <TailwindOutputFile>..\wwwroot\css\site.css</TailwindOutputFile>
+  </PropertyGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <TailwindCSSInputFile>wwwroot/css/input.css</TailwindCSSInputFile>
-    <TailwindCSSOutputFile>wwwroot/css/site.css</TailwindCSSOutputFile>
   </PropertyGroup>
 
 </Project>

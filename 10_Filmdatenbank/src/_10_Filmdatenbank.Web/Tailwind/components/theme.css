@@ -18,4 +18,9 @@
   .dark body {
     @apply bg-slate-950 text-white;
   }
+
+  /* Standardized focus styles for links and other interactive elements */
+  a, button {
+    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded;
+  }
 }
