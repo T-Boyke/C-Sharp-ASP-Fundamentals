@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="CreatePersonTitle" xml:space="preserve"><value>Neuaufnahme Team</value></data>
+  <data name="NewContributor" xml:space="preserve"><value>Neuer Mitwirkender</value></data>
+  <data name="CapturePersonalData" xml:space="preserve"><value>Personendaten erfassen</value></data>
+  <data name="Back" xml:space="preserve"><value>Zurück</value></data>
+  <data name="BackToListLabel" xml:space="preserve"><value>Zurück zur Liste</value></data>
+  <data name="PersonalInfo" xml:space="preserve"><value>Personalien</value></data>
+  <data name="CompleteEntry" xml:space="preserve"><value>Eintrag vervollständigen</value></data>
+  <data name="FirstName" xml:space="preserve"><value>Vorname</value></data>
+  <data name="FirstNamePlaceholder" xml:space="preserve"><value>z.B. Keanu</value></data>
+  <data name="LastName" xml:space="preserve"><value>Nachname</value></data>
+  <data name="LastNamePlaceholder" xml:space="preserve"><value>z.B. Reeves</value></data>
+  <data name="DateOfBirth" xml:space="preserve"><value>Geburtsdatum</value></data>
+  <data name="PlaceOfBirth" xml:space="preserve"><value>Geburtsort</value></data>
+  <data name="PlaceOfBirthPlaceholder" xml:space="preserve"><value>z.B. Beirut, Libanon</value></data>
+  <data name="ProfilePictureUrl" xml:space="preserve"><value>Profilbild URL</value></data>
+  <data name="ProfilePictureUrlPlaceholder" xml:space="preserve"><value>https://image.tmdb.org/...</value></data>
+  <data name="TagsLabel" xml:space="preserve"><value>Tags (kommagetrennt)</value></data>
+  <data name="TagsPlaceholder" xml:space="preserve"><value>z.B. Actor, Director</value></data>
+  <data name="Biography" xml:space="preserve"><value>Biografie</value></data>
+  <data name="BiographyPlaceholder" xml:space="preserve"><value>Biografie hier eingeben...</value></data>
+  <data name="SpellcheckWarning" xml:space="preserve"><value>Bitte achten Sie auf die korrekte Schreibweise des Namens.</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="CancelLabel" xml:space="preserve"><value>Vorgang abbrechen</value></data>
+  <data name="CreatePersonButton" xml:space="preserve"><value>Person anlegen</value></data>
+  <data name="SubmitPersonLabel" xml:space="preserve"><value>Neue Person in Datenbank speichern</value></data>
+</root>

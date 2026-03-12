@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="CreatePersonTitle" xml:space="preserve"><value>Новый участник команды</value></data>
+  <data name="NewContributor" xml:space="preserve"><value>Новый участник</value></data>
+  <data name="CapturePersonalData" xml:space="preserve"><value>Ввод личных данных</value></data>
+  <data name="Back" xml:space="preserve"><value>Назад</value></data>
+  <data name="BackToListLabel" xml:space="preserve"><value>Назад к списку</value></data>
+  <data name="PersonalInfo" xml:space="preserve"><value>Личные данные</value></data>
+  <data name="CompleteEntry" xml:space="preserve"><value>Завершить ввод</value></data>
+  <data name="FirstName" xml:space="preserve"><value>Имя</value></data>
+  <data name="FirstNamePlaceholder" xml:space="preserve"><value>например, Киану</value></data>
+  <data name="LastName" xml:space="preserve"><value>Фамилия</value></data>
+  <data name="LastNamePlaceholder" xml:space="preserve"><value>например, Ривз</value></data>
+  <data name="DateOfBirth" xml:space="preserve"><value>Дата рождения</value></data>
+  <data name="PlaceOfBirth" xml:space="preserve"><value>Место рождения</value></data>
+  <data name="PlaceOfBirthPlaceholder" xml:space="preserve"><value>например, Бейрут, Ливан</value></data>
+  <data name="ProfilePictureUrl" xml:space="preserve"><value>URL фото профиля</value></data>
+  <data name="ProfilePictureUrlPlaceholder" xml:space="preserve"><value>https://image.tmdb.org/...</value></data>
+  <data name="TagsLabel" xml:space="preserve"><value>Теги (через запятую)</value></data>
+  <data name="TagsPlaceholder" xml:space="preserve"><value>например, Актер, Режиссер</value></data>
+  <data name="Biography" xml:space="preserve"><value>Биография</value></data>
+  <data name="BiographyPlaceholder" xml:space="preserve"><value>Введите биографию здесь...</value></data>
+  <data name="SpellcheckWarning" xml:space="preserve"><value>Пожалуйста, убедитесь в правильности написания имени.</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Отмена</value></data>
+  <data name="CancelLabel" xml:space="preserve"><value>Отменить процесс</value></data>
+  <data name="CreatePersonButton" xml:space="preserve"><value>Создать человека</value></data>
+  <data name="SubmitPersonLabel" xml:space="preserve"><value>Сохранить нового человека в базе данных</value></data>
+</root>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="CreatePersonTitle" xml:space="preserve"><value>عضو فريق جديد</value></data>
+  <data name="NewContributor" xml:space="preserve"><value>مساهم جديد</value></data>
+  <data name="CapturePersonalData" xml:space="preserve"><value>تسجيل البيانات الشخصية</value></data>
+  <data name="Back" xml:space="preserve"><value>رجوع</value></data>
+  <data name="BackToListLabel" xml:space="preserve"><value>العودة إلى القائمة</value></data>
+  <data name="PersonalInfo" xml:space="preserve"><value>المعلومات الشخصية</value></data>
+  <data name="CompleteEntry" xml:space="preserve"><value>إكمال الإدخال</value></data>
+  <data name="FirstName" xml:space="preserve"><value>الاسم الأول</value></data>
+  <data name="FirstNamePlaceholder" xml:space="preserve"><value>مثل كيانو</value></data>
+  <data name="LastName" xml:space="preserve"><value>اسم العائلة</value></data>
+  <data name="LastNamePlaceholder" xml:space="preserve"><value>مثل ريفز</value></data>
+  <data name="DateOfBirth" xml:space="preserve"><value>تاريخ الميلاد</value></data>
+  <data name="PlaceOfBirth" xml:space="preserve"><value>مكان الميلاد</value></data>
+  <data name="PlaceOfBirthPlaceholder" xml:space="preserve"><value>مثل بيروت، لبنان</value></data>
+  <data name="ProfilePictureUrl" xml:space="preserve"><value>رابط صورة الملف الشخصي</value></data>
+  <data name="ProfilePictureUrlPlaceholder" xml:space="preserve"><value>https://image.tmdb.org/...</value></data>
+  <data name="TagsLabel" xml:space="preserve"><value>الوسوم (مفصولة بفاصلة)</value></data>
+  <data name="TagsPlaceholder" xml:space="preserve"><value>مثال: ممثل، مخرج</value></data>
+  <data name="Biography" xml:space="preserve"><value>السيرة الذاتية</value></data>
+  <data name="BiographyPlaceholder" xml:space="preserve"><value>أدخل السيرة الذاتية هنا...</value></data>
+  <data name="SpellcheckWarning" xml:space="preserve"><value>يرجى التأكد من التهجئة الصحيحة للاسم.</value></data>
+  <data name="Cancel" xml:space="preserve"><value>إلغاء</value></data>
+  <data name="CancelLabel" xml:space="preserve"><value>إلغاء العملية</value></data>
+  <data name="CreatePersonButton" xml:space="preserve"><value>إضافة الشخص</value></data>
+  <data name="SubmitPersonLabel" xml:space="preserve"><value>حفظ الشخص الجديد في قاعدة البيانات</value></data>
+</root>
