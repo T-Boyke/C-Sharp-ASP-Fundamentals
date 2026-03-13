@@ -5,10 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
+using Moq;
+using _10_Filmdatenbank.Application.Interfaces;
+
 namespace _10_Filmdatenbank.IntegrationTests.Web
 {
     public class FilmControllerTests
     {
+        private readonly Mock<ITmdbService> _mockTmdbService = new();
+
         private ApplicationDbContext GetContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -27,7 +32,7 @@ namespace _10_Filmdatenbank.IntegrationTests.Web
             context.Filme.Add(new Film { Titel = "B Film" });
             context.Filme.Add(new Film { Titel = "A Film" });
             await context.SaveChangesAsync();
-            var controller = new FilmController(context);
+            var controller = new FilmController(context, _mockTmdbService.Object);
 
             // Act
             var result = await controller.Index();
@@ -44,7 +49,7 @@ namespace _10_Filmdatenbank.IntegrationTests.Web
         {
             // Arrange
             using var context = GetContext();
-            var controller = new FilmController(context);
+            var controller = new FilmController(context, _mockTmdbService.Object);
 
             // Act
             var result = await controller.Details(99);
@@ -58,7 +63,7 @@ namespace _10_Filmdatenbank.IntegrationTests.Web
         {
             // Arrange
             using var context = GetContext();
-            var controller = new FilmController(context);
+            var controller = new FilmController(context, _mockTmdbService.Object);
             var film = new Film { Titel = "New" };
 
             // Act
@@ -79,7 +84,7 @@ namespace _10_Filmdatenbank.IntegrationTests.Web
             context.Filme.Add(film);
             await context.SaveChangesAsync();
             
-            var controller = new FilmController(context);
+            var controller = new FilmController(context, _mockTmdbService.Object);
             film.Titel = "Updated";
 
             // Act
@@ -99,7 +104,7 @@ namespace _10_Filmdatenbank.IntegrationTests.Web
             var film = new Film { FilmID = 1, Titel = "To Delete" };
             context.Filme.Add(film);
             await context.SaveChangesAsync();
-            var controller = new FilmController(context);
+            var controller = new FilmController(context, _mockTmdbService.Object);
 
             // Act
             var result = await controller.DeleteConfirmed(1);

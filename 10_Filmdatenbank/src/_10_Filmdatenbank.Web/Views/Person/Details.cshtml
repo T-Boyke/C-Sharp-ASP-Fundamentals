@@ -271,7 +271,7 @@
             <!-- Global Filmography Section (TMDB) -->
             @if (!string.IsNullOrEmpty(Model.TmdbFilmographyJson))
             {
-                var credits = System.Text.Json.JsonSerializer.Deserialize<TMDbLib.Objects.People.CombinedCredits>(Model.TmdbFilmographyJson);
+                var credits = Newtonsoft.Json.JsonConvert.DeserializeObject<TMDbLib.Objects.People.CombinedCredits>(Model.TmdbFilmographyJson);
                 if (credits != null && (credits.Cast.Any() || credits.Crew.Any()))
                 {
                     <section class="mt-16">
@@ -287,11 +287,23 @@
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            @foreach (var credit in credits.Cast.OrderByDescending(c => c.ReleaseDate ?? c.FirstAirDate).Take(40))
+                            @foreach (var credit in credits.Cast.OrderByDescending(c => {
+                                dynamic d = c;
+                                try { return (DateTime?)(d.ReleaseDate ?? d.FirstAirDate); } catch { return (DateTime?)null; }
+                            }).Take(40))
                             {
-                                var title = credit.Title ?? credit.Name ?? "Unknown";
-                                var date = credit.ReleaseDate ?? credit.FirstAirDate;
-                                var mediaTypeUrl = credit.MediaType == TMDbLib.Objects.General.MediaType.Movie ? "movie" : "tv";
+                                dynamic dynCredit = credit;
+                                string title = "";
+                                DateTime? date = null;
+                                string mediaTypeUrl = "";
+
+                                try {
+                                    title = dynCredit.Title ?? dynCredit.Name ?? "Unknown";
+                                    date = dynCredit.ReleaseDate ?? dynCredit.FirstAirDate;
+                                    mediaTypeUrl = dynCredit.MediaType == TMDbLib.Objects.General.MediaType.Movie ? "movie" : "tv";
+                                } catch {
+                                    title = "Unknown";
+                                }
                                 
                                 <div class="form-group-card flex items-center p-4 group transition-all border-l-4 border-l-surface-muted dark:border-l-dark-surface-soft hover:border-l-brand-primary/50 bg-surface-subtle/30 dark:bg-dark-surface/30">
                                     <div class="w-12 h-18 rounded-md overflow-hidden shrink-0 border border-border-muted dark:border-dark-border" aria-hidden="true">
@@ -313,7 +325,11 @@
                                         </div>
                                         <div class="flex items-center gap-2 mt-1">
                                             <span class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted italic truncate">
-                                                @(credit.Character ?? credit.Job ?? "N/A")
+                                                @{
+                                                    string role = "N/A";
+                                                    try { role = dynCredit.Character ?? dynCredit.Job ?? "N/A"; } catch { }
+                                                }
+                                                @role
                                             </span>
                                         </div>
                                     </div>

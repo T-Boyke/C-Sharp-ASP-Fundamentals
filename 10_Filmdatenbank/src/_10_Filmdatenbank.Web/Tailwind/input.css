@@ -16,6 +16,8 @@
 @import "./components/form.css";
 @import "./components/avatar.css";
 @import "./components/btn-groups.css";
+@import "./components/alerts.css";
+@import "./components/empty-states.css";
 
 /* Professional Utilities - No AI Slop */
 @utility accent-border {

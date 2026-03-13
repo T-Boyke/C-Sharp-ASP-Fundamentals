@@ -9,7 +9,6 @@ namespace _10_Filmdatenbank.Web.Utilities;
 
 public class TmdbEnrichmentTool
 {
-    private readonly string _apiKey = "d32c6254aebfa68d0c01e5995711ffc1";
     private readonly string _bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMzJjNjI1NGFlYmZhNjhkMGMwMWU1OTk1NzExZmZjMSIsIm5iZiI6MTQ2ODI1MjEwNC43MjEsInN1YiI6IjU3ODNiZmM4YzNhMzY4NDIxODAwMjk0NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3SGYixE54HrGWxxk9N7mzNAt_r2LE2ol2jsmyJAou3Q";
     private readonly HttpClient _httpClient;
 
