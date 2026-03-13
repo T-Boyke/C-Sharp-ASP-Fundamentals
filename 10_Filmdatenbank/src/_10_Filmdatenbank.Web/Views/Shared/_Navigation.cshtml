@@ -64,11 +64,20 @@
                 <!-- Admin Settings Dropdown -->
                 @if (User.IsInRole("Admin"))
                 {
-                    <div class="relative group">
-                        <button type="button" class="w-9 h-9 flex items-center justify-center rounded-lg bg-nav-surface border border-nav-border text-nav-link hover:text-brand-primary hover:border-brand-primary/50 transition-all" aria-haspopup="true" aria-expanded="false">
+                    <div class="relative" x-data="{ open: false }" @@click.away="open = false">
+                        <button type="button" @@click="open = !open" 
+                                class="w-9 h-9 flex items-center justify-center rounded-lg bg-nav-surface border border-nav-border text-nav-link hover:text-brand-primary hover:border-brand-primary/50 transition-all" 
+                                aria-haspopup="true" :aria-expanded="open">
                             <i class="fa-solid fa-bars text-sm"></i>
                         </button>
-                        <div class="absolute right-0 mt-2 w-56 p-2 rounded-xl bg-nav-bg border border-nav-border shadow-2xl transition-all duration-200 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto z-50">
+                        <div x-show="open"
+                             x-transition:enter="transition ease-out duration-200"
+                             x-transition:enter-start="opacity-0 translate-y-2"
+                             x-transition:enter-end="opacity-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-150"
+                             x-transition:leave-start="opacity-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 translate-y-2"
+                             class="absolute right-0 mt-2 w-56 p-2 rounded-xl bg-nav-bg border border-nav-border shadow-2xl z-50">
                             <div class="flex flex-col gap-1">
                                 <div class="px-3 py-2 border-b border-nav-border mb-1">
                                     <span class="text-[10px] font-black text-text-muted uppercase tracking-widest">@Localizer["AdminSettings"]</span>

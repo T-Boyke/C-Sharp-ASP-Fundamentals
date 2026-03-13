@@ -129,13 +129,19 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
             // Handle Genres
             if (!string.IsNullOrEmpty(SelectedGenresJson))
             {
-                var genreNames = System.Text.Json.JsonSerializer.Deserialize<List<string>>(SelectedGenresJson);
-                if (genreNames != null)
+                var genreData = System.Text.Json.JsonSerializer.Deserialize<List<GenreDto>>(SelectedGenresJson);
+                if (genreData != null)
                 {
-                    foreach (var name in genreNames)
+                    foreach (var item in genreData)
                     {
-                        var genre = await context.Genres.FirstOrDefaultAsync(g => g.Name == name)
-                                    ?? new Genre { Name = name };
+                        var genre = await context.Genres.FirstOrDefaultAsync(g => g.TmdbId == item.Id)
+                                    ?? await context.Genres.FirstOrDefaultAsync(g => g.Name == item.Name);
+                        
+                        if (genre == null)
+                        {
+                            genre = new Genre { Name = item.Name, TmdbId = item.Id };
+                            context.Genres.Add(genre);
+                        }
                         film.Genres.Add(genre);
                     }
                 }
@@ -144,13 +150,19 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
             // Handle Keywords
             if (!string.IsNullOrEmpty(SelectedKeywordsJson))
             {
-                var keywordNames = System.Text.Json.JsonSerializer.Deserialize<List<string>>(SelectedKeywordsJson);
-                if (keywordNames != null)
+                var keywordData = System.Text.Json.JsonSerializer.Deserialize<List<KeywordDto>>(SelectedKeywordsJson);
+                if (keywordData != null)
                 {
-                    foreach (var name in keywordNames)
+                    foreach (var item in keywordData)
                     {
-                        var keyword = await context.Keywords.FirstOrDefaultAsync(k => k.Name == name)
-                                      ?? new Keyword { Name = name };
+                        var keyword = await context.Keywords.FirstOrDefaultAsync(k => k.TmdbId == item.Id)
+                                      ?? await context.Keywords.FirstOrDefaultAsync(k => k.Name == item.Name);
+                        
+                        if (keyword == null)
+                        {
+                            keyword = new Keyword { Name = item.Name, TmdbId = item.Id };
+                            context.Keywords.Add(keyword);
+                        }
                         film.Keywords.Add(keyword);
                     }
                 }
@@ -301,6 +313,18 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
         public string name { get; set; } = string.Empty;
         public string character { get; set; } = string.Empty;
         public string? profileUrl { get; set; }
+    }
+
+    private class GenreDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+    }
+
+    private class KeywordDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 
     /// <summary>

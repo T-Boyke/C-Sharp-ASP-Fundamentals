@@ -24,6 +24,13 @@
         "files/noto-sans-latin-wght-normal.woff2",
         "files/noto-sans-latin-ext-wght-normal.woff2"
       ]
+    },
+    {
+      "library": "alpinejs@3.14.8",
+      "destination": "wwwroot/lib/alpinejs/",
+      "files": [
+        "dist/cdn.min.js"
+      ]
     }
   ]
 }

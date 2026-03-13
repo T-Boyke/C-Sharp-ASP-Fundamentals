@@ -52,8 +52,8 @@ public class TmdbController(ITmdbService tmdbService) : ControllerBase
             TrailerKey = movie.Videos?.Results?.FirstOrDefault(v => v.Site == "YouTube" && v.Type == "Trailer")?.Key,
             PosterUrl = string.IsNullOrEmpty(movie.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{movie.PosterPath}",
             BackdropUrl = string.IsNullOrEmpty(movie.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{movie.BackdropPath}",
-            Genres = movie.Genres.Select(g => g.Name),
-            Keywords = movie.Keywords?.Keywords?.Select(k => k.Name) ?? [],
+            Genres = movie.Genres.Select(g => new { g.Id, g.Name }),
+            Keywords = movie.Keywords?.Keywords?.Select(k => new { k.Id, k.Name }) ?? [],
             ProductionCompanies = movie.ProductionCompanies?.Select(pc => new 
             {
                 pc.Id,
