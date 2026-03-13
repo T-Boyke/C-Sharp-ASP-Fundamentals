@@ -1,9 +1,11 @@
 using _10_Filmdatenbank.Domain.Entities;
 using _10_Filmdatenbank.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace _10_Filmdatenbank.Web.Controllers;
@@ -45,6 +47,50 @@ public class UserController : Controller
             .FirstOrDefaultAsync(u => u.Id == userId);
             
         return View(user);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateProfile(string FirstName, string LastName, string Street, string ZipCode, string City, string Country, IFormFile ProfilePic)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Challenge();
+
+        user.FirstName = FirstName;
+        user.LastName = LastName;
+        user.Street = Street;
+        user.ZipCode = ZipCode;
+        user.City = City;
+        user.Country = Country;
+
+        if (ProfilePic != null && ProfilePic.Length > 0)
+        {
+            if (ProfilePic.Length > 1024 * 1024)
+            {
+                ModelState.AddModelError("ProfilePic", "Das Bild darf maximal 1 MB groß sein.");
+                return View("Profile", user);
+            }
+
+            using (var memoryStream = new MemoryStream())
+            {
+                await ProfilePic.CopyToAsync(memoryStream);
+                user.ProfilePicture = memoryStream.ToArray();
+                user.ProfilePictureContentType = ProfilePic.ContentType;
+            }
+        }
+
+        var result = await _userManager.UpdateAsync(user);
+        if (result.Succeeded)
+        {
+            return RedirectToAction(nameof(Dashboard));
+        }
+
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError(string.Empty, error.Description);
+        }
+
+        return View("Profile", user);
     }
 
     public async Task<IActionResult> Groups()
