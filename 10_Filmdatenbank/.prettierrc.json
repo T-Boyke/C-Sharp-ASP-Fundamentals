@@ -1,0 +1,44 @@
+{
+  "printWidth": 120,
+  "tabWidth": 4,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "endOfLine": "crlf",
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "prettier-plugin-organize-attributes",
+    "prettier-plugin-xml"
+  ],
+  "overrides": [
+    {
+      "files": "*.cshtml",
+      "options": {
+        "parser": "html"
+      }
+    },
+    {
+      "files": [
+        "*.csproj",
+        "*.resx",
+        "*.config",
+        "*.xml"
+      ],
+      "options": {
+        "parser": "xml",
+        "xmlWhitespaceSensitivity": "ignore"
+      }
+    },
+    {
+      "files": "*.md",
+      "options": {
+        "proseWrap": "always",
+        "printWidth": 120
+      }
+    }
+  ]
+}

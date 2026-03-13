@@ -1,0 +1,125 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.renderWhitespace": "selection",
+  "editor.suggestSelection": "first",
+  "editor.unicodeHighlight.nonBasicASCII": false,
+  "files.autoSave": "onFocusChange",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.associations": {
+    "*.cshtml": "aspnetcorerazor",
+    "*.css": "tailwindcss"
+  },
+  "workbench.colorCustomizations": {},
+  "workbench.iconTheme": "vscode-icons",
+  "dotnet.server.useOmnisharp": false,
+  "csharp.suppressDotnetRestoreNotification": true,
+  "csharp.format.enable": true,
+  "csharp.format.onType": true,
+  "csharp.analysis.showFullSolutionAnalysis": true,
+  "csharp.documentation.showXmlDocumentation": true,
+  "csharp.enableEditorConfigSupport": true,
+  "razor.format.enable": true,
+  "razor.snippets.enable": true,
+  "razor.completion.commitCharacters.enabled": true,
+  "tailwindCSS.experimental.classRegex": [
+    ["class\\s*=\\s*\"([^\"]*)\"", "([^\\s\"']+)"],
+    ["class\\s*=\\s*'([^']*)'", "([^\\s\"']+)"],
+    ["@utility\\s+([^\\s{]+)", "([^\\s{]+)"],
+    ["classNames\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"],
+    ["(?<=\\b(?:class|className)\\s*:\\s*['\"])([^'\"]*)"]
+  ],
+  "tailwindCSS.includeLanguages": {
+    "aspnetcorerazor": "html",
+    "razor": "html",
+    "cshtml": "html",
+    "csharp": "html"
+  },
+  "tailwindCSS.files.exclude": [
+    "**/wwwroot/lib/**",
+    "**/bin/**",
+    "**/obj/**",
+    "**/.git/**",
+    "**/node_modules/**"
+  ],
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass",
+    "class:list",
+    "asp-class",
+    "active-class"
+  ],
+  "tailwindCSS.classFunctions": [
+    "clsx",
+    "twMerge",
+    "classNames",
+    "cn",
+    "classes",
+    "tw",
+    "css",
+    "twJoin",
+    "twc"
+  ],
+  "tailwindCSS.colorDecorators": true,
+  "tailwindCSS.showPixelEquivalents": true,
+  "tailwindCSS.hovers": true,
+  "tailwindCSS.suggestions": true,
+  "tailwindCSS.codeActions": true,
+  "tailwindCSS.validate": true,
+  "tailwindCSS.lint.invalidApply": "error",
+  "tailwindCSS.lint.invalidScreen": "error",
+  "tailwindCSS.lint.invalidVariant": "error",
+  "tailwindCSS.lint.invalidConfigPath": "error",
+  "tailwindCSS.lint.invalidTailwindDirective": "error",
+  "tailwindCSS.lint.recommendedVariantOrder": "warning",
+  "tailwindCSS.experimental.configFile": "src/_10_Filmdatenbank.Web/Tailwind/input.css",
+  "cSpell.language": "en,de",
+  "cSpell.words": [
+    "Filmdatenbank",
+    "Entwicklung",
+    "Backend",
+    "Frontend"
+  ],
+  "markdownlint.config": {
+    "MD001": true,
+    "MD025": true,
+    "MD004": { "style": "dash" },
+    "MD013": false
+  },
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+  "[razor]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[tailwindcss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
+}

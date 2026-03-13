@@ -1,0 +1,13 @@
+# Proj/Build
+.vs/
+bin/
+obj/
+wwwroot/lib/
+wwwroot/css/site.css
+
+# Git
+.git/
+
+# Resources
+*.resx
+# (Optional: If you want to format resx, remove the line above and ensure plugin is installed)
