@@ -18,6 +18,8 @@
     </div>
 
     <form asp-action="UpdateProfile" method="post" enctype="multipart/form-data" class="space-y-8">
+        <div asp-validation-summary="All" class="rounded-xl bg-danger-primary/10 border border-danger-primary/20 p-4 text-danger-primary text-xs font-bold uppercase tracking-widest" aria-live="polite"></div>
+
         <!-- Profile Picture Upload -->
         <div class="card-glass p-8">
             <div class="flex flex-col md:flex-row items-center gap-8">

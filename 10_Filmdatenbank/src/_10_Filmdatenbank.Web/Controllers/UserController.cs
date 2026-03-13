@@ -49,6 +49,9 @@ public class UserController : Controller
         return View(user);
     }
 
+    [HttpGet]
+    public IActionResult UpdateProfile() => RedirectToAction(nameof(Profile));
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> UpdateProfile(string FirstName, string LastName, string Street, string ZipCode, string City, string Country, IFormFile ProfilePic)

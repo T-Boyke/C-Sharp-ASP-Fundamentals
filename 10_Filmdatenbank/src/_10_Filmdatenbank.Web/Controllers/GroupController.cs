@@ -91,4 +91,45 @@ public class GroupController(ApplicationDbContext context, UserManager<Applicati
 
         return RedirectToAction(nameof(Discovery));
     }
+
+    [HttpGet]
+    public IActionResult Create() => View();
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(FanGroup group, Microsoft.AspNetCore.Http.IFormFile? ImageFile)
+    {
+        var user = await userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+
+        if (ModelState.IsValid)
+        {
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                using var ms = new System.IO.MemoryStream();
+                await ImageFile.CopyToAsync(ms);
+                group.GroupImage = ms.ToArray();
+                group.GroupImageContentType = ImageFile.ContentType;
+            }
+
+            group.CreatedAt = DateTime.UtcNow;
+            context.FanGroups.Add(group);
+            await context.SaveChangesAsync();
+
+            // Add creator as Owner
+            context.GroupMembers.Add(new GroupMember
+            {
+                FanGroupID = group.FanGroupID,
+                UserID = user.Id,
+                Role = GroupRole.Owner,
+                JoinedAt = DateTime.UtcNow
+            });
+
+            await context.SaveChangesAsync();
+            TempData["Success"] = $"Gruppe '{group.Name}' erfolgreich erstellt!";
+            return RedirectToAction(nameof(Details), new { id = group.FanGroupID });
+        }
+
+        return View(group);
+    }
 }

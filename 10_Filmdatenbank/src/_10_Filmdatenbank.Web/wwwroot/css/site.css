@@ -1388,6 +1388,9 @@
   .cursor-pointer {
     cursor: pointer;
   }
+  .resize-none {
+    resize: none;
+  }
   .list-disc {
     list-style-type: disc;
   }

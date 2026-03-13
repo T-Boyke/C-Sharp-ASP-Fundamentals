@@ -35,28 +35,6 @@
                             <i class="fa-solid fa-people-group text-xs" aria-hidden="true"></i>
                             @Localizer["Community"]
                         </a>
-                        <div class="relative group h-full" role="none">
-                            <button class="nav-link-modern group-hover:bg-white/5" aria-haspopup="true" aria-expanded="false" role="menuitem">
-                                @Localizer["More"]
-                                <i class="fa-solid fa-chevron-down text-[10px] opacity-40 group-hover:rotate-180 transition-transform" aria-hidden="true"></i>
-                            </button>
-                            <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all z-50">
-                                <div class="w-48 p-2 rounded-xl bg-nav-surface border border-nav-border shadow-2xl" role="menu">
-                                    <a asp-controller="Person" asp-action="Index" class="dropdown-item" role="menuitem">
-                                        <i class="fa-solid fa-user-tie text-brand-primary" aria-hidden="true"></i>
-                                        @Localizer["Contributors"]
-                                    </a>
-                                    <a asp-controller="Collection" asp-action="Index" class="dropdown-item" role="menuitem">
-                                        <i class="fa-solid fa-layer-group text-brand-primary" aria-hidden="true"></i>
-                                        @Localizer["Collections"]
-                                    </a>
-                                    <a asp-controller="ProductionCompany" asp-action="Index" class="dropdown-item" role="menuitem">
-                                        <i class="fa-solid fa-building text-brand-primary" aria-hidden="true"></i>
-                                        @Localizer["Studios"]
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
                     }
                 </div>
             </div>
