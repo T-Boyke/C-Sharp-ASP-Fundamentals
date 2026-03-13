@@ -118,7 +118,7 @@
                 </div>
                 
                 <div class="flex items-center gap-3 px-1">
-                    <input asp-for="Adult" type="checkbox" class="w-5 h-5 rounded border-border-default dark:border-dark-border text-brand-primary focus:ring-brand-primary" />
+                    <input asp-for="Adult" id="inputAdult" type="checkbox" class="w-5 h-5 rounded border-border-default dark:border-dark-border text-brand-primary focus:ring-brand-primary" />
                     <label asp-for="Adult" class="text-sm font-bold text-text-main dark:text-white">Nur für Erwachsene</label>
                 </div>
             </div>
@@ -142,8 +142,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
             let searchTimeout;
             const $search = $('#tmdbPersonSearch');
             const $results = $('#personSearchResults');
@@ -218,7 +217,7 @@
                     setVal('inputAlsoKnownAs', p.alsoKnownAs);
                     setVal('inputTmdbFilmography', JSON.stringify(p.combinedCredits));
                     
-                    const adultCheck = document.querySelector('input[name="Adult"]');
+                    const adultCheck = document.getElementById('inputAdult');
                     if (adultCheck) adultCheck.checked = p.adult || false;
                     
                     toastr.success('Daten von TMDB geladen!');

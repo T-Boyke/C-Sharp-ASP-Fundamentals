@@ -59,7 +59,7 @@
                 <!-- Title row -->
                 <div class="form-group-row">
                     <div class="flex flex-col gap-1.5 flex-grow">
-                        <label asp-for="Titel" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelTitle"]</label>
+                        <label for="inputTitel" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelTitle"]</label>
                         <input asp-for="Titel" id="inputTitel" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" placeholder='@Localizer["PlaceholderTitle"]' />
                         <span asp-validation-for="Titel" class="text-[10px] font-bold text-danger-primary mt-1 px-1"></span>
                     </div>
@@ -69,27 +69,27 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Erscheinungsjahr" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelYear"]</label>
+                        <label for="inputYear" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelYear"]</label>
                         <input asp-for="Erscheinungsjahr" id="inputYear" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Erscheinungsdatum" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelDate"]</label>
+                        <label for="inputDate" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelDate"]</label>
                         <input asp-for="Erscheinungsdatum" id="inputDate" type="date" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Nutzerwertung" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelRating"]</label>
+                        <label for="inputRating" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelRating"]</label>
                         <input asp-for="Nutzerwertung" id="inputRating" type="number" step="0.1" min="0" max="10" value="0.0" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Spieldauer" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelRuntime"]</label>
+                        <label for="inputRuntime" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelRuntime"]</label>
                         <input asp-for="Spieldauer" id="inputRuntime" type="number" min="1" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
                         <span asp-validation-for="Spieldauer" class="text-[10px] font-bold text-danger-primary mt-1 px-1"></span>
                     </div>
                     <div class="flex flex-col gap-1.5 slice-group">
-                        <label asp-for="Preis" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelPrice"]</label>
+                        <label for="inputPrice" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelPrice"]</label>
                         <input asp-for="Preis" id="inputPrice" type="number" step="0.01" value="9.99" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
                         <span asp-validation-for="Preis" class="text-[10px] font-bold text-danger-primary mt-1 px-1"></span>
                     </div>
@@ -97,11 +97,11 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="PosterUrl" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelPosterUrl"]</label>
+                        <label for="inputPosterUrl" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelPosterUrl"]</label>
                         <input asp-for="PosterUrl" id="inputPosterUrl" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" placeholder='@Localizer["PlaceholderPosterUrl"]' />
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label asp-for="Homepage" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Homepage</label>
+                        <label for="inputHomepage" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Homepage</label>
                         <input asp-for="Homepage" id="inputHomepage" type="url" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" placeholder="https://www.example.com" />
                     </div>
                 </div>
@@ -109,12 +109,12 @@
 
 
                 <div class="flex flex-col gap-1.5">
-                    <label asp-for="Handlung" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelPlot"]</label>
+                    <label for="inputPlot" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">@Localizer["LabelPlot"]</label>
                     <textarea asp-for="Handlung" id="inputPlot" rows="5" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-medium text-text-description dark:text-dark-text-muted" placeholder='@Localizer["PlaceholderPlot"]'></textarea>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label asp-for="Tagline" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Tagline</label>
+                    <label for="inputTagline" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Tagline</label>
                     <input asp-for="Tagline" id="inputTagline" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" placeholder="Believe the unbelievable" />
                 </div>
 
@@ -161,7 +161,7 @@
 
                 <div class="flex items-center gap-3 px-1">
                     <input asp-for="Adult" id="inputAdult" type="checkbox" class="w-5 h-5 rounded border-border-default dark:border-dark-border text-brand-primary focus:ring-brand-primary" />
-                    <label asp-for="Adult" class="text-sm font-bold text-text-main dark:text-white">Nur für Erwachsene</label>
+                    <label for="inputAdult" class="text-sm font-bold text-text-main dark:text-white">Nur für Erwachsene</label>
                 </div>
             </div>
 

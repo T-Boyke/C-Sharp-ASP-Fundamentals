@@ -152,7 +152,7 @@
                             <input asp-for="WikidataId" id="inputWikidataId" class="px-3 py-2 rounded-lg bg-white dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold" />
                         </div>
                         <div class="flex items-center gap-3 pt-4">
-                            <input asp-for="Adult" type="checkbox" class="w-5 h-5 rounded border-border-default dark:border-dark-border text-brand-primary" />
+                            <input asp-for="Adult" id="inputAdult" type="checkbox" class="w-5 h-5 rounded border-border-default dark:border-dark-border text-brand-primary" />
                             <label asp-for="Adult" class="text-xs font-bold">Nur für Erwachsene</label>
                         </div>
                     </div>
@@ -178,8 +178,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
             let searchTimeout;
             const $search = $('#tmdbPersonSearch');
             const $results = $('#searchResults');
@@ -248,7 +247,7 @@
                     $('#inputInstagramId').val(p.instagramId);
                     $('#inputTwitterId').val(p.twitterId);
                     $('#inputWikidataId').val(p.wikidataId);
-                    $('input[name="Adult"]').prop('checked', p.adult);
+                    $('#inputAdult').prop('checked', p.adult);
 
                     toastr.success('Daten von TMDB übernommen!');
                 }).fail(function() {
