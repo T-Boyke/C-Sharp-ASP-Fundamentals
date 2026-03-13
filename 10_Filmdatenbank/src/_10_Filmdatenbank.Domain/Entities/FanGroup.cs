@@ -12,6 +12,7 @@ public class FanGroup
     public int FanGroupID { get; set; }
     public string Name { get; set; } = null!;
     public string? Description { get; set; }
+    public string? BadgeColor { get; set; }
     
     /// <summary>
     /// Gruppenbild (direkt in DB).

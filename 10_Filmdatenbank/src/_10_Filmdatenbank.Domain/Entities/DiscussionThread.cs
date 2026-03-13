@@ -12,6 +12,7 @@ public class DiscussionThread
     public string Title { get; set; } = null!;
     public string Content { get; set; } = null!;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime LastActivity { get; set; } = DateTime.UtcNow;
 
     public string AuthorID { get; set; } = null!;
     public virtual ApplicationUser Author { get; set; } = null!;
