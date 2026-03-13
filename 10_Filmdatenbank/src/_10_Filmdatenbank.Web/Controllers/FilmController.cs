@@ -92,6 +92,8 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
         ModelState.Remove(nameof(film.ProductionCompanies));
         ModelState.Remove(nameof(film.Collection));
 
+        if (film == null) return BadRequest();
+
         if (film.TmdbId.HasValue && await context.Filme.AnyAsync(f => f.TmdbId == film.TmdbId))
         {
             var msg = "Dieser Film existiert bereits in der Datenbank.";
@@ -134,7 +136,8 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
                 {
                     foreach (var item in genreData)
                     {
-                        var genre = await context.Genres.FirstOrDefaultAsync(g => g.TmdbId == item.Id)
+                        var genre = context.Genres.Local.FirstOrDefault(g => g.TmdbId == item.Id)
+                                    ?? await context.Genres.FirstOrDefaultAsync(g => g.TmdbId == item.Id)
                                     ?? await context.Genres.FirstOrDefaultAsync(g => g.Name == item.Name);
                         
                         if (genre == null)
@@ -142,7 +145,11 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
                             genre = new Genre { Name = item.Name, TmdbId = item.Id };
                             context.Genres.Add(genre);
                         }
-                        film.Genres.Add(genre);
+                        
+                        if (!film.Genres.Any(g => g.TmdbId == item.Id))
+                        {
+                            film.Genres.Add(genre);
+                        }
                     }
                 }
             }
@@ -155,7 +162,8 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
                 {
                     foreach (var item in keywordData)
                     {
-                        var keyword = await context.Keywords.FirstOrDefaultAsync(k => k.TmdbId == item.Id)
+                        var keyword = context.Keywords.Local.FirstOrDefault(k => k.TmdbId == item.Id)
+                                      ?? await context.Keywords.FirstOrDefaultAsync(k => k.TmdbId == item.Id)
                                       ?? await context.Keywords.FirstOrDefaultAsync(k => k.Name == item.Name);
                         
                         if (keyword == null)
@@ -163,7 +171,11 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
                             keyword = new Keyword { Name = item.Name, TmdbId = item.Id };
                             context.Keywords.Add(keyword);
                         }
-                        film.Keywords.Add(keyword);
+                        
+                        if (!film.Keywords.Any(k => k.TmdbId == item.Id))
+                        {
+                            film.Keywords.Add(keyword);
+                        }
                     }
                 }
             }
@@ -176,7 +188,8 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
                 {
                     foreach (var item in companies)
                     {
-                        var company = await context.ProductionCompanies.FirstOrDefaultAsync(c => c.TmdbId == item.Id)
+                        var company = context.ProductionCompanies.Local.FirstOrDefault(c => c.TmdbId == item.Id)
+                                      ?? await context.ProductionCompanies.FirstOrDefaultAsync(c => c.TmdbId == item.Id)
                                       ?? await context.ProductionCompanies.FirstOrDefaultAsync(c => c.Name == item.Name);
                         
                         if (company == null)
@@ -190,7 +203,11 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
                             };
                             context.ProductionCompanies.Add(company);
                         }
-                        film.ProductionCompanies.Add(company);
+                        
+                        if (!film.ProductionCompanies.Any(c => c.TmdbId == item.Id))
+                        {
+                            film.ProductionCompanies.Add(company);
+                        }
                     }
                 }
             }
