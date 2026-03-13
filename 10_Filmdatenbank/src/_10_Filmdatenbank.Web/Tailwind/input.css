@@ -15,6 +15,7 @@
 @import "./components/badge.css";
 @import "./components/form.css";
 @import "./components/avatar.css";
+@import "./components/btn-groups.css";
 
 /* Professional Utilities - No AI Slop */
 @utility accent-border {

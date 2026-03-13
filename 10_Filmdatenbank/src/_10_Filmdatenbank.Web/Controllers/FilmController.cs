@@ -1,3 +1,4 @@
+using _10_Filmdatenbank.Application.Interfaces;
 using _10_Filmdatenbank.Domain.Entities;
 using _10_Filmdatenbank.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +15,7 @@ namespace _10_Filmdatenbank.Web.Controllers;
 [Authorize]
 [Route("Movies")]
 [Route("Movies/[action]")]
-public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Application.Interfaces.ITmdbService tmdbService) : Controller
+public class FilmController(ApplicationDbContext context, ITmdbService tmdbService) : Controller
 {
     /// <summary>
     /// Zeigt eine Liste aller Filme an.
