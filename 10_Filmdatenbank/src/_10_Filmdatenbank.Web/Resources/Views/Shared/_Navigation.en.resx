@@ -17,4 +17,14 @@
   <data name="AdminSettings" xml:space="preserve"><value>Admin Settings</value></data>
   <data name="EditProfile" xml:space="preserve"><value>Edit Profile</value></data>
   <data name="UserManagement" xml:space="preserve"><value>User Management</value></data>
+  <data name="PremiumEdition" xml:space="preserve"><value>Premium Edition</value></data>
+  <data name="Dashboard" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="Community" xml:space="preserve"><value>Community</value></data>
+  <data name="More" xml:space="preserve"><value>More</value></data>
+  <data name="SettingsProfile" xml:space="preserve"><value>Settings &amp; Profile</value></data>
+  <data name="MyCommunities" xml:space="preserve"><value>My Communities</value></data>
+  <data name="SignOut" xml:space="preserve"><value>Sign Out</value></data>
+  <data name="JoinNow" xml:space="preserve"><value>Join Now</value></data>
+  <data name="Menu" xml:space="preserve"><value>Menu</value></data>
+  <data name="Notifications" xml:space="preserve"><value>Notifications</value></data>
 </root>

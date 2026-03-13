@@ -26,4 +26,12 @@
   <data name="Feature7Desc" xml:space="preserve"><value>Perfect display on all devices – from smartphones to 4K monitors.</value></data>
   <data name="Feature8Title" xml:space="preserve"><value>Local First</value></data>
   <data name="Feature8Desc" xml:space="preserve"><value>Full control over your data through local hosting and file systems.</value></data>
+  <data name="ReleaseVersion" xml:space="preserve"><value>Version 4.2 Release</value></data>
+  <data name="TestimonialsLabel" xml:space="preserve"><value>What our users say</value></data>
+  <data name="Testimonial1Text" xml:space="preserve"><value>"Finally a film database that is not only functional but also looks fantastic. The community features are unbeatable!"</value></data>
+  <data name="Testimonial1Author" xml:space="preserve"><value>Jonas D.</value></data>
+  <data name="Testimonial1Role" xml:space="preserve"><value>Cinephile &amp; Beta Tester</value></data>
+  <data name="Testimonial2Text" xml:space="preserve"><value>"The TMDB integration saves so much time. I can now manage my collection effortlessly and share it with my friends."</value></data>
+  <data name="Testimonial2Author" xml:space="preserve"><value>Maria L.</value></data>
+  <data name="Testimonial2Role" xml:space="preserve"><value>Film Collector</value></data>
 </root>

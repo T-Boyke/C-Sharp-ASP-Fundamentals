@@ -26,4 +26,12 @@
   <data name="Feature7Desc" xml:space="preserve"><value>Perfekte Darstellung auf allen Endgeräten – vom Smartphone bis zum 4K-Monitor.</value></data>
   <data name="Feature8Title" xml:space="preserve"><value>Local First</value></data>
   <data name="Feature8Desc" xml:space="preserve"><value>Vollständige Kontrolle über Ihre Daten durch lokales Hosting und Dateisysteme.</value></data>
+  <data name="ReleaseVersion" xml:space="preserve"><value>Release Version 4.2</value></data>
+  <data name="TestimonialsLabel" xml:space="preserve"><value>Was unsere Nutzer sagen</value></data>
+  <data name="Testimonial1Text" xml:space="preserve"><value>"Endlich eine Filmdatenbank, die nicht nur funktional ist, sondern auch fantastisch aussieht. Die Community-Features sind unschlagbar!"</value></data>
+  <data name="Testimonial1Author" xml:space="preserve"><value>Jonas D.</value></data>
+  <data name="Testimonial1Role" xml:space="preserve"><value>Cineast &amp; Beta Tester</value></data>
+  <data name="Testimonial2Text" xml:space="preserve"><value>"Die TMDB Integration spart so viel Zeit. Ich kann meine Sammlung jetzt mühelos verwalten und mit meinen Freunden teilen."</value></data>
+  <data name="Testimonial2Author" xml:space="preserve"><value>Maria L.</value></data>
+  <data name="Testimonial2Role" xml:space="preserve"><value>Film-Sammlerin</value></data>
 </root>

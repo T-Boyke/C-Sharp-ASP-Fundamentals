@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="DashboardTitle" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="WelcomeBack" xml:space="preserve"><value>Welcome back, {0}!</value></data>
+  <data name="DashboardSubtitle" xml:space="preserve"><value>Here you will find your activities and notifications.</value></data>
+  <data name="EditProfile" xml:space="preserve"><value>Edit Profile</value></data>
+  <data name="Statistics" xml:space="preserve"><value>Statistics</value></data>
+  <data name="Groups" xml:space="preserve"><value>Groups</value></data>
+  <data name="Threads" xml:space="preserve"><value>Threads</value></data>
+  <data name="LatestNotifications" xml:space="preserve"><value>Latest Notifications</value></data>
+  <data name="New" xml:space="preserve"><value>New</value></data>
+  <data name="NoNotifications" xml:space="preserve"><value>No new notifications.</value></data>
+  <data name="ViewAllNotifications" xml:space="preserve"><value>View all notifications</value></data>
+  <data name="YourGroups" xml:space="preserve"><value>Your Groups</value></data>
+  <data name="ViewAll" xml:space="preserve"><value>View All</value></data>
+  <data name="Watchlist" xml:space="preserve"><value>Watchlist / Favorites</value></data>
+  <data name="FilmsCount" xml:space="preserve"><value>{0} Movies</value></data>
+  <data name="NoFavorites" xml:space="preserve"><value>No favorites saved yet.</value></data>
+</root>

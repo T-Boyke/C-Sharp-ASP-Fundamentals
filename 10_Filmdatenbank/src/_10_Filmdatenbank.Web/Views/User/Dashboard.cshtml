@@ -1,15 +1,17 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @using _10_Filmdatenbank.Domain.Entities
 @model ApplicationUser
 @{
-    ViewData["Title"] = "User Dashboard";
+    ViewData["Title"] = Localizer["DashboardTitle"];
 }
 
 <div class="max-w-7xl mx-auto px-6 py-12">
     <div class="mb-12">
         <h1 class="text-4xl font-extrabold text-white tracking-tight">
-            Willkommen zurück, <span class="text-brand-primary">@Model.FirstName</span>!
+            @string.Format(Localizer["WelcomeBack"].Value, Model.FirstName)
         </h1>
-        <p class="mt-2 text-dark-text-muted">Hier findest du deine Aktivitäten und Benachrichtigungen.</p>
+        <p class="mt-2 text-dark-text-muted">@Localizer["DashboardSubtitle"]</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -19,11 +21,11 @@
                 <div class="w-32 h-32 rounded-full bg-brand-primary/10 mx-auto mb-4 border-4 border-brand-primary/20 overflow-hidden">
                     @if (Model.ProfilePicture != null)
                     {
-                        <img src="data:@Model.ProfilePictureContentType;base64,@Convert.ToBase64String(Model.ProfilePicture)" class="w-full h-full object-cover" />
+                        <img src="data:@Model.ProfilePictureContentType;base64,@Convert.ToBase64String(Model.ProfilePicture)" class="w-full h-full object-cover" alt="@Model.FirstName's profile picture" />
                     }
                     else
                     {
-                        <div class="w-full h-full flex items-center justify-center text-4xl font-black text-brand-primary">
+                        <div class="w-full h-full flex items-center justify-center text-4xl font-black text-brand-primary" aria-hidden="true">
                             @Model.UserName?[0].ToString().ToUpper()
                         </div>
                     }
@@ -31,21 +33,21 @@
                 <h2 class="text-xl font-bold text-white">@Model.FirstName @Model.LastName</h2>
                 <p class="text-sm text-dark-text-muted mb-6">@Model.Email</p>
                 <a asp-action="Profile" class="btn-group-btn flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-brand-primary/30 text-brand-primary hover:bg-brand-primary/10 transition-all font-bold">
-                    <i class="fa-solid fa-user-pen"></i>
-                    Profil bearbeiten
+                    <i class="fa-solid fa-user-pen" aria-hidden="true"></i>
+                    @Localizer["EditProfile"]
                 </a>
             </div>
 
-            <div class="card-glass p-6">
-                <h3 class="text-sm font-black text-white uppercase tracking-widest mb-4">Statistiken</h3>
+            <div class="card-glass p-6" aria-labelledby="stats-heading">
+                <h3 id="stats-heading" class="text-sm font-black text-white uppercase tracking-widest mb-4">@Localizer["Statistics"]</h3>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="p-4 rounded-xl bg-nav-surface border border-nav-border">
                         <span class="block text-2xl font-black text-brand-primary">@Model.GroupMemberships.Count</span>
-                        <span class="text-[10px] text-text-muted uppercase font-bold">Gruppen</span>
+                        <span class="text-[10px] text-text-muted uppercase font-bold">@Localizer["Groups"]</span>
                     </div>
                     <div class="p-4 rounded-xl bg-nav-surface border border-nav-border">
                         <span class="block text-2xl font-black text-brand-primary">@Model.Threads.Count</span>
-                        <span class="text-[10px] text-text-muted uppercase font-bold">Threads</span>
+                        <span class="text-[10px] text-text-muted uppercase font-bold">@Localizer["Threads"]</span>
                     </div>
                 </div>
             </div>
@@ -53,28 +55,28 @@
 
         <!-- Activity Feed / Notifications -->
         <div class="lg:col-span-2 space-y-8">
-            <div class="card-glass overflow-hidden border border-nav-border">
+            <div class="card-glass overflow-hidden border border-nav-border" aria-labelledby="notifications-heading">
                 <div class="px-6 py-4 bg-nav-surface border-b border-nav-border flex items-center justify-between">
-                    <h3 class="text-lg font-bold text-white">Letzte Benachrichtigungen</h3>
-                    <span class="badge badge-primary">@Model.Notifications.Count(n => !n.IsRead) Neu</span>
+                    <h3 id="notifications-heading" class="text-lg font-bold text-white">@Localizer["LatestNotifications"]</h3>
+                    <span class="badge badge-primary">@Model.Notifications.Count(n => !n.IsRead) @Localizer["New"]</span>
                 </div>
-                <div class="divide-y divide-nav-border/50">
+                <div class="divide-y divide-nav-border/50" role="list">
                     @if (!Model.Notifications.Any())
                     {
                         <div class="p-12 text-center text-dark-text-muted">
-                            <i class="fa-solid fa-bell-slash text-4xl opacity-20 mb-4 block"></i>
-                            <p>Keine neuen Benachrichtigungen.</p>
+                            <i class="fa-solid fa-bell-slash text-4xl opacity-20 mb-4 block" aria-hidden="true"></i>
+                            <p>@Localizer["NoNotifications"]</p>
                         </div>
                     }
                     else
                     {
                         @foreach (var notification in Model.Notifications.OrderByDescending(n => n.CreatedAt).Take(5))
                         {
-                            <div class="p-5 hover:bg-nav-accent/30 transition-all flex gap-4 items-start @(!notification.IsRead ? "bg-brand-primary/5" : "")">
+                            <div class="p-5 hover:bg-nav-accent/30 transition-all flex gap-4 items-start @(!notification.IsRead ? "bg-brand-primary/5" : "")" role="listitem">
                                 <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 @(!notification.IsRead ? "bg-brand-primary/20 text-brand-primary" : "bg-nav-surface text-text-muted")">
-                                    <i class="fa-solid fa-comment-dots"></i>
+                                    <i class="fa-solid fa-comment-dots" aria-hidden="true"></i>
                                 </div>
-                                <div>
+                                <div class="text-left">
                                     <p class="text-sm text-white font-medium">@notification.Message</p>
                                     <span class="text-[10px] text-text-muted mt-1 block">@notification.CreatedAt.ToString("g")</span>
                                 </div>
@@ -83,23 +85,23 @@
                     }
                 </div>
                 <div class="p-4 bg-nav-surface text-center">
-                    <a href="#" class="text-xs font-bold text-brand-primary hover:underline">Alle Benachrichtigungen sehen</a>
+                    <a href="#" class="text-xs font-bold text-brand-primary hover:underline">@Localizer["ViewAllNotifications"]</a>
                 </div>
             </div>
 
             <!-- Group Activity Example -->
-            <div class="card-glass p-6">
+            <div class="card-glass p-6" aria-labelledby="groups-heading">
                 <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-lg font-bold text-white">Deine Gruppen</h3>
-                    <a asp-action="Groups" class="text-xs font-black text-brand-primary uppercase tracking-widest hover:underline">Alle ansehen</a>
+                    <h3 id="groups-heading" class="text-lg font-bold text-white">@Localizer["YourGroups"]</h3>
+                    <a asp-action="Groups" class="text-xs font-black text-brand-primary uppercase tracking-widest hover:underline">@Localizer["ViewAll"]</a>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     @foreach (var membership in Model.GroupMemberships.Take(4))
                     {
-                        <a asp-controller="Group" asp-action="Details" asp-route-id="@membership.FanGroupID" class="p-4 rounded-xl bg-nav-surface border border-nav-border hover:border-brand-primary/50 transition-all group">
-                            <div class="flex items-center gap-4">
+                        <a asp-controller="Group" asp-action="Details" asp-route-id="@membership.FanGroupID" class="p-4 rounded-xl bg-nav-surface border border-nav-border hover:border-brand-primary/50 transition-all group" aria-label="Go to @membership.FanGroup.Name">
+                            <div class="flex items-center gap-4 text-left">
                                 <div class="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-xl text-brand-primary group-hover:scale-110 transition-transform">
-                                    <i class="fa-solid fa-people-roof"></i>
+                                    <i class="fa-solid fa-people-roof" aria-hidden="true"></i>
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-white">@membership.FanGroup.Name</h4>
@@ -112,17 +114,17 @@
             </div>
 
             <!-- Watchlist / Favorites -->
-            <div class="card-glass p-6">
+            <div class="card-glass p-6" aria-labelledby="watchlist-heading">
                 <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-lg font-bold text-white">Merkzettel / Watchlist</h3>
-                    <span class="text-[10px] font-black px-2 py-0.5 rounded bg-brand-primary/10 text-brand-primary uppercase">@Model.FavoriteFilms.Count Filme</span>
+                    <h3 id="watchlist-heading" class="text-lg font-bold text-white">@Localizer["Watchlist"]</h3>
+                    <span class="text-[10px] font-black px-2 py-0.5 rounded bg-brand-primary/10 text-brand-primary uppercase">@string.Format(Localizer["FilmsCount"].Value, Model.FavoriteFilms.Count)</span>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                     @foreach (var fav in Model.FavoriteFilms.Take(4))
                     {
-                        <a asp-controller="Film" asp-action="Details" asp-route-id="@fav.FilmID" class="group relative aspect-[2/3] rounded-lg overflow-hidden border border-nav-border hover:border-brand-primary transition-all">
-                            <img src="@fav.Film.PosterUrl" alt="@fav.Film.Titel" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                            <div class="absolute inset-0 bg-linear-to-t from-dark-surface to-transparent opacity-60"></div>
+                        <a asp-controller="Film" asp-action="Details" asp-route-id="@fav.FilmID" class="group relative aspect-[2/3] rounded-lg overflow-hidden border border-nav-border hover:border-brand-primary transition-all" aria-label="Details for @fav.Film.Titel">
+                            <img src="@fav.Film.PosterUrl" alt="@fav.Film.Titel poster" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                            <div class="absolute inset-0 bg-linear-to-t from-dark-surface to-transparent opacity-60" aria-hidden="true"></div>
                             <div class="absolute bottom-2 left-2 right-2">
                                 <p class="text-[10px] font-bold text-white truncate">@fav.Film.Titel</p>
                             </div>
@@ -131,8 +133,8 @@
                     @if (!Model.FavoriteFilms.Any())
                     {
                         <div class="col-span-full py-8 text-center border-2 border-dashed border-nav-border rounded-xl">
-                            <i class="fa-regular fa-heart text-2xl text-nav-link opacity-20 mb-2"></i>
-                            <p class="text-xs text-dark-text-muted">Noch keine Favoriten gespeichert.</p>
+                            <i class="fa-regular fa-heart text-2xl text-nav-link opacity-20 mb-2" aria-hidden="true"></i>
+                            <p class="text-xs text-dark-text-muted">@Localizer["NoFavorites"]</p>
                         </div>
                     }
                 </div>

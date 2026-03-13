@@ -26,4 +26,13 @@
   <data name="Feature7Desc" xml:space="preserve"><value>Exibição perfeita em todos os dispositivos – de smartphones a monitores 4K.</value></data>
   <data name="Feature8Title" xml:space="preserve"><value>Local First</value></data>
   <data name="Feature8Desc" xml:space="preserve"><value>Controle total sobre seus dados através de hospedagem local e sistemas de arquivos.</value></data>
+  <data name="ReleaseVersion" xml:space="preserve"><value>Version 4.2 Release</value></data>
+  <data name="TestimonialsLabel" xml:space="preserve"><value>Testimonials</value></data>
+  <data name="Testimonial1Text" xml:space="preserve"><value>Great app!</value></data>
+  <data name="Testimonial1Author" xml:space="preserve"><value>User 1</value></data>
+  <data name="Testimonial1Role" xml:space="preserve"><value>User</value></data>
+  <data name="Testimonial2Text" xml:space="preserve"><value>Love it.</value></data>
+  <data name="Testimonial2Author" xml:space="preserve"><value>User 2</value></data>
+  <data name="Testimonial2Role" xml:space="preserve"><value>User</value></data>
 </root>
+
