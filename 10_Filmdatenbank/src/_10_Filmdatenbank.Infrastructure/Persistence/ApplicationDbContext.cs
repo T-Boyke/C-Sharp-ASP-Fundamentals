@@ -88,6 +88,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Notification> Notifications { get; set; } = null!;
     public DbSet<MembershipRequest> MembershipRequests { get; set; } = null!;
     public DbSet<GroupBan> GroupBans { get; set; } = null!;
+    public DbSet<Achievement> Achievements { get; set; } = null!;
+    public DbSet<UserAchievement> UserAchievements { get; set; } = null!;
+    public DbSet<FavoriteFilm> FavoriteFilms { get; set; } = null!;
 
     /// <summary>
     /// Konfiguriert das Datenbankmodell, insbesondere Beziehungen und initiale Daten.
@@ -304,6 +307,34 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.HasOne(b => b.FanGroup)
                 .WithMany(g => g.BannedUsers)
                 .HasForeignKey(b => b.FanGroupID)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        builder.Entity<Achievement>(entity => entity.HasKey(a => a.AchievementID));
+        
+        builder.Entity<UserAchievement>(entity =>
+        {
+            entity.HasKey(ua => ua.UserAchievementID);
+            entity.HasOne(ua => ua.User)
+                .WithMany(u => u.EarnedAchievements)
+                .HasForeignKey(ua => ua.UserID)
+                .OnDelete(DeleteBehavior.NoAction);
+            entity.HasOne(ua => ua.Achievement)
+                .WithMany(a => a.EarnedBy)
+                .HasForeignKey(ua => ua.AchievementID)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        builder.Entity<FavoriteFilm>(entity =>
+        {
+            entity.HasKey(ff => ff.FavoriteFilmID);
+            entity.HasOne(ff => ff.User)
+                .WithMany(u => u.FavoriteFilms)
+                .HasForeignKey(ff => ff.UserID)
+                .OnDelete(DeleteBehavior.NoAction);
+            entity.HasOne(ff => ff.Film)
+                .WithMany()
+                .HasForeignKey(ff => ff.FilmID)
                 .OnDelete(DeleteBehavior.NoAction);
         });
     }

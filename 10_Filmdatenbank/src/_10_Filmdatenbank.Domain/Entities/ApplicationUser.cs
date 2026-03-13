@@ -37,4 +37,8 @@ public class ApplicationUser : IdentityUser
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
     public virtual ICollection<DiscussionThread> Threads { get; set; } = new List<DiscussionThread>();
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
+    // Custom Extensions
+    public virtual ICollection<FavoriteFilm> FavoriteFilms { get; set; } = new List<FavoriteFilm>();
+    public virtual ICollection<UserAchievement> EarnedAchievements { get; set; } = new List<UserAchievement>();
 }
