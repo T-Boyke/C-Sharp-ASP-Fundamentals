@@ -32,5 +32,9 @@
   <data name="Unknown" xml:space="preserve"><value>Bilinmiyor</value></data>
   <data name="Awards" xml:space="preserve"><value>Ödüller ve Adaylıklar</value></data>
   <data name="ProfileImageOf" xml:space="preserve"><value>{0} profil resmi</value></data>
-  <data name="OnlyAdults" xml:space="preserve"><value>Sadece Yetişkinler İçin</value></data>
+  <data name="OnlyAdults" xml:space="preserve"><value>Sadece Yetişkinler</value></data>
+  <data name="GlobalFilmography" xml:space="preserve"><value>Küresel Filmografi (TMDB)</value></data>
+  <data name="TmdbDataSource" xml:space="preserve"><value>Veriler TMDB tarafından sağlanmıştır</value></data>
+  <data name="ViewOnTmdb" xml:space="preserve"><value>TMDB'de görüntüle</value></data>
+  <data name="KnownFrom" xml:space="preserve"><value>{0} ile tanınır</value></data>
 </root>

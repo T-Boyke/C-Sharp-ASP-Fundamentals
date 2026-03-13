@@ -32,6 +32,7 @@
             <input type="hidden" asp-for="InstagramId" id="inputInstagramId" />
             <input type="hidden" asp-for="TwitterId" id="inputTwitterId" />
             <input type="hidden" asp-for="AlsoKnownAs" id="inputAlsoKnownAs" />
+            <input type="hidden" asp-for="TmdbFilmographyJson" id="inputTmdbFilmography" />
 
             <div class="form-group-header">
                 <div>
@@ -215,6 +216,7 @@
                     setVal('inputPopularity', p.popularity);
                     setVal('inputGender', p.gender);
                     setVal('inputAlsoKnownAs', p.alsoKnownAs);
+                    setVal('inputTmdbFilmography', JSON.stringify(p.combinedCredits));
                     
                     const adultCheck = document.querySelector('input[name="Adult"]');
                     if (adultCheck) adultCheck.checked = p.adult || false;

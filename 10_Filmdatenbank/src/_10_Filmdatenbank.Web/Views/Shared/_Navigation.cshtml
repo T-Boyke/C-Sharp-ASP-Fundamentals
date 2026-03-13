@@ -61,6 +61,37 @@
 
                 <div class="h-6 w-px bg-nav-accent hidden sm:block"></div>
 
+                <!-- Admin Settings Dropdown -->
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="relative group">
+                        <button type="button" class="w-9 h-9 flex items-center justify-center rounded-lg bg-nav-surface border border-nav-border text-nav-link hover:text-brand-primary hover:border-brand-primary/50 transition-all" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-bars text-sm"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-56 p-2 rounded-xl bg-nav-bg border border-nav-border shadow-2xl transition-all duration-200 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto z-50">
+                            <div class="flex flex-col gap-1">
+                                <div class="px-3 py-2 border-b border-nav-border mb-1">
+                                    <span class="text-[10px] font-black text-text-muted uppercase tracking-widest">@Localizer["AdminSettings"]</span>
+                                </div>
+                                <a asp-controller="Admin" asp-action="EditProfile" class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold text-nav-link hover:bg-nav-accent hover:text-brand-primary transition-all group/item">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fa-solid fa-user-gear text-sm opacity-60 group-hover/item:opacity-100"></i>
+                                        <span>@Localizer["EditProfile"]</span>
+                                    </div>
+                                    <span class="text-[10px] font-black px-1.5 py-0.5 rounded bg-brand-primary/10 text-brand-primary/70 uppercase">IAM</span>
+                                </a>
+                                <a asp-controller="Admin" asp-action="ManageUsers" class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold text-nav-link hover:bg-nav-accent hover:text-brand-primary transition-all group/item">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fa-solid fa-users-gear text-sm opacity-60 group-hover/item:opacity-100"></i>
+                                        <span>@Localizer["UserManagement"]</span>
+                                    </div>
+                                    <span class="text-[10px] font-black px-1.5 py-0.5 rounded bg-brand-primary/10 text-brand-primary/70 uppercase">RBAC</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
                 <!-- User Profile / Logout -->
                 <div class="flex items-center gap-4">
                     <div class="hidden md:flex flex-col items-end">

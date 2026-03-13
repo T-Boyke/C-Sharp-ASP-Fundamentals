@@ -33,4 +33,8 @@
   <data name="Awards" xml:space="preserve"><value>Prêmios e Nomeações</value></data>
   <data name="ProfileImageOf" xml:space="preserve"><value>Foto de perfil de {0}</value></data>
   <data name="OnlyAdults" xml:space="preserve"><value>Apenas para Adultos</value></data>
+  <data name="GlobalFilmography" xml:space="preserve"><value>Filmografia Global (TMDB)</value></data>
+  <data name="TmdbDataSource" xml:space="preserve"><value>Dados fornecidos pelo TMDB</value></data>
+  <data name="ViewOnTmdb" xml:space="preserve"><value>Ver no TMDB</value></data>
+  <data name="KnownFrom" xml:space="preserve"><value>Conhecido por {0}</value></data>
 </root>

@@ -111,7 +111,8 @@ public class TmdbController(ITmdbService tmdbService) : ControllerBase
             Deathday = person.Deathday?.ToString("yyyy-MM-dd"),
             person.KnownForDepartment,
             person.Adult,
-            AlsoKnownAs = string.Join(", ", person.AlsoKnownAs ?? [])
+            AlsoKnownAs = string.Join(", ", person.AlsoKnownAs ?? []),
+            CombinedCredits = person.CombinedCredits
         });
     }
 

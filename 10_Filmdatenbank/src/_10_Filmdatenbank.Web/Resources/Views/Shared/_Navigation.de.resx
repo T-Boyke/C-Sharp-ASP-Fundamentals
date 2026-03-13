@@ -14,4 +14,7 @@
   <data name="Login" xml:space="preserve"><value>Anmelden</value></data>
   <data name="Collections" xml:space="preserve"><value>Kollektionen</value></data>
   <data name="Studios" xml:space="preserve"><value>Studios</value></data>
+  <data name="AdminSettings" xml:space="preserve"><value>Admin-Einstellungen</value></data>
+  <data name="EditProfile" xml:space="preserve"><value>Profil bearbeiten</value></data>
+  <data name="UserManagement" xml:space="preserve"><value>Benutzerverwaltung</value></data>
 </root>

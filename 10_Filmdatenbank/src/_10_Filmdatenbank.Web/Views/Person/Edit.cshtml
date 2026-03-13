@@ -45,6 +45,7 @@
         <form asp-action="Edit" class="p-10 space-y-10">
             <input type="hidden" asp-for="PersonID" />
             <input type="hidden" asp-for="TmdbId" id="inputTmdbId" />
+            <input type="hidden" asp-for="TmdbFilmographyJson" id="inputTmdbFilmography" />
             
             <div class="form-group-header">
                 <div>
@@ -240,6 +241,7 @@
                     $('#inputGender').val(p.gender);
                     $('#inputHomepage').val(p.homepage);
                     $('#inputAlsoKnownAs').val(p.alsoKnownAs ? p.alsoKnownAs.join(', ') : '');
+                    $('#inputTmdbFilmography').val(JSON.stringify(p.combinedCredits));
                     $('#inputTmdbId').val(p.id);
                     $('#inputImdbId').val(p.imdbId);
                     $('#inputFacebookId').val(p.facebookId);

@@ -10,10 +10,11 @@ namespace _10_Filmdatenbank.Web.Controllers;
 /// Verwalte die Filme in der Datenbank.
 /// </summary>
 /// <param name="context">Der Datenbankkontext für den Zugriff auf Filmdaten.</param>
+/// <param name="tmdbService">Der Dienst für den Zugriff auf TMDB-Daten.</param>
 [Authorize]
 [Route("Movies")]
 [Route("Movies/[action]")]
-public class FilmController(ApplicationDbContext context) : Controller
+public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Application.Interfaces.ITmdbService tmdbService) : Controller
 {
     /// <summary>
     /// Zeigt eine Liste aller Filme an.
@@ -207,15 +208,51 @@ public class FilmController(ApplicationDbContext context) : Controller
 
                             if (person == null)
                             {
-                                var names = item.name.Split(' ', 2);
-                                person = new Person
+                                // Fetch full person details from TMDB for enrichment
+                                var tmdbPerson = await tmdbService.GetPersonDetailsAsync(item.id);
+                                if (tmdbPerson != null)
                                 {
-                                    Vorname = names[0],
-                                    Nachname = names.Length > 1 ? names[1] : string.Empty,
-                                    TmdbId = item.id,
-                                    ProfilBildUrl = item.profileUrl,
-                                    Biografie = $"Automatischer Import von TMDB. Charakter: {item.character}"
-                                };
+                                    var names = tmdbPerson.Name.Split(' ', 2);
+                                    person = new Person
+                                    {
+                                        Vorname = names[0],
+                                        Nachname = names.Length > 1 ? names[1] : string.Empty,
+                                        TmdbId = tmdbPerson.Id,
+                                        ProfilBildUrl = string.IsNullOrEmpty(tmdbPerson.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w500{tmdbPerson.ProfilePath}",
+                                        Biografie = tmdbPerson.Biography,
+                                        Geburtsdatum = tmdbPerson.Birthday,
+                                        Geburtsort = tmdbPerson.PlaceOfBirth,
+                                        Gender = (int)tmdbPerson.Gender,
+                                        Deathday = tmdbPerson.Deathday,
+                                        Homepage = tmdbPerson.Homepage,
+                                        Popularity = tmdbPerson.Popularity,
+                                        ImdbId = tmdbPerson.ImdbId,
+                                        KnownForDepartment = tmdbPerson.KnownForDepartment,
+                                        Adult = tmdbPerson.Adult,
+                                        AlsoKnownAs = string.Join(", ", tmdbPerson.AlsoKnownAs ?? []),
+                                        FacebookId = tmdbPerson.ExternalIds?.FacebookId,
+                                        InstagramId = tmdbPerson.ExternalIds?.InstagramId,
+                                        TwitterId = tmdbPerson.ExternalIds?.TwitterId,
+                                        WikidataId = tmdbPerson.ExternalIds?.WikidataId,
+                                        FreebaseId = tmdbPerson.ExternalIds?.FreebaseId,
+                                        FreebaseMid = tmdbPerson.ExternalIds?.FreebaseMid,
+                                        TvrageId = tmdbPerson.ExternalIds?.TvrageId,
+                                        TmdbFilmographyJson = System.Text.Json.JsonSerializer.Serialize(tmdbPerson.CombinedCredits)
+                                    };
+                                }
+                                else
+                                {
+                                    // Fallback to basic info if detail fetch fails
+                                    var names = item.name.Split(' ', 2);
+                                    person = new Person
+                                    {
+                                        Vorname = names[0],
+                                        Nachname = names.Length > 1 ? names[1] : string.Empty,
+                                        TmdbId = item.id,
+                                        ProfilBildUrl = item.profileUrl,
+                                        Biografie = $"Automatischer Import von TMDB. Charakter: {item.character}"
+                                    };
+                                }
                                 context.Personen.Add(person);
                                 await context.SaveChangesAsync();
                             }

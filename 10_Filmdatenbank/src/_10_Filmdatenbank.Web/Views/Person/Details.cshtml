@@ -220,7 +220,7 @@
                 </p>
             </section>
 
-            <!-- Filmography Section -->
+            <!-- Filmography Section (Local) -->
             <section>
                 <div class="form-group-header !mb-8 flex items-center justify-between">
                     <div>
@@ -267,6 +267,71 @@
                     }
                 </div>
             </section>
+
+            <!-- Global Filmography Section (TMDB) -->
+            @if (!string.IsNullOrEmpty(Model.TmdbFilmographyJson))
+            {
+                var credits = System.Text.Json.JsonSerializer.Deserialize<TMDbLib.Objects.People.MovieCredits>(Model.TmdbFilmographyJson);
+                if (credits != null && (credits.Cast.Any() || credits.Crew.Any()))
+                {
+                    <section class="mt-16">
+                        <div class="form-group-header !mb-8 flex items-center justify-between">
+                            <div>
+                                <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["GlobalFilmography"]</h2>
+                                <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="badge-outline">@(credits.Cast.Count + credits.Crew.Count) @Localizer["Projects"]</span>
+                                <span class="text-[9px] font-black text-brand-primary uppercase px-2 py-0.5 rounded border border-brand-primary/20 bg-brand-primary/5">TMDB SOURCE</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            @foreach (var credit in credits.Cast.OrderByDescending(c => c.ReleaseDate).Take(20))
+                            {
+                                <div class="form-group-card flex items-center p-4 group transition-all border-l-4 border-l-surface-muted dark:border-l-dark-surface-soft hover:border-l-brand-primary/50 bg-surface-subtle/30 dark:bg-dark-surface/30">
+                                    <div class="w-12 h-18 rounded-md overflow-hidden shrink-0 border border-border-muted dark:border-dark-border" aria-hidden="true">
+                                        @if (!string.IsNullOrEmpty(credit.PosterPath))
+                                        {
+                                            <img src="https://image.tmdb.org/t/p/w185@credit.PosterPath" alt="" class="w-full h-full object-cover" />
+                                        }
+                                        else
+                                        {
+                                            <div class="w-full h-full flex items-center justify-center bg-surface-muted dark:bg-dark-surface-soft">
+                                                <i aria-hidden="true" class="fa-solid fa-film text-lg text-text-muted/40"></i>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="ml-5 flex-grow min-w-0">
+                                        <div class="flex items-center justify-between gap-4">
+                                            <p class="text-sm font-black text-text-main dark:text-white truncate">@credit.Title</p>
+                                            <span class="text-[9px] font-bold text-text-muted dark:text-dark-text-muted shrink-0">@(credit.ReleaseDate?.Year.ToString() ?? "N/A")</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 mt-1">
+                                            <span class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted italic truncate">
+                                                @credit.Character
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <a href="https://www.themoviedb.org/movie/@credit.Id" target="_blank" class="ml-4 p-2 text-text-muted hover:text-brand-primary transition-colors" title='@Localizer["ViewOnTmdb"]'>
+                                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                        
+                        <div class="mt-8 p-6 rounded-2xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border flex items-center justify-between">
+                            <div class="flex items-center gap-4 text-text-muted dark:text-dark-text-muted">
+                                <i class="fa-solid fa-circle-info text-brand-primary"></i>
+                                <p class="text-[10px] font-bold uppercase tracking-widest leading-relaxed">@Localizer["TmdbDataSource"]</p>
+                            </div>
+                            <a href="https://www.themoviedb.org/person/@Model.TmdbId" target="_blank" class="btn-secondary !py-2 !px-4 text-[10px]">
+                                @Localizer["ViewOnTmdb"]
+                            </a>
+                        </div>
+                    </section>
+                }
+            }
         </div>
     </div>
 </div>

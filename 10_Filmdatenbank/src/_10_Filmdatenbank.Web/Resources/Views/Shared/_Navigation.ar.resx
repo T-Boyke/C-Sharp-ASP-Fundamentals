@@ -12,4 +12,7 @@
   <data name="Logout" xml:space="preserve"><value>تسجيل الخروج</value></data>
   <data name="Register" xml:space="preserve"><value>تسجيل</value></data>
   <data name="Login" xml:space="preserve"><value>تسجيل الدخول</value></data>
+  <data name="AdminSettings" xml:space="preserve"><value>Admin Settings</value></data>
+  <data name="EditProfile" xml:space="preserve"><value>Edit Profile</value></data>
+  <data name="UserManagement" xml:space="preserve"><value>User Management</value></data>
 </root>

@@ -33,4 +33,8 @@
   <data name="Awards" xml:space="preserve"><value>الجوائز والترشيحات</value></data>
   <data name="ProfileImageOf" xml:space="preserve"><value>صورة الملف الشخصي لـ {0}</value></data>
   <data name="OnlyAdults" xml:space="preserve"><value>للبالغين فقط</value></data>
+  <data name="GlobalFilmography" xml:space="preserve"><value>الأعمال الكاملة (TMDB)</value></data>
+  <data name="TmdbDataSource" xml:space="preserve"><value>البيانات مقدمة من TMDB</value></data>
+  <data name="ViewOnTmdb" xml:space="preserve"><value>عرض على TMDB</value></data>
+  <data name="KnownFrom" xml:space="preserve"><value>معروف من {0}</value></data>
 </root>
