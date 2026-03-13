@@ -89,11 +89,14 @@
 
             <!-- Group Activity Example -->
             <div class="card-glass p-6">
-                <h3 class="text-lg font-bold text-white mb-6">Deine Gruppen</h3>
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold text-white">Deine Gruppen</h3>
+                    <a asp-action="Groups" class="text-xs font-black text-brand-primary uppercase tracking-widest hover:underline">Alle ansehen</a>
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     @foreach (var membership in Model.GroupMemberships.Take(4))
                     {
-                        <div class="p-4 rounded-xl bg-nav-surface border border-nav-border hover:border-brand-primary/50 transition-all cursor-pointer group">
+                        <a asp-controller="Group" asp-action="Details" asp-route-id="@membership.FanGroupID" class="p-4 rounded-xl bg-nav-surface border border-nav-border hover:border-brand-primary/50 transition-all group">
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-xl text-brand-primary group-hover:scale-110 transition-transform">
                                     <i class="fa-solid fa-people-roof"></i>
@@ -103,6 +106,33 @@
                                     <span class="text-[10px] text-brand-primary font-black uppercase tracking-widest">@membership.Role</span>
                                 </div>
                             </div>
+                        </a>
+                    }
+                </div>
+            </div>
+
+            <!-- Watchlist / Favorites -->
+            <div class="card-glass p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold text-white">Merkzettel / Watchlist</h3>
+                    <span class="text-[10px] font-black px-2 py-0.5 rounded bg-brand-primary/10 text-brand-primary uppercase">@Model.FavoriteFilms.Count Filme</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                    @foreach (var fav in Model.FavoriteFilms.Take(4))
+                    {
+                        <a asp-controller="Film" asp-action="Details" asp-route-id="@fav.FilmID" class="group relative aspect-[2/3] rounded-lg overflow-hidden border border-nav-border hover:border-brand-primary transition-all">
+                            <img src="@fav.Film.PosterUrl" alt="@fav.Film.Titel" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                            <div class="absolute inset-0 bg-linear-to-t from-dark-surface to-transparent opacity-60"></div>
+                            <div class="absolute bottom-2 left-2 right-2">
+                                <p class="text-[10px] font-bold text-white truncate">@fav.Film.Titel</p>
+                            </div>
+                        </a>
+                    }
+                    @if (!Model.FavoriteFilms.Any())
+                    {
+                        <div class="col-span-full py-8 text-center border-2 border-dashed border-nav-border rounded-xl">
+                            <i class="fa-regular fa-heart text-2xl text-nav-link opacity-20 mb-2"></i>
+                            <p class="text-xs text-dark-text-muted">Noch keine Favoriten gespeichert.</p>
                         </div>
                     }
                 </div>

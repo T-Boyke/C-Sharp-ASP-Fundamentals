@@ -1,0 +1,79 @@
+@model IEnumerable<_10_Filmdatenbank.Domain.Entities.GroupMember>
+@{
+    ViewData["Title"] = Localizer["MyGroups"];
+}
+
+<div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="flex items-center justify-between mb-12">
+        <div>
+            <h1 class="text-4xl font-extrabold text-white tracking-tight">
+                @Localizer["My"] <span class="text-brand-primary">@Localizer["Groups"]</span>
+            </h1>
+            <p class="mt-2 text-dark-text-muted">@Localizer["ManageYourCommunityMemberships"]</p>
+        </div>
+        <a asp-controller="Group" asp-action="Discovery" class="btn-primary">
+            <i class="fa-solid fa-magnifying-glass mr-2"></i> @Localizer["DiscoverGroups"]
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="card-glass p-12 text-center border-dashed border-2 border-nav-border">
+            <div class="w-20 h-20 rounded-full bg-nav-surface flex items-center justify-center mx-auto mb-6 text-nav-link opacity-20">
+                <i class="fa-solid fa-people-group text-4xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">@Localizer["NoGroupsYet"]</h3>
+            <p class="text-dark-text-muted mb-8 max-w-md mx-auto">@Localizer["JoinCommunitiesToDiscussFilms"]</p>
+            <a asp-controller="Group" asp-action="Discovery" class="btn-secondary px-8 py-3 rounded-xl border border-nav-border font-bold hover:bg-nav-accent transition-all">
+                @Localizer["BrowseCatalog"]
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach (var membership in Model)
+            {
+                <div class="card-glass group hover:border-brand-primary/50 transition-all duration-500 overflow-hidden flex flex-col">
+                    <div class="h-32 bg-gradient-to-br from-brand-primary/10 to-nav-surface relative">
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent)]"></div>
+                        @if (membership.FanGroup.BadgeColor != null)
+                        {
+                            <div class="absolute top-4 right-4 h-2 w-10 rounded-full" style="background-color: @membership.FanGroup.BadgeColor"></div>
+                        }
+                    </div>
+                    
+                    <div class="p-6 -mt-12 relative flex-grow">
+                        <div class="w-16 h-16 rounded-2xl bg-nav-bg border-4 border-nav-surface flex items-center justify-center text-brand-primary shadow-2xl mb-4 group-hover:scale-110 transition-transform duration-500">
+                            <i class="fa-solid fa-users text-2xl"></i>
+                        </div>
+                        
+                        <h3 class="text-xl font-black text-white group-hover:text-brand-primary transition-colors">@membership.FanGroup.Name</h3>
+                        <p class="text-sm text-dark-text-muted mt-2 line-clamp-2">@membership.FanGroup.Description</p>
+                        
+                        <div class="mt-6 flex items-center gap-4 border-t border-nav-border pt-6">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-black text-text-muted uppercase tracking-widest">@Localizer["Role"]</span>
+                                <span class="text-xs font-bold text-white">@(membership.Role >= _10_Filmdatenbank.Domain.Entities.GroupRole.Moderator ? "Moderator" : "Member")</span>
+                            </div>
+                            <div class="h-8 w-px bg-nav-border"></div>
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-black text-text-muted uppercase tracking-widest">@Localizer["Joined"]</span>
+                                <span class="text-xs font-bold text-white">@membership.JoinedAt.ToShortDateString()</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-3 bg-nav-surface/50 border-t border-nav-border flex gap-2">
+                        <a asp-controller="Group" asp-action="Details" asp-route-id="@membership.FanGroupID" class="flex-grow py-2.5 rounded-lg bg-nav-accent text-white text-xs font-black text-center hover:bg-brand-primary transition-all">
+                            @Localizer["OpenLounge"]
+                        </a>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-lg bg-danger-primary/5 text-danger-primary hover:bg-danger-primary/20 transition-all" title="@Localizer["LeaveGroup"]">
+                            <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

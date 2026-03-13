@@ -2,6 +2,7 @@ using _10_Filmdatenbank.Application.Interfaces;
 using _10_Filmdatenbank.Domain.Entities;
 using _10_Filmdatenbank.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,12 +11,10 @@ namespace _10_Filmdatenbank.Web.Controllers;
 /// <summary>
 /// Verwalte die Filme in der Datenbank.
 /// </summary>
-/// <param name="context">Der Datenbankkontext für den Zugriff auf Filmdaten.</param>
-/// <param name="tmdbService">Der Dienst für den Zugriff auf TMDB-Daten.</param>
 [Authorize]
 [Route("Movies")]
 [Route("Movies/[action]")]
-public class FilmController(ApplicationDbContext context, ITmdbService tmdbService) : Controller
+public class FilmController(ApplicationDbContext context, ITmdbService tmdbService, UserManager<ApplicationUser> userManager) : Controller
 {
     /// <summary>
     /// Zeigt eine Liste aller Filme an.
@@ -433,5 +432,34 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             TempData["Success"] = $"Film '{titel}' wurde gelöscht.";
         }
         return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ToggleFavorite(int filmId)
+    {
+        var user = await userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+
+        var favorite = await context.FavoriteFilms
+            .FirstOrDefaultAsync(ff => ff.FilmID == filmId && ff.UserID == user.Id);
+
+        if (favorite != null)
+        {
+            context.FavoriteFilms.Remove(favorite);
+            TempData["Info"] = "Vom Merkzettel entfernt.";
+        }
+        else
+        {
+            context.FavoriteFilms.Add(new FavoriteFilm
+            {
+                FilmID = filmId,
+                UserID = user.Id,
+                AddedAt = DateTime.UtcNow
+            });
+            TempData["Success"] = "Auf Merkzettel gespeichert.";
+        }
+
+        await context.SaveChangesAsync();
+        return RedirectToAction(nameof(Details), new { id = filmId });
     }
 }

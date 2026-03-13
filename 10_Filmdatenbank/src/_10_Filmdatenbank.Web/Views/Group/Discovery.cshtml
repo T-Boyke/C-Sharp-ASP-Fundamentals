@@ -1,0 +1,72 @@
+@model IEnumerable<_10_Filmdatenbank.Domain.Entities.FanGroup>
+@{
+    ViewData["Title"] = "Discover Communities";
+}
+
+<div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="mb-12">
+        <h1 class="text-4xl font-extrabold text-white tracking-tight">
+            Entdecke <span class="text-brand-primary">Communities</span>
+        </h1>
+        <p class="mt-2 text-dark-text-muted">Finde Gleichgesinnte und diskutiere über deine Lieblingsfilme.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @foreach (var group in Model)
+        {
+            <div class="card-glass group hover:border-brand-primary/50 transition-all duration-500 overflow-hidden flex flex-col">
+                <div class="h-32 bg-nav-surface relative overflow-hidden">
+                    @if (group.GroupImage != null)
+                    {
+                        <img src="data:@group.GroupImageContentType;base64,@Convert.ToBase64String(group.GroupImage)" class="w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-700" />
+                    }
+                    <div class="absolute inset-0 bg-linear-to-t from-dark-surface to-transparent"></div>
+                </div>
+                
+                <div class="p-6 -mt-12 relative flex-grow">
+                     <div class="w-16 h-16 rounded-2xl bg-nav-bg border-4 border-nav-surface flex items-center justify-center text-brand-primary shadow-2xl mb-4 group-hover:rotate-6 transition-transform">
+                        <i class="fa-solid fa-people-group text-2xl"></i>
+                    </div>
+                    
+                    <h3 class="text-xl font-black text-white">@group.Name</h3>
+                    <p class="text-sm text-dark-text-muted mt-2 line-clamp-2">@group.Description</p>
+                    
+                    <div class="mt-6 flex items-center gap-4 border-t border-nav-border pt-4">
+                        <div class="flex items-center gap-2">
+                             <div class="flex -space-x-2">
+                                @foreach (var member in group.Members.Take(3))
+                                {
+                                    <div class="w-6 h-6 rounded-full border-2 border-nav-bg bg-brand-primary/20 flex items-center justify-center text-[8px] font-bold text-brand-primary overflow-hidden">
+                                        @if (member.User?.ProfilePicture != null)
+                                        {
+                                            <img src="data:@member.User.ProfilePictureContentType;base64,@Convert.ToBase64String(member.User.ProfilePicture)" />
+                                        }
+                                        else
+                                        {
+                                            <span>M</span>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                            <span class="text-[10px] font-bold text-text-muted">@group.Members.Count Mitglieder</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-nav-surface/50 border-t border-nav-border flex gap-2">
+                    <a asp-action="Details" asp-route-id="@group.FanGroupID" class="flex-grow py-2.5 rounded-lg bg-nav-accent text-white text-xs font-black text-center hover:bg-brand-primary transition-all">
+                        Ansehen
+                    </a>
+                    @if (!group.Members.Any(m => m.UserID == UserManager.GetUserId(User)))
+                    {
+                        <form asp-action="Join" asp-route-id="@group.FanGroupID" method="post" class="flex-grow">
+                            <button type="submit" class="w-full py-2.5 rounded-lg bg-brand-primary text-white text-xs font-black text-center hover:bg-brand-hover transition-all">
+                                @(group.RequiresApproval ? "Anfragen" : "Beitreten")
+                            </button>
+                        </form>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

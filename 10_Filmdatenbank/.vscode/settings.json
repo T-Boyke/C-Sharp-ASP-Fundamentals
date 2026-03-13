@@ -82,6 +82,8 @@
   "tailwindCSS.lint.invalidTailwindDirective": "error",
   "tailwindCSS.lint.recommendedVariantOrder": "warning",
   "tailwindCSS.experimental.configFile": "src/_10_Filmdatenbank.Web/Tailwind/input.css",
+  "efcore.defaultProject": "src/_10_Filmdatenbank.Infrastructure/_10_Filmdatenbank.Infrastructure.csproj",
+  "efcore.defaultStartupProject": "src/_10_Filmdatenbank.Web/_10_Filmdatenbank.Web.csproj",
   "cSpell.language": "en,de",
   "cSpell.words": [
     "Filmdatenbank",

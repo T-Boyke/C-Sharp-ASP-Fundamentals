@@ -1,189 +1,205 @@
-@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
-@inject SignInManager<ApplicationUser> SignInManager
+@inject Microsoft.AspNetCore.Identity.SignInManager<_10_Filmdatenbank.Domain.Entities.ApplicationUser> SignInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<_10_Filmdatenbank.Domain.Entities.ApplicationUser> UserManager
 
-<header class="sticky top-0 z-50 w-full bg-nav-bg border-b border-nav-border shadow-xl transition-all duration-300">
-    <nav class="mx-auto flex max-w-7xl items-center justify-between p-3 px-6 lg:px-8" aria-label="Global">
-        <div class="flex items-center gap-10">
-            <!-- Logo -->
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="flex items-center gap-3 group" aria-label="FilmDB Home">
-                <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-brand-primary shadow-lg shadow-brand-primary/20 group-hover:bg-brand-hover transition-all duration-300 group-hover:scale-105" aria-hidden="true">
-                    <i aria-hidden="true" class="fa-solid fa-clapperboard text-white text-lg"></i>
-                </div>
-                <span class="text-lg font-black tracking-tighter text-white">Film<span class="text-brand-primary">DB</span></span>
-            </a>
-
-            <!-- Primary Nav -->
-            <div class="hidden lg:flex lg:gap-x-8">
-                <a asp-area="" asp-controller="Home" asp-action="Index" 
-                   class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2"
-                   aria-current='@(Context.Request.Path == "/" || Context.Request.Path == "/Home/Index" ? "page" : null)'>
-                    @Localizer["Home"]
+<header class="sticky top-0 z-50 w-full transition-all duration-300" id="main-nav">
+    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 transition-all duration-300" id="nav-container">
+        <div class="glass-navigation flex h-16 items-center justify-between px-6 rounded-2xl border border-white/10 shadow-2xl shadow-black/40 relative">
+            
+            <!-- Logo Section -->
+            <div class="flex items-center gap-8">
+                <a asp-controller="Home" asp-action="Index" class="group flex items-center gap-3">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-brand-primary to-brand-hover shadow-lg shadow-brand-primary/20 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-play text-white text-lg ml-1"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-lg font-black text-white tracking-tighter leading-none group-hover:text-brand-primary transition-colors">FLIX<span class="text-brand-primary group-hover:text-white">DB</span></span>
+                        <span class="text-[9px] font-bold text-text-muted uppercase tracking-[0.2em] leading-none mt-1">Premium Edition</span>
+                    </div>
                 </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center gap-1">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                         <a asp-controller="User" asp-action="Dashboard" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "User" && ViewContext.RouteData.Values["Action"]?.ToString() == "Dashboard" ? "active" : "")">
+                            <i class="fa-solid fa-house-chimney text-xs"></i>
+                            @Localizer["Dashboard"]
+                        </a>
+                        <a asp-controller="Film" asp-action="Index" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Film" ? "active" : "")">
+                            <i class="fa-solid fa-film text-xs"></i>
+                            @Localizer["Movies"]
+                        </a>
+                        <a asp-controller="Group" asp-action="Discovery" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Group" ? "active" : "")">
+                            <i class="fa-solid fa-people-group text-xs"></i>
+                            Community
+                        </a>
+                        <div class="relative group h-full">
+                            <button class="nav-link-modern group-hover:bg-white/5">
+                                More
+                                <i class="fa-solid fa-chevron-down text-[10px] opacity-40 group-hover:rotate-180 transition-transform"></i>
+                            </button>
+                            <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all z-50">
+                                <div class="w-48 p-2 rounded-xl bg-nav-surface border border-nav-border shadow-2xl">
+                                    <a asp-controller="Person" asp-action="Index" class="dropdown-item">
+                                        <i class="fa-solid fa-user-tie text-brand-primary"></i>
+                                        Contributors
+                                    </a>
+                                    <a asp-controller="Collection" asp-action="Index" class="dropdown-item">
+                                        <i class="fa-solid fa-layer-group text-brand-primary"></i>
+                                        Collections
+                                    </a>
+                                    <a asp-controller="ProductionCompany" asp-action="Index" class="dropdown-item">
+                                        <i class="fa-solid fa-building text-brand-primary"></i>
+                                        Studios
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-3">
+                
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <a asp-area="" asp-controller="Film" asp-action="Index" 
-                       class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2"
-                       aria-current='@(Context.Request.Path.StartsWithSegments("/Film") ? "page" : null)'>
-                        @Localizer["Films"]
-                    </a>
-                    <a asp-area="" asp-controller="Person" asp-action="Index" 
-                       class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2"
-                       aria-current='@(Context.Request.Path.StartsWithSegments("/Schauspieler") ? "page" : null)'>
-                        @Localizer["Contributors"]
-                    </a>
-                    <a asp-area="" asp-controller="Collection" asp-action="Index" 
-                       class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2"
-                       aria-current='@(Context.Request.Path.StartsWithSegments("/Kollektionen") ? "page" : null)'>
-                        @Localizer["Collections"]
-                    </a>
-                    <a asp-area="" asp-controller="ProductionCompany" asp-action="Index" 
-                       class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors flex items-center gap-2"
-                       aria-current='@(Context.Request.Path.StartsWithSegments("/Studios") ? "page" : null)'>
-                        @Localizer["Studios"]
-                    </a>
-                }
-            </div>
-        </div>
-        
-        <div class="flex items-center gap-6">
-            @if (SignInManager.IsSignedIn(User))
-            {
-                <!-- Quick Action for Admins -->
-                @if (User.IsInRole("Admin"))
-                {
-                    <a asp-controller="Film" asp-action="Create" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-primary text-white text-xs font-black hover:bg-brand-hover transition-all shadow-lg shadow-brand-primary/20 hover:-translate-y-0.5">
-                        <i aria-hidden="true" class="fa-solid fa-plus-circle text-sm"></i>
-                        @Localizer["NewFilm"]
-                    </a>
-                }
-
-                <div class="h-6 w-px bg-nav-accent hidden sm:block"></div>
-
-                <!-- Notifications -->
-                <a href="#" class="relative w-9 h-9 flex items-center justify-center rounded-lg bg-nav-surface border border-nav-border text-nav-link hover:text-brand-primary hover:border-brand-primary/50 transition-all group" title="Benachrichtigungen">
-                    <i class="fa-solid fa-bell text-sm group-hover:animate-swing"></i>
-                    @await Component.InvokeAsync("NotificationCount")
-                </a>
-
-                <div class="h-6 w-px bg-nav-accent hidden sm:block"></div>
-
-                <!-- Admin Settings Dropdown -->
-                @if (User.IsInRole("Admin"))
-                {
-                    <div class="relative" x-data="{ open: false }" @@click.away="open = false">
-                        <button type="button" @@click="open = !open" 
-                                class="w-9 h-9 flex items-center justify-center rounded-lg bg-nav-surface border border-nav-border text-nav-link hover:text-brand-primary hover:border-brand-primary/50 transition-all" 
-                                aria-haspopup="true" :aria-expanded="open">
-                            <i class="fa-solid fa-bars text-sm"></i>
-                        </button>
-                        <div x-show="open"
-                             x-transition:enter="transition ease-out duration-200"
-                             x-transition:enter-start="opacity-0 translate-y-2"
-                             x-transition:enter-end="opacity-100 translate-y-0"
-                             x-transition:leave="transition ease-in duration-150"
-                             x-transition:leave-start="opacity-100 translate-y-0"
-                             x-transition:leave-end="opacity-0 translate-y-2"
-                             class="absolute right-0 mt-2 w-56 p-2 rounded-xl bg-nav-bg border border-nav-border shadow-2xl z-50">
-                            <div class="flex flex-col gap-1">
-                                <div class="px-3 py-2 border-b border-nav-border mb-1">
-                                    <span class="text-[10px] font-black text-text-muted uppercase tracking-widest">Admin Dashboard</span>
-                                </div>
-                                <a asp-controller="Admin" asp-action="ManageUsers" class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold text-nav-link hover:bg-nav-accent hover:text-brand-primary transition-all group/item">
-                                    <div class="flex items-center gap-3">
-                                        <i class="fa-solid fa-users-gear text-sm opacity-60 group-hover/item:opacity-100"></i>
-                                        <span>User Management</span>
-                                    </div>
-                                    <span class="text-[10px] font-black px-1.5 py-0.5 rounded bg-brand-primary/10 text-brand-primary/70 uppercase">RBAC</span>
-                                </a>
-                                <a asp-controller="Admin" asp-action="ManageGroups" class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold text-nav-link hover:bg-nav-accent hover:text-brand-primary transition-all group/item">
-                                    <div class="flex items-center gap-3">
-                                        <i class="fa-solid fa-people-group text-sm opacity-60 group-hover/item:opacity-100"></i>
-                                        <span>Group Moderation</span>
-                                    </div>
-                                    <span class="text-[10px] font-black px-1.5 py-0.5 rounded bg-brand-primary/10 text-brand-primary/70 uppercase">COMM</span>
-                                </a>
-                            </div>
-                        </div>
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <a asp-controller="User" asp-action="Dashboard" class="flex h-10 w-10 items-center justify-center rounded-xl text-nav-link hover:text-brand-primary hover:bg-brand-primary/5 transition-all relative">
+                            <i class="fa-regular fa-bell text-lg"></i>
+                            @await Component.InvokeAsync("NotificationCount")
+                        </a>
                     </div>
-                }
 
-                <!-- User Dashboard Dropdown -->
-                <div class="relative" x-data="{ open: false }" @@click.away="open = false">
-                    <button type="button" @@click="open = !open" 
-                            class="w-9 h-9 flex items-center justify-center rounded-lg bg-brand-primary/10 border border-brand-primary/20 text-brand-primary hover:bg-brand-primary/20 transition-all overflow-hidden">
-                        @{
-                            var user = await SignInManager.UserManager.GetUserAsync(User);
-                            if (user?.ProfilePicture != null)
-                            {
-                                <img src="data:@user.ProfilePictureContentType;base64,@Convert.ToBase64String(user.ProfilePicture)" class="w-full h-full object-cover" />
-                            }
-                            else
-                            {
-                                <i class="fa-solid fa-user text-sm"></i>
-                            }
+                    <div class="h-8 w-px bg-white/10 mx-2 hidden lg:block"></div>
+
+                    <!-- User Profile Dropdown -->
+                    <div class="relative group ml-1">
+                         @{
+                            var user = await UserManager.GetUserAsync(User);
                         }
-                    </button>
-                    <div x-show="open"
-                         x-transition:enter="transition ease-out duration-200"
-                         x-transition:enter-start="opacity-0 translate-y-2"
-                         x-transition:enter-end="opacity-100 translate-y-0"
-                         x-transition:leave="transition ease-in duration-150"
-                         x-transition:leave-start="opacity-100 translate-y-0"
-                         x-transition:leave-end="opacity-0 translate-y-2"
-                         class="absolute right-0 mt-2 w-64 p-2 rounded-xl bg-nav-bg border border-nav-border shadow-2xl z-50">
-                        <div class="flex flex-col gap-1">
-                            <div class="px-3 py-3 border-b border-nav-border mb-1 flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-bold overflow-hidden border border-brand-primary/20">
-                                    @if (user?.ProfilePicture != null)
-                                    {
-                                        <img src="data:@user?.ProfilePictureContentType;base64,@Convert.ToBase64String(user?.ProfilePicture!)" class="w-full h-full object-cover" />
-                                    }
-                                    else
-                                    {
-                                        <i class="fa-solid fa-user"></i>
-                                    }
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-xs font-black text-white">@user?.FirstName @user?.LastName</span>
-                                    <span class="text-[10px] text-text-muted lowercase">@user?.Email</span>
-                                </div>
+                        <button class="flex items-center gap-3 pl-1 pr-3 py-1 rounded-xl bg-white/5 border border-white/5 hover:border-brand-primary/30 transition-all hover:bg-white/10">
+                            <div class="h-8 w-8 rounded-lg bg-brand-primary/20 flex items-center justify-center text-brand-primary font-black text-xs overflow-hidden border border-brand-primary/20">
+                                @if (user?.ProfilePicture != null)
+                                {
+                                    <img src="data:@(user.ProfilePictureContentType);base64,@Convert.ToBase64String(user.ProfilePicture)" class="h-full w-full object-cover" />
+                                }
+                                else
+                                {
+                                    <span>@User.Identity.Name?[0].ToString().ToUpper()</span>
+                                }
                             </div>
-                            <a asp-controller="User" asp-action="Dashboard" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold text-nav-link hover:bg-nav-accent hover:text-brand-primary transition-all">
-                                <i class="fa-solid fa-gauge-high text-sm opacity-60"></i>
-                                <span>Dashboard</span>
-                            </a>
-                            <a asp-controller="User" asp-action="Profile" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold text-nav-link hover:bg-nav-accent hover:text-brand-primary transition-all">
-                                <i class="fa-solid fa-id-card text-sm opacity-60"></i>
-                                <span>Mein Profil</span>
-                            </a>
-                            <a asp-controller="User" asp-action="Groups" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold text-nav-link hover:bg-nav-accent hover:text-brand-primary transition-all">
-                                <i class="fa-solid fa-people-roof text-sm opacity-60"></i>
-                                <span>Meine Gruppen</span>
-                            </a>
-                            <div class="h-px bg-nav-border my-1"></div>
-                            <form asp-controller="Account" asp-action="Logout" method="post">
-                                <button type="submit" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold text-danger-primary hover:bg-danger-primary/10 transition-all text-left">
-                                    <i class="fa-solid fa-power-off text-sm opacity-60"></i>
-                                    <span>Abmelden</span>
-                                </button>
-                            </form>
+                            <span class="text-xs font-bold text-white hidden sm:block">@user?.FirstName</span>
+                            <i class="fa-solid fa-chevron-down text-[10px] text-text-muted transition-transform group-hover:rotate-180"></i>
+                        </button>
+
+                        <div class="absolute right-0 top-full pt-2 w-64 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all z-50">
+                            <div class="p-2 rounded-2xl bg-nav-surface border border-nav-border shadow-2xl">
+                                <div class="px-4 py-3 border-b border-nav-border mb-2 flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-black overflow-hidden">
+                                         @if (user?.ProfilePicture != null)
+                                         {
+                                             <img src="data:@user.ProfilePictureContentType;base64,@Convert.ToBase64String(user.ProfilePicture)" class="w-full h-full object-cover" />
+                                         }
+                                         else { <span>@user?.FirstName?[0]</span> }
+                                    </div>
+                                    <div class="flex flex-col overflow-hidden">
+                                        <p class="text-xs font-black text-white truncate">@user?.FirstName @user?.LastName</p>
+                                        <p class="text-[10px] text-text-muted truncate">@user?.Email</p>
+                                    </div>
+                                </div>
+                                
+                                <a asp-controller="User" asp-action="Profile" class="dropdown-item">
+                                    <i class="fa-solid fa-user-gear text-brand-primary"></i>
+                                    Settings & Profile
+                                </a>
+                                <a asp-controller="User" asp-action="Groups" class="dropdown-item">
+                                    <i class="fa-solid fa-people-roof text-brand-primary"></i>
+                                    My Communities
+                                </a>
+
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <div class="h-px bg-nav-border my-2"></div>
+                                    <a asp-controller="Admin" asp-action="ManageUsers" class="dropdown-item text-brand-primary">
+                                        <i class="fa-solid fa-users-gear"></i>
+                                        User Management
+                                    </a>
+                                }
+
+                                <div class="h-px bg-nav-border my-2"></div>
+                                <form asp-controller="Account" asp-action="Logout" method="post">
+                                    <button type="submit" class="w-full dropdown-item text-danger-primary hover:bg-danger-primary/10">
+                                        <i class="fa-solid fa-power-off"></i>
+                                        Sign Out
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
-            else
-            {
-                <div class="flex items-center gap-4">
-                    <a asp-controller="Account" asp-action="Register" class="text-sm font-bold text-nav-link hover:text-nav-link-hover transition-colors">
-                        @Localizer["Register"]
-                    </a>
-                    <a asp-controller="Account" asp-action="Login" class="px-5 py-2 rounded-lg bg-surface-bright text-text-main text-sm font-black hover:bg-surface-soft transition-all shadow-lg shadow-surface-bright/5 hover:-translate-y-0.5">
-                        @Localizer["Login"]
-                    </a>
-                </div>
-            }
+                }
+                else
+                {
+                    <div class="flex items-center gap-2">
+                        <a asp-controller="Account" asp-action="Login" class="text-sm font-bold text-nav-link hover:text-white transition-colors px-4 py-2">
+                            Login
+                        </a>
+                        <a asp-controller="Account" asp-action="Register" class="px-5 py-2.5 rounded-xl bg-brand-primary text-white text-sm font-black hover:bg-brand-hover transition-all shadow-lg shadow-brand-primary/30 hover:-translate-y-0.5">
+                            Join Now
+                        </a>
+                    </div>
+                }
+
+                <!-- Mobile Menu Button -->
+                <button class="lg:hidden h-10 w-10 flex items-center justify-center rounded-xl bg-white/5 text-white" aria-label="Menu" id="mobile-menu-toggle">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
         </div>
     </nav>
 </header>
+
+<style>
+    .glass-navigation {
+        background: rgba(15, 17, 26, 0.6);
+        backdrop-filter: blur(24px) saturate(200%);
+        -webkit-backdrop-filter: blur(24px) saturate(200%);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-link-modern {
+        @apply flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-nav-link hover:text-white hover:bg-white/5 transition-all duration-300;
+    }
+
+    .nav-link-modern.active {
+        @apply text-white bg-white/10 border border-white/5 shadow-inner shadow-white/5;
+    }
+
+    .dropdown-item {
+        @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-nav-link hover:bg-white/5 hover:text-white transition-all duration-200;
+    }
+
+    #main-nav.scrolled #nav-container {
+        @apply py-2 px-0 max-w-none;
+    }
+
+    #main-nav.scrolled .glass-navigation {
+        @apply rounded-none border-x-0 border-t-0 bg-nav-surface/95 shadow-2xl px-8;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    });
+</script>

@@ -1,0 +1,149 @@
+@model _10_Filmdatenbank.Domain.Entities.FanGroup
+@{
+    ViewData["Title"] = Model.Name;
+    var isMember = Model.Members.Any(m => m.UserID == UserManager.GetUserId(User));
+}
+
+<div class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Header -->
+    <div class="relative rounded-3xl overflow-hidden mb-12 border border-nav-border shadow-2xl">
+        <div class="h-48 md:h-64 bg-linear-to-br from-brand-primary/20 to-nav-surface"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(59,130,246,0.1),transparent)]"></div>
+        
+        <div class="absolute bottom-8 left-8 right-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div class="flex items-center gap-6">
+                <div class="w-24 h-24 rounded-3xl bg-nav-bg border-4 border-nav-surface flex items-center justify-center text-brand-primary shadow-2xl overflow-hidden">
+                    @if (Model.GroupImage != null)
+                    {
+                        <img src="data:@Model.GroupImageContentType;base64,@Convert.ToBase64String(Model.GroupImage)" class="w-full h-full object-cover" />
+                    }
+                    else
+                    {
+                        <i class="fa-solid fa-people-group text-4xl"></i>
+                    }
+                </div>
+                <div>
+                     <div class="flex items-center gap-3 mb-2">
+                        <span class="badge badge-primary">Community</span>
+                         @if (Model.IsPrivate)
+                         {
+                             <span class="badge bg-danger-primary/10 text-danger-primary"><i class="fa-solid fa-lock mr-2"></i> Privat</span>
+                         }
+                    </div>
+                    <h1 class="text-4xl font-black text-white tracking-tighter">@Model.Name</h1>
+                    <p class="text-dark-text-muted mt-1 font-medium">@Model.Members.Count Mitglieder • Erstellt am @Model.CreatedAt.ToShortDateString()</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                @if (isMember)
+                {
+                    <form asp-action="Leave" asp-route-id="@Model.FanGroupID" method="post">
+                        <button type="submit" class="px-6 py-3 rounded-xl bg-danger-primary/10 text-danger-primary font-black hover:bg-danger-primary/20 transition-all">
+                             Gruppe verlassen
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <form asp-action="Join" asp-route-id="@Model.FanGroupID" method="post">
+                        <button type="submit" class="btn-primary">
+                             @(Model.RequiresApproval ? "Beitritt anfragen" : "Beitreten")
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Main: Threads -->
+        <div class="lg:col-span-2 space-y-8">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-black text-white">Diskussionen</h2>
+                @if (isMember)
+                {
+                    <button class="text-xs font-black text-brand-primary uppercase tracking-widest px-4 py-2 rounded-lg bg-brand-primary/10 hover:bg-brand-primary/20 transition-all">
+                        Neuer Thread
+                    </button>
+                }
+            </div>
+
+            <div class="space-y-4">
+                @if (!Model.Threads.Any())
+                {
+                    <div class="card-glass p-12 text-center">
+                        <i class="fa-regular fa-comments text-4xl text-nav-link opacity-20 mb-4 block"></i>
+                        <p class="text-dark-text-muted">Noch keine Diskussionen in dieser Gruppe.</p>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var thread in Model.Threads.OrderByDescending(t => t.LastActivity))
+                    {
+                        <div class="card-glass p-6 hover:border-brand-primary/50 transition-all group cursor-pointer">
+                            <div class="flex gap-4 items-start">
+                                <div class="w-10 h-10 rounded-full bg-nav-surface flex items-center justify-center text-brand-primary shrink-0">
+                                    <i class="fa-solid fa-comment-dots"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-lg font-bold text-white group-hover:text-brand-primary transition-colors">@thread.Title</h4>
+                                    <div class="flex items-center gap-4 mt-2 text-xs text-text-muted">
+                                        <span class="flex items-center gap-1"><i class="fa-regular fa-user"></i> @thread.Author.FirstName @thread.Author.LastName</span>
+                                        <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> @thread.LastActivity.ToShortDateString()</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="block text-xl font-black text-white">0</span>
+                                    <span class="text-[10px] text-text-muted uppercase font-bold tracking-widest">Antworten</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <!-- Sidebar: Info & Members -->
+        <div class="space-y-8">
+            <div class="card-glass p-6">
+                <h3 class="text-sm font-black text-white uppercase tracking-widest mb-6 border-b border-nav-border pb-4">Über diese Gruppe</h3>
+                <p class="text-sm text-dark-text-muted leading-relaxed">@Model.Description</p>
+            </div>
+
+            <div class="card-glass p-6">
+                <div class="flex items-center justify-between mb-6 border-b border-nav-border pb-4">
+                    <h3 class="text-sm font-black text-white uppercase tracking-widest">Mitglieder</h3>
+                    <span class="text-[10px] font-black text-brand-primary uppercase">@Model.Members.Count</span>
+                </div>
+                <div class="space-y-4">
+                    @foreach (var member in Model.Members.OrderBy(m => m.Role).Take(10))
+                    {
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-brand-primary/10 flex items-center justify-center text-xs font-bold text-brand-primary overflow-hidden">
+                                     @if (member.User.ProfilePicture != null)
+                                     {
+                                         <img src="data:@member.User.ProfilePictureContentType;base64,@Convert.ToBase64String(member.User.ProfilePicture)" class="w-full h-full object-cover" />
+                                     }
+                                     else
+                                     {
+                                         <span>@member.User.UserName?[0].ToString().ToUpper()</span>
+                                     }
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-white">@member.User.FirstName @member.User.LastName</span>
+                                    <span class="text-[9px] text-text-muted">@member.Role</span>
+                                </div>
+                            </div>
+                            @if (member.Role == GroupRole.Owner)
+                            {
+                                <i class="fa-solid fa-crown text-[10px] text-star-primary" title="Inhaber"></i>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

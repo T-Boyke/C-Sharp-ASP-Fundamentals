@@ -1,5 +1,4 @@
-@using Microsoft.AspNetCore.Identity
-@inject UserManager<IdentityUser> UserManager
+@* Edit Profile Partial *@
 @{
     var user = await UserManager.GetUserAsync(User);
     ViewData["Title"] = "Profile Settings (IAM)";

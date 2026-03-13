@@ -1,9 +1,12 @@
 @model _10_Filmdatenbank.Domain.Entities.Film
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
+@inject _10_Filmdatenbank.Infrastructure.Persistence.ApplicationDbContext _db
 
 @{
     ViewData["Title"] = Model.Titel;
+    var userId = UserManager.GetUserId(User);
+    var isFavorite = userId != null && _db.FavoriteFilms.Any(ff => ff.FilmID == Model.FilmID && ff.UserID == userId);
 }
 
 <div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
@@ -37,6 +40,12 @@
                    }
                 </div>
                 <div class="flex items-center gap-4">
+                    <form asp-action="ToggleFavorite" method="post">
+                        <input type="hidden" name="filmId" value="@Model.FilmID" />
+                        <button type="submit" class="glass-premium w-16 h-16 rounded-2xl flex items-center justify-center transition-all group/heart @(isFavorite ? "text-danger-primary shadow-2xl shadow-danger-primary/20" : "text-white/60 hover:text-white hover:bg-white/10")" title='@(isFavorite ? Localizer["RemoveFromWatchlist"] : Localizer["AddToWatchlist"])'>
+                            <i class="fa-@(isFavorite ? "solid" : "regular") fa-heart text-2xl group-hover/heart:scale-110 transition-transform"></i>
+                        </button>
+                    </form>
                     <div class="glass-premium px-6 py-3 rounded-2xl flex items-center gap-3 border border-surface-bright/20">
                         <div class="w-10 h-10 rounded-full bg-brand-primary flex items-center justify-center text-white shadow-lg">
                             <i class="fa-solid fa-star"></i>

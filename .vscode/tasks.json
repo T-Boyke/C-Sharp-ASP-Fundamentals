@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-filmdatenbank",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/10_Filmdatenbank/src/_10_Filmdatenbank.Web/_10_Filmdatenbank.Web.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "watch-filmdatenbank",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "watch",
+        "run",
+        "--project",
+        "${workspaceFolder}/10_Filmdatenbank/src/_10_Filmdatenbank.Web/_10_Filmdatenbank.Web.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

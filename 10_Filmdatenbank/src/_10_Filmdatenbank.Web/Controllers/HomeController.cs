@@ -12,9 +12,17 @@ public class HomeController(ILogger<HomeController> logger) : Controller
 {
     /// <summary>
     /// Zeigt die Startseite der Anwendung an.
+    /// Redirected eingeloggte User zum Dashboard.
     /// </summary>
     /// <returns>Die Index-View.</returns>
-    public IActionResult Index() => View();
+    public IActionResult Index()
+    {
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            return RedirectToAction("Dashboard", "User");
+        }
+        return View();
+    }
 
     /// <summary>
     /// Zeigt die Datenschutzseite an.

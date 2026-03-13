@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using _10_Filmdatenbank.Domain.Entities;
 
 namespace _10_Filmdatenbank.Web.Controllers;
 
 /// <summary>
 /// Verwaltet Benutzerkonten, Anmeldungen und Abmeldungen.
 /// </summary>
-public class AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager) : Controller
+public class AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) : Controller
 {
     public IActionResult Login() => View();
 
@@ -31,7 +32,14 @@ public class AccountController(SignInManager<IdentityUser> signInManager, UserMa
     {
         if (ModelState.IsValid)
         {
-            var user = new IdentityUser { UserName = model.Email, Email = model.Email, EmailConfirmed = true };
+            var user = new ApplicationUser 
+            { 
+                UserName = model.Email, 
+                Email = model.Email, 
+                EmailConfirmed = true,
+                CreatedAt = DateTime.UtcNow,
+                IsDisabled = false
+            };
             var result = await userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)

@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "efcore.defaultProject": "10_Filmdatenbank/src/_10_Filmdatenbank.Infrastructure/_10_Filmdatenbank.Infrastructure.csproj",
+  "efcore.defaultStartupProject": "10_Filmdatenbank/src/_10_Filmdatenbank.Web/_10_Filmdatenbank.Web.csproj",
+  "tailwindCSS.experimental.configFile": "10_Filmdatenbank/src/_10_Filmdatenbank.Web/Tailwind/input.css"
+}
