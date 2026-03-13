@@ -1,3 +1,4 @@
+using _10_Filmdatenbank.Domain.Entities;
 using _10_Filmdatenbank.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -22,7 +23,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
     b => b.MigrationsAssembly("_10_Filmdatenbank.Infrastructure")));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = false;
     options.Password.RequiredLength = 6;
@@ -95,10 +96,19 @@ using (var scope = app.Services.CreateScope())
     if (!await roleManager.RoleExistsAsync("Admin")) await roleManager.CreateAsync(new IdentityRole("Admin"));
     if (!await roleManager.RoleExistsAsync("Member")) await roleManager.CreateAsync(new IdentityRole("Member"));
     
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
     if (await userManager.FindByEmailAsync("admin@film.de") == null)
     {
-        var admin = new IdentityUser { UserName = "admin@film.de", Email = "admin@film.de", EmailConfirmed = true };
+        var admin = new ApplicationUser 
+        { 
+            UserName = "admin@film.de", 
+            Email = "admin@film.de", 
+            EmailConfirmed = true,
+            FirstName = "System",
+            LastName = "Administrator",
+            CreatedAt = DateTime.UtcNow,
+            IsDisabled = false
+        };
         await userManager.CreateAsync(admin, "Admin123!");
         await userManager.AddToRoleAsync(admin, "Admin");
     }

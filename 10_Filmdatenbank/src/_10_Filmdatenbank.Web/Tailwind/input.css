@@ -14,7 +14,11 @@
 @import "./components/flex.css";
 @import "./components/badge.css";
 @import "./components/form.css";
-@import "./components/form-group.css";
+@import "./components/avatar.css";
+@import "./components/btn-groups.css";
+@import "./components/alerts.css";
+@import "./components/empty-states.css";
+
 /* Professional Utilities - No AI Slop */
 @utility accent-border {
   @apply border-l-4 border-brand-primary;

@@ -52,8 +52,8 @@ public class TmdbController(ITmdbService tmdbService) : ControllerBase
             TrailerKey = movie.Videos?.Results?.FirstOrDefault(v => v.Site == "YouTube" && v.Type == "Trailer")?.Key,
             PosterUrl = string.IsNullOrEmpty(movie.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{movie.PosterPath}",
             BackdropUrl = string.IsNullOrEmpty(movie.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{movie.BackdropPath}",
-            Genres = movie.Genres.Select(g => g.Name),
-            Keywords = movie.Keywords?.Keywords?.Select(k => k.Name) ?? [],
+            Genres = movie.Genres.Select(g => new { g.Id, g.Name }),
+            Keywords = movie.Keywords?.Keywords?.Select(k => new { k.Id, k.Name }) ?? [],
             ProductionCompanies = movie.ProductionCompanies?.Select(pc => new 
             {
                 pc.Id,
@@ -68,13 +68,23 @@ public class TmdbController(ITmdbService tmdbService) : ControllerBase
             WikidataId = movie.ExternalIds?.WikidataId,
             CollectionId = movie.BelongsToCollection?.Id,
             CollectionName = movie.BelongsToCollection?.Name,
-            Cast = movie.Credits?.Cast?.Take(10).Select(c => new
+            Cast = movie.Credits?.Cast?.Take(15).Select(c => new
             {
                 c.Id,
                 c.Name,
                 c.Character,
                 ProfileUrl = string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}"
-            })
+            }) ?? [],
+            Crew = movie.Credits?.Crew?
+                .Where(c => c.Job == "Director" || c.Job == "Producer" || c.Job == "Executive Producer" || c.Job == "Writer" || c.Job == "Screenplay")
+                .Take(10)
+                .Select(c => new
+                {
+                    c.Id,
+                    c.Name,
+                    c.Job,
+                    ProfileUrl = string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}"
+                }) ?? []
         });
     }
 

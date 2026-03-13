@@ -326,7 +326,7 @@
                 </section>
             }
 
-            <!-- Cast Section -->
+            <!-- Cast & Crew Section -->
             <section>
                 <div class="form-group-header !mb-8 flex items-center justify-between">
                     <div>
@@ -336,29 +336,36 @@
                     <span class="badge-outline">@Model.PersonEigenschaftFilme.Count @Localizer["ContributorsCount"]</span>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    @foreach (var participation in Model.PersonEigenschaftFilme)
+                <div class="space-y-12">
+                    @foreach (var group in Model.PersonEigenschaftFilme.GroupBy(p => p.Eigenschaft.Bezeichnung))
                     {
-                        <a asp-controller="Person" asp-action="Details" asp-route-id="@participation.PersonID" 
-                           class="card-premium flex items-center p-6 group hover:border-brand-primary/30 transition-all">
-                            <div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-border-muted dark:border-dark-border group-hover:shadow-lg transition-all">
-                                @if (!string.IsNullOrEmpty(participation.Person.ProfilBildUrl))
+                        <div>
+                            <h3 class="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em] mb-4 px-2">@group.Key</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                @foreach (var participation in group)
                                 {
-                                    <img src="@participation.Person.ProfilBildUrl" alt="@participation.Person.Vorname @participation.Person.Nachname" class="w-full h-full object-cover transition-transform group-hover:scale-110" />
-                                }
-                                else
-                                {
-                                    <div class="w-full h-full flex items-center justify-center bg-surface-muted dark:bg-dark-surface-soft transition-colors">
-                                        <i aria-hidden="true" class="fa-solid fa-user text-2xl text-text-muted"></i>
-                                    </div>
+                                    <a asp-controller="Person" asp-action="Details" asp-route-id="@participation.PersonID" 
+                                       class="card-premium flex items-center p-4 group hover:border-brand-primary/30 transition-all bg-surface-subtle/30 dark:bg-dark-surface/30">
+                                        <div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 border border-border-muted dark:border-dark-border group-hover:shadow-lg transition-all">
+                                            @if (!string.IsNullOrEmpty(participation.Person.ProfilBildUrl))
+                                            {
+                                                <img src="@participation.Person.ProfilBildUrl" alt="@participation.Person.Vorname @participation.Person.Nachname" class="w-full h-full object-cover transition-transform group-hover:scale-110" />
+                                            }
+                                            else
+                                            {
+                                                <div class="w-full h-full flex items-center justify-center bg-surface-muted dark:bg-dark-surface-soft">
+                                                    <i aria-hidden="true" class="fa-solid fa-user text-lg text-text-muted"></i>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="ml-4 flex-grow min-w-0">
+                                            <p class="text-sm font-black text-text-main dark:text-white group-hover:text-brand-primary transition-colors truncate">@participation.Person.Vorname @participation.Person.Nachname</p>
+                                        </div>
+                                        <i aria-hidden="true" class="fa-solid fa-chevron-right ml-auto text-border-default dark:text-dark-surface-muted transition-transform group-hover:translate-x-1 text-xs px-2"></i>
+                                    </a>
                                 }
                             </div>
-                            <div class="ml-5">
-                                <p class="text-md font-black text-text-main dark:text-white group-hover:text-brand-primary transition-colors">@participation.Person.Vorname @participation.Person.Nachname</p>
-                                <p class="text-[10px] font-bold text-text-muted uppercase tracking-widest mt-1">@participation.Eigenschaft.Bezeichnung</p>
-                            </div>
-                            <i aria-hidden="true" class="fa-solid fa-chevron-right ml-auto text-border-default dark:text-dark-surface-muted transition-transform group-hover:translate-x-2"></i>
-                        </a>
+                        </div>
                     }
                 </div>
             @if (Model.SimilarFilms?.Any() == true)

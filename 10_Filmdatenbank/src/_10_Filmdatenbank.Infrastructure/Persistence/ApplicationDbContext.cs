@@ -9,7 +9,7 @@ namespace _10_Filmdatenbank.Infrastructure.Persistence;
 /// Der Entity Framework Core Datenbankkontext für die Anwendung.
 /// Erweitert IdentityDbContext für die Benutzer- und Rollenverwaltung.
 /// </summary>
-public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
     /// <summary>
     /// Initialisiert eine neue Instanz des Datenbankkontexts.
@@ -79,6 +79,18 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     /// Die Tabelle für länderspezifische Filmveröffentlichungen.
     /// </summary>
     public DbSet<FilmRelease> FilmReleases { get; set; } = null!;
+
+    // Community / Social DBSets
+    public DbSet<FanGroup> FanGroups { get; set; } = null!;
+    public DbSet<GroupMember> GroupMembers { get; set; } = null!;
+    public DbSet<DiscussionThread> DiscussionThreads { get; set; } = null!;
+    public DbSet<Comment> Comments { get; set; } = null!;
+    public DbSet<Notification> Notifications { get; set; } = null!;
+    public DbSet<MembershipRequest> MembershipRequests { get; set; } = null!;
+    public DbSet<GroupBan> GroupBans { get; set; } = null!;
+    public DbSet<Achievement> Achievements { get; set; } = null!;
+    public DbSet<UserAchievement> UserAchievements { get; set; } = null!;
+    public DbSet<FavoriteFilm> FavoriteFilms { get; set; } = null!;
 
     /// <summary>
     /// Konfiguriert das Datenbankmodell, insbesondere Beziehungen und initiale Daten.
@@ -206,5 +218,124 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
                     .HasForeignKey(pc => pc.ParentCompanyID)
                     .OnDelete(DeleteBehavior.NoAction);
             });
+
+        // Community Configurations
+        builder.Entity<FanGroup>(entity =>
+        {
+            entity.HasKey(g => g.FanGroupID);
+            entity.HasOne(g => g.ParentGroup)
+                .WithMany(g => g.SubGroups)
+                .HasForeignKey(g => g.ParentGroupID)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        builder.Entity<DiscussionThread>(entity => 
+        {
+            entity.HasKey(t => t.ThreadID);
+            entity.HasOne(t => t.Author)
+                .WithMany(u => u.Threads)
+                .HasForeignKey(t => t.AuthorID)
+                .OnDelete(DeleteBehavior.NoAction);
+                
+            entity.HasOne(t => t.FanGroup)
+                .WithMany(g => g.Threads)
+                .HasForeignKey(t => t.FanGroupID)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        builder.Entity<Comment>(entity => 
+        {
+            entity.HasKey(c => c.CommentID);
+            entity.HasOne(c => c.Author)
+                .WithMany(u => u.Comments)
+                .HasForeignKey(c => c.AuthorID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            entity.HasOne(c => c.Thread)
+                .WithMany(t => t.Comments)
+                .HasForeignKey(c => c.ThreadID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            entity.HasOne(c => c.ParentComment)
+                .WithMany(c => c.Replies)
+                .HasForeignKey(c => c.ParentCommentID)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        builder.Entity<Notification>(entity => 
+        {
+            entity.HasKey(n => n.NotificationID);
+            entity.HasOne(n => n.User)
+                .WithMany(u => u.Notifications)
+                .HasForeignKey(n => n.UserID)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        builder.Entity<GroupMember>(entity => entity.HasKey(m => m.GroupMemberID));
+
+        builder.Entity<GroupMember>(entity =>
+        {
+            entity.HasOne(m => m.User)
+                .WithMany(u => u.GroupMemberships)
+                .HasForeignKey(m => m.UserID);
+
+            entity.HasOne(m => m.FanGroup)
+                .WithMany(g => g.Members)
+                .HasForeignKey(m => m.FanGroupID);
+        });
+
+        builder.Entity<MembershipRequest>(entity => 
+        {
+            entity.HasKey(r => r.MembershipRequestID);
+            entity.HasOne(r => r.User)
+                .WithMany()
+                .HasForeignKey(r => r.UserID)
+                .OnDelete(DeleteBehavior.NoAction);
+            entity.HasOne(r => r.FanGroup)
+                .WithMany(g => g.JoinRequests)
+                .HasForeignKey(r => r.FanGroupID)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        builder.Entity<GroupBan>(entity => 
+        {
+            entity.HasKey(b => b.GroupBanID);
+            entity.HasOne(b => b.User)
+                .WithMany()
+                .HasForeignKey(b => b.UserID)
+                .OnDelete(DeleteBehavior.NoAction);
+            entity.HasOne(b => b.FanGroup)
+                .WithMany(g => g.BannedUsers)
+                .HasForeignKey(b => b.FanGroupID)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        builder.Entity<Achievement>(entity => entity.HasKey(a => a.AchievementID));
+        
+        builder.Entity<UserAchievement>(entity =>
+        {
+            entity.HasKey(ua => ua.UserAchievementID);
+            entity.HasOne(ua => ua.User)
+                .WithMany(u => u.EarnedAchievements)
+                .HasForeignKey(ua => ua.UserID)
+                .OnDelete(DeleteBehavior.NoAction);
+            entity.HasOne(ua => ua.Achievement)
+                .WithMany(a => a.EarnedBy)
+                .HasForeignKey(ua => ua.AchievementID)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        builder.Entity<FavoriteFilm>(entity =>
+        {
+            entity.HasKey(ff => ff.FavoriteFilmID);
+            entity.HasOne(ff => ff.User)
+                .WithMany(u => u.FavoriteFilms)
+                .HasForeignKey(ff => ff.UserID)
+                .OnDelete(DeleteBehavior.NoAction);
+            entity.HasOne(ff => ff.Film)
+                .WithMany()
+                .HasForeignKey(ff => ff.FilmID)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
     }
 }

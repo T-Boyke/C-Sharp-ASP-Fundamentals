@@ -1,5 +1,5 @@
-@using Microsoft.AspNetCore.Identity
-@model IEnumerable<IdentityUser>
+@using _10_Filmdatenbank.Domain.Entities
+@model IEnumerable<ApplicationUser>
 @{
     ViewData["Title"] = "User Management (RBAC)";
 }
@@ -22,9 +22,9 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-nav-surface border-b border-nav-border">
-                        <th class="px-6 py-4 text-xs font-black text-text-muted uppercase tracking-widest">User</th>
-                        <th class="px-6 py-4 text-xs font-black text-text-muted uppercase tracking-widest">Email</th>
-                        <th class="px-6 py-4 text-xs font-black text-text-muted uppercase tracking-widest">Identity ID</th>
+                        <th class="px-6 py-4 text-xs font-black text-text-muted uppercase tracking-widest">User / Registered</th>
+                        <th class="px-6 py-4 text-xs font-black text-text-muted uppercase tracking-widest">Email / Name</th>
+                        <th class="px-6 py-4 text-xs font-black text-text-muted uppercase tracking-widest">Status</th>
                         <th class="px-6 py-4 text-xs font-black text-text-muted uppercase tracking-widest text-right">Actions</th>
                     </tr>
                 </thead>
@@ -34,24 +34,42 @@
                         <tr class="hover:bg-nav-accent/30 transition-colors group">
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-full bg-surface-bright flex items-center justify-center text-brand-primary font-bold border border-brand-primary/20">
-                                        @(user.UserName?[0].ToString().ToUpper() ?? "?")
+                                    <div class="w-10 h-10 rounded-full bg-surface-bright flex items-center justify-center text-brand-primary font-bold border border-brand-primary/20 overflow-hidden">
+                                        @if (user.ProfilePicture != null)
+                                        {
+                                            <img src="data:@user.ProfilePictureContentType;base64,@Convert.ToBase64String(user.ProfilePicture)" class="w-full h-full object-cover" />
+                                        }
+                                        else
+                                        {
+                                            @(user.UserName?[0].ToString().ToUpper() ?? "?")
+                                        }
                                     </div>
-                                    <span class="font-bold text-white">@user.UserName</span>
+                                    <div>
+                                        <span class="font-bold text-white block">@user.UserName</span>
+                                        <span class="text-[10px] text-text-muted uppercase tracking-wider">Seit @user.CreatedAt.ToString("dd.MM.yyyy")</span>
+                                    </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4">
-                                <span class="text-sm text-dark-text-muted">@user.Email</span>
+                                <span class="text-sm text-white font-medium block">@user.FirstName @user.LastName</span>
+                                <span class="text-xs text-dark-text-muted">@user.Email</span>
                             </td>
                             <td class="px-6 py-4">
-                                <code class="text-[10px] bg-nav-surface px-2 py-1 rounded text-text-muted">@user.Id</code>
+                                @if (user.IsDisabled)
+                                {
+                                    <span class="badge badge-error">Deaktiviert</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-success">Aktiv</span>
+                                }
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <button class="p-2 rounded-lg hover:bg-brand-primary/10 text-text-muted hover:text-brand-primary transition-all">
+                                <button class="p-2 rounded-lg hover:bg-brand-primary/10 text-text-muted hover:text-brand-primary transition-all" title="Editieren">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
-                                <button class="p-2 rounded-lg hover:bg-danger-primary/10 text-text-muted hover:text-danger-primary transition-all ml-1">
-                                    <i class="fa-solid fa-trash-can"></i>
+                                <button class="p-2 rounded-lg hover:bg-danger-primary/10 text-text-muted hover:text-danger-primary transition-all ml-1" title="Löschen / Sperren">
+                                    <i class="fa-solid fa-user-slash"></i>
                                 </button>
                             </td>
                         </tr>

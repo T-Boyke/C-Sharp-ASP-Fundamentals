@@ -1,3 +1,4 @@
+using _10_Filmdatenbank.Application.Interfaces;
 using _10_Filmdatenbank.Domain.Entities;
 using _10_Filmdatenbank.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +15,7 @@ namespace _10_Filmdatenbank.Web.Controllers;
 [Authorize]
 [Route("Movies")]
 [Route("Movies/[action]")]
-public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Application.Interfaces.ITmdbService tmdbService) : Controller
+public class FilmController(ApplicationDbContext context, ITmdbService tmdbService) : Controller
 {
     /// <summary>
     /// Zeigt eine Liste aller Filme an.
@@ -83,7 +84,7 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
     /// <returns>Redirect zur Index-View bei Erfolg, andernfalls die Create-View mit Fehlern.</returns>
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Create(Film film, string? SelectedCastJson = null, string? SelectedGenresJson = null, string? SelectedKeywordsJson = null, string? SelectedCompaniesJson = null, int? TmdbCollectionId = null, string? TmdbCollectionName = null)
+    public async Task<IActionResult> Create(Film film, string? SelectedCastJson = null, string? SelectedCrewJson = null, string? SelectedGenresJson = null, string? SelectedKeywordsJson = null, string? SelectedCompaniesJson = null, int? TmdbCollectionId = null, string? TmdbCollectionName = null)
     {
         // Wir entfernen die Validierung für PersonEigenschaftFilme, da diese erst nach dem Film-Save verknüpft werden
         ModelState.Remove(nameof(film.PersonEigenschaftFilme));
@@ -91,6 +92,8 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
         ModelState.Remove(nameof(film.Keywords));
         ModelState.Remove(nameof(film.ProductionCompanies));
         ModelState.Remove(nameof(film.Collection));
+
+        if (film == null) return BadRequest();
 
         if (film.TmdbId.HasValue && await context.Filme.AnyAsync(f => f.TmdbId == film.TmdbId))
         {
@@ -129,14 +132,25 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
             // Handle Genres
             if (!string.IsNullOrEmpty(SelectedGenresJson))
             {
-                var genreNames = System.Text.Json.JsonSerializer.Deserialize<List<string>>(SelectedGenresJson);
-                if (genreNames != null)
+                var genreData = System.Text.Json.JsonSerializer.Deserialize<List<GenreDto>>(SelectedGenresJson);
+                if (genreData != null)
                 {
-                    foreach (var name in genreNames)
+                    foreach (var item in genreData)
                     {
-                        var genre = await context.Genres.FirstOrDefaultAsync(g => g.Name == name)
-                                    ?? new Genre { Name = name };
-                        film.Genres.Add(genre);
+                        var genre = context.Genres.Local.FirstOrDefault(g => g.TmdbId == item.Id)
+                                    ?? await context.Genres.FirstOrDefaultAsync(g => g.TmdbId == item.Id)
+                                    ?? await context.Genres.FirstOrDefaultAsync(g => g.Name == item.Name);
+                        
+                        if (genre == null)
+                        {
+                            genre = new Genre { Name = item.Name, TmdbId = item.Id };
+                            context.Genres.Add(genre);
+                        }
+                        
+                        if (!film.Genres.Any(g => g.TmdbId == item.Id))
+                        {
+                            film.Genres.Add(genre);
+                        }
                     }
                 }
             }
@@ -144,14 +158,25 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
             // Handle Keywords
             if (!string.IsNullOrEmpty(SelectedKeywordsJson))
             {
-                var keywordNames = System.Text.Json.JsonSerializer.Deserialize<List<string>>(SelectedKeywordsJson);
-                if (keywordNames != null)
+                var keywordData = System.Text.Json.JsonSerializer.Deserialize<List<KeywordDto>>(SelectedKeywordsJson);
+                if (keywordData != null)
                 {
-                    foreach (var name in keywordNames)
+                    foreach (var item in keywordData)
                     {
-                        var keyword = await context.Keywords.FirstOrDefaultAsync(k => k.Name == name)
-                                      ?? new Keyword { Name = name };
-                        film.Keywords.Add(keyword);
+                        var keyword = context.Keywords.Local.FirstOrDefault(k => k.TmdbId == item.Id)
+                                      ?? await context.Keywords.FirstOrDefaultAsync(k => k.TmdbId == item.Id)
+                                      ?? await context.Keywords.FirstOrDefaultAsync(k => k.Name == item.Name);
+                        
+                        if (keyword == null)
+                        {
+                            keyword = new Keyword { Name = item.Name, TmdbId = item.Id };
+                            context.Keywords.Add(keyword);
+                        }
+                        
+                        if (!film.Keywords.Any(k => k.TmdbId == item.Id))
+                        {
+                            film.Keywords.Add(keyword);
+                        }
                     }
                 }
             }
@@ -164,7 +189,8 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
                 {
                     foreach (var item in companies)
                     {
-                        var company = await context.ProductionCompanies.FirstOrDefaultAsync(c => c.TmdbId == item.Id)
+                        var company = context.ProductionCompanies.Local.FirstOrDefault(c => c.TmdbId == item.Id)
+                                      ?? await context.ProductionCompanies.FirstOrDefaultAsync(c => c.TmdbId == item.Id)
                                       ?? await context.ProductionCompanies.FirstOrDefaultAsync(c => c.Name == item.Name);
                         
                         if (company == null)
@@ -178,101 +204,17 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
                             };
                             context.ProductionCompanies.Add(company);
                         }
-                        film.ProductionCompanies.Add(company);
+                        
+                        if (!film.ProductionCompanies.Any(c => c.TmdbId == item.Id))
+                        {
+                            film.ProductionCompanies.Add(company);
+                        }
                     }
                 }
             }
 
-            // Handle Cast Synchronization
-            if (!string.IsNullOrEmpty(SelectedCastJson))
-            {
-                try
-                {
-                    var castItems = System.Text.Json.JsonSerializer.Deserialize<List<CastMemberDto>>(SelectedCastJson);
-                    if (castItems != null && castItems.Any())
-                    {
-                        var actorProperty = await context.Eigenschaften.FirstOrDefaultAsync(e => e.Bezeichnung == "Actor")
-                                            ?? new Eigenschaft { Bezeichnung = "Actor" };
-
-                        if (actorProperty.EigenschaftID == 0)
-                        {
-                            context.Eigenschaften.Add(actorProperty);
-                            await context.SaveChangesAsync();
-                        }
-
-                        foreach (var item in castItems)
-                        {
-                            // Smart Lookup: TmdbId first, then name match
-                            var person = await context.Personen.FirstOrDefaultAsync(p => p.TmdbId == item.id)
-                                         ?? await context.Personen.FirstOrDefaultAsync(p => (p.Vorname + " " + p.Nachname).Trim() == item.name.Trim());
-
-                            if (person == null)
-                            {
-                                // Fetch full person details from TMDB for enrichment
-                                var tmdbPerson = await tmdbService.GetPersonDetailsAsync(item.id);
-                                if (tmdbPerson != null)
-                                {
-                                    var names = tmdbPerson.Name.Split(' ', 2);
-                                    person = new Person
-                                    {
-                                        Vorname = names[0],
-                                        Nachname = names.Length > 1 ? names[1] : string.Empty,
-                                        TmdbId = tmdbPerson.Id,
-                                        ProfilBildUrl = string.IsNullOrEmpty(tmdbPerson.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w500{tmdbPerson.ProfilePath}",
-                                        Biografie = tmdbPerson.Biography,
-                                        Geburtsdatum = tmdbPerson.Birthday,
-                                        Geburtsort = tmdbPerson.PlaceOfBirth,
-                                        Gender = (int)tmdbPerson.Gender,
-                                        Deathday = tmdbPerson.Deathday,
-                                        Homepage = tmdbPerson.Homepage,
-                                        Popularity = tmdbPerson.Popularity,
-                                        ImdbId = tmdbPerson.ImdbId,
-                                        KnownForDepartment = tmdbPerson.KnownForDepartment,
-                                        Adult = tmdbPerson.Adult,
-                                        AlsoKnownAs = string.Join(", ", tmdbPerson.AlsoKnownAs ?? []),
-                                        FacebookId = tmdbPerson.ExternalIds?.FacebookId,
-                                        InstagramId = tmdbPerson.ExternalIds?.InstagramId,
-                                        TwitterId = tmdbPerson.ExternalIds?.TwitterId,
-                                        WikidataId = tmdbPerson.ExternalIds?.WikidataId,
-                                        FreebaseId = tmdbPerson.ExternalIds?.FreebaseId,
-                                        FreebaseMid = tmdbPerson.ExternalIds?.FreebaseMid,
-                                        TvrageId = tmdbPerson.ExternalIds?.TvrageId,
-                                        TmdbFilmographyJson = System.Text.Json.JsonSerializer.Serialize(tmdbPerson.CombinedCredits)
-                                    };
-                                }
-                                else
-                                {
-                                    // Fallback to basic info if detail fetch fails
-                                    var names = item.name.Split(' ', 2);
-                                    person = new Person
-                                    {
-                                        Vorname = names[0],
-                                        Nachname = names.Length > 1 ? names[1] : string.Empty,
-                                        TmdbId = item.id,
-                                        ProfilBildUrl = item.profileUrl,
-                                        Biografie = $"Automatischer Import von TMDB. Charakter: {item.character}"
-                                    };
-                                }
-                                context.Personen.Add(person);
-                                await context.SaveChangesAsync();
-                            }
-
-                            var pef = new PersonEigenschaftFilm
-                            {
-                                FilmID = film.FilmID,
-                                PersonID = person.PersonID,
-                                EigenschaftID = actorProperty.EigenschaftID
-                            };
-                            context.PersonEigenschaftFilme.Add(pef);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Log error but allow film creation to proceed
-                    Console.WriteLine($"Cast Sync Error: {ex.Message}");
-                }
-            }
+            // Handle Cast & Crew Synchronization
+            await HandleCastCrewSync(SelectedCastJson, SelectedCrewJson, film, context, tmdbService);
 
             await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -285,6 +227,113 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
         }
 
         return View(film);
+    }
+
+    private async Task HandleCastCrewSync(string? castJson, string? crewJson, Film film, ApplicationDbContext context, ITmdbService tmdbService)
+    {
+        // 1. Handle Cast
+        if (!string.IsNullOrEmpty(castJson))
+        {
+            try
+            {
+                var castItems = System.Text.Json.JsonSerializer.Deserialize<List<CastMemberDto>>(castJson);
+                if (castItems != null)
+                {
+                    var actorProperty = await context.Eigenschaften.FirstOrDefaultAsync(e => e.Bezeichnung == "Actor")
+                                        ?? new Eigenschaft { Bezeichnung = "Actor" };
+
+                    if (actorProperty.EigenschaftID == 0) { context.Eigenschaften.Add(actorProperty); await context.SaveChangesAsync(); }
+
+                    foreach (var item in castItems)
+                    {
+                        var person = await GetOrCreatePerson(item.id, item.name, item.profileUrl, context, tmdbService);
+                        if (person != null && !film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == actorProperty.EigenschaftID))
+                        {
+                            context.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = actorProperty.EigenschaftID });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) { Console.WriteLine($"Cast Sync Error: {ex.Message}"); }
+        }
+
+        // 2. Handle Crew
+        if (!string.IsNullOrEmpty(crewJson))
+        {
+            try
+            {
+                var crewItems = System.Text.Json.JsonSerializer.Deserialize<List<CrewMemberDto>>(crewJson);
+                if (crewItems != null)
+                {
+                    foreach (var item in crewItems)
+                    {
+                        var property = await context.Eigenschaften.FirstOrDefaultAsync(e => e.Bezeichnung == item.job)
+                                       ?? new Eigenschaft { Bezeichnung = item.job };
+
+                        if (property.EigenschaftID == 0) { context.Eigenschaften.Add(property); await context.SaveChangesAsync(); }
+
+                        var person = await GetOrCreatePerson(item.id, item.name, item.profileUrl, context, tmdbService);
+                        if (person != null && !film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == property.EigenschaftID))
+                        {
+                            context.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = property.EigenschaftID });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) { Console.WriteLine($"Crew Sync Error: {ex.Message}"); }
+        }
+    }
+
+    private async Task<Person?> GetOrCreatePerson(int tmdbId, string name, string? profileUrl, ApplicationDbContext context, ITmdbService tmdbService)
+    {
+        var person = await context.Personen.FirstOrDefaultAsync(p => p.TmdbId == tmdbId)
+                     ?? await context.Personen.FirstOrDefaultAsync(p => (p.Vorname + " " + p.Nachname).Trim() == name.Trim());
+
+        if (person == null)
+        {
+            var tmdbPerson = await tmdbService.GetPersonDetailsAsync(tmdbId);
+            if (tmdbPerson != null)
+            {
+                var names = tmdbPerson.Name.Split(' ', 2);
+                person = new Person
+                {
+                    Vorname = names[0],
+                    Nachname = names.Length > 1 ? names[1] : string.Empty,
+                    TmdbId = tmdbPerson.Id,
+                    ProfilBildUrl = string.IsNullOrEmpty(tmdbPerson.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w500{tmdbPerson.ProfilePath}",
+                    Biografie = tmdbPerson.Biography,
+                    Geburtsdatum = tmdbPerson.Birthday,
+                    Geburtsort = tmdbPerson.PlaceOfBirth,
+                    Gender = (int)tmdbPerson.Gender,
+                    Deathday = tmdbPerson.Deathday,
+                    Homepage = tmdbPerson.Homepage,
+                    Popularity = tmdbPerson.Popularity,
+                    ImdbId = tmdbPerson.ImdbId,
+                    KnownForDepartment = tmdbPerson.KnownForDepartment,
+                    Adult = tmdbPerson.Adult,
+                    AlsoKnownAs = string.Join(", ", tmdbPerson.AlsoKnownAs ?? []),
+                    FacebookId = tmdbPerson.ExternalIds?.FacebookId,
+                    InstagramId = tmdbPerson.ExternalIds?.InstagramId,
+                    TwitterId = tmdbPerson.ExternalIds?.TwitterId,
+                    WikidataId = tmdbPerson.ExternalIds?.WikidataId,
+                    TmdbFilmographyJson = System.Text.Json.JsonSerializer.Serialize(tmdbPerson.CombinedCredits)
+                };
+            }
+            else
+            {
+                var names = name.Split(' ', 2);
+                person = new Person
+                {
+                    Vorname = names[0],
+                    Nachname = names.Length > 1 ? names[1] : string.Empty,
+                    TmdbId = tmdbId,
+                    ProfilBildUrl = profileUrl
+                };
+            }
+            context.Personen.Add(person);
+            await context.SaveChangesAsync();
+        }
+        return person;
     }
 
     private class CompanyDto
@@ -301,6 +350,26 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
         public string name { get; set; } = string.Empty;
         public string character { get; set; } = string.Empty;
         public string? profileUrl { get; set; }
+    }
+
+    private class CrewMemberDto
+    {
+        public int id { get; set; }
+        public string name { get; set; } = string.Empty;
+        public string job { get; set; } = string.Empty;
+        public string? profileUrl { get; set; }
+    }
+
+    private class GenreDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+    }
+
+    private class KeywordDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 
     /// <summary>
