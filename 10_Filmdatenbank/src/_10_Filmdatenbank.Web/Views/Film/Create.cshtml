@@ -131,8 +131,21 @@
                     <div id="castList" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
                         <!-- Filled by JS -->
                     </div>
+
+                    <div class="flex items-center justify-between px-1 pt-4">
+                        <div>
+                            <h3 class="text-sm font-black text-text-main dark:text-white uppercase tracking-tight">Crew Members</h3>
+                            <p class="text-[9px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest">Wähle die Crew-Mitglieder zum Synchronisieren</p>
+                        </div>
+                        <button type="button" id="toggleAllCrew" class="text-[10px] font-black text-brand-primary hover:text-brand-hover uppercase tracking-widest transition-colors">Alle abwählen</button>
+                    </div>
+
+                    <div id="crewList" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
+                        <!-- Filled by JS -->
+                    </div>
                     
                     <input type="hidden" name="SelectedCastJson" id="inputSelectedCastJson" />
+                    <input type="hidden" name="SelectedCrewJson" id="inputSelectedCrewJson" />
                     <input type="hidden" name="SelectedGenresJson" id="inputSelectedGenresJson" />
                     <input type="hidden" name="SelectedKeywordsJson" id="inputSelectedKeywordsJson" />
                     <input type="hidden" name="SelectedCompaniesJson" id="inputSelectedCompaniesJson" />
@@ -306,12 +319,15 @@
                 const adultCheck = document.getElementById('inputAdult');
                 if (adultCheck) adultCheck.checked = data.adult || false;
 
-                // Handle Cast
+                // Handle Cast & Crew
                 const castSection = document.getElementById('castSection');
                 const castList = document.getElementById('castList');
-                if (data.cast && data.cast.length > 0) {
+                const crewList = document.getElementById('crewList');
+
+                if ((data.cast && data.cast.length > 0) || (data.crew && data.crew.length > 0)) {
                     castSection.classList.remove('hidden');
-                    castList.innerHTML = data.cast.map(c => `
+                    
+                    castList.innerHTML = (data.cast || []).map(c => `
                         <label class="flex items-center gap-3 p-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border cursor-pointer hover:border-brand-primary/50 transition-all group">
                             <input type="checkbox" class="cast-checkbox w-4 h-4 rounded border-border-default text-brand-primary focus:ring-brand-primary focus:ring-offset-dark-surface" checked 
                                    data-id="${c.id}" data-name="${c.name}" data-character="${c.character}" data-profile="${c.profileUrl || ''}" />
@@ -324,12 +340,27 @@
                             </div>
                         </label>
                     `).join('');
-                    updateSelectedCast();
                     
-                    // Add listeners for individual checkboxes
-                    castList.querySelectorAll('.cast-checkbox').forEach(cb => {
-                        cb.addEventListener('change', updateSelectedCast);
-                    });
+                    crewList.innerHTML = (data.crew || []).map(c => `
+                        <label class="flex items-center gap-3 p-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border cursor-pointer hover:border-brand-primary/50 transition-all group">
+                            <input type="checkbox" class="crew-checkbox w-4 h-4 rounded border-border-default text-brand-primary focus:ring-brand-primary focus:ring-offset-dark-surface" checked 
+                                   data-id="${c.id}" data-name="${c.name}" data-job="${c.job}" data-profile="${c.profileUrl || ''}" />
+                            <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-border-default dark:border-dark-border bg-surface-soft dark:bg-dark-surface">
+                                ${c.profileUrl ? `<img src="${c.profileUrl}" class="w-full h-full object-cover" />` : `<i class="fa-solid fa-user text-xs text-text-muted m-2"></i>`}
+                            </div>
+                            <div class="flex-grow min-w-0">
+                                <p class="text-[10px] font-black text-text-main dark:text-white truncate leading-tight">${c.name}</p>
+                                <p class="text-[8px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-tighter truncate mt-0.5">${c.job}</p>
+                            </div>
+                        </label>
+                    `).join('');
+
+                    updateSelectedCast();
+                    updateSelectedCrew();
+                    
+                    // Add listeners
+                    castList.querySelectorAll('.cast-checkbox').forEach(cb => cb.addEventListener('change', updateSelectedCast));
+                    crewList.querySelectorAll('.crew-checkbox').forEach(cb => cb.addEventListener('change', updateSelectedCrew));
                 } else {
                     castSection.classList.add('hidden');
                 }
@@ -360,12 +391,31 @@
             document.getElementById('inputSelectedCastJson').value = JSON.stringify(cast);
         }
 
+        function updateSelectedCrew() {
+            const checkboxes = document.querySelectorAll('.crew-checkbox:checked');
+            const crew = Array.from(checkboxes).map(cb => ({
+                id: parseInt(cb.dataset.id),
+                name: cb.dataset.name,
+                job: cb.dataset.job,
+                profileUrl: cb.dataset.profile
+            }));
+            document.getElementById('inputSelectedCrewJson').value = JSON.stringify(crew);
+        }
+
         document.getElementById('toggleAllCast')?.addEventListener('click', function() {
             const checkboxes = document.querySelectorAll('.cast-checkbox');
             const allChecked = Array.from(checkboxes).every(cb => cb.checked);
             this.textContent = allChecked ? 'Alle auswählen' : 'Alle abwählen';
             checkboxes.forEach(cb => cb.checked = !allChecked);
             updateSelectedCast();
+        });
+
+        document.getElementById('toggleAllCrew')?.addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('.crew-checkbox');
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            this.textContent = allChecked ? 'Alle auswählen' : 'Alle abwählen';
+            checkboxes.forEach(cb => cb.checked = !allChecked);
+            updateSelectedCrew();
         });
     </script>
 }

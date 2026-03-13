@@ -83,7 +83,7 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
     /// <returns>Redirect zur Index-View bei Erfolg, andernfalls die Create-View mit Fehlern.</returns>
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Create(Film film, string? SelectedCastJson = null, string? SelectedGenresJson = null, string? SelectedKeywordsJson = null, string? SelectedCompaniesJson = null, int? TmdbCollectionId = null, string? TmdbCollectionName = null)
+    public async Task<IActionResult> Create(Film film, string? SelectedCastJson = null, string? SelectedCrewJson = null, string? SelectedGenresJson = null, string? SelectedKeywordsJson = null, string? SelectedCompaniesJson = null, int? TmdbCollectionId = null, string? TmdbCollectionName = null)
     {
         // Wir entfernen die Validierung für PersonEigenschaftFilme, da diese erst nach dem Film-Save verknüpft werden
         ModelState.Remove(nameof(film.PersonEigenschaftFilme));
@@ -212,96 +212,8 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
                 }
             }
 
-            // Handle Cast Synchronization
-            if (!string.IsNullOrEmpty(SelectedCastJson))
-            {
-                try
-                {
-                    var castItems = System.Text.Json.JsonSerializer.Deserialize<List<CastMemberDto>>(SelectedCastJson);
-                    if (castItems != null && castItems.Any())
-                    {
-                        var actorProperty = await context.Eigenschaften.FirstOrDefaultAsync(e => e.Bezeichnung == "Actor")
-                                            ?? new Eigenschaft { Bezeichnung = "Actor" };
-
-                        if (actorProperty.EigenschaftID == 0)
-                        {
-                            context.Eigenschaften.Add(actorProperty);
-                            await context.SaveChangesAsync();
-                        }
-
-                        foreach (var item in castItems)
-                        {
-                            // Smart Lookup: TmdbId first, then name match
-                            var person = await context.Personen.FirstOrDefaultAsync(p => p.TmdbId == item.id)
-                                         ?? await context.Personen.FirstOrDefaultAsync(p => (p.Vorname + " " + p.Nachname).Trim() == item.name.Trim());
-
-                            if (person == null)
-                            {
-                                // Fetch full person details from TMDB for enrichment
-                                var tmdbPerson = await tmdbService.GetPersonDetailsAsync(item.id);
-                                if (tmdbPerson != null)
-                                {
-                                    var names = tmdbPerson.Name.Split(' ', 2);
-                                    person = new Person
-                                    {
-                                        Vorname = names[0],
-                                        Nachname = names.Length > 1 ? names[1] : string.Empty,
-                                        TmdbId = tmdbPerson.Id,
-                                        ProfilBildUrl = string.IsNullOrEmpty(tmdbPerson.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w500{tmdbPerson.ProfilePath}",
-                                        Biografie = tmdbPerson.Biography,
-                                        Geburtsdatum = tmdbPerson.Birthday,
-                                        Geburtsort = tmdbPerson.PlaceOfBirth,
-                                        Gender = (int)tmdbPerson.Gender,
-                                        Deathday = tmdbPerson.Deathday,
-                                        Homepage = tmdbPerson.Homepage,
-                                        Popularity = tmdbPerson.Popularity,
-                                        ImdbId = tmdbPerson.ImdbId,
-                                        KnownForDepartment = tmdbPerson.KnownForDepartment,
-                                        Adult = tmdbPerson.Adult,
-                                        AlsoKnownAs = string.Join(", ", tmdbPerson.AlsoKnownAs ?? []),
-                                        FacebookId = tmdbPerson.ExternalIds?.FacebookId,
-                                        InstagramId = tmdbPerson.ExternalIds?.InstagramId,
-                                        TwitterId = tmdbPerson.ExternalIds?.TwitterId,
-                                        WikidataId = tmdbPerson.ExternalIds?.WikidataId,
-                                        FreebaseId = tmdbPerson.ExternalIds?.FreebaseId,
-                                        FreebaseMid = tmdbPerson.ExternalIds?.FreebaseMid,
-                                        TvrageId = tmdbPerson.ExternalIds?.TvrageId,
-                                        TmdbFilmographyJson = System.Text.Json.JsonSerializer.Serialize(tmdbPerson.CombinedCredits)
-                                    };
-                                }
-                                else
-                                {
-                                    // Fallback to basic info if detail fetch fails
-                                    var names = item.name.Split(' ', 2);
-                                    person = new Person
-                                    {
-                                        Vorname = names[0],
-                                        Nachname = names.Length > 1 ? names[1] : string.Empty,
-                                        TmdbId = item.id,
-                                        ProfilBildUrl = item.profileUrl,
-                                        Biografie = $"Automatischer Import von TMDB. Charakter: {item.character}"
-                                    };
-                                }
-                                context.Personen.Add(person);
-                                await context.SaveChangesAsync();
-                            }
-
-                            var pef = new PersonEigenschaftFilm
-                            {
-                                FilmID = film.FilmID,
-                                PersonID = person.PersonID,
-                                EigenschaftID = actorProperty.EigenschaftID
-                            };
-                            context.PersonEigenschaftFilme.Add(pef);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Log error but allow film creation to proceed
-                    Console.WriteLine($"Cast Sync Error: {ex.Message}");
-                }
-            }
+            // Handle Cast & Crew Synchronization
+            await HandleCastCrewSync(SelectedCastJson, SelectedCrewJson, film, context, tmdbService);
 
             await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -314,6 +226,113 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
         }
 
         return View(film);
+    }
+
+    private async Task HandleCastCrewSync(string? castJson, string? crewJson, Film film, ApplicationDbContext context, ITmdbService tmdbService)
+    {
+        // 1. Handle Cast
+        if (!string.IsNullOrEmpty(castJson))
+        {
+            try
+            {
+                var castItems = System.Text.Json.JsonSerializer.Deserialize<List<CastMemberDto>>(castJson);
+                if (castItems != null)
+                {
+                    var actorProperty = await context.Eigenschaften.FirstOrDefaultAsync(e => e.Bezeichnung == "Actor")
+                                        ?? new Eigenschaft { Bezeichnung = "Actor" };
+
+                    if (actorProperty.EigenschaftID == 0) { context.Eigenschaften.Add(actorProperty); await context.SaveChangesAsync(); }
+
+                    foreach (var item in castItems)
+                    {
+                        var person = await GetOrCreatePerson(item.id, item.name, item.profileUrl, context, tmdbService);
+                        if (person != null && !film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == actorProperty.EigenschaftID))
+                        {
+                            context.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = actorProperty.EigenschaftID });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) { Console.WriteLine($"Cast Sync Error: {ex.Message}"); }
+        }
+
+        // 2. Handle Crew
+        if (!string.IsNullOrEmpty(crewJson))
+        {
+            try
+            {
+                var crewItems = System.Text.Json.JsonSerializer.Deserialize<List<CrewMemberDto>>(crewJson);
+                if (crewItems != null)
+                {
+                    foreach (var item in crewItems)
+                    {
+                        var property = await context.Eigenschaften.FirstOrDefaultAsync(e => e.Bezeichnung == item.job)
+                                       ?? new Eigenschaft { Bezeichnung = item.job };
+
+                        if (property.EigenschaftID == 0) { context.Eigenschaften.Add(property); await context.SaveChangesAsync(); }
+
+                        var person = await GetOrCreatePerson(item.id, item.name, item.profileUrl, context, tmdbService);
+                        if (person != null && !film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == property.EigenschaftID))
+                        {
+                            context.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = property.EigenschaftID });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) { Console.WriteLine($"Crew Sync Error: {ex.Message}"); }
+        }
+    }
+
+    private async Task<Person?> GetOrCreatePerson(int tmdbId, string name, string? profileUrl, ApplicationDbContext context, ITmdbService tmdbService)
+    {
+        var person = await context.Personen.FirstOrDefaultAsync(p => p.TmdbId == tmdbId)
+                     ?? await context.Personen.FirstOrDefaultAsync(p => (p.Vorname + " " + p.Nachname).Trim() == name.Trim());
+
+        if (person == null)
+        {
+            var tmdbPerson = await tmdbService.GetPersonDetailsAsync(tmdbId);
+            if (tmdbPerson != null)
+            {
+                var names = tmdbPerson.Name.Split(' ', 2);
+                person = new Person
+                {
+                    Vorname = names[0],
+                    Nachname = names.Length > 1 ? names[1] : string.Empty,
+                    TmdbId = tmdbPerson.Id,
+                    ProfilBildUrl = string.IsNullOrEmpty(tmdbPerson.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w500{tmdbPerson.ProfilePath}",
+                    Biografie = tmdbPerson.Biography,
+                    Geburtsdatum = tmdbPerson.Birthday,
+                    Geburtsort = tmdbPerson.PlaceOfBirth,
+                    Gender = (int)tmdbPerson.Gender,
+                    Deathday = tmdbPerson.Deathday,
+                    Homepage = tmdbPerson.Homepage,
+                    Popularity = tmdbPerson.Popularity,
+                    ImdbId = tmdbPerson.ImdbId,
+                    KnownForDepartment = tmdbPerson.KnownForDepartment,
+                    Adult = tmdbPerson.Adult,
+                    AlsoKnownAs = string.Join(", ", tmdbPerson.AlsoKnownAs ?? []),
+                    FacebookId = tmdbPerson.ExternalIds?.FacebookId,
+                    InstagramId = tmdbPerson.ExternalIds?.InstagramId,
+                    TwitterId = tmdbPerson.ExternalIds?.TwitterId,
+                    WikidataId = tmdbPerson.ExternalIds?.WikidataId,
+                    TmdbFilmographyJson = System.Text.Json.JsonSerializer.Serialize(tmdbPerson.CombinedCredits)
+                };
+            }
+            else
+            {
+                var names = name.Split(' ', 2);
+                person = new Person
+                {
+                    Vorname = names[0],
+                    Nachname = names.Length > 1 ? names[1] : string.Empty,
+                    TmdbId = tmdbId,
+                    ProfilBildUrl = profileUrl
+                };
+            }
+            context.Personen.Add(person);
+            await context.SaveChangesAsync();
+        }
+        return person;
     }
 
     private class CompanyDto
@@ -329,6 +348,14 @@ public class FilmController(ApplicationDbContext context, _10_Filmdatenbank.Appl
         public int id { get; set; }
         public string name { get; set; } = string.Empty;
         public string character { get; set; } = string.Empty;
+        public string? profileUrl { get; set; }
+    }
+
+    private class CrewMemberDto
+    {
+        public int id { get; set; }
+        public string name { get; set; } = string.Empty;
+        public string job { get; set; } = string.Empty;
         public string? profileUrl { get; set; }
     }
 

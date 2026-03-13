@@ -68,13 +68,23 @@ public class TmdbController(ITmdbService tmdbService) : ControllerBase
             WikidataId = movie.ExternalIds?.WikidataId,
             CollectionId = movie.BelongsToCollection?.Id,
             CollectionName = movie.BelongsToCollection?.Name,
-            Cast = movie.Credits?.Cast?.Take(10).Select(c => new
+            Cast = movie.Credits?.Cast?.Take(15).Select(c => new
             {
                 c.Id,
                 c.Name,
                 c.Character,
                 ProfileUrl = string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}"
-            })
+            }) ?? [],
+            Crew = movie.Credits?.Crew?
+                .Where(c => c.Job == "Director" || c.Job == "Producer" || c.Job == "Executive Producer" || c.Job == "Writer" || c.Job == "Screenplay")
+                .Take(10)
+                .Select(c => new
+                {
+                    c.Id,
+                    c.Name,
+                    c.Job,
+                    ProfileUrl = string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}"
+                }) ?? []
         });
     }
 
