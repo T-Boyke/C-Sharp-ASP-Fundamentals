@@ -1,0 +1,78 @@
+@using _10_Filmdatenbank.Domain.Entities
+@model List<FanGroup>
+@{
+    ViewData["Title"] = "Group Moderation";
+}
+
+<div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="mb-12 flex items-center justify-between">
+        <div>
+            <h1 class="text-4xl font-extrabold text-white tracking-tight">
+                Group <span class="text-brand-primary">Moderation</span>
+            </h1>
+            <p class="mt-2 text-dark-text-muted">Verwalte alle Community-Gruppen, Beitrittsanfragen und Sperren.</p>
+        </div>
+        <div class="flex gap-4">
+            <span class="badge badge-primary px-4 py-2">@Model.Count Gruppen</span>
+            <span class="badge badge-warning px-4 py-2">@Model.Sum(g => g.JoinRequests.Count(r => r.Status == RequestStatus.Pending)) Offene Anfragen</span>
+        </div>
+    </div>
+
+    <div class="card-glass overflow-hidden border border-nav-border">
+        <table class="w-full text-left">
+            <thead class="bg-nav-surface border-b border-nav-border">
+                <tr>
+                    <th class="px-6 py-4 text-[10px] font-black text-text-muted uppercase tracking-widest">Gruppe</th>
+                    <th class="px-6 py-4 text-[10px] font-black text-text-muted uppercase tracking-widest text-center">Mitglieder</th>
+                    <th class="px-6 py-4 text-[10px] font-black text-text-muted uppercase tracking-widest text-center">Status</th>
+                    <th class="px-6 py-4 text-[10px] font-black text-text-muted uppercase tracking-widest">Erstellt am</th>
+                    <th class="px-6 py-4 text-[10px] font-black text-text-muted uppercase tracking-widest text-right">Aktionen</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-nav-border/50">
+                @foreach (var group in Model)
+                {
+                    <tr class="hover:bg-nav-accent/20 transition-all">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded bg-brand-primary/10 flex items-center justify-center text-brand-primary">
+                                    <i class="fa-solid fa-people-group"></i>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm font-bold text-white">@group.Name</span>
+                                    <span class="text-[10px] text-text-muted truncate max-w-xs">@group.Description</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <span class="text-sm font-black text-brand-primary">@group.Members.Count</span>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            @if (group.IsPrivate)
+                            {
+                                <span class="badge badge-warning">Privat</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-success">Öffentlich</span>
+                            }
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="text-xs text-text-muted">@group.CreatedAt.ToString("d")</span>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <div class="flex items-center justify-end gap-2">
+                                <button class="w-8 h-8 rounded-lg bg-nav-surface border border-nav-border text-text-muted hover:text-brand-primary transition-all shadow-sm" title="Bearbeiten">
+                                    <i class="fa-solid fa-pen-to-square text-xs"></i>
+                                </button>
+                                <button class="w-8 h-8 rounded-lg bg-nav-surface border border-nav-border text-text-muted hover:text-danger-primary transition-all shadow-sm" title="Löschen">
+                                    <i class="fa-solid fa-trash text-xs"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

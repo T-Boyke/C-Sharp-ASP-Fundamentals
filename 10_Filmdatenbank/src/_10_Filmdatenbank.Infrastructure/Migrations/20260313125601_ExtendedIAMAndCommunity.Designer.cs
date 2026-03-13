@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _10_Filmdatenbank.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using _10_Filmdatenbank.Infrastructure.Persistence;
 namespace _10_Filmdatenbank.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260313125601_ExtendedIAMAndCommunity")]
+    partial class ExtendedIAMAndCommunity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -546,18 +549,12 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<string>("GroupImageContentType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsPrivate")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ParentGroupID")
                         .HasColumnType("int");
-
-                    b.Property<bool>("RequiresApproval")
-                        .HasColumnType("bit");
 
                     b.HasKey("FanGroupID");
 
@@ -725,39 +722,6 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.GroupBan", b =>
-                {
-                    b.Property<int>("GroupBanID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GroupBanID"));
-
-                    b.Property<DateTime>("BannedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ExpiresAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("FanGroupID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Reason")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("GroupBanID");
-
-                    b.HasIndex("FanGroupID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("GroupBans");
-                });
-
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.GroupMember", b =>
                 {
                     b.Property<int>("GroupMemberID")
@@ -765,9 +729,6 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GroupMemberID"));
-
-                    b.Property<bool>("CanEditGroupContent")
-                        .HasColumnType("bit");
 
                     b.Property<int>("FanGroupID")
                         .HasColumnType("int");
@@ -830,39 +791,6 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.HasKey("Iso_639_1");
 
                     b.ToTable("Languages");
-                });
-
-            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.MembershipRequest", b =>
-                {
-                    b.Property<int>("MembershipRequestID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MembershipRequestID"));
-
-                    b.Property<int>("FanGroupID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RequestedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("MembershipRequestID");
-
-                    b.HasIndex("FanGroupID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("MembershipRequests");
                 });
 
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.Notification", b =>
@@ -1319,25 +1247,6 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Navigation("Film");
                 });
 
-            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.GroupBan", b =>
-                {
-                    b.HasOne("_10_Filmdatenbank.Domain.Entities.FanGroup", "FanGroup")
-                        .WithMany("BannedUsers")
-                        .HasForeignKey("FanGroupID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("_10_Filmdatenbank.Domain.Entities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("FanGroup");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.GroupMember", b =>
                 {
                     b.HasOne("_10_Filmdatenbank.Domain.Entities.FanGroup", "FanGroup")
@@ -1350,25 +1259,6 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                         .WithMany("GroupMemberships")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("FanGroup");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.MembershipRequest", b =>
-                {
-                    b.HasOne("_10_Filmdatenbank.Domain.Entities.FanGroup", "FanGroup")
-                        .WithMany("JoinRequests")
-                        .HasForeignKey("FanGroupID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("_10_Filmdatenbank.Domain.Entities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("FanGroup");
@@ -1457,10 +1347,6 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.FanGroup", b =>
                 {
-                    b.Navigation("BannedUsers");
-
-                    b.Navigation("JoinRequests");
-
                     b.Navigation("Members");
 
                     b.Navigation("SubGroups");

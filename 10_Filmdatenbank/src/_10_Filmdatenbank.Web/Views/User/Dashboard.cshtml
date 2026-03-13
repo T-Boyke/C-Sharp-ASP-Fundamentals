@@ -1,0 +1,112 @@
+@using _10_Filmdatenbank.Domain.Entities
+@model ApplicationUser
+@{
+    ViewData["Title"] = "User Dashboard";
+}
+
+<div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="mb-12">
+        <h1 class="text-4xl font-extrabold text-white tracking-tight">
+            Willkommen zurück, <span class="text-brand-primary">@Model.FirstName</span>!
+        </h1>
+        <p class="mt-2 text-dark-text-muted">Hier findest du deine Aktivitäten und Benachrichtigungen.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Profile Card -->
+        <div class="lg:col-span-1 space-y-6">
+            <div class="card-glass p-6 text-center">
+                <div class="w-32 h-32 rounded-full bg-brand-primary/10 mx-auto mb-4 border-4 border-brand-primary/20 overflow-hidden">
+                    @if (Model.ProfilePicture != null)
+                    {
+                        <img src="data:@Model.ProfilePictureContentType;base64,@Convert.ToBase64String(Model.ProfilePicture)" class="w-full h-full object-cover" />
+                    }
+                    else
+                    {
+                        <div class="w-full h-full flex items-center justify-center text-4xl font-black text-brand-primary">
+                            @Model.UserName?[0].ToString().ToUpper()
+                        </div>
+                    }
+                </div>
+                <h2 class="text-xl font-bold text-white">@Model.FirstName @Model.LastName</h2>
+                <p class="text-sm text-dark-text-muted mb-6">@Model.Email</p>
+                <a asp-action="Profile" class="btn-group-btn flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-brand-primary/30 text-brand-primary hover:bg-brand-primary/10 transition-all font-bold">
+                    <i class="fa-solid fa-user-pen"></i>
+                    Profil bearbeiten
+                </a>
+            </div>
+
+            <div class="card-glass p-6">
+                <h3 class="text-sm font-black text-white uppercase tracking-widest mb-4">Statistiken</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 rounded-xl bg-nav-surface border border-nav-border">
+                        <span class="block text-2xl font-black text-brand-primary">@Model.GroupMemberships.Count</span>
+                        <span class="text-[10px] text-text-muted uppercase font-bold">Gruppen</span>
+                    </div>
+                    <div class="p-4 rounded-xl bg-nav-surface border border-nav-border">
+                        <span class="block text-2xl font-black text-brand-primary">@Model.Threads.Count</span>
+                        <span class="text-[10px] text-text-muted uppercase font-bold">Threads</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Feed / Notifications -->
+        <div class="lg:col-span-2 space-y-8">
+            <div class="card-glass overflow-hidden border border-nav-border">
+                <div class="px-6 py-4 bg-nav-surface border-b border-nav-border flex items-center justify-between">
+                    <h3 class="text-lg font-bold text-white">Letzte Benachrichtigungen</h3>
+                    <span class="badge badge-primary">@Model.Notifications.Count(n => !n.IsRead) Neu</span>
+                </div>
+                <div class="divide-y divide-nav-border/50">
+                    @if (!Model.Notifications.Any())
+                    {
+                        <div class="p-12 text-center text-dark-text-muted">
+                            <i class="fa-solid fa-bell-slash text-4xl opacity-20 mb-4 block"></i>
+                            <p>Keine neuen Benachrichtigungen.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        @foreach (var notification in Model.Notifications.OrderByDescending(n => n.CreatedAt).Take(5))
+                        {
+                            <div class="p-5 hover:bg-nav-accent/30 transition-all flex gap-4 items-start @(!notification.IsRead ? "bg-brand-primary/5" : "")">
+                                <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 @(!notification.IsRead ? "bg-brand-primary/20 text-brand-primary" : "bg-nav-surface text-text-muted")">
+                                    <i class="fa-solid fa-comment-dots"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-white font-medium">@notification.Message</p>
+                                    <span class="text-[10px] text-text-muted mt-1 block">@notification.CreatedAt.ToString("g")</span>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="p-4 bg-nav-surface text-center">
+                    <a href="#" class="text-xs font-bold text-brand-primary hover:underline">Alle Benachrichtigungen sehen</a>
+                </div>
+            </div>
+
+            <!-- Group Activity Example -->
+            <div class="card-glass p-6">
+                <h3 class="text-lg font-bold text-white mb-6">Deine Gruppen</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    @foreach (var membership in Model.GroupMemberships.Take(4))
+                    {
+                        <div class="p-4 rounded-xl bg-nav-surface border border-nav-border hover:border-brand-primary/50 transition-all cursor-pointer group">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-xl text-brand-primary group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-people-roof"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">@membership.FanGroup.Name</h4>
+                                    <span class="text-[10px] text-brand-primary font-black uppercase tracking-widest">@membership.Role</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
