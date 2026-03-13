@@ -1,0 +1,46 @@
+@model _10_Filmdatenbank.Domain.Entities.DiscussionThread
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["CreateThreadTitle"];
+}
+
+<div class="max-w-3xl mx-auto px-6 py-12">
+    <div class="mb-12">
+        <a asp-action="Details" asp-route-id="@Model.FanGroupID" class="text-sm font-bold text-brand-primary hover:text-brand-hover transition-colors flex items-center gap-2 mb-6">
+            <i class="fa-solid fa-arrow-left"></i> @Localizer["BackToGroup"]
+        </a>
+        <h1 class="text-4xl font-extrabold text-white tracking-tight">
+            @Localizer["NewDiscussion"] <span class="text-brand-primary">@Localizer["Start"]</span>
+        </h1>
+        <p class="mt-2 text-dark-text-muted">@string.Format(Localizer["GroupContext"].Value, ViewBag.GroupName)</p>
+    </div>
+
+    <form asp-action="CreateThread" method="post" class="space-y-8">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="FanGroupID" />
+        
+        <div asp-validation-summary="ModelOnly" class="rounded-xl bg-danger-primary/10 border border-danger-primary/20 p-4 text-danger-primary text-xs font-bold uppercase tracking-widest"></div>
+
+        <div class="card-glass p-8 space-y-6">
+            <div class="form-group">
+                <label asp-for="Title" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["Title"]</label>
+                <input asp-for="Title" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none font-bold" placeholder="@Localizer["TitlePlaceholder"]" required />
+                <span asp-validation-for="Title" class="text-danger-primary text-[10px] mt-1 block"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Content" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["Content"]</label>
+                <textarea asp-for="Content" rows="10" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none resize-none font-medium leading-relaxed" placeholder="@Localizer["ContentPlaceholder"]" required></textarea>
+                <span asp-validation-for="Content" class="text-danger-primary text-[10px] mt-1 block"></span>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-4 pt-4">
+            <a asp-action="Details" asp-route-id="@Model.FanGroupID" class="px-8 py-3 rounded-xl border border-nav-border text-text-muted hover:text-white hover:bg-nav-surface transition-all font-bold">@Localizer["Cancel"]</a>
+            <button type="submit" class="px-10 py-3 rounded-xl bg-brand-primary text-white font-black hover:bg-brand-hover transition-all shadow-xl shadow-brand-primary/20 hover:-translate-y-0.5 flex items-center gap-2">
+                <i class="fa-solid fa-paper-plane text-xs"></i> @Localizer["Publish"]
+            </button>
+        </div>
+    </form>
+</div>

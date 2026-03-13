@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="CreateGroupTitle" xml:space="preserve"><value>Create New Community</value></data>
+  <data name="BackToDiscovery" xml:space="preserve"><value>Back to Discovery</value></data>
+  <data name="HeroTitlePrefix" xml:space="preserve"><value>Start your own</value></data>
+  <data name="HeroTitleHighlight" xml:space="preserve"><value>Community</value></data>
+  <data name="HeroTitleSuffix" xml:space="preserve"><value></value></data>
+  <data name="CreateSubtitle" xml:space="preserve"><value>Create a place for discussion and exchange about movies.</value></data>
+  <data name="GeneralInfo" xml:space="preserve"><value>General Information</value></data>
+  <data name="GroupName" xml:space="preserve"><value>Group Name</value></data>
+  <data name="GroupNamePlaceholder" xml:space="preserve"><value>e.g. Sci-Fi Enthusiasts</value></data>
+  <data name="Description" xml:space="preserve"><value>Description</value></data>
+  <data name="DescriptionPlaceholder" xml:space="preserve"><value>What is this group about?</value></data>
+  <data name="AppearanceAndPrivacy" xml:space="preserve"><value>Appearance &amp; Privacy</value></data>
+  <data name="CoverImage" xml:space="preserve"><value>Cover Image</value></data>
+  <data name="UploadImage" xml:space="preserve"><value>Upload Image</value></data>
+  <data name="AccentColor" xml:space="preserve"><value>Accent Color</value></data>
+  <data name="BadgeColorNote" xml:space="preserve"><value>Color hue for badges</value></data>
+  <data name="PrivateGroup" xml:space="preserve"><value>Private Group</value></data>
+  <data name="PrivateGroupNote" xml:space="preserve"><value>Only members can see content.</value></data>
+  <data name="RequiresApproval" xml:space="preserve"><value>Requires Approval</value></data>
+  <data name="RequiresApprovalNote" xml:space="preserve"><value>Administrators must confirm new members.</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="SubmitCreate" xml:space="preserve"><value>Create Group</value></data>
+</root>

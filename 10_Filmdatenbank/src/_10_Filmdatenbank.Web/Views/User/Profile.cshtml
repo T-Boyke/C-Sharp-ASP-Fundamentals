@@ -1,19 +1,21 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @using _10_Filmdatenbank.Domain.Entities
 @model ApplicationUser
 @{
-    ViewData["Title"] = "Mein Profil";
+    ViewData["Title"] = Localizer["EditProfileTitle"];
 }
 
 <div class="max-w-4xl mx-auto px-6 py-12">
     <div class="mb-12 flex items-center justify-between">
         <div>
             <h1 class="text-4xl font-extrabold text-white tracking-tight">
-                Profil <span class="text-brand-primary">bearbeiten</span>
+                @Localizer["Profile"] <span class="text-brand-primary">@Localizer["Edit"]</span>
             </h1>
-            <p class="mt-2 text-dark-text-muted">Aktualisiere deine persönlichen Daten und dein Profilbild.</p>
+            <p class="mt-2 text-dark-text-muted">@Localizer["ProfileSubtitle"]</p>
         </div>
         <div class="px-4 py-2 rounded-lg bg-brand-primary/10 border border-brand-primary/20">
-            <span class="text-[10px] font-black text-brand-primary tracking-widest uppercase">Mitglied seit @Model.CreatedAt.ToString("MMMM yyyy")</span>
+            <span class="text-[10px] font-black text-brand-primary tracking-widest uppercase">@string.Format(Localizer["MemberSince"].Value, Model.CreatedAt.ToString("MMMM yyyy"))</span>
         </div>
     </div>
 
@@ -42,9 +44,9 @@
                     <input type="file" id="imageUpload" name="ProfilePic" class="hidden" accept="image/*" onchange="previewImage(this)" />
                 </div>
                 <div class="flex-1 text-center md:text-left">
-                    <h3 class="text-lg font-bold text-white mb-1">Profilbild ändern</h3>
-                    <p class="text-xs text-dark-text-muted mb-4 max-w-sm">Muss kleiner als 1024 KB sein. Empfohlene Größe: 400x400 Pixel.</p>
-                    <div class="text-[10px] font-black bg-brand-primary/10 text-brand-primary px-3 py-1.5 rounded-lg inline-block uppercase tracking-widest">Wird direkt in der DB gespeichert</div>
+                    <h3 class="text-lg font-bold text-white mb-1">@Localizer["ChangeProfilePicture"]</h3>
+                    <p class="text-xs text-dark-text-muted mb-4 max-w-sm">@Localizer["ImageSizeNote"]</p>
+                    <div class="text-[10px] font-black bg-brand-primary/10 text-brand-primary px-3 py-1.5 rounded-lg inline-block uppercase tracking-widest">@Localizer["StoredInDB"]</div>
                 </div>
             </div>
         </div>
@@ -52,19 +54,19 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Stammdaten -->
             <div class="card-glass p-8 space-y-6">
-                <h3 class="text-sm font-black text-white uppercase tracking-widest border-b border-nav-border pb-4">Persönliche Daten</h3>
+                <h3 class="text-sm font-black text-white uppercase tracking-widest border-b border-nav-border pb-4">@Localizer["PersonalData"]</h3>
                 
                 <div class="space-y-4">
                     <div>
-                        <label for="FirstName" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">Vorname</label>
+                        <label for="FirstName" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["FirstName"]</label>
                         <input id="FirstName" name="FirstName" value="@Model.FirstName" autocomplete="given-name" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none" placeholder="Dein Vorname" />
                     </div>
                     <div>
-                        <label for="LastName" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">Nachname</label>
+                        <label for="LastName" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["LastName"]</label>
                         <input id="LastName" name="LastName" value="@Model.LastName" autocomplete="family-name" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none" placeholder="Dein Nachname" />
                     </div>
                     <div>
-                        <label for="Email" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">E-Mail (Lesend)</label>
+                        <label for="Email" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["EmailReadonly"]</label>
                         <input id="Email" value="@Model.Email" class="w-full bg-nav-accent/50 border border-nav-border rounded-xl px-4 py-3 text-text-muted outline-none cursor-not-allowed" readonly />
                     </div>
                 </div>
@@ -72,24 +74,24 @@
 
             <!-- Adresse -->
             <div class="card-glass p-8 space-y-6">
-                <h3 class="text-sm font-black text-white uppercase tracking-widest border-b border-nav-border pb-4">Anschrift</h3>
+                <h3 class="text-sm font-black text-white uppercase tracking-widest border-b border-nav-border pb-4">@Localizer["Address"]</h3>
                 <div class="space-y-4">
                     <div>
-                        <label for="Street" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">Straße & Hausnr.</label>
+                        <label for="Street" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["Street"]</label>
                         <input id="Street" name="Street" value="@Model.Street" autocomplete="address-line1" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none" placeholder="Hauptstr. 1" />
                     </div>
                     <div class="grid grid-cols-3 gap-4">
                         <div class="col-span-1">
-                            <label for="ZipCode" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">PLZ</label>
+                            <label for="ZipCode" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["ZipCode"]</label>
                             <input id="ZipCode" name="ZipCode" value="@Model.ZipCode" autocomplete="postal-code" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none" placeholder="12345" />
                         </div>
                         <div class="col-span-2">
-                            <label for="City" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">Stadt</label>
+                            <label for="City" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["City"]</label>
                             <input id="City" name="City" value="@Model.City" autocomplete="address-level2" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none" placeholder="Berlin" />
                         </div>
                     </div>
                     <div>
-                        <label for="Country" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">Land</label>
+                        <label for="Country" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["Country"]</label>
                         <input id="Country" name="Country" value="@Model.Country" autocomplete="country-name" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none" placeholder="Deutschland" />
                     </div>
                 </div>
@@ -97,8 +99,8 @@
         </div>
 
         <div class="flex items-center justify-end gap-4 pt-8">
-            <a asp-action="Dashboard" class="px-6 py-3 rounded-xl border border-nav-border text-nav-link hover:bg-nav-surface transition-all font-bold">Abbrechen</a>
-            <button type="submit" class="px-8 py-3 rounded-xl bg-brand-primary text-white font-black hover:bg-brand-hover transition-all shadow-xl shadow-brand-primary/20 hover:-translate-y-0.5">Änderungen speichern</button>
+            <a asp-action="Dashboard" class="px-6 py-3 rounded-xl border border-nav-border text-nav-link hover:bg-nav-surface transition-all font-bold">@Localizer["Cancel"]</a>
+            <button type="submit" class="px-8 py-3 rounded-xl bg-brand-primary text-white font-black hover:bg-brand-hover transition-all shadow-xl shadow-brand-primary/20 hover:-translate-y-0.5">@Localizer["SaveChanges"]</button>
         </div>
     </form>
 </div>

@@ -35,6 +35,18 @@
                             <i class="fa-solid fa-people-group text-xs" aria-hidden="true"></i>
                             @Localizer["Community"]
                         </a>
+                        <a asp-controller="Collection" asp-action="Index" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Collection" ? "active" : "")" role="menuitem">
+                            <i class="fa-solid fa-layer-group text-xs" aria-hidden="true"></i>
+                            @Localizer["Collections"]
+                        </a>
+                        <a asp-controller="Person" asp-action="Index" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Person" ? "active" : "")" role="menuitem">
+                            <i class="fa-solid fa-users-viewfinder text-xs" aria-hidden="true"></i>
+                            @Localizer["People"]
+                        </a>
+                        <a asp-controller="Studio" asp-action="Index" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Studio" ? "active" : "")" role="menuitem">
+                            <i class="fa-solid fa-building-columns text-xs" aria-hidden="true"></i>
+                            @Localizer["Studios"]
+                        </a>
                     }
                 </div>
             </div>

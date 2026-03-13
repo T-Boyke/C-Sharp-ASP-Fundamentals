@@ -1,19 +1,26 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @model IEnumerable<_10_Filmdatenbank.Domain.Entities.GroupMember>
 @{
     ViewData["Title"] = Localizer["MyGroups"];
 }
 
 <div class="max-w-7xl mx-auto px-6 py-12">
-    <div class="flex items-center justify-between mb-12">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
         <div>
             <h1 class="text-4xl font-extrabold text-white tracking-tight">
                 @Localizer["My"] <span class="text-brand-primary">@Localizer["Groups"]</span>
             </h1>
             <p class="mt-2 text-dark-text-muted">@Localizer["ManageYourCommunityMemberships"]</p>
         </div>
-        <a asp-controller="Group" asp-action="Discovery" class="btn-primary">
-            <i class="fa-solid fa-magnifying-glass mr-2"></i> @Localizer["DiscoverGroups"]
-        </a>
+        <div class="flex items-center gap-3">
+            <a asp-controller="Group" asp-action="Discovery" class="px-6 py-3 rounded-xl border border-nav-border text-nav-link hover:bg-nav-surface transition-all font-bold flex items-center gap-2">
+                <i class="fa-solid fa-magnifying-glass"></i> @Localizer["DiscoverGroups"]
+            </a>
+            <a asp-controller="Group" asp-action="Create" class="px-6 py-3 rounded-xl bg-brand-primary text-white font-black hover:bg-brand-hover transition-all shadow-xl shadow-brand-primary/20 flex items-center gap-2">
+                <i class="fa-solid fa-plus"></i> @Localizer["CreateGroup"]
+            </a>
+        </div>
     </div>
 
     @if (!Model.Any())
@@ -68,9 +75,11 @@
                         <a asp-controller="Group" asp-action="Details" asp-route-id="@membership.FanGroupID" class="flex-grow py-2.5 rounded-lg bg-nav-accent text-white text-xs font-black text-center hover:bg-brand-primary transition-all">
                             @Localizer["OpenLounge"]
                         </a>
-                        <button class="w-10 h-10 flex items-center justify-center rounded-lg bg-danger-primary/5 text-danger-primary hover:bg-danger-primary/20 transition-all" title="@Localizer["LeaveGroup"]">
-                            <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
-                        </button>
+                        <form asp-controller="Group" asp-action="Leave" asp-route-id="@membership.FanGroupID" method="post" onsubmit="return confirm('@Localizer["ConfirmLeave"]');">
+                            <button type="submit" class="w-10 h-10 flex items-center justify-center rounded-lg bg-danger-primary/5 text-danger-primary hover:bg-danger-primary/20 transition-all" title="@Localizer["LeaveGroup"]">
+                                <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="EditProfileTitle" xml:space="preserve"><value>My Profile</value></data>
+  <data name="Profile" xml:space="preserve"><value>Profile</value></data>
+  <data name="Edit" xml:space="preserve"><value>edit</value></data>
+  <data name="ProfileSubtitle" xml:space="preserve"><value>Update your personal data and profile picture.</value></data>
+  <data name="MemberSince" xml:space="preserve"><value>Member since {0}</value></data>
+  <data name="ChangeProfilePicture" xml:space="preserve"><value>Change profile picture</value></data>
+  <data name="ImageSizeNote" xml:space="preserve"><value>Must be smaller than 1024 KB. Recommended size: 400x400 pixels.</value></data>
+  <data name="StoredInDB" xml:space="preserve"><value>Stored directly in the DB</value></data>
+  <data name="PersonalData" xml:space="preserve"><value>Personal Data</value></data>
+  <data name="FirstName" xml:space="preserve"><value>First Name</value></data>
+  <data name="LastName" xml:space="preserve"><value>Last Name</value></data>
+  <data name="EmailReadonly" xml:space="preserve"><value>Email (Readonly)</value></data>
+  <data name="Address" xml:space="preserve"><value>Address</value></data>
+  <data name="Street" xml:space="preserve"><value>Street &amp; House No.</value></data>
+  <data name="ZipCode" xml:space="preserve"><value>Zip Code</value></data>
+  <data name="City" xml:space="preserve"><value>City</value></data>
+  <data name="Country" xml:space="preserve"><value>Country</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>Save Changes</value></data>
+</root>

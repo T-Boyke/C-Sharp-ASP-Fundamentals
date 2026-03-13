@@ -1,17 +1,19 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @model _10_Filmdatenbank.Domain.Entities.FanGroup
 @{
-    ViewData["Title"] = "Neue Community erstellen";
+    ViewData["Title"] = Localizer["CreateGroupTitle"];
 }
 
 <div class="max-w-3xl mx-auto px-6 py-12">
     <div class="mb-12">
         <a asp-action="Discovery" class="text-sm font-bold text-brand-primary hover:text-brand-hover transition-colors flex items-center gap-2 mb-6">
-            <i class="fa-solid fa-arrow-left"></i> Zurück zur Entdeckung
+            <i class="fa-solid fa-arrow-left"></i> @Localizer["BackToDiscovery"]
         </a>
-        <h1 class="text-4xl font-extrabold text-white tracking-tight">
-            Eigene <span class="text-brand-primary">Community</span> gründen
+        <h1 class="text-4xl font-extrabold text-white tracking-tight text-balance">
+            @Localizer["HeroTitlePrefix"] <span class="text-brand-primary">@Localizer["HeroTitleHighlight"]</span> @Localizer["HeroTitleSuffix"]
         </h1>
-        <p class="mt-2 text-dark-text-muted">Erstelle einen Ort für Diskussionen und Austausch über Filme.</p>
+        <p class="mt-2 text-dark-text-muted">@Localizer["CreateSubtitle"]</p>
     </div>
 
     <form asp-action="Create" method="post" enctype="multipart/form-data" class="space-y-8">
@@ -21,43 +23,44 @@
         <div class="card-glass p-8 space-y-8">
             <!-- Basic Info -->
             <div class="space-y-6">
-                <h3 class="text-sm font-black text-white uppercase tracking-widest border-b border-nav-border pb-4">Allgemeine Informationen</h3>
+                <h3 class="text-sm font-black text-white uppercase tracking-widest border-b border-nav-border pb-4">@Localizer["GeneralInfo"]</h3>
                 
                 <div class="space-y-4">
                     <div class="form-group">
-                        <label asp-for="Name" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">Name der Gruppe</label>
-                        <input asp-for="Name" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none" placeholder="z.B. Sci-Fi Enthusiasten" required />
+                        <label asp-for="Name" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["GroupName"]</label>
+                        <input asp-for="Name" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none" placeholder="@Localizer["GroupNamePlaceholder"]" required />
                         <span asp-validation-for="Name" class="text-danger-primary text-[10px] mt-1 block"></span>
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Description" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">Beschreibung</label>
-                        <textarea asp-for="Description" rows="4" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none resize-none" placeholder="Worum geht es in dieser Gruppe?"></textarea>
+                        <label asp-for="Description" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["Description"]</label>
+                        <span class="block text-[10px] text-text-muted mb-2 -mt-1">@Localizer["DescriptionPlaceholder"]</span>
+                        <textarea asp-for="Description" rows="4" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none resize-none"></textarea>
                     </div>
                 </div>
             </div>
 
             <!-- Appearance & Settings -->
             <div class="space-y-6">
-                <h3 class="text-sm font-black text-white uppercase tracking-widest border-b border-nav-border pb-4">Erscheinungsbild & Privatsphäre</h3>
+                <h3 class="text-sm font-black text-white uppercase tracking-widest border-b border-nav-border pb-4">@Localizer["AppearanceAndPrivacy"]</h3>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="ImageFile" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">Titelbild</label>
+                        <label for="ImageFile" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["CoverImage"]</label>
                         <div class="flex items-center gap-4">
                             <label for="ImageFile" class="flex-grow flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-dashed border-nav-border hover:border-brand-primary/50 text-text-muted hover:text-white transition-all cursor-pointer">
                                 <i class="fa-solid fa-upload"></i>
-                                <span class="text-xs font-bold" id="file-name">Bild hochladen</span>
+                                <span class="text-xs font-bold" id="file-name">@Localizer["UploadImage"]</span>
                             </label>
                             <input type="file" id="ImageFile" name="ImageFile" class="hidden" accept="image/*" onchange="document.getElementById('file-name').textContent = this.files[0].name" />
                         </div>
                     </div>
                     
                     <div>
-                        <label asp-for="BadgeColor" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">Akzentfarbe</label>
+                        <label asp-for="BadgeColor" class="block text-xs font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["AccentColor"]</label>
                         <div class="flex items-center gap-3">
                             <input asp-for="BadgeColor" type="color" class="h-10 w-20 rounded-lg bg-nav-surface border border-nav-border p-1 cursor-pointer" value="#3B82F6" />
-                            <span class="text-xs text-text-muted font-medium">Farbton für Badges</span>
+                            <span class="text-xs text-text-muted font-medium">@Localizer["BadgeColorNote"]</span>
                         </div>
                     </div>
                 </div>
@@ -66,16 +69,16 @@
                     <label class="flex items-center gap-3 p-4 rounded-xl bg-nav-surface border border-nav-border cursor-pointer hover:border-brand-primary/30 transition-all">
                         <input asp-for="IsPrivate" type="checkbox" class="w-5 h-5 rounded border-nav-border bg-nav-bg text-brand-primary focus:ring-brand-primary" />
                         <div>
-                            <span class="block text-sm font-bold text-white">Private Gruppe</span>
-                            <span class="block text-[10px] text-text-muted">Nur Mitglieder können Inhalte sehen.</span>
+                            <span class="block text-sm font-bold text-white">@Localizer["PrivateGroup"]</span>
+                            <span class="block text-[10px] text-text-muted">@Localizer["PrivateGroupNote"]</span>
                         </div>
                     </label>
 
                     <label class="flex items-center gap-3 p-4 rounded-xl bg-nav-surface border border-nav-border cursor-pointer hover:border-brand-primary/30 transition-all">
                         <input asp-for="RequiresApproval" type="checkbox" class="w-5 h-5 rounded border-nav-border bg-nav-bg text-brand-primary focus:ring-brand-primary" />
                         <div>
-                            <span class="block text-sm font-bold text-white">Beitrittsanfrage erforderlich</span>
-                            <span class="block text-[10px] text-text-muted">Administratoren müssen neue Mitglieder bestätigen.</span>
+                            <span class="block text-sm font-bold text-white">@Localizer["RequiresApproval"]</span>
+                            <span class="block text-[10px] text-text-muted">@Localizer["RequiresApprovalNote"]</span>
                         </div>
                     </label>
                 </div>
@@ -83,9 +86,9 @@
         </div>
 
         <div class="flex items-center justify-end gap-4 pt-4">
-            <a asp-action="Discovery" class="px-8 py-3 rounded-xl border border-nav-border text-text-muted hover:text-white hover:bg-nav-surface transition-all font-bold">Abbrechen</a>
+            <a asp-action="Discovery" class="px-8 py-3 rounded-xl border border-nav-border text-text-muted hover:text-white hover:bg-nav-surface transition-all font-bold">@Localizer["Cancel"]</a>
             <button type="submit" class="px-10 py-3 rounded-xl bg-brand-primary text-white font-black hover:bg-brand-hover transition-all shadow-xl shadow-brand-primary/20 hover:-translate-y-0.5">
-                Gruppe erstellen
+                @Localizer["SubmitCreate"]
             </button>
         </div>
     </form>

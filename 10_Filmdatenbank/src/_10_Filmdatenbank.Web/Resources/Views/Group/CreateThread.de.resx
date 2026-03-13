@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="CreateThreadTitle" xml:space="preserve"><value>Neue Diskussion starten</value></data>
+  <data name="BackToGroup" xml:space="preserve"><value>Zurück zur Gruppe</value></data>
+  <data name="NewDiscussion" xml:space="preserve"><value>Neue</value></data>
+  <data name="Start" xml:space="preserve"><value>Diskussion</value></data>
+  <data name="GroupContext" xml:space="preserve"><value>Teile deine Gedanken in der Gruppe "{0}"</value></data>
+  <data name="Title" xml:space="preserve"><value>Titel der Diskussion</value></data>
+  <data name="TitlePlaceholder" xml:space="preserve"><value>Was möchtest du besprechen?</value></data>
+  <data name="Content" xml:space="preserve"><value>Inhalt</value></data>
+  <data name="ContentPlaceholder" xml:space="preserve"><value>Beschreibe dein Thema ausführlich...</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Publish" xml:space="preserve"><value>Veröffentlichen</value></data>
+</root>

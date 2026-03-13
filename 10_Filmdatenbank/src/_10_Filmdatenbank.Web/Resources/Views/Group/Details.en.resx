@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Community" xml:space="preserve"><value>Community</value></data>
+  <data name="Private" xml:space="preserve"><value>Private</value></data>
+  <data name="MembersCount" xml:space="preserve"><value>{0} Members • Created on {1}</value></data>
+  <data name="LeaveGroup" xml:space="preserve"><value>Leave Group</value></data>
+  <data name="RequestJoin" xml:space="preserve"><value>Request to Join</value></data>
+  <data name="Join" xml:space="preserve"><value>Join</value></data>
+  <data name="Discussions" xml:space="preserve"><value>Discussions</value></data>
+  <data name="NewThread" xml:space="preserve"><value>New Thread</value></data>
+  <data name="NoDiscussions" xml:space="preserve"><value>No discussions in this group yet.</value></data>
+  <data name="Answers" xml:space="preserve"><value>Answers</value></data>
+  <data name="AboutGroup" xml:space="preserve"><value>About this group</value></data>
+  <data name="Members" xml:space="preserve"><value>Members</value></data>
+  <data name="Owner" xml:space="preserve"><value>Owner</value></data>
+</root>

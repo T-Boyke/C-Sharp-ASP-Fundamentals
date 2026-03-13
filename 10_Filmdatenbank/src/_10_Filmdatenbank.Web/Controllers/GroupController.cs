@@ -132,4 +132,102 @@ public class GroupController(ApplicationDbContext context, UserManager<Applicati
 
         return View(group);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> CreateThread(int groupId)
+    {
+        var group = await context.FanGroups.FindAsync(groupId);
+        if (group == null) return NotFound();
+
+        // Verify membership
+        var user = await userManager.GetUserAsync(User);
+        var isMember = await context.GroupMembers
+            .AnyAsync(m => m.FanGroupID == groupId && m.UserID == user.Id);
+
+        if (!isMember)
+        {
+            TempData["Error"] = "Du musst Mitglied der Gruppe sein, um eine Diskussion zu starten.";
+            return RedirectToAction(nameof(Details), new { id = groupId });
+        }
+
+        ViewBag.GroupName = group.Name;
+        return View(new DiscussionThread { FanGroupID = groupId });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreateThread(DiscussionThread thread)
+    {
+        var user = await userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+
+        // Simple validation check (ModelState might be tricky if we don't have a ViewModel, but let's try)
+        if (string.IsNullOrWhiteSpace(thread.Title) || string.IsNullOrWhiteSpace(thread.Content))
+        {
+            ModelState.AddModelError("", "Titel und Inhalt sind erforderlich.");
+        }
+
+        if (ModelState.IsValid)
+        {
+            thread.AuthorID = user.Id;
+            thread.CreatedAt = DateTime.UtcNow;
+            thread.LastActivity = DateTime.UtcNow;
+
+            context.DiscussionThreads.Add(thread);
+            await context.SaveChangesAsync();
+
+            TempData["Success"] = "Diskussion erfolgreich erstellt!";
+            return RedirectToAction(nameof(ThreadDetails), new { id = thread.ThreadID });
+        }
+
+        var group = await context.FanGroups.FindAsync(thread.FanGroupID);
+        ViewBag.GroupName = group?.Name;
+        return View(thread);
+    }
+
+    public async Task<IActionResult> ThreadDetails(int id)
+    {
+        var thread = await context.DiscussionThreads
+            .Include(t => t.Author)
+            .Include(t => t.FanGroup)
+            .Include(t => t.Comments).ThenInclude(c => c.Author)
+            .FirstOrDefaultAsync(t => t.ThreadID == id);
+
+        if (thread == null) return NotFound();
+
+        return View(thread);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> PostComment(Comment comment)
+    {
+        var user = await userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+
+        if (string.IsNullOrWhiteSpace(comment.Content))
+        {
+            ModelState.AddModelError("", "Kommentar darf nicht leer sein.");
+        }
+
+        if (ModelState.IsValid)
+        {
+            comment.AuthorID = user.Id;
+            comment.CreatedAt = DateTime.UtcNow;
+
+            context.Comments.Add(comment);
+            
+            // Update last activity of thread
+            var thread = await context.DiscussionThreads.FindAsync(comment.ThreadID);
+            if (thread != null)
+            {
+                thread.LastActivity = DateTime.UtcNow;
+            }
+
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(ThreadDetails), new { id = comment.ThreadID });
+        }
+
+        return RedirectToAction(nameof(ThreadDetails), new { id = comment.ThreadID });
+    }
 }

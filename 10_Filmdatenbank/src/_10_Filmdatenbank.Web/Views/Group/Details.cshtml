@@ -1,4 +1,7 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @model _10_Filmdatenbank.Domain.Entities.FanGroup
+@inject Microsoft.AspNetCore.Identity.UserManager<_10_Filmdatenbank.Domain.Entities.ApplicationUser> UserManager
 @{
     ViewData["Title"] = Model.Name;
     var isMember = Model.Members.Any(m => m.UserID == UserManager.GetUserId(User));
@@ -24,14 +27,14 @@
                 </div>
                 <div>
                      <div class="flex items-center gap-3 mb-2">
-                        <span class="badge badge-primary">Community</span>
+                        <span class="badge badge-primary">@Localizer["Community"]</span>
                          @if (Model.IsPrivate)
                          {
-                             <span class="badge bg-danger-primary/10 text-danger-primary"><i class="fa-solid fa-lock mr-2"></i> Privat</span>
+                             <span class="badge bg-danger-primary/10 text-danger-primary"><i class="fa-solid fa-lock mr-2"></i> @Localizer["Private"]</span>
                          }
                     </div>
                     <h1 class="text-4xl font-black text-white tracking-tighter">@Model.Name</h1>
-                    <p class="text-dark-text-muted mt-1 font-medium">@Model.Members.Count Mitglieder • Erstellt am @Model.CreatedAt.ToShortDateString()</p>
+                    <p class="text-dark-text-muted mt-1 font-medium">@string.Format(Localizer["MembersCount"].Value, Model.Members.Count, Model.CreatedAt.ToShortDateString())</p>
                 </div>
             </div>
             
@@ -40,7 +43,7 @@
                 {
                     <form asp-action="Leave" asp-route-id="@Model.FanGroupID" method="post">
                         <button type="submit" class="px-6 py-3 rounded-xl bg-danger-primary/10 text-danger-primary font-black hover:bg-danger-primary/20 transition-all">
-                             Gruppe verlassen
+                             @Localizer["LeaveGroup"]
                         </button>
                     </form>
                 }
@@ -48,7 +51,7 @@
                 {
                     <form asp-action="Join" asp-route-id="@Model.FanGroupID" method="post">
                         <button type="submit" class="btn-primary">
-                             @(Model.RequiresApproval ? "Beitritt anfragen" : "Beitreten")
+                             @(Model.RequiresApproval ? Localizer["RequestJoin"].Value : Localizer["Join"].Value)
                         </button>
                     </form>
                 }
@@ -60,12 +63,12 @@
         <!-- Main: Threads -->
         <div class="lg:col-span-2 space-y-8">
             <div class="flex items-center justify-between">
-                <h2 class="text-2xl font-black text-white">Diskussionen</h2>
+                <h2 class="text-2xl font-black text-white">@Localizer["Discussions"]</h2>
                 @if (isMember)
                 {
-                    <button class="text-xs font-black text-brand-primary uppercase tracking-widest px-4 py-2 rounded-lg bg-brand-primary/10 hover:bg-brand-primary/20 transition-all">
-                        Neuer Thread
-                    </button>
+                    <a asp-action="CreateThread" asp-route-groupId="@Model.FanGroupID" class="text-xs font-black text-brand-primary uppercase tracking-widest px-4 py-2 rounded-lg bg-brand-primary/10 hover:bg-brand-primary/20 transition-all">
+                        @Localizer["NewThread"]
+                    </a>
                 }
             </div>
 
@@ -74,14 +77,14 @@
                 {
                     <div class="card-glass p-12 text-center">
                         <i class="fa-regular fa-comments text-4xl text-nav-link opacity-20 mb-4 block"></i>
-                        <p class="text-dark-text-muted">Noch keine Diskussionen in dieser Gruppe.</p>
+                        <p class="text-dark-text-muted">@Localizer["NoDiscussions"]</p>
                     </div>
                 }
                 else
                 {
                     @foreach (var thread in Model.Threads.OrderByDescending(t => t.LastActivity))
                     {
-                        <div class="card-glass p-6 hover:border-brand-primary/50 transition-all group cursor-pointer">
+                        <div class="card-glass p-6 hover:border-brand-primary/50 transition-all group cursor-pointer" onclick="location.href='@Url.Action("ThreadDetails", "Group", new { id = thread.ThreadID })'">
                             <div class="flex gap-4 items-start">
                                 <div class="w-10 h-10 rounded-full bg-nav-surface flex items-center justify-center text-brand-primary shrink-0">
                                     <i class="fa-solid fa-comment-dots"></i>
@@ -94,8 +97,8 @@
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <span class="block text-xl font-black text-white">0</span>
-                                    <span class="text-[10px] text-text-muted uppercase font-bold tracking-widest">Antworten</span>
+                                    <span class="block text-xl font-black text-white">@thread.Comments.Count</span>
+                                    <span class="text-[10px] text-text-muted uppercase font-bold tracking-widest">@Localizer["Answers"]</span>
                                 </div>
                             </div>
                         </div>
@@ -107,13 +110,13 @@
         <!-- Sidebar: Info & Members -->
         <div class="space-y-8">
             <div class="card-glass p-6">
-                <h3 class="text-sm font-black text-white uppercase tracking-widest mb-6 border-b border-nav-border pb-4">Über diese Gruppe</h3>
+                <h3 class="text-sm font-black text-white uppercase tracking-widest mb-6 border-b border-nav-border pb-4">@Localizer["AboutGroup"]</h3>
                 <p class="text-sm text-dark-text-muted leading-relaxed">@Model.Description</p>
             </div>
 
             <div class="card-glass p-6">
                 <div class="flex items-center justify-between mb-6 border-b border-nav-border pb-4">
-                    <h3 class="text-sm font-black text-white uppercase tracking-widest">Mitglieder</h3>
+                    <h3 class="text-sm font-black text-white uppercase tracking-widest">@Localizer["Members"]</h3>
                     <span class="text-[10px] font-black text-brand-primary uppercase">@Model.Members.Count</span>
                 </div>
                 <div class="space-y-4">
@@ -138,7 +141,7 @@
                             </div>
                             @if (member.Role == GroupRole.Owner)
                             {
-                                <i class="fa-solid fa-crown text-[10px] text-star-primary" title="Inhaber"></i>
+                                <i class="fa-solid fa-crown text-[10px] text-star-primary" title="@Localizer["Owner"]"></i>
                             }
                         </div>
                     }

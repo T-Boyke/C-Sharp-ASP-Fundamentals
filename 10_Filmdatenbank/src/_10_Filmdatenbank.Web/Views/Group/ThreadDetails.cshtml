@@ -1,0 +1,105 @@
+@model _10_Filmdatenbank.Domain.Entities.DiscussionThread
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject Microsoft.AspNetCore.Identity.UserManager<_10_Filmdatenbank.Domain.Entities.ApplicationUser> UserManager
+@{
+    ViewData["Title"] = Model.Title;
+    var currentUserId = UserManager.GetUserId(User);
+}
+
+<div class="max-w-5xl mx-auto px-6 py-12">
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center gap-3 mb-8 text-sm font-bold">
+        <a asp-action="Discovery" class="text-text-muted hover:text-brand-primary transition-colors">@Localizer["Community"]</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-nav-border"></i>
+        <a asp-action="Details" asp-route-id="@Model.FanGroupID" class="text-text-muted hover:text-brand-primary transition-colors">@Model.FanGroup.Name</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-nav-border"></i>
+        <span class="text-white">@Localizer["Discussion"]</span>
+    </nav>
+
+    <!-- Main Thread Card -->
+    <div class="card-glass p-8 mb-12 relative overflow-hidden">
+         <div class="absolute top-0 left-0 w-1 h-full bg-brand-primary"></div>
+         
+         <div class="flex items-start justify-between gap-6 mb-8">
+            <div class="flex-grow">
+                <h1 class="text-3xl font-black text-white leading-tight mb-4">@Model.Title</h1>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-brand-primary/10 flex items-center justify-center text-xs font-bold text-brand-primary overflow-hidden">
+                            @if (Model.Author.ProfilePicture != null)
+                            {
+                                <img src="data:@Model.Author.ProfilePictureContentType;base64,@Convert.ToBase64String(Model.Author.ProfilePicture)" class="w-full h-full object-cover" />
+                            }
+                            else
+                            {
+                                <span>@Model.Author.FirstName?[0]</span>
+                            }
+                        </div>
+                        <span class="text-xs font-black text-white">@Model.Author.FirstName @Model.Author.LastName</span>
+                    </div>
+                    <span class="text-[10px] text-text-muted uppercase font-bold tracking-widest">• @Model.CreatedAt.ToString("g")</span>
+                </div>
+            </div>
+         </div>
+
+         <div class="prose prose-invert max-w-none text-dark-text-muted leading-relaxed font-medium">
+             @Model.Content
+         </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="space-y-8">
+        <h3 class="text-xl font-black text-white flex items-center gap-3">
+            @Localizer["Comments"] <span class="badge badge-primary">@Model.Comments.Count</span>
+        </h3>
+
+        <!-- Comment Form -->
+        <div class="card-glass p-6">
+            <form asp-action="PostComment" method="post" class="space-y-4">
+                <input type="hidden" name="ThreadID" value="@Model.ThreadID" />
+                <textarea name="Content" rows="3" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none resize-none font-medium text-sm" placeholder="@Localizer["CommentPlaceholder"]" required></textarea>
+                <div class="flex justify-end">
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-brand-primary text-white font-black hover:bg-brand-hover transition-all text-sm shadow-lg shadow-brand-primary/10">
+                        @Localizer["PostComment"]
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Comments List -->
+        <div class="space-y-6">
+            @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
+            {
+                <div class="flex gap-4">
+                    <div class="w-10 h-10 rounded-full bg-nav-surface border border-nav-border flex items-center justify-center shrink-0 overflow-hidden">
+                         @if (comment.Author.ProfilePicture != null)
+                         {
+                             <img src="data:@comment.Author.ProfilePictureContentType;base64,@Convert.ToBase64String(comment.Author.ProfilePicture)" class="w-full h-full object-cover" />
+                         }
+                         else
+                         {
+                             <span class="text-xs font-bold text-text-muted">@comment.Author.FirstName?[0]</span>
+                         }
+                    </div>
+                    <div class="flex-grow space-y-2">
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm font-black text-white">@comment.Author.FirstName @comment.Author.LastName</span>
+                            <span class="text-[10px] text-text-muted font-bold">@comment.CreatedAt.ToString("g")</span>
+                        </div>
+                        <div class="card-glass p-4 text-sm text-dark-text-muted leading-relaxed font-medium">
+                            @comment.Content
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (!Model.Comments.Any())
+            {
+                <div class="py-12 text-center opacity-40">
+                    <p class="text-sm text-text-muted font-bold italic">@Localizer["NoCommentsYet"]</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

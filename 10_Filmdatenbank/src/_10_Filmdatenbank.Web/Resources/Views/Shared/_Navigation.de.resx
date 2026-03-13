@@ -21,10 +21,12 @@
   <data name="Dashboard" xml:space="preserve"><value>Dashboard</value></data>
   <data name="Community" xml:space="preserve"><value>Community</value></data>
   <data name="More" xml:space="preserve"><value>Mehr</value></data>
+  <data name="People" xml:space="preserve"><value>Personen</value></data>
   <data name="SettingsProfile" xml:space="preserve"><value>Einstellungen &amp; Profil</value></data>
   <data name="MyCommunities" xml:space="preserve"><value>Meine Communities</value></data>
   <data name="SignOut" xml:space="preserve"><value>Abmelden</value></data>
   <data name="JoinNow" xml:space="preserve"><value>Jetzt beitreten</value></data>
   <data name="Menu" xml:space="preserve"><value>Menü</value></data>
   <data name="Notifications" xml:space="preserve"><value>Benachrichtigungen</value></data>
+  <data name="Movies" xml:space="preserve"><value>Filme</value></data>
 </root>

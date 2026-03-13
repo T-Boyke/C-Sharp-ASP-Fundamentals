@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="MyGroups" xml:space="preserve"><value>Meine Gruppen</value></data>
+  <data name="My" xml:space="preserve"><value>Meine</value></data>
+  <data name="Groups" xml:space="preserve"><value>Gruppen</value></data>
+  <data name="ManageYourCommunityMemberships" xml:space="preserve"><value>Verwalte deine Mitgliedschaften in der Community.</value></data>
+  <data name="NoGroupsYet" xml:space="preserve"><value>Noch in keiner Gruppe.</value></data>
+  <data name="JoinCommunitiesToDiscussFilms" xml:space="preserve"><value>Tritt Communities bei, um über Filme zu diskutieren!</value></data>
+  <data name="BrowseCatalog" xml:space="preserve"><value>Katalog durchstöbern</value></data>
+  <data name="Role" xml:space="preserve"><value>Rolle</value></data>
+  <data name="Joined" xml:space="preserve"><value>Beigetreten</value></data>
+  <data name="OpenLounge" xml:space="preserve"><value>Lounge öffnen</value></data>
+  <data name="LeaveGroup" xml:space="preserve"><value>Gruppe verlassen</value></data>
+  <data name="DiscoverGroups" xml:space="preserve"><value>Gruppen entdecken</value></data>
+  <data name="CreateGroup" xml:space="preserve"><value>Gruppe erstellen</value></data>
+  <data name="ConfirmLeave" xml:space="preserve"><value>Möchtest du diese Gruppe wirklich verlassen?</value></data>
+</root>

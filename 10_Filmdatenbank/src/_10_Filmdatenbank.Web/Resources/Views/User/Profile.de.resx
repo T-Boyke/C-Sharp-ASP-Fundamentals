@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="EditProfileTitle" xml:space="preserve"><value>Mein Profil</value></data>
+  <data name="Profile" xml:space="preserve"><value>Profil</value></data>
+  <data name="Edit" xml:space="preserve"><value>bearbeiten</value></data>
+  <data name="ProfileSubtitle" xml:space="preserve"><value>Aktualisiere deine persönlichen Daten und dein Profilbild.</value></data>
+  <data name="MemberSince" xml:space="preserve"><value>Mitglied seit {0}</value></data>
+  <data name="ChangeProfilePicture" xml:space="preserve"><value>Profilbild ändern</value></data>
+  <data name="ImageSizeNote" xml:space="preserve"><value>Muss kleiner als 1024 KB sein. Empfohlene Größe: 400x400 Pixel.</value></data>
+  <data name="StoredInDB" xml:space="preserve"><value>Wird direkt in der DB gespeichert</value></data>
+  <data name="PersonalData" xml:space="preserve"><value>Persönliche Daten</value></data>
+  <data name="FirstName" xml:space="preserve"><value>Vorname</value></data>
+  <data name="LastName" xml:space="preserve"><value>Nachname</value></data>
+  <data name="EmailReadonly" xml:space="preserve"><value>E-Mail (Lesend)</value></data>
+  <data name="Address" xml:space="preserve"><value>Anschrift</value></data>
+  <data name="Street" xml:space="preserve"><value>Straße &amp; Hausnr.</value></data>
+  <data name="ZipCode" xml:space="preserve"><value>PLZ</value></data>
+  <data name="City" xml:space="preserve"><value>Stadt</value></data>
+  <data name="Country" xml:space="preserve"><value>Land</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>Änderungen speichern</value></data>
+</root>

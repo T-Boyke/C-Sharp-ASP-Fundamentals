@@ -14,7 +14,7 @@
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
   "files.associations": {
-    "*.cshtml": "aspnetcorerazor",
+    "*.cshtml": "csharp",
     "*.css": "tailwindcss"
   },
   "workbench.colorCustomizations": {},
