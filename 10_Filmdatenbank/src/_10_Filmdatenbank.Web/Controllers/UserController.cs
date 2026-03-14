@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Threading.Tasks;
+using _10_Filmdatenbank.Web.Models;
 
 namespace _10_Filmdatenbank.Web.Controllers;
 
@@ -107,5 +108,56 @@ public class UserController : Controller
             .ToListAsync();
 
         return View(memberships);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Settings()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Challenge();
+
+        var settings = string.IsNullOrEmpty(user.SettingsJson) 
+            ? new UserSettingsData() 
+            : System.Text.Json.JsonSerializer.Deserialize<UserSettingsData>(user.SettingsJson) ?? new UserSettingsData();
+
+        var viewModel = new UserSettingsViewModel
+        {
+            Theme = settings.Theme,
+            PreferredLanguage = settings.PreferredLanguage,
+            EnableNotifications = settings.EnableNotifications
+        };
+
+        return View(viewModel);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateSettings(UserSettingsViewModel model)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Challenge();
+
+        var settings = new UserSettingsData
+        {
+            Theme = model.Theme,
+            PreferredLanguage = model.PreferredLanguage,
+            EnableNotifications = model.EnableNotifications
+        };
+
+        user.SettingsJson = System.Text.Json.JsonSerializer.Serialize(settings);
+        
+        var result = await _userManager.UpdateAsync(user);
+        if (result.Succeeded)
+        {
+            TempData["SuccessMessage"] = "Einstellungen wurden gespeichert.";
+            return RedirectToAction(nameof(Settings));
+        }
+
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError(string.Empty, error.Description);
+        }
+
+        return View("Settings", model);
     }
 }

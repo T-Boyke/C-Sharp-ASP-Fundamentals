@@ -1,11 +1,30 @@
+@using Microsoft.AspNetCore.Identity
+@using _10_Filmdatenbank.Domain.Entities
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
     var isRtl = System.Globalization.CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
     var direction = isRtl ? "rtl" : "ltr";
+    
+    string userTheme = "default";
+    if (User.Identity?.IsAuthenticated == true)
+    {
+        var user = await UserManager.GetUserAsync(User);
+        if (user != null && !string.IsNullOrEmpty(user.SettingsJson))
+        {
+            try 
+            {
+                var settings = System.Text.Json.JsonSerializer.Deserialize<_10_Filmdatenbank.Web.Models.UserSettingsData>(user.SettingsJson);
+                userTheme = settings?.Theme ?? "default";
+            }
+            catch { /* fallback to default */ }
+        }
+    }
 }
 
 <!DOCTYPE html>
-<html lang="@currentCulture" dir="@direction" class="h-full">
+<html lang="@currentCulture" dir="@direction" class="h-full" data-theme="@(userTheme != "default" ? userTheme : null)">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

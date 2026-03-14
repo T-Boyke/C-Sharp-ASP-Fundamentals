@@ -6,8 +6,8 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <data name="HomeTitle" xml:space="preserve"><value>Welcome</value></data>
   <data name="HeroTitlePrefix" xml:space="preserve"><value>Professional</value></data>
-  <data name="HeroTitleHighlight" xml:space="preserve"><value>Film Data Management</value></data>
-  <data name="HeroDescription" xml:space="preserve"><value>Manage your film collection with system. Our platform offers you all the tools for structured database maintenance – efficient, secure, and modern.</value></data>
+  <data name="HeroTitleHighlight" xml:space="preserve"><value>Couch Database</value></data>
+  <data name="HeroDescription" xml:space="preserve"><value>Manage your couch film collection with system. Our platform offers you all the tools for structured database maintenance – efficient, secure, and modern.</value></data>
   <data name="GetStarted" xml:space="preserve"><value>Get Started</value></data>
   <data name="LearnMore" xml:space="preserve"><value>Learn More</value></data>
   <data name="Feature1Title" xml:space="preserve"><value>Clean Architecture</value></data>

@@ -29,4 +29,5 @@
   <data name="Menu" xml:space="preserve"><value>Menü</value></data>
   <data name="Notifications" xml:space="preserve"><value>Benachrichtigungen</value></data>
   <data name="Movies" xml:space="preserve"><value>Filme</value></data>
+  <data name="AppearanceAndSettings" xml:space="preserve"><value>Darstellung &amp; Einstellungen</value></data>
 </root>

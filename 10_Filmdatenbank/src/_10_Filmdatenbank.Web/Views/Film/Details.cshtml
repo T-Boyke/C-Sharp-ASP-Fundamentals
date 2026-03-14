@@ -29,8 +29,8 @@
                         <i aria-hidden="true" class="fa-solid fa-hashtag text-brand-primary"></i> @Model.FilmID
                         @if (Model.TmdbId.HasValue)
                         {
-                            <span class="mx-2 text-white/20">|</span>
-                            <span class="text-[10px] font-black text-white/60 uppercase tracking-widest">TMDB: @Model.TmdbId</span>
+                            <span class="mx-2 text-white-a20">|</span>
+                            <span class="text-[10px] font-black text-text-white-muted uppercase tracking-widest">TMDB: @Model.TmdbId</span>
                         }
                     </div>
                    <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter drop-shadow-2xl">@Model.Titel</h1>
@@ -42,7 +42,7 @@
                 <div class="flex items-center gap-4">
                     <form asp-action="ToggleFavorite" method="post">
                         <input type="hidden" name="filmId" value="@Model.FilmID" />
-                        <button type="submit" class="glass-premium w-16 h-16 rounded-2xl flex items-center justify-center transition-all group/heart @(isFavorite ? "text-danger-primary shadow-2xl shadow-danger-primary/20" : "text-white/60 hover:text-white hover:bg-white/10")" title='@(isFavorite ? Localizer["RemoveFromWatchlist"] : Localizer["AddToWatchlist"])'>
+                        <button type="submit" class="glass-premium w-16 h-16 rounded-2xl flex items-center justify-center transition-all group/heart @(isFavorite ? "text-danger-primary shadow-2xl shadow-danger-primary/20" : "text-text-white-muted hover:text-white hover:bg-glass-bg-hover")" title='@(isFavorite ? Localizer["RemoveFromWatchlist"] : Localizer["AddToWatchlist"])'>
                             <i class="fa-@(isFavorite ? "solid" : "regular") fa-heart text-2xl group-hover/heart:scale-110 transition-transform"></i>
                         </button>
                     </form>
@@ -51,7 +51,7 @@
                             <i class="fa-solid fa-star"></i>
                         </div>
                         <div>
-                            <p class="text-[10px] font-black text-white/60 uppercase tracking-widest">@Localizer["TmdbScore"]</p>
+                            <p class="text-[10px] font-black text-text-white-muted uppercase tracking-widest">@Localizer["TmdbScore"]</p>
                             <p class="text-xl font-black text-white">@(Model.VoteAverage?.ToString("0.0") ?? "N/A")</p>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                                  var primaryRelease = Model.Releases?.FirstOrDefault();
                                  if (primaryRelease != null)
                                  {
-                                    <span class="px-2 py-1 rounded bg-dark-surface/80 backdrop-blur-md text-[10px] font-black text-white border border-white/10 uppercase tracking-tighter">
+                                    <span class="px-2 py-1 rounded bg-dark-surface/80 backdrop-blur-md text-[10px] font-black text-white border border-glass-border uppercase tracking-tighter">
                                         @primaryRelease.Certification
                                     </span>
                                  }
@@ -209,31 +209,31 @@
                         <div class="flex flex-wrap gap-4">
                             @if (!string.IsNullOrEmpty(Model.ImdbId))
                             {
-                                <a href="https://www.imdb.com/title/@Model.ImdbId" target="_blank" class="w-8 h-8 rounded-lg bg-[#f5c518] text-black flex items-center justify-center font-black transition-transform hover:scale-110 shadow-lg" title="IMDb">
+                                <a href="https://www.imdb.com/title/@Model.ImdbId" target="_blank" class="w-8 h-8 rounded-lg bg-accent-imdb text-black flex items-center justify-center font-black transition-transform hover:scale-110 shadow-lg" title="IMDb">
                                     <i class="fa-brands fa-imdb text-xl"></i>
                                 </a>
                             }
                             @if (!string.IsNullOrEmpty(Model.FacebookId))
                             {
-                                <a href="https://facebook.com/@Model.FacebookId" target="_blank" class="w-8 h-8 rounded-lg bg-[#1877f2] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
+                                <a href="https://facebook.com/@Model.FacebookId" target="_blank" class="w-8 h-8 rounded-lg bg-accent-facebook text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
                                     <i class="fa-brands fa-facebook-f"></i>
                                 </a>
                             }
                             @if (!string.IsNullOrEmpty(Model.InstagramId))
                             {
-                                <a href="https://instagram.com/@Model.InstagramId" target="_blank" class="w-8 h-8 rounded-lg bg-linear-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
+                                <a href="https://instagram.com/@Model.InstagramId" target="_blank" class="w-8 h-8 rounded-lg bg-linear-to-tr from-accent-instagram-from via-accent-instagram-via to-accent-instagram-to text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
                                     <i class="fa-brands fa-instagram"></i>
                                 </a>
                             }
                             @if (!string.IsNullOrEmpty(Model.TwitterId))
                             {
-                                <a href="https://twitter.com/@Model.TwitterId" target="_blank" class="w-8 h-8 rounded-lg bg-[#1da1f2] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
+                                <a href="https://twitter.com/@Model.TwitterId" target="_blank" class="w-8 h-8 rounded-lg bg-accent-twitter text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
                                     <i class="fa-brands fa-x-twitter"></i>
                                 </a>
                             }
                              @if (!string.IsNullOrEmpty(Model.WikidataId))
                             {
-                                <a href="https://www.wikidata.org/wiki/@Model.WikidataId" target="_blank" class="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center transition-transform hover:scale-110 shadow-lg border border-border-muted">
+                                <a href="https://www.wikidata.org/wiki/@Model.WikidataId" target="_blank" class="w-8 h-8 rounded-lg bg-surface-bright text-text-main flex items-center justify-center transition-transform hover:scale-110 shadow-lg border border-border-muted" title="Wikidata">
                                     <i class="fa-solid fa-barcode"></i>
                                 </a>
                             }

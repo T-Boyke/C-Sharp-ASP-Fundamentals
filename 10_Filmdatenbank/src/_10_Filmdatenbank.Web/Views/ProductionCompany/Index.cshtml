@@ -43,7 +43,7 @@
         @foreach (var item in Model)
         {
             <a asp-action="Details" asp-route-id="@item.ProductionCompanyID" class="group block p-6 card-premium transition-all hover:-translate-y-2">
-                <div class="aspect-square bg-white dark:bg-white rounded-2xl flex items-center justify-center p-4 mb-4 border border-border-muted transition-colors">
+                <div class="aspect-square bg-surface-bright dark:bg-dark-surface rounded-2xl flex items-center justify-center p-4 mb-4 border border-border-muted transition-colors">
                     @if (!string.IsNullOrEmpty(item.LogoUrl))
                     {
                         <img src="@item.LogoUrl" alt="@item.Name Logo" class="max-w-full max-h-full object-contain filter group-hover:drop-shadow-xl transition-all" />

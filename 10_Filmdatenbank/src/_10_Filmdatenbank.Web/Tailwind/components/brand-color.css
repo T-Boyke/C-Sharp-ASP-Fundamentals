@@ -1,13 +1,14 @@
 @theme {
   /* 
      ==========================================================================
-     BRAND CORE IDENTITY
+     BRAND CORE IDENTITY (Themable)
      ==========================================================================
   */
-  --color-brand-primary: #7c3aed; /* Violet 600 */
-  --color-brand-hover: #6d28d9;   /* Violet 700 */
-  --color-brand-soft: #f5f3ff;    /* Violet 50 */
-  --color-brand-border: #ddd6fe;  /* Violet 200 */
+  --color-brand-primary: var(--theme-primary, #7c3aed); /* Violet 600 default */
+  --color-brand-hover: var(--theme-hover, #6d28d9);   /* Violet 700 default */
+  --color-brand-soft: var(--theme-soft, #f5f3ff);    /* Violet 50 default */
+  --color-brand-border: var(--theme-border, #ddd6fe);  /* Violet 200 default */
+  
   --color-brand-bg: #fafafa;
   
   /* Interactive Accents & Shadows */
@@ -54,12 +55,9 @@
      NEUTRAL SURFACES & BORDERS
      ==========================================================================
   */
-  --color-surface-muted: var(--color-slate-50);
-  --color-surface-subtle: var(--color-slate-100);
   --color-border-muted: var(--color-slate-100);
   --color-border-default: var(--color-slate-200);
   --color-text-description: var(--color-slate-500);
-  --color-text-muted: var(--color-slate-400);
   
   /* Dark Mode Specific Extensions */
   --color-dark-surface: var(--color-slate-950);
@@ -67,7 +65,6 @@
   --color-dark-surface-muted: var(--color-slate-800);
   --color-dark-border: var(--color-slate-800);
   --color-dark-border-muted: color-mix(in srgb, var(--color-slate-800), transparent 50%);
-  --color-dark-text-muted: var(--color-slate-500);
 
   /* 
      ==========================================================================
@@ -119,7 +116,6 @@
      DECORATIVE & SPECIAL ACCENTS
      ==========================================================================
   */
-  --color-accent-coffee: var(--color-amber-600);
   --color-accent-heart: var(--color-red-500);
   --color-rating-star: var(--color-yellow-300);
   
@@ -133,4 +129,95 @@
   /* Decorative Gradients (Dark) */
   --color-grad-hero-dark-from: var(--color-dark-surface-soft);
   --color-grad-hero-dark-to: var(--color-dark-surface);
+
+  --color-brand-primary-a10: color-mix(in srgb, var(--color-brand-primary), transparent 90%);
+
+  /* Social Platform Colors */
+  --color-accent-imdb: #f5c518;
+  --color-accent-facebook: #1877f2;
+  --color-accent-twitter: #1da1f2;
+  --color-accent-instagram-from: #f9ce34;
+  --color-accent-instagram-via: #ee2a7b;
+  --color-accent-instagram-to: #6228d7;
+
+  /* Glassmorphism & Alpha effects */
+  --color-white-a5: color-mix(in srgb, white, transparent 95%);
+  --color-white-a10: color-mix(in srgb, white, transparent 90%);
+  --color-white-a20: color-mix(in srgb, white, transparent 80%);
+  --color-white-a50: color-mix(in srgb, white, transparent 50%);
+  --color-white-a60: color-mix(in srgb, white, transparent 40%);
+  
+  --color-black-a10: color-mix(in srgb, black, transparent 90%);
+  --color-black-a20: color-mix(in srgb, black, transparent 80%);
+  --color-black-a40: color-mix(in srgb, black, transparent 60%);
+  
+  /* Usage specific aliases */
+  --color-glass-border: var(--color-white-a10);
+  --color-glass-border-muted: var(--color-white-a5);
+  --color-glass-bg: var(--color-white-a5);
+  --color-glass-bg-hover: var(--color-white-a10);
+  --color-text-white-muted: var(--color-white-a60);
+  --color-text-white-bright: color-mix(in srgb, white, transparent 10%);
+  --color-shadow-overlay: var(--color-black-a40);
+}
+
+/* Theme Presets */
+:root[data-theme="emerald"] {
+  --theme-primary: var(--color-emerald-600);
+  --theme-hover: var(--color-emerald-700);
+  --theme-soft: var(--color-emerald-50);
+  --theme-border: var(--color-emerald-200);
+}
+
+:root[data-theme="sunset"] {
+  --theme-primary: var(--color-orange-600);
+  --theme-hover: var(--color-orange-700);
+  --theme-soft: var(--color-orange-50);
+  --theme-border: var(--color-orange-200);
+}
+
+:root[data-theme="midnight"] {
+  --theme-primary: var(--color-blue-700);
+  --theme-hover: var(--color-blue-800);
+  --theme-soft: var(--color-blue-50);
+  --theme-border: var(--color-blue-200);
+}
+
+:root[data-theme="mocha"] {
+  --theme-primary: var(--color-amber-700);
+  --theme-hover: var(--color-amber-800);
+  --theme-soft: var(--color-amber-50);
+  --theme-border: var(--color-amber-200);
+}
+
+/* Dark Mode Optimization for Themes */
+.dark {
+  /* Dynamic Primary Brilliance in Dark Mode */
+  --theme-primary: var(--color-brand-primary-dark, var(--theme-primary));
+  
+  /* Default Theme Dark Mode Refinement */
+  &:not([data-theme]) {
+    --color-brand-primary: var(--color-violet-500);
+    --color-brand-hover: var(--color-violet-400);
+  }
+}
+
+.dark[data-theme="emerald"] {
+  --theme-primary: var(--color-emerald-500);
+  --theme-hover: var(--color-emerald-400);
+}
+
+.dark[data-theme="sunset"] {
+  --theme-primary: var(--color-orange-500);
+  --theme-hover: var(--color-orange-400);
+}
+
+.dark[data-theme="midnight"] {
+  --theme-primary: var(--color-blue-500);
+  --theme-hover: var(--color-blue-400);
+}
+
+.dark[data-theme="mocha"] {
+  --theme-primary: var(--color-amber-500);
+  --theme-hover: var(--color-amber-400);
 }

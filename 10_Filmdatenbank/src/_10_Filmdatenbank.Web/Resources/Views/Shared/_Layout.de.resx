@@ -61,4 +61,7 @@
   <data name="SkipToContent" xml:space="preserve">
     <value>Zum Inhalt springen</value>
   </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Couch DB</value>
+  </data>
 </root>

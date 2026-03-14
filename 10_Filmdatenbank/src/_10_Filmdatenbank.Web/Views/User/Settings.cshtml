@@ -1,0 +1,187 @@
+@model _10_Filmdatenbank.Web.Models.UserSettingsViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Settings"];
+}
+
+<div class="max-w-4xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-text-main dark:text-dark-text-main">@Localizer["Settings"]</h1>
+        <p class="mt-2 text-text-muted dark:text-dark-text-muted">@Localizer["Manage your personal preferences and appearance."]</p>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="mb-6 p-4 bg-success-bg border border-success-border rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-top-4 duration-500">
+            <i class="fa-duotone fa-solid fa-circle-check text-success-primary text-xl"></i>
+            <p class="text-success-content dark:text-success-dark-content font-medium">@TempData["SuccessMessage"]</p>
+        </div>
+    }
+
+    <form asp-action="UpdateSettings" method="post" id="settingsForm">
+        @Html.AntiForgeryToken()
+
+        <!-- Appearance Section -->
+        <section class="bg-surface-bright dark:bg-dark-surface-soft border border-border-default dark:border-dark-border rounded-2xl shadow-sm overflow-hidden mb-8">
+            <div class="p-6 border-b border-border-default dark:border-dark-border">
+                <h2 class="text-xl font-semibold text-text-main dark:text-dark-text-main flex items-center gap-2">
+                    <i class="fa-duotone fa-solid fa-palette text-brand-primary"></i>
+                    @Localizer["Appearance"]
+                </h2>
+            </div>
+            
+            <div class="p-6">
+                <label class="block text-sm font-medium text-text-secondary dark:text-dark-text-secondary mb-4">
+                    @Localizer["Choose a Theme"]
+                </label>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4" id="themeSelector">
+                    <!-- Default Theme -->
+                    <label class="relative block cursor-pointer group">
+                        <input type="radio" asp-for="Theme" value="default" class="sr-only peer" onchange="previewTheme('default')">
+                        <div class="p-4 rounded-xl border-2 border-transparent peer-checked:border-brand-primary bg-surface-muted dark:bg-dark-surface group-hover:bg-surface-subtle dark:group-hover:bg-dark-surface-muted transition-all duration-200">
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <div class="w-4 h-4 rounded-full bg-[#7c3aed]"></div>
+                                <div class="w-4 h-4 rounded-full bg-[#6d28d9]"></div>
+                                <div class="w-4 h-4 rounded-full bg-[#f5f3ff]"></div>
+                            </div>
+                            <span class="text-sm font-medium text-text-main dark:text-dark-text-main">Default</span>
+                        </div>
+                        <div class="absolute top-2 right-2 opacity-0 peer-checked:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-circle-check text-brand-primary"></i>
+                        </div>
+                    </label>
+
+                    <!-- Emerald Theme -->
+                    <label class="relative block cursor-pointer group">
+                        <input type="radio" asp-for="Theme" value="emerald" class="sr-only peer" onchange="previewTheme('emerald')">
+                        <div class="p-4 rounded-xl border-2 border-transparent peer-checked:border-brand-primary bg-surface-muted dark:bg-dark-surface group-hover:bg-surface-subtle dark:group-hover:bg-dark-surface-muted transition-all duration-200">
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <div class="w-4 h-4 rounded-full bg-emerald-600"></div>
+                                <div class="w-4 h-4 rounded-full bg-emerald-700"></div>
+                                <div class="w-4 h-4 rounded-full bg-emerald-50"></div>
+                            </div>
+                            <span class="text-sm font-medium text-text-main dark:text-dark-text-main">Emerald</span>
+                        </div>
+                        <div class="absolute top-2 right-2 opacity-0 peer-checked:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-circle-check text-brand-primary"></i>
+                        </div>
+                    </label>
+
+                    <!-- Sunset Theme -->
+                    <label class="relative block cursor-pointer group">
+                        <input type="radio" asp-for="Theme" value="sunset" class="sr-only peer" onchange="previewTheme('sunset')">
+                        <div class="p-4 rounded-xl border-2 border-transparent peer-checked:border-brand-primary bg-surface-muted dark:bg-dark-surface group-hover:bg-surface-subtle dark:group-hover:bg-dark-surface-muted transition-all duration-200">
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <div class="w-4 h-4 rounded-full bg-orange-600"></div>
+                                <div class="w-4 h-4 rounded-full bg-orange-700"></div>
+                                <div class="w-4 h-4 rounded-full bg-orange-50"></div>
+                            </div>
+                            <span class="text-sm font-medium text-text-main dark:text-dark-text-main">Sunset</span>
+                        </div>
+                        <div class="absolute top-2 right-2 opacity-0 peer-checked:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-circle-check text-brand-primary"></i>
+                        </div>
+                    </label>
+
+                    <!-- Midnight Theme -->
+                    <label class="relative block cursor-pointer group">
+                        <input type="radio" asp-for="Theme" value="midnight" class="sr-only peer" onchange="previewTheme('midnight')">
+                        <div class="p-4 rounded-xl border-2 border-transparent peer-checked:border-brand-primary bg-surface-muted dark:bg-dark-surface group-hover:bg-surface-subtle dark:group-hover:bg-dark-surface-muted transition-all duration-200">
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <div class="w-4 h-4 rounded-full bg-blue-700"></div>
+                                <div class="w-4 h-4 rounded-full bg-blue-800"></div>
+                                <div class="w-4 h-4 rounded-full bg-blue-50"></div>
+                            </div>
+                            <span class="text-sm font-medium text-text-main dark:text-dark-text-main">Midnight</span>
+                        </div>
+                        <div class="absolute top-2 right-2 opacity-0 peer-checked:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-circle-check text-brand-primary"></i>
+                        </div>
+                    </label>
+
+                    <!-- Mocha Theme -->
+                    <label class="relative block cursor-pointer group">
+                        <input type="radio" asp-for="Theme" value="mocha" class="sr-only peer" onchange="previewTheme('mocha')">
+                        <div class="p-4 rounded-xl border-2 border-transparent peer-checked:border-brand-primary bg-surface-muted dark:bg-dark-surface group-hover:bg-surface-subtle dark:group-hover:bg-dark-surface-muted transition-all duration-200">
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <div class="w-4 h-4 rounded-full bg-amber-700"></div>
+                                <div class="w-4 h-4 rounded-full bg-amber-800"></div>
+                                <div class="w-4 h-4 rounded-full bg-amber-50"></div>
+                            </div>
+                            <span class="text-sm font-medium text-text-main dark:text-dark-text-main">Mocha</span>
+                        </div>
+                        <div class="absolute top-2 right-2 opacity-0 peer-checked:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-circle-check text-brand-primary"></i>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preferences Section -->
+        <section class="bg-surface-bright dark:bg-dark-surface-soft border border-border-default dark:border-dark-border rounded-2xl shadow-sm overflow-hidden mb-8">
+            <div class="p-6 border-b border-border-default dark:border-dark-border">
+                <h2 class="text-xl font-semibold text-text-main dark:text-dark-text-main flex items-center gap-2">
+                    <i class="fa-duotone fa-solid fa-gear text-brand-primary"></i>
+                    @Localizer["Preferences"]
+                </h2>
+            </div>
+            
+            <div class="p-6 space-y-6">
+                <!-- Language -->
+                <div>
+                    <label asp-for="PreferredLanguage" class="block text-sm font-medium text-text-secondary dark:text-dark-text-secondary mb-2"></label>
+                    <select asp-for="PreferredLanguage" class="w-full sm:max-w-xs bg-surface-muted dark:bg-dark-surface border border-border-default dark:border-dark-border rounded-xl px-4 py-2 text-text-main dark:text-dark-text-main focus:ring-2 focus:ring-brand-primary outline-none">
+                        <option value="de">Deutsch</option>
+                        <option value="en">English</option>
+                        <option value="pt">Português</option>
+                        <option value="ru">Русский</option>
+                        <option value="ar">العربية</option>
+                        <option value="tr">Türkçe</option>
+                    </select>
+                </div>
+
+                <!-- Notifications -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-sm font-medium text-text-main dark:text-dark-text-main">@Localizer["Enable Notifications"]</span>
+                        <p class="text-xs text-text-muted dark:text-dark-text-muted">@Localizer["Receive updates about your activities."]</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" asp-for="EnableNotifications" class="sr-only peer">
+                        <div class="w-11 h-6 bg-surface-subtle dark:bg-dark-surface-soft peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-primary"></div>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Save Button -->
+        <div class="flex justify-end gap-4">
+            <a asp-action="Dashboard" class="px-6 py-2.5 rounded-xl border border-border-default dark:border-dark-border text-text-secondary dark:text-dark-text-secondary font-semibold hover:bg-surface-muted dark:hover:bg-dark-surface transition-all">
+                @Localizer["Cancel"]
+            </a>
+            <button type="submit" class="px-8 py-2.5 rounded-xl bg-brand-primary text-white font-semibold shadow-lg shadow-brand-shadow hover:bg-brand-hover hover:scale-[1.02] active:scale-[0.98] transition-all">
+                @Localizer["Save Changes"]
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function previewTheme(themeName) {
+            const htmlElement = document.documentElement;
+            // Remove current theme if any
+            htmlElement.removeAttribute('data-theme');
+            
+            if (themeName !== 'default') {
+                htmlElement.setAttribute('data-theme', themeName);
+            }
+            
+            console.log('Preview theme set to:', themeName);
+        }
+    </script>
+}

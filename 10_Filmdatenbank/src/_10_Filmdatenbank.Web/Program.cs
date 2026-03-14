@@ -112,6 +112,22 @@ using (var scope = app.Services.CreateScope())
         await userManager.CreateAsync(admin, "Admin123!");
         await userManager.AddToRoleAsync(admin, "Admin");
     }
+
+    if (await userManager.FindByEmailAsync("user@film.de") == null)
+    {
+        var user = new ApplicationUser 
+        { 
+            UserName = "user@film.de", 
+            Email = "user@film.de", 
+            EmailConfirmed = true,
+            FirstName = "Standard",
+            LastName = "User",
+            CreatedAt = DateTime.UtcNow,
+            IsDisabled = false
+        };
+        await userManager.CreateAsync(user, "User123!");
+        await userManager.AddToRoleAsync(user, "Member");
+    }
 }
 
 app.Run();

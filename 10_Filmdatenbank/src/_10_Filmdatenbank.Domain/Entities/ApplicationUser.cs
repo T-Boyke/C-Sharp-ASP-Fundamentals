@@ -41,4 +41,9 @@ public class ApplicationUser : IdentityUser
     // Custom Extensions
     public virtual ICollection<FavoriteFilm> FavoriteFilms { get; set; } = new List<FavoriteFilm>();
     public virtual ICollection<UserAchievement> EarnedAchievements { get; set; } = new List<UserAchievement>();
+
+    /// <summary>
+    /// Flexible Speicherung von Benutzer-Einstellungen (z.B. Theme, Sprache, UI-Präferenzen).
+    /// </summary>
+    public string? SettingsJson { get; set; }
 }

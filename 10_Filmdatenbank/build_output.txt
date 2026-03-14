@@ -1,0 +1,27 @@
+  Wiederherzustellende Projekte werden ermittelt...
+  Alle Projekte sind f├╝r die Wiederherstellung auf dem neuesten Stand.
+  _10_Filmdatenbank.Domain -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Domain\bin\Debug\net10.0\_10_Filmdatenbank.Domain.dll
+  _10_Filmdatenbank.Application -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\bin\Debug\net10.0\_10_Filmdatenbank.Application.dll
+  _10_Filmdatenbank.Infrastructure -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Infrastructure\bin\Debug\net10.0\_10_Filmdatenbank.Infrastructure.dll
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Controllers\TmdbController.cs(55,22): warning CS8604: M├Âgliches Nullverweisargument f├╝r den Parameter "source" in "IEnumerable<<anonymous type: int Id, string? Name>> Enumerable.Select<Genre, <anonymous type: int Id, string? Name>>(IEnumerable<Genre> source, Func<Genre, <anonymous type: int Id, string? Name>> selector)". [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Person\Details.cshtml(274,66): warning CS8600: Das NULL-Literal oder ein m├Âglicher NULL-Wert wird in einen Non-Nullable-Typ konvertiert. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Person\Details.cshtml(277,31): warning CS8600: Das NULL-Literal oder ein m├Âglicher NULL-Wert wird in einen Non-Nullable-Typ konvertiert. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Person\Details.cshtml(279,34): warning CS0168: Die Variable "ex" ist deklariert, wird aber nie verwendet. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Controllers\GroupController.cs(145,67): warning CS8602: Dereferenzierung eines m├Âglichen Nullverweises. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Shared\_Navigation.cshtml(82,63): warning CS8602: Dereferenzierung eines m├Âglichen Nullverweises. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Controllers\FilmController.cs(296,29): warning CS8602: Dereferenzierung eines m├Âglichen Nullverweises. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+  _10_Filmdatenbank.Web -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\bin\Debug\net10.0\_10_Filmdatenbank.Web.dll
+
+Der Buildvorgang wurde erfolgreich ausgef├╝hrt.
+
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Controllers\TmdbController.cs(55,22): warning CS8604: M├Âgliches Nullverweisargument f├╝r den Parameter "source" in "IEnumerable<<anonymous type: int Id, string? Name>> Enumerable.Select<Genre, <anonymous type: int Id, string? Name>>(IEnumerable<Genre> source, Func<Genre, <anonymous type: int Id, string? Name>> selector)". [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Person\Details.cshtml(274,66): warning CS8600: Das NULL-Literal oder ein m├Âglicher NULL-Wert wird in einen Non-Nullable-Typ konvertiert. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Person\Details.cshtml(277,31): warning CS8600: Das NULL-Literal oder ein m├Âglicher NULL-Wert wird in einen Non-Nullable-Typ konvertiert. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Person\Details.cshtml(279,34): warning CS0168: Die Variable "ex" ist deklariert, wird aber nie verwendet. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Controllers\GroupController.cs(145,67): warning CS8602: Dereferenzierung eines m├Âglichen Nullverweises. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Shared\_Navigation.cshtml(82,63): warning CS8602: Dereferenzierung eines m├Âglichen Nullverweises. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Controllers\FilmController.cs(296,29): warning CS8602: Dereferenzierung eines m├Âglichen Nullverweises. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+    7 Warnung(en)
+    0 Fehler
+
+Verstrichene Zeit 00:00:03.55

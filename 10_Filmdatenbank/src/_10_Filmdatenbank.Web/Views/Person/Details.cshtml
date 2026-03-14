@@ -93,25 +93,25 @@
                             <div class="flex items-center gap-4 mt-4 py-2">
                                 @if (!string.IsNullOrEmpty(Model.ImdbId))
                                 {
-                                    <a href="https://www.imdb.com/name/@Model.ImdbId" target="_blank" class="w-8 h-8 rounded-lg bg-[#f5c518] text-black flex items-center justify-center font-black transition-transform hover:scale-110 shadow-lg" title="IMDb Profile">
+                                    <a href="https://www.imdb.com/name/@Model.ImdbId" target="_blank" class="w-8 h-8 rounded-lg bg-accent-imdb text-black flex items-center justify-center font-black transition-transform hover:scale-110 shadow-lg" title="IMDb Profile">
                                         <i class="fa-brands fa-imdb text-xl"></i>
                                     </a>
                                 }
                                 @if (!string.IsNullOrEmpty(Model.FacebookId))
                                 {
-                                    <a href="https://facebook.com/@Model.FacebookId" target="_blank" class="w-8 h-8 rounded-lg bg-[#1877f2] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
+                                    <a href="https://facebook.com/@Model.FacebookId" target="_blank" class="w-8 h-8 rounded-lg bg-accent-facebook text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
                                         <i class="fa-brands fa-facebook-f"></i>
                                     </a>
                                 }
                                 @if (!string.IsNullOrEmpty(Model.InstagramId))
                                 {
-                                    <a href="https://instagram.com/@Model.InstagramId" target="_blank" class="w-8 h-8 rounded-lg bg-linear-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
+                                    <a href="https://instagram.com/@Model.InstagramId" target="_blank" class="w-8 h-8 rounded-lg bg-linear-to-tr from-accent-instagram-from via-accent-instagram-via to-accent-instagram-to text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
                                         <i class="fa-brands fa-instagram"></i>
                                     </a>
                                 }
                                 @if (!string.IsNullOrEmpty(Model.TwitterId))
                                 {
-                                    <a href="https://twitter.com/@Model.TwitterId" target="_blank" class="w-8 h-8 rounded-lg bg-[#1da1f2] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
+                                    <a href="https://twitter.com/@Model.TwitterId" target="_blank" class="w-8 h-8 rounded-lg bg-accent-twitter text-white flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
                                         <i class="fa-brands fa-x-twitter"></i>
                                     </a>
                                 }

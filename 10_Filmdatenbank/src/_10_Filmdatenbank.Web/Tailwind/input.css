@@ -5,19 +5,45 @@
 
 /* Theme and Base */
 @import "./components/theme.css";
+@import "./components/animations.css";
 
-/* Core UI Components */
+/* Core Elements */
 @import "./components/btn.css";
-@import "./components/card.css";
+@import "./components/badge.css";
+@import "./components/avatar.css";
+@import "./components/headings.css";
+
+/* Navigation */
+@import "./components/navbars.css";
+
+/* Data & Lists */
+@import "./components/lists.css";
+@import "./components/data-display.css";
+
+/* Forms */
+@import "./components/form.css";
+
+/* Feedback & Overlays */
+@import "./components/alerts.css";
+@import "./components/empty-states.css";
+@import "./components/modals.css";
+@import "./components/notifications.css";
+@import "./components/command-palettes.css";
+@import "./components/dropdowns.css";
+@import "./components/progress.css";
+@import "./components/comboboxes.css";
+
+/* Layout & Shells */
+@import "./components/layout.css";
+@import "./components/application-shells.css";
+@import "./components/page-examples.css";
+
+/* Legacy / Utilities */
 @import "./components/hero.css";
 @import "./components/grid.css";
 @import "./components/flex.css";
-@import "./components/badge.css";
-@import "./components/form.css";
-@import "./components/avatar.css";
+@import "./components/card.css";
 @import "./components/btn-groups.css";
-@import "./components/alerts.css";
-@import "./components/empty-states.css";
 
 /* Professional Utilities - No AI Slop */
 @utility accent-border {
