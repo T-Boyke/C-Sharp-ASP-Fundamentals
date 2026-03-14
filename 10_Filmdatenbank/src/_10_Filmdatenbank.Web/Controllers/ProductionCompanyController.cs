@@ -34,6 +34,8 @@ public class ProductionCompanyController(ApplicationDbContext context) : Control
     {
         var company = await context.ProductionCompanies
             .Include(c => c.Films)
+                .ThenInclude(f => f.Genres)
+            .Include(c => c.ProductionCompanyAwards)
             .FirstOrDefaultAsync(c => c.ProductionCompanyID == id);
 
         if (company == null) return NotFound();

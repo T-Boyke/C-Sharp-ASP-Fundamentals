@@ -75,6 +75,11 @@ public class Film
     public int? TmdbId { get; set; }
 
     /// <summary>
+    /// Die ID des Films auf TheTVDB.
+    /// </summary>
+    public int? TvdbId { get; set; }
+
+    /// <summary>
     /// Die ID des Films auf IMDB.
     /// </summary>
     public string? ImdbId { get; set; }
@@ -205,14 +210,9 @@ public class Film
     public string? TrailerUrl { get; set; }
 
     /// <summary>
-    /// Informationen über gewonnene Auszeichnungen oder Nominierungen (Legacy Text).
-    /// </summary>
-    public string? Awards { get; set; }
-
-    /// <summary>
     /// Die strukturierten Auszeichnungen des Films.
     /// </summary>
-    public virtual ICollection<FilmAward> AwardsList { get; set; } = new List<FilmAward>();
+    public virtual ICollection<FilmAward> FilmAwards { get; set; } = new List<FilmAward>();
 
     /// <summary>
     /// Gibt an, ob der Film nur für Erwachsene (Jugendschutz) geeignet ist.

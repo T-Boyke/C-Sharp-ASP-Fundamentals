@@ -32,7 +32,14 @@ public class TmdbService : ITmdbService
 
     public async Task<Movie> GetMovieDetailsAsync(int tmdbId, string language = "de-DE")
     {
-        return await _client.GetMovieAsync(tmdbId, language: language, extraMethods: MovieMethods.Credits | MovieMethods.ExternalIds | MovieMethods.Keywords | MovieMethods.Videos);
+        return await _client.GetMovieAsync(tmdbId, language: language, extraMethods: 
+            MovieMethods.Credits | 
+            MovieMethods.ExternalIds | 
+            MovieMethods.Keywords | 
+            MovieMethods.Videos | 
+            MovieMethods.AlternativeTitles | 
+            MovieMethods.ReleaseDates |
+            MovieMethods.Images);
     }
 
     public async Task<IEnumerable<SearchPerson>> SearchPersonsAsync(string query, string language = "de-DE")
@@ -43,7 +50,12 @@ public class TmdbService : ITmdbService
 
     public async Task<Person> GetPersonDetailsAsync(int tmdbId, string language = "de-DE")
     {
-        return await _client.GetPersonAsync(tmdbId, language: language, extraMethods: PersonMethods.CombinedCredits | PersonMethods.ExternalIds | PersonMethods.MovieCredits);
+        return await _client.GetPersonAsync(tmdbId, language: language, extraMethods: 
+            PersonMethods.CombinedCredits | 
+            PersonMethods.ExternalIds | 
+            PersonMethods.MovieCredits |
+            PersonMethods.Images |
+            PersonMethods.Changes);
     }
 
     public async Task<IEnumerable<SearchCollection>> SearchCollectionsAsync(string query, string language = "de-DE")
@@ -54,7 +66,7 @@ public class TmdbService : ITmdbService
 
     public async Task<Collection> GetCollectionDetailsAsync(int tmdbId, string language = "de-DE")
     {
-        return await _client.GetCollectionAsync(tmdbId, language, null, (CollectionMethods)0);
+        return await _client.GetCollectionAsync(tmdbId, language: language, includeImageLanguages: null, extraMethods: CollectionMethods.Images);
     }
 
     public async Task<IEnumerable<SearchCompany>> SearchCompaniesAsync(string query, string language = "de-DE")

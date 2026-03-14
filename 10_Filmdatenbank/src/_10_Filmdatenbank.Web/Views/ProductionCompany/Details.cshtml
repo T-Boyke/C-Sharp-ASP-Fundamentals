@@ -84,6 +84,105 @@
         </div>
     </div>
 
+    <!-- Studio DNA Analytics -->
+    <section class="mb-20">
+        <div class="form-group-header !mb-8">
+            <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["StudioDNA"]</h2>
+            <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
+        </div>
+
+        @{
+            var localFilms = Model.Films.ToList();
+            var totalStudioFilms = localFilms.Count;
+            var studioRevenue = localFilms.Sum(f => f.Revenue ?? 0);
+            var studioBudget = localFilms.Sum(f => f.Budget ?? 0);
+            var studioGenres = localFilms.SelectMany(f => f.Genres)
+                                        .GroupBy(g => g.Name)
+                                        .Select(g => new { Name = g.Key, Count = g.Count() })
+                                        .OrderByDescending(g => g.Count)
+                                        .Take(5)
+                                        .ToList();
+        }
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <!-- DNA Strands: Genre Specialization -->
+            <div class="lg:col-span-2 space-y-8">
+                <p class="text-[10px] font-black text-text-muted uppercase tracking-widest">@Localizer["GenreSpecialization"]</p>
+                <div class="space-y-6">
+                    @foreach (var sg in studioGenres)
+                    {
+                        var percentage = totalStudioFilms > 0 ? (double)sg.Count / totalStudioFilms * 100 : 0;
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-black text-text-main dark:text-white uppercase">@sg.Name</span>
+                                <span class="text-[10px] font-bold text-brand-primary">@sg.Count @Localizer["Films"] (@percentage.ToString("0")%)</span>
+                            </div>
+                            <div class="w-full h-2 bg-surface-muted dark:bg-dark-surface-soft rounded-full overflow-hidden">
+                                <div class="h-full bg-linear-to-r from-brand-primary to-brand-primary/60 shadow-[0_0_15px_rgba(var(--brand-primary-rgb),0.4)]" style="width: @percentage%"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Studio Impact: Financials -->
+            <div class="glass-premium p-8 rounded-3xl border border-glass-border flex flex-col justify-between">
+                <p class="text-[10px] font-black text-brand-primary uppercase tracking-widest mb-8">@Localizer["FinancialImpact"]</p>
+                
+                <div class="space-y-8">
+                    <div>
+                        <p class="text-[10px] font-bold text-text-muted uppercase mb-1">@Localizer["TotalCumulativeRevenue"]</p>
+                        <p class="text-3xl font-black text-text-main dark:text-white">$@studioRevenue.ToString("N0")</p>
+                    </div>
+                    
+                    <div class="h-px bg-glass-border"></div>
+                    
+                    <div>
+                        <p class="text-[10px] font-bold text-text-muted uppercase mb-1">@Localizer["AvgProductionBudget"]</p>
+                        @{
+                            var avgBudgetPC = totalStudioFilms > 0 ? studioBudget / totalStudioFilms : 0;
+                        }
+                        <p class="text-2xl font-black text-text-main dark:text-white">$@avgBudgetPC.ToString("N0")</p>
+                    </div>
+
+                    <div class="h-px bg-glass-border"></div>
+
+                    <div>
+                        <p class="text-[10px] font-bold text-text-muted uppercase mb-1">@Localizer["PortfolioSize"]</p>
+                        <p class="text-2xl font-black text-text-main dark:text-white">@totalStudioFilms @Localizer["TrackedFilms"]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accolades & Recognition -->
+    @if (Model.ProductionCompanyAwards?.Any() == true)
+    {
+        <section class="mb-20">
+            <div class="form-group-header !mb-8">
+                <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["AccoladesAndRecognition"]</h2>
+                <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach (var award in Model.ProductionCompanyAwards.OrderByDescending(a => a.Year))
+                {
+                    <div class="glass-premium p-6 rounded-2xl border border-glass-border flex flex-col group">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-[10px] font-black text-brand-primary uppercase">@award.Year</span>
+                            @if (award.IsWin)
+                            {
+                                <i class="fa-solid fa-trophy text-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.3)]"></i>
+                            }
+                        </div>
+                        <p class="text-md font-black text-text-main dark:text-white mb-1">@award.Name</p>
+                        <p class="text-[10px] font-bold text-text-muted uppercase">@award.Category</p>
+                    </div>
+                }
+            </div>
+        </section>
+    }
+
     <div class="form-group-header !mb-12">
         <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["ProducedFilmsHeader"]</h2>
         <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>

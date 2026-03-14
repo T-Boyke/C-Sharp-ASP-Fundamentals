@@ -27,7 +27,7 @@ public class AlternativeTitle
     /// </summary>
     [Required]
     [StringLength(2)]
-    public string Iso_3166_1 { get; set; } = string.Empty;
+    public string Iso3166_1 { get; set; } = string.Empty;
 
     /// <summary>
     /// Der alternative Titel.

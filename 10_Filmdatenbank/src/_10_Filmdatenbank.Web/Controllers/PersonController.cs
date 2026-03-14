@@ -45,8 +45,14 @@ public class PersonController(ApplicationDbContext context) : Controller
         var person = await context.Personen
             .Include(p => p.PersonEigenschaftFilme)
                 .ThenInclude(pef => pef.Film)
+                    .ThenInclude(f => f.Genres)
+            .Include(p => p.PersonEigenschaftFilme)
+                .ThenInclude(pef => pef.Film)
+                    .ThenInclude(f => f.PersonEigenschaftFilme)
+                        .ThenInclude(pef => pef.Person)
             .Include(p => p.PersonEigenschaftFilme)
                 .ThenInclude(pef => pef.Eigenschaft)
+            .Include(p => p.PersonAwards)
             .FirstOrDefaultAsync(p => p.PersonID == id);
 
         if (person == null) return NotFound();

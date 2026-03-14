@@ -220,6 +220,128 @@
                 </p>
             </section>
 
+            <!-- DNA Analytics: Genre & Collaborators -->
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                @{
+                    var localFilms = Model.PersonEigenschaftFilme.Select(pef => pef.Film).ToList();
+                    var genreCounts = localFilms.SelectMany(f => f.Genres)
+                                           .GroupBy(g => g.Name)
+                                           .Select(g => new { Name = g.Key, Count = g.Count() })
+                                           .OrderByDescending(g => g.Count)
+                                           .ToList();
+                    var totalGenreCount = genreCounts.Sum(g => g.Count);
+
+                    var collaborators = localFilms.SelectMany(f => f.PersonEigenschaftFilme)
+                                            .Where(pef => pef.PersonID != Model.PersonID)
+                                            .GroupBy(pef => pef.Person)
+                                            .Select(g => new { Person = g.Key, Count = g.Count() })
+                                            .OrderByDescending(g => g.Count)
+                                            .Take(9)
+                                            .ToList();
+                }
+
+                <!-- Genre Distribution -->
+                <div class="space-y-6">
+                    <div class="form-group-header !mb-0">
+                        <h3 class="text-lg font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["GenreDistribution"]</h3>
+                        <div class="h-1 w-8 bg-brand-primary rounded-full mt-1"></div>
+                    </div>
+                    @if (genreCounts.Any())
+                    {
+                        <div class="space-y-4">
+                            @foreach (var gc in genreCounts.Take(6))
+                            {
+                                var percentage = (double)gc.Count / totalGenreCount * 100;
+                                <div>
+                                    <div class="flex justify-between text-[10px] font-black uppercase mb-1.5 transition-colors text-text-muted dark:text-dark-text-muted">
+                                        <span>@gc.Name</span>
+                                        <span>@gc.Count @Localizer["Projects"]</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-surface-muted dark:bg-dark-surface-soft rounded-full overflow-hidden border border-border-muted dark:border-dark-border">
+                                        <div class="h-full bg-brand-primary shadow-[0_0_10px_rgba(var(--brand-primary-rgb),0.3)]" style="width: @percentage%"></div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-sm font-bold text-text-muted italic">@Localizer["NoData"]</p>
+                    }
+                </div>
+
+                <!-- Collaboration Matrix -->
+                <div class="space-y-6">
+                    <div class="form-group-header !mb-0">
+                        <h3 class="text-lg font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["CollaborationMatrix"]</h3>
+                        <div class="h-1 w-8 bg-brand-primary rounded-full mt-1"></div>
+                    </div>
+                    @if (collaborators.Any())
+                    {
+                        <div class="grid grid-cols-3 gap-3">
+                            @foreach (var col in collaborators)
+                            {
+                                <a asp-action="Details" asp-route-id="@col.Person.PersonID" class="group relative">
+                                    <div class="aspect-square rounded-xl overflow-hidden border-2 border-border-muted dark:border-dark-border group-hover:border-brand-primary transition-all shadow-sm group-hover:shadow-lg">
+                                        @if (!string.IsNullOrEmpty(col.Person.ProfilBildUrl))
+                                        {
+                                            <img src="@col.Person.ProfilBildUrl" alt="@col.Person.Vorname" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-110" />
+                                        }
+                                        else
+                                        {
+                                            <div class="w-full h-full flex items-center justify-center bg-surface-muted dark:bg-dark-surface-soft">
+                                                <span class="text-xs font-black text-text-muted uppercase">@col.Person.Vorname[0]</span>
+                                            </div>
+                                        }
+                                        <div class="absolute inset-0 bg-brand-primary/0 group-hover:bg-brand-primary/10 transition-colors"></div>
+                                    </div>
+                                    <div class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-primary text-[9px] font-black text-white flex items-center justify-center border-2 border-white dark:border-dark-surface shadow-md">
+                                        @col.Count
+                                    </div>
+                                    <p class="mt-1.5 text-[8px] font-black text-center text-text-muted dark:text-dark-text-muted uppercase truncate group-hover:text-brand-primary transition-colors">@col.Person.Vorname</p>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-sm font-bold text-text-muted italic">@Localizer["NoData"]</p>
+                    }
+                </div>
+            </section>
+
+            <!-- Accolades & Recognition -->
+            @if (Model.PersonAwards?.Any() == true)
+            {
+                <section>
+                    <div class="form-group-header !mb-8">
+                        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["AccoladesAndRecognition"]</h2>
+                        <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @foreach (var award in Model.PersonAwards.OrderByDescending(a => a.Year))
+                        {
+                            <div class="glass-premium p-6 rounded-2xl border border-glass-border relative overflow-hidden group">
+                                <div class="absolute -right-4 -top-4 w-16 h-16 bg-brand-primary/5 rounded-full blur-xl group-hover:bg-brand-primary/10 transition-colors"></div>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <span class="text-xs font-black text-brand-primary uppercase bg-brand-primary/10 px-2 py-1 rounded">@award.Year</span>
+                                    @if (award.IsWin)
+                                    {
+                                        <span class="text-[9px] font-black text-white px-2 py-1 rounded bg-green-500 uppercase shadow-sm">@Localizer["Winner"]</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-[9px] font-black text-text-muted px-2 py-1 rounded bg-surface-muted dark:bg-dark-surface-soft uppercase border border-border-muted dark:border-dark-border">@Localizer["Nominated"]</span>
+                                    }
+                                </div>
+                                <p class="text-lg font-black text-text-main dark:text-white leading-tight mb-1">@award.Name</p>
+                                <p class="text-[11px] font-bold text-text-muted uppercase tracking-wider">@award.Category</p>
+                            </div>
+                        }
+                    </div>
+                </section>
+            }
+
             <!-- Filmography Section (Local) -->
             <section>
                 <div class="form-group-header !mb-8 flex items-center justify-between">

@@ -14,7 +14,7 @@ namespace _10_Filmdatenbank.Web.Controllers;
 [Authorize]
 [Route("Movies")]
 [Route("Movies/[action]")]
-public class FilmController(ApplicationDbContext context, ITmdbService tmdbService, UserManager<ApplicationUser> userManager) : Controller
+public class FilmController(ApplicationDbContext context, ITmdbService tmdbService, ITvdbService tvdbService, UserManager<ApplicationUser> userManager) : Controller
 {
     /// <summary>
     /// Zeigt eine Liste aller Filme an.
@@ -71,6 +71,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                 .ThenInclude(pef => pef.Person)
             .Include(f => f.PersonEigenschaftFilme)
                 .ThenInclude(pef => pef.Eigenschaft)
+            .Include(f => f.FilmAwards)
             .FirstOrDefaultAsync(f => f.FilmID == id);
 
         return film == null ? NotFound() : View(film);
@@ -117,10 +118,14 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                 var collection = await context.Collections.FirstOrDefaultAsync(c => c.TmdbId == TmdbCollectionId.Value);
                 if (collection == null && !string.IsNullOrEmpty(TmdbCollectionName))
                 {
+                    var colDetails = await tmdbService.GetCollectionDetailsAsync(TmdbCollectionId.Value);
                     collection = new Collection
                     {
                         TmdbId = TmdbCollectionId.Value,
-                        Name = TmdbCollectionName
+                        Name = TmdbCollectionName,
+                        Overview = colDetails?.Overview,
+                        PosterUrl = string.IsNullOrEmpty(colDetails?.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{colDetails.PosterPath}",
+                        BackdropUrl = string.IsNullOrEmpty(colDetails?.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{colDetails.BackdropPath}"
                     };
                     context.Collections.Add(collection);
                     await context.SaveChangesAsync();
@@ -130,6 +135,12 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                 {
                     film.CollectionID = collection.CollectionID;
                 }
+            }
+
+            // Automate enriched metadata from TMDB if TmdbId is present
+            if (film.TmdbId.HasValue)
+            {
+                await HandleEnrichedFilmMetadataAsync(film, tmdbService, context);
             }
 
             context.Filme.Add(film);
@@ -202,12 +213,16 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                         
                         if (company == null)
                         {
+                            var studio = await tmdbService.GetCompanyDetailsAsync(item.Id);
                             company = new ProductionCompany
                             {
                                 Name = item.Name,
                                 TmdbId = item.Id,
-                                LogoUrl = item.LogoUrl,
-                                OriginCountry = item.OriginCountry
+                                LogoUrl = string.IsNullOrEmpty(studio?.LogoPath) ? item.LogoUrl : $"https://image.tmdb.org/t/p/w500{studio.LogoPath}",
+                                OriginCountry = studio?.OriginCountry ?? item.OriginCountry,
+                                Headquarters = studio?.Headquarters,
+                                Homepage = studio?.Homepage,
+                                Description = studio?.Description
                             };
                             context.ProductionCompanies.Add(company);
                         }
@@ -234,6 +249,145 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         }
 
         return View(film);
+    }
+
+    private async Task HandleEnrichedFilmMetadataAsync(Film film, ITmdbService tmdbService, ApplicationDbContext context)
+    {
+        if (!film.TmdbId.HasValue) return;
+
+        var movie = await tmdbService.GetMovieDetailsAsync(film.TmdbId.Value);
+        if (movie == null) return;
+
+        // 1. Alternative Titles
+        if (movie.AlternativeTitles?.Titles != null)
+        {
+            foreach (var alt in movie.AlternativeTitles.Titles)
+            {
+                if (!film.AlternativeTitles.Any(at => at.Title == alt.Title))
+                {
+                    film.AlternativeTitles.Add(new AlternativeTitle 
+                    { 
+                        Title = alt.Title, 
+                        Iso3166_1 = alt.Iso_3166_1, 
+                        Type = alt.Type 
+                    });
+                }
+            }
+        }
+
+        // 2. Releases (Global Context)
+        if (movie.ReleaseDates?.Results != null)
+        {
+            foreach (var res in movie.ReleaseDates.Results)
+            {
+                foreach (var release in res.ReleaseDates)
+                {
+                    if (!film.Releases.Any(r => r.Iso3166_1 == res.Iso_3166_1 && r.ReleaseDate == release.ReleaseDate))
+                    {
+                        film.Releases.Add(new FilmRelease
+                        {
+                            Iso3166_1 = res.Iso_3166_1,
+                            Certification = release.Certification,
+                            ReleaseDate = release.ReleaseDate,
+                            Type = (int)release.Type,
+                            Note = release.Note
+                        });
+                    }
+                }
+            }
+        }
+
+        // 3. Spoken Languages
+        if (movie.SpokenLanguages != null)
+        {
+            foreach (var lang in movie.SpokenLanguages)
+            {
+                var dbLang = await context.Languages.FirstOrDefaultAsync(l => l.Iso639_1 == lang.Iso_639_1);
+                if (dbLang == null)
+                {
+                    dbLang = new Language { Iso639_1 = lang.Iso_639_1, Name = lang.Name };
+                    context.Languages.Add(dbLang);
+                }
+                
+                if (!film.SpokenLanguages.Any(sl => sl.Iso639_1 == dbLang.Iso639_1))
+                {
+                    film.SpokenLanguages.Add(dbLang);
+                }
+            }
+        }
+
+        // 4. Production Countries
+        if (movie.ProductionCountries != null)
+        {
+            foreach (var c in movie.ProductionCountries)
+            {
+                var dbCountry = await context.Countries.FirstOrDefaultAsync(co => co.Iso3166_1 == c.Iso_3166_1);
+                if (dbCountry == null)
+                {
+                    dbCountry = new Country { Iso3166_1 = c.Iso_3166_1, Name = c.Name };
+                    context.Countries.Add(dbCountry);
+                }
+                
+                if (!film.ProductionCountries.Any(pc => pc.Iso3166_1 == dbCountry.Iso3166_1))
+                {
+                    film.ProductionCountries.Add(dbCountry);
+                }
+            }
+        }
+
+        // 5. TVDB ENRICHMENT
+        if (!film.TvdbId.HasValue && !string.IsNullOrEmpty(movie.ExternalIds?.ImdbId))
+        {
+            // Search for TVDB ID using IMDB ID
+            var tvdbResults = await tvdbService.SearchMoviesAsync(movie.ExternalIds.ImdbId);
+            var tvdbMovie = tvdbResults.FirstOrDefault(r => r.PrimaryLanguage == "eng" || r.PrimaryLanguage == "deu");
+            if (tvdbMovie != null && int.TryParse(tvdbMovie.TvdbId, out int tid))
+            {
+                film.TvdbId = tid;
+            }
+        }
+
+        if (film.TvdbId.HasValue)
+        {
+            try
+            {
+                var tvdbDetails = await tvdbService.GetMovieExtendedDetailsAsync(film.TvdbId.Value);
+                if (tvdbDetails != null)
+                {
+                    // Enrich with Awards from TVDB
+                    if (tvdbDetails.Awards != null)
+                    {
+                        foreach (var award in tvdbDetails.Awards)
+                        {
+                            if (!film.FilmAwards.Any(fa => fa.Name == award.Name))
+                            {
+                                film.FilmAwards.Add(new FilmAward
+                                {
+                                    Name = award.Name,
+                                    Year = award.Year,
+                                    Category = award.Category,
+                                    IsWinner = award.IsWinner
+                                });
+                            }
+                        }
+                    }
+
+                    // Box Office / Budget if missing from TMDB
+                    if ((film.Budget == null || film.Budget == 0) && tvdbDetails.Budget != null && long.TryParse(tvdbDetails.Budget, out long b))
+                        film.Budget = b;
+                    
+                    if ((film.Revenue == null || film.Revenue == 0) && tvdbDetails.BoxOffice != null && long.TryParse(tvdbDetails.BoxOffice, out long r))
+                        film.Revenue = r;
+
+                    // Add more "Fanatic" info if available
+                    // TVDB often has deeper tech specs or specialized lists
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"TVDB Enrichment Error: {ex.Message}");
+            }
+        }
     }
 
     private async Task HandleCastCrewSync(string? castJson, string? crewJson, Film film, ApplicationDbContext context, ITmdbService tmdbService)
@@ -323,6 +477,9 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                     InstagramId = tmdbPerson.ExternalIds?.InstagramId,
                     TwitterId = tmdbPerson.ExternalIds?.TwitterId,
                     WikidataId = tmdbPerson.ExternalIds?.WikidataId,
+                    FreebaseId = tmdbPerson.ExternalIds?.FreebaseId,
+                    FreebaseMid = tmdbPerson.ExternalIds?.FreebaseMid,
+                    TvrageId = tmdbPerson.ExternalIds?.TvrageId,
                     TmdbFilmographyJson = System.Text.Json.JsonSerializer.Serialize(tmdbPerson.CombinedCredits)
                 };
             }

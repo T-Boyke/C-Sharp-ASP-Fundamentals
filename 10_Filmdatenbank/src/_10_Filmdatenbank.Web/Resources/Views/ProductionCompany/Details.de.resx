@@ -10,4 +10,13 @@
   <data name="ProducedFilmsHeader" xml:space="preserve"><value>Produzierte Filme</value></data>
   <data name="ParentCompany" xml:space="preserve"><value>Muttergesellschaft</value></data>
   <data name="TmdbId" xml:space="preserve"><value>TMDB ID</value></data>
+  <data name="StudioDNA" xml:space="preserve"><value>Studio DNA</value></data>
+  <data name="GenreSpecialization" xml:space="preserve"><value>Genre-Spezialisierung</value></data>
+  <data name="FinancialImpact" xml:space="preserve"><value>Finanzielle Auswirkungen</value></data>
+  <data name="TotalCumulativeRevenue" xml:space="preserve"><value>Kumulierte Gesamteinnahmen</value></data>
+  <data name="AvgProductionBudget" xml:space="preserve"><value>Ø Produktionsbudget</value></data>
+  <data name="PortfolioSize" xml:space="preserve"><value>Portfolio-Größe</value></data>
+  <data name="TrackedFilms" xml:space="preserve"><value>Erfasste Filme</value></data>
+  <data name="AccoladesAndRecognition" xml:space="preserve"><value>Auszeichnungen &amp; Anerkennungen</value></data>
+  <data name="Films" xml:space="preserve"><value>Filme</value></data>
 </root>

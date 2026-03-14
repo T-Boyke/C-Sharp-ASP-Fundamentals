@@ -29,7 +29,7 @@ public class FilmRelease
     /// </summary>
     [Required]
     [StringLength(2)]
-    public string Iso_3166_1 { get; set; } = string.Empty;
+    public string Iso3166_1 { get; set; } = string.Empty;
 
     /// <summary>
     /// Die Altersfreigabe (z.B. FSK 12, R, PG-13).
@@ -45,4 +45,9 @@ public class FilmRelease
     /// Der Typ des Releases (1=Premiere, 2=Theatrical (limited), 3=Theatrical, 4=Digital, 5=Physical, 6=TV).
     /// </summary>
     public int Type { get; set; }
+
+    /// <summary>
+    /// Zusätzliche Informationen zum Release.
+    /// </summary>
+    public string? Note { get; set; }
 }

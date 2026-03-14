@@ -13,7 +13,7 @@ public class Country
     /// </summary>
     [Key]
     [StringLength(2, MinimumLength = 2)]
-    public string Iso_3166_1 { get; set; } = string.Empty;
+    public string Iso3166_1 { get; set; } = string.Empty;
 
     /// <summary>
     /// Der Name des Landes (meist in Englisch).

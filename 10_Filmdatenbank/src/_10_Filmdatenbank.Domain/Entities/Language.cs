@@ -13,7 +13,7 @@ public class Language
     /// </summary>
     [Key]
     [StringLength(2, MinimumLength = 2)]
-    public string Iso_639_1 { get; set; } = string.Empty;
+    public string Iso639_1 { get; set; } = string.Empty;
 
     /// <summary>
     /// Der Name der Sprache (in Englisch).

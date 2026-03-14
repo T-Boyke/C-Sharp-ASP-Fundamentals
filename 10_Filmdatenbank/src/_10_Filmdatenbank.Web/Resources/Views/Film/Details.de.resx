@@ -39,4 +39,20 @@
   <data name="Trailer" xml:space="preserve"><value>Trailer</value></data>
   <data name="PosterOf" xml:space="preserve"><value>Poster von {0}</value></data>
   <data name="Studios" xml:space="preserve"><value>Studios</value></data>
+  <data name="AccoladesAndRecognition" xml:space="preserve"><value>Auszeichnungen &amp; Anerkennungen</value></data>
+  <data name="Winner" xml:space="preserve"><value>Gewinner</value></data>
+  <data name="Nominated" xml:space="preserve"><value>Nominiert</value></data>
+  <data name="FinancialDashboard" xml:space="preserve"><value>Finanz-Check</value></data>
+  <data name="ROI" xml:space="preserve"><value>ROI (Rendite)</value></data>
+  <data name="Profitability" xml:space="preserve"><value>Profitabilität</value></data>
+  <data name="Hit" xml:space="preserve"><value>Hit</value></data>
+  <data name="Flop" xml:space="preserve"><value>Flop</value></data>
+  <data name="GlobalReleases" xml:space="preserve"><value>Globale Veröffentlichungen</value></data>
+  <data name="Certification" xml:space="preserve"><value>FSK/Freigabe</value></data>
+  <data name="ReleaseDate" xml:space="preserve"><value>Datum</value></data>
+  <data name="Language" xml:space="preserve"><value>Sprache</value></data>
+  <data name="AlternativeTitles" xml:space="preserve"><value>Alternative Titel</value></data>
+  <data name="Code" xml:space="preserve"><value>Code</value></data>
+  <data name="Title" xml:space="preserve"><value>Titel</value></data>
+  <data name="Type" xml:space="preserve"><value>Typ</value></data>
 </root>

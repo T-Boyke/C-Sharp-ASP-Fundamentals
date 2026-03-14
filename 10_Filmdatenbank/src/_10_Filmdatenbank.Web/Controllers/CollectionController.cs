@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using _10_Filmdatenbank.Application.Interfaces;
+
 namespace _10_Filmdatenbank.Web.Controllers;
 
 /// <summary>
@@ -12,7 +14,7 @@ namespace _10_Filmdatenbank.Web.Controllers;
 [Authorize]
 [Route("Kollektionen")]
 [Route("Kollektionen/[action]")]
-public class CollectionController(ApplicationDbContext context) : Controller
+public class CollectionController(ApplicationDbContext context, ITmdbService tmdbService) : Controller
 {
     public async Task<IActionResult> Index(string? searchString)
     {
@@ -38,6 +40,14 @@ public class CollectionController(ApplicationDbContext context) : Controller
             .FirstOrDefaultAsync(c => c.CollectionID == id);
 
         if (collection == null) return NotFound();
+
+        // Fetch total parts from TMDB for Mastery tracking
+        if (collection.TmdbId > 0)
+        {
+            var tmdbCol = await tmdbService.GetCollectionDetailsAsync(collection.TmdbId);
+            ViewData["TotalParts"] = tmdbCol?.Parts?.Count ?? collection.Films.Count;
+        }
+
         return View(collection);
     }
 

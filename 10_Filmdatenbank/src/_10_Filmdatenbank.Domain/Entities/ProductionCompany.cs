@@ -63,7 +63,7 @@ public class ProductionCompany
     /// <summary>
     /// Die strukturierten Auszeichnungen des Studios.
     /// </summary>
-    public virtual ICollection<ProductionCompanyAward> AwardsList { get; set; } = new List<ProductionCompanyAward>();
+    public virtual ICollection<ProductionCompanyAward> ProductionCompanyAwards { get; set; } = new List<ProductionCompanyAward>();
 
     /// <summary>
     /// Die Filme, an deren Produktion diese Firma beteiligt war.

@@ -8,4 +8,10 @@
   <data name="Edit" xml:space="preserve"><value>Bearbeiten</value></data>
   <data name="FilmsInCollectionHeader" xml:space="preserve"><value>Filme in dieser Reihe</value></data>
   <data name="Films" xml:space="preserve"><value>Filme</value></data>
+  <data name="CollectionCompletion" xml:space="preserve"><value>Sammlungs-Satus</value></data>
+  <data name="CumulativeRevenue" xml:space="preserve"><value>Gesamteinnahmen</value></data>
+  <data name="SeriesAvgRating" xml:space="preserve"><value>Durchschn. Bewertung</value></data>
+  <data name="TotalBudget" xml:space="preserve"><value>Gesamtbudget</value></data>
+  <data name="SeriesTotal" xml:space="preserve"><value>Serien-Gesamt</value></data>
+  <data name="BasedOnLocalData" xml:space="preserve"><value>Basierend auf lokalen Daten</value></data>
 </root>

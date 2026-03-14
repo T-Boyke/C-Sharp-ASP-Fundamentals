@@ -188,8 +188,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         builder.Entity<Collection>(entity => entity.HasKey(c => c.CollectionID));
         builder.Entity<ProductionCompany>(entity => entity.HasKey(pc => pc.ProductionCompanyID));
         builder.Entity<Eigenschaft>(entity => entity.HasKey(e => e.EigenschaftID));
-        builder.Entity<Country>(entity => entity.HasKey(c => c.Iso_3166_1));
-        builder.Entity<Language>(entity => entity.HasKey(l => l.Iso_639_1));
+        builder.Entity<Country>(entity => entity.HasKey(c => c.Iso3166_1));
+        builder.Entity<Language>(entity => entity.HasKey(l => l.Iso639_1));
         builder.Entity<AlternativeTitle>(entity => entity.HasKey(at => at.AlternativeTitleID));
         builder.Entity<FilmRelease>(entity => entity.HasKey(r => r.ReleaseID));
 
@@ -358,7 +358,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.HasKey(a => a.AwardID);
             entity.HasIndex(a => a.Name);
             entity.HasOne(a => a.Person)
-                .WithMany(p => p.AwardsList)
+                .WithMany(p => p.PersonAwards)
                 .HasForeignKey(a => a.PersonID)
                 .OnDelete(DeleteBehavior.Cascade);
         });
@@ -368,7 +368,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.HasKey(a => a.AwardID);
             entity.HasIndex(a => a.Name);
             entity.HasOne(a => a.Film)
-                .WithMany(f => f.AwardsList)
+                .WithMany(f => f.FilmAwards)
                 .HasForeignKey(a => a.FilmID)
                 .OnDelete(DeleteBehavior.Cascade);
         });
@@ -378,7 +378,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.HasKey(a => a.AwardID);
             entity.HasIndex(a => a.Name);
             entity.HasOne(a => a.ProductionCompany)
-                .WithMany(pc => pc.AwardsList)
+                .WithMany(pc => pc.ProductionCompanyAwards)
                 .HasForeignKey(a => a.ProductionCompanyID)
                 .OnDelete(DeleteBehavior.Cascade);
         });

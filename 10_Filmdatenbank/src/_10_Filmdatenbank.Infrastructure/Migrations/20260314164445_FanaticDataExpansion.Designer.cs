@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _10_Filmdatenbank.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using _10_Filmdatenbank.Infrastructure.Persistence;
 namespace _10_Filmdatenbank.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260314164445_FanaticDataExpansion")]
+    partial class FanaticDataExpansion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -300,7 +303,7 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<int>("FilmID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Iso3166_1")
+                    b.Property<string>("Iso_3166_1")
                         .IsRequired()
                         .HasMaxLength(2)
                         .HasColumnType("nvarchar(2)");
@@ -490,7 +493,7 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.Country", b =>
                 {
-                    b.Property<string>("Iso3166_1")
+                    b.Property<string>("Iso_3166_1")
                         .HasMaxLength(2)
                         .HasColumnType("nvarchar(2)");
 
@@ -501,7 +504,7 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<string>("NativeName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Iso3166_1");
+                    b.HasKey("Iso_3166_1");
 
                     b.ToTable("Countries");
                 });
@@ -644,6 +647,9 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
                     b.Property<bool>("Adult")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Awards")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BackdropUrl")
                         .HasColumnType("nvarchar(max)");
@@ -788,13 +794,10 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<int>("FilmID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Iso3166_1")
+                    b.Property<string>("Iso_3166_1")
                         .IsRequired()
                         .HasMaxLength(2)
                         .HasColumnType("nvarchar(2)");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ReleaseDate")
                         .HasColumnType("datetime2");
@@ -923,7 +926,7 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.Language", b =>
                 {
-                    b.Property<string>("Iso639_1")
+                    b.Property<string>("Iso_639_1")
                         .HasMaxLength(2)
                         .HasColumnType("nvarchar(2)");
 
@@ -934,7 +937,7 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<string>("NativeName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Iso639_1");
+                    b.HasKey("Iso_639_1");
 
                     b.ToTable("Languages");
                 });
@@ -1536,7 +1539,7 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.FilmAward", b =>
                 {
                     b.HasOne("_10_Filmdatenbank.Domain.Entities.Film", "Film")
-                        .WithMany("FilmAwards")
+                        .WithMany("AwardsList")
                         .HasForeignKey("FilmID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1626,7 +1629,7 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.PersonAward", b =>
                 {
                     b.HasOne("_10_Filmdatenbank.Domain.Entities.Person", "Person")
-                        .WithMany("PersonAwards")
+                        .WithMany("AwardsList")
                         .HasForeignKey("PersonID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1674,7 +1677,7 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.ProductionCompanyAward", b =>
                 {
                     b.HasOne("_10_Filmdatenbank.Domain.Entities.ProductionCompany", "ProductionCompany")
-                        .WithMany("ProductionCompanyAwards")
+                        .WithMany("AwardsList")
                         .HasForeignKey("ProductionCompanyID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1758,7 +1761,7 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                 {
                     b.Navigation("AlternativeTitles");
 
-                    b.Navigation("FilmAwards");
+                    b.Navigation("AwardsList");
 
                     b.Navigation("PersonEigenschaftFilme");
 
@@ -1767,14 +1770,14 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.Person", b =>
                 {
-                    b.Navigation("PersonAwards");
+                    b.Navigation("AwardsList");
 
                     b.Navigation("PersonEigenschaftFilme");
                 });
 
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.ProductionCompany", b =>
                 {
-                    b.Navigation("ProductionCompanyAwards");
+                    b.Navigation("AwardsList");
                 });
 #pragma warning restore 612, 618
         }

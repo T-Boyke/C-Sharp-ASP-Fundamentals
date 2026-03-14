@@ -18,6 +18,11 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 builder.Services.AddScoped<ITmdbService, TmdbService>();
+builder.Services.AddScoped<ITvdbService, TvdbService>();
+builder.Services.AddHttpClient("TVDB", client =>
+{
+    client.BaseAddress = new Uri("https://api4.thetvdb.com/v4/");
+});
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),

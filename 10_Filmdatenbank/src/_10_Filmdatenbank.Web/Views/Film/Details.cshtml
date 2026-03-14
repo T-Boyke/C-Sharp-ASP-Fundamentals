@@ -177,20 +177,28 @@
                             <span class="text-sm font-black text-text-main dark:text-white">@Model.Status</span>
                         </div>
                     }
-                     @if (Model.Budget > 0)
+                    @if (Model.Budget > 0 || Model.Revenue > 0)
                     {
-                        <div class="flex flex-col">
-                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Budget"]</span>
-                            <span class="text-sm font-black text-text-main dark:text-white">$@Model.Budget?.ToString("N0")</span>
+                        var roi = Model.Budget > 0 ? (double)Model.Revenue / Model.Budget : 0;
+                        var isBlockbuster = roi >= 3.0;
+                        var isProfitable = roi >= 1.0;
+                        
+                        <div class="flex flex-col pt-4 border-t border-glass-border/30">
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">@Localizer["FinancialEfficiency"]</span>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-black @(isBlockbuster ? "text-warning-primary" : isProfitable ? "text-success-primary" : "text-danger-primary") uppercase tracking-tighter">
+                                    ROI: @(roi?.ToString("P1") ?? "0.0%")
+                                </span>
+                                <span class="text-[10px] font-black @(isBlockbuster ? "text-warning-primary" : isProfitable ? "text-success-primary" : "text-danger-primary") uppercase">
+                                    @(isBlockbuster ? "🏆 Blockbuster" : isProfitable ? "✅ PROFIT" : "❌ LOSS")
+                                </span>
+                            </div>
+                            <div class="w-full h-1.5 bg-glass-bg rounded-full mt-2 overflow-hidden border border-glass-border">
+                                <div class="h-full @(isBlockbuster ? "bg-warning-primary" : isProfitable ? "bg-success-primary" : "bg-danger-primary")" style="width: @(Math.Min(100, (roi ?? 0) * 25))%"></div>
+                            </div>
                         </div>
                     }
-                    @if (Model.Revenue > 0)
-                    {
-                        <div class="flex flex-col">
-                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Revenue"]</span>
-                            <span class="text-sm font-black text-text-main dark:text-white">$@Model.Revenue?.ToString("N0")</span>
-                        </div>
-                    }
+
                     @if (Model.ProductionCountries?.Any() == true)
                     {
                         <div class="flex flex-col">
@@ -288,20 +296,6 @@
                 </p>
             </header>
 
-            @if (!string.IsNullOrEmpty(Model.Awards))
-            {
-                <section>
-                    <div class="glass-premium p-8 rounded-3xl border border-brand-primary/20 flex items-center gap-6 shadow-2xl">
-                        <div class="w-16 h-16 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl">
-                            <i class="fa-solid fa-trophy"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xs font-black text-brand-primary uppercase tracking-[0.25em] mb-2">@Localizer["Awards"]</h3>
-                            <p class="text-lg font-bold text-text-main dark:text-white leading-tight">@Model.Awards</p>
-                        </div>
-                    </div>
-                </section>
-            }
 
             <section>
                 <div class="form-group-header !mb-6">
@@ -312,6 +306,89 @@
                     @Model.Handlung
                 </p>
             </section>
+
+            <!-- Metadata Fanatic Tabs/Sections -->
+            <div class="space-y-12">
+                @if (Model.Releases?.Any() == true)
+                {
+                    <section>
+                        <div class="form-group-header !mb-6">
+                            <h2 class="text-xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["GlobalReleases"]</h2>
+                            <div class="h-1 w-8 bg-brand-primary rounded-full"></div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            @foreach (var rel in Model.Releases.OrderBy(r => r.ReleaseDate))
+                            {
+                                <div class="glass-premium p-4 rounded-xl border border-glass-border/30">
+                                    <p class="text-[10px] font-black text-brand-primary uppercase mb-1">@rel.Iso3166_1</p>
+                                    <p class="text-sm font-black text-text-main dark:text-white">@rel.ReleaseDate?.ToString("dd.MM.yyyy")</p>
+                                    @if (!string.IsNullOrEmpty(rel.Certification))
+                                    {
+                                        <span class="mt-1 inline-block px-1.5 py-0.5 rounded bg-surface-muted dark:bg-dark-surface-soft text-[8px] font-black uppercase border border-border-muted">@rel.Certification</span>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </section>
+                }
+
+                @if (Model.AlternativeTitles?.Any() == true)
+                {
+                    <section>
+                        <div class="form-group-header !mb-6">
+                            <h2 class="text-xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["AlternativeTitles"]</h2>
+                            <div class="h-1 w-8 bg-brand-primary rounded-full"></div>
+                        </div>
+                        <div class="max-h-48 overflow-y-auto pr-4 scrollbar-premium">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
+                                @foreach (var alt in Model.AlternativeTitles)
+                                {
+                                    <div class="flex items-center justify-between py-2 border-b border-glass-border/10">
+                                        <span class="text-xs font-bold text-text-main dark:text-white">@alt.Title</span>
+                                        <span class="text-[9px] font-black text-text-muted uppercase">@alt.Iso3166_1</span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </section>
+                }
+            </div>
+
+            <!-- Accolades & Recognition -->
+            @if (Model.FilmAwards?.Any() == true)
+            {
+                <section class="mb-12">
+                    <div class="form-group-header !mb-6">
+                        <h2 class="text-xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["AccoladesAndRecognition"]</h2>
+                        <div class="h-1 w-8 bg-brand-primary rounded-full mt-2"></div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @foreach (var award in Model.FilmAwards.OrderByDescending(a => a.Year))
+                        {
+                            <div class="glass-premium p-4 rounded-xl border border-glass-border flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-trophy text-brand-primary"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="text-[10px] font-black text-brand-primary uppercase">@award.Year</span>
+                                        @if (award.IsWin)
+                                        {
+                                            <span class="px-1.5 py-0.5 rounded bg-green-500/10 text-green-500 text-[8px] font-black uppercase">Winner</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="px-1.5 py-0.5 rounded bg-orange-500/10 text-orange-500 text-[8px] font-black uppercase">Nomination</span>
+                                        }
+                                    </div>
+                                    <p class="text-sm font-black text-text-main dark:text-white truncate">@award.Name</p>
+                                    <p class="text-[10px] font-bold text-text-muted truncate">@award.Category</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+            }
 
             @if (!string.IsNullOrEmpty(Model.TrailerUrl))
             {

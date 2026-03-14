@@ -149,5 +149,5 @@ public class Person
     /// <summary>
     /// Die strukturierten Auszeichnungen der Person.
     /// </summary>
-    public virtual ICollection<PersonAward> AwardsList { get; set; } = new List<PersonAward>();
+    public virtual ICollection<PersonAward> PersonAwards { get; set; } = new List<PersonAward>();
 }
