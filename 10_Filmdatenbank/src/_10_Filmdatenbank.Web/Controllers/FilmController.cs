@@ -31,7 +31,15 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             ViewData["CurrentFilter"] = searchString;
         }
 
+        var userId = userManager.GetUserId(User);
+        var favoriteFilmIds = userId != null 
+            ? await context.FavoriteFilms.Where(ff => ff.UserID == userId).Select(ff => ff.FilmID).ToListAsync()
+            : new List<int>();
+
+        ViewBag.FavoriteFilmIds = favoriteFilmIds;
+
         var filme = await query
+            .Include(f => f.Genres)
             .Include(f => f.PersonEigenschaftFilme)
                 .ThenInclude(pef => pef.Person)
             .Include(f => f.PersonEigenschaftFilme)
@@ -443,10 +451,14 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         var favorite = await context.FavoriteFilms
             .FirstOrDefaultAsync(ff => ff.FilmID == filmId && ff.UserID == user.Id);
 
+        bool isAdded;
+        string message;
+
         if (favorite != null)
         {
             context.FavoriteFilms.Remove(favorite);
-            TempData["Info"] = "Vom Merkzettel entfernt.";
+            isAdded = false;
+            message = "Vom Merkzettel entfernt.";
         }
         else
         {
@@ -456,10 +468,18 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                 UserID = user.Id,
                 AddedAt = DateTime.UtcNow
             });
-            TempData["Success"] = "Auf Merkzettel gespeichert.";
+            isAdded = true;
+            message = "Auf Merkzettel gespeichert.";
         }
 
         await context.SaveChangesAsync();
+
+        if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+        {
+            return Json(new { success = true, isAdded, message });
+        }
+
+        TempData[isAdded ? "Success" : "Info"] = message;
         return RedirectToAction(nameof(Details), new { id = filmId });
     }
 }

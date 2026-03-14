@@ -61,6 +61,11 @@ public class ProductionCompany
     public ProductionCompany? ParentCompany { get; set; }
 
     /// <summary>
+    /// Die strukturierten Auszeichnungen des Studios.
+    /// </summary>
+    public virtual ICollection<ProductionCompanyAward> AwardsList { get; set; } = new List<ProductionCompanyAward>();
+
+    /// <summary>
     /// Die Filme, an deren Produktion diese Firma beteiligt war.
     /// </summary>
     public ICollection<Film> Films { get; set; } = [];

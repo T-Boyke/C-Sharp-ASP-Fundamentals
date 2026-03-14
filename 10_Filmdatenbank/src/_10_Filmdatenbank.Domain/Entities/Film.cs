@@ -44,9 +44,8 @@ public class Film
     public string? Handlung { get; set; }
 
     /// <summary>
-    /// Ein kurzer Werbespruch zum Film.
+    /// Ein kurzer Werbespruch zum Film (Handled by Fanatic Metadata).
     /// </summary>
-    public string? Tagline { get; set; }
 
     /// <summary>
     /// Die URL zum Poster-Bild.
@@ -86,14 +85,9 @@ public class Film
     public string? OriginalTitle { get; set; }
 
     /// <summary>
-    /// Die Originalsprache des Films (ISO 639-1).
+    /// Der Werbespruch oder Slogan zum Film (Legacy Tagline).
     /// </summary>
-    public string? OriginalLanguage { get; set; }
-
-    /// <summary>
-    /// Der Status der Produktion (z.B. Released).
-    /// </summary>
-    public string? Status { get; set; }
+    public string? Tagline { get; set; }
 
     /// <summary>
     /// Das Budget des Films in USD.
@@ -104,6 +98,21 @@ public class Film
     /// Die Einnahmen des Films in USD.
     /// </summary>
     public long? Revenue { get; set; }
+
+    /// <summary>
+    /// Der Status der Produktion (z.B. Released).
+    /// </summary>
+    public string? Status { get; set; }
+
+    /// <summary>
+    /// Die Laufzeit des Films in Minuten.
+    /// </summary>
+    public int? Runtime { get; set; }
+
+    /// <summary>
+    /// Die Originalsprache des Films (ISO 639-1).
+    /// </summary>
+    public string? OriginalLanguage { get; set; }
 
     /// <summary>
     /// Die offizielle Homepage des Films.
@@ -196,9 +205,14 @@ public class Film
     public string? TrailerUrl { get; set; }
 
     /// <summary>
-    /// Informationen über gewonnene Auszeichnungen oder Nominierungen.
+    /// Informationen über gewonnene Auszeichnungen oder Nominierungen (Legacy Text).
     /// </summary>
     public string? Awards { get; set; }
+
+    /// <summary>
+    /// Die strukturierten Auszeichnungen des Films.
+    /// </summary>
+    public virtual ICollection<FilmAward> AwardsList { get; set; } = new List<FilmAward>();
 
     /// <summary>
     /// Gibt an, ob der Film nur für Erwachsene (Jugendschutz) geeignet ist.

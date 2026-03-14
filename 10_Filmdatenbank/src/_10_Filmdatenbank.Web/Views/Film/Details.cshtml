@@ -39,14 +39,15 @@
                        <p class="mt-2 text-xl md:text-2xl font-bold text-brand-primary italic drop-shadow-lg">@Model.Tagline</p>
                    }
                 </div>
-                <div class="flex items-center gap-4">
-                    <form asp-action="ToggleFavorite" method="post">
-                        <input type="hidden" name="filmId" value="@Model.FilmID" />
-                        <button type="submit" class="glass-premium w-16 h-16 rounded-2xl flex items-center justify-center transition-all group/heart @(isFavorite ? "text-danger-primary shadow-2xl shadow-danger-primary/20" : "text-text-white-muted hover:text-white hover:bg-glass-bg-hover")" title='@(isFavorite ? Localizer["RemoveFromWatchlist"] : Localizer["AddToWatchlist"])'>
+                    <div class="flex items-center gap-4">
+                        <button type="button" 
+                                class="favorite-toggle glass-premium w-16 h-16 rounded-2xl flex items-center justify-center transition-all group/heart @(isFavorite ? "text-danger-primary shadow-2xl shadow-danger-primary/20" : "text-text-white-muted hover:text-white hover:bg-glass-bg-hover")" 
+                                data-film-id="@Model.FilmID" 
+                                data-url="@Url.Action("ToggleFavorite", "Film", new { filmId = Model.FilmID })"
+                                title='@(isFavorite ? Localizer["RemoveFromWatchlist"] : Localizer["AddToWatchlist"])'>
                             <i class="fa-@(isFavorite ? "solid" : "regular") fa-heart text-2xl group-hover/heart:scale-110 transition-transform"></i>
                         </button>
-                    </form>
-                    <div class="glass-premium px-6 py-3 rounded-2xl flex items-center gap-3 border border-surface-bright/20">
+                        <div class="glass-premium px-6 py-3 rounded-2xl flex items-center gap-3 border border-surface-bright/20">
                         <div class="w-10 h-10 rounded-full bg-brand-primary flex items-center justify-center text-white shadow-lg">
                             <i class="fa-solid fa-star"></i>
                         </div>
@@ -421,3 +422,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/favorites.js"></script>
+}

@@ -46,7 +46,10 @@
     <div class="grid-person">
         @foreach (var person in Model)
         {
-            <div class="card-premium group hover:shadow-2xl hover:shadow-brand-shadow flex flex-col items-center p-8 text-center transition-all duration-500 overflow-hidden">
+            <div class="card-premium group hover:shadow-2xl hover:shadow-brand-shadow flex flex-col items-center p-8 text-center transition-all duration-500 overflow-hidden relative">
+                <!-- Clickable Layer -->
+                <a asp-action="Details" asp-route-id="@person.PersonID" class="absolute inset-0 z-10" aria-label='@Localizer["ViewProfileLabel", person.Vorname + " " + person.Nachname]'></a>
+
                 <!-- Profile Image -->
                 <div class="relative mb-6">
                     <div class="w-32 h-32 rounded-full border-4 border-surface-overlay dark:border-dark-surface-soft shadow-2xl overflow-hidden bg-surface-subtle dark:bg-dark-surface-soft ring-1 ring-border-muted dark:ring-dark-border">
@@ -81,7 +84,7 @@
                     </p>
 
                     <!-- Actions -->
-                    <div class="mt-auto pt-6 border-t border-border-muted dark:border-dark-border-muted flex flex-col gap-3">
+                    <div class="mt-auto pt-6 border-t border-border-muted dark:border-dark-border-muted flex flex-col gap-3 relative z-20">
                         <a asp-action="Details" asp-route-id="@person.PersonID" class="btn-primary py-2.5 shadow-lg shadow-brand-shadow" aria-label='@Localizer["ViewProfileLabel", person.Vorname + " " + person.Nachname]'>@Localizer["ViewProfile"]</a>
                         
                         @if (User.IsInRole("Admin"))

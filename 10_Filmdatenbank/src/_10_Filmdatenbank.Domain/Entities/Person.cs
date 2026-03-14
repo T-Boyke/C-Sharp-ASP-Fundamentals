@@ -145,4 +145,9 @@ public class Person
     /// Eine Sammlung von Filmen und Eigenschaften, an denen die Person mitgewirkt hat.
     /// </summary>
     public ICollection<PersonEigenschaftFilm> PersonEigenschaftFilme { get; set; } = [];
+
+    /// <summary>
+    /// Die strukturierten Auszeichnungen der Person.
+    /// </summary>
+    public virtual ICollection<PersonAward> AwardsList { get; set; } = new List<PersonAward>();
 }

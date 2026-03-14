@@ -93,6 +93,21 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<FavoriteFilm> FavoriteFilms { get; set; } = null!;
 
     /// <summary>
+    /// Die Tabelle für Auszeichnungen von Personen.
+    /// </summary>
+    public DbSet<PersonAward> PersonAwards { get; set; } = null!;
+
+    /// <summary>
+    /// Die Tabelle für Auszeichnungen von Filmen.
+    /// </summary>
+    public DbSet<FilmAward> FilmAwards { get; set; } = null!;
+
+    /// <summary>
+    /// Die Tabelle für Auszeichnungen von Produktionsfirmen.
+    /// </summary>
+    public DbSet<ProductionCompanyAward> ProductionCompanyAwards { get; set; } = null!;
+
+    /// <summary>
     /// Konfiguriert das Datenbankmodell, insbesondere Beziehungen und initiale Daten.
     /// </summary>
     /// <param name="builder">Der ModelBuilder zum Konfigurieren des Modells.</param>
@@ -336,6 +351,36 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
                 .WithMany()
                 .HasForeignKey(ff => ff.FilmID)
                 .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        builder.Entity<PersonAward>(entity =>
+        {
+            entity.HasKey(a => a.AwardID);
+            entity.HasIndex(a => a.Name);
+            entity.HasOne(a => a.Person)
+                .WithMany(p => p.AwardsList)
+                .HasForeignKey(a => a.PersonID)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<FilmAward>(entity =>
+        {
+            entity.HasKey(a => a.AwardID);
+            entity.HasIndex(a => a.Name);
+            entity.HasOne(a => a.Film)
+                .WithMany(f => f.AwardsList)
+                .HasForeignKey(a => a.FilmID)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<ProductionCompanyAward>(entity =>
+        {
+            entity.HasKey(a => a.AwardID);
+            entity.HasIndex(a => a.Name);
+            entity.HasOne(a => a.ProductionCompany)
+                .WithMany(pc => pc.AwardsList)
+                .HasForeignKey(a => a.ProductionCompanyID)
+                .OnDelete(DeleteBehavior.Cascade);
         });
     }
 }

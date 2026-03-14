@@ -1,5 +1,6 @@
 using _10_Filmdatenbank.Domain.Entities;
 using _10_Filmdatenbank.Infrastructure.Persistence;
+using _10_Filmdatenbank.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -151,27 +152,27 @@ public class GroupController(ApplicationDbContext context, UserManager<Applicati
         }
 
         ViewBag.GroupName = group.Name;
-        return View(new DiscussionThread { FanGroupID = groupId });
+        return View(new CreateThreadViewModel { FanGroupID = groupId });
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> CreateThread(DiscussionThread thread)
+    public async Task<IActionResult> CreateThread(CreateThreadViewModel model)
     {
         var user = await userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
 
-        // Simple validation check (ModelState might be tricky if we don't have a ViewModel, but let's try)
-        if (string.IsNullOrWhiteSpace(thread.Title) || string.IsNullOrWhiteSpace(thread.Content))
-        {
-            ModelState.AddModelError("", "Titel und Inhalt sind erforderlich.");
-        }
-
         if (ModelState.IsValid)
         {
-            thread.AuthorID = user.Id;
-            thread.CreatedAt = DateTime.UtcNow;
-            thread.LastActivity = DateTime.UtcNow;
+            var thread = new DiscussionThread
+            {
+                FanGroupID = model.FanGroupID,
+                Title = model.Title,
+                Content = model.Content,
+                AuthorID = user.Id,
+                CreatedAt = DateTime.UtcNow,
+                LastActivity = DateTime.UtcNow
+            };
 
             context.DiscussionThreads.Add(thread);
             await context.SaveChangesAsync();
@@ -180,9 +181,10 @@ public class GroupController(ApplicationDbContext context, UserManager<Applicati
             return RedirectToAction(nameof(ThreadDetails), new { id = thread.ThreadID });
         }
 
-        var group = await context.FanGroups.FindAsync(thread.FanGroupID);
+        TempData["Error"] = "Diskussion konnte nicht erstellt werden. Bitte überprüfe deine Angaben.";
+        var group = await context.FanGroups.FindAsync(model.FanGroupID);
         ViewBag.GroupName = group?.Name;
-        return View(thread);
+        return View(model);
     }
 
     public async Task<IActionResult> ThreadDetails(int id)

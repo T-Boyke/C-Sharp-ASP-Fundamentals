@@ -103,32 +103,42 @@
                                 </div>
                                 
                                 <a asp-controller="User" asp-action="Profile" class="dropdown-item">
-                                    <i class="fa-solid fa-user-gear text-brand-primary" aria-hidden="true"></i>
-                                    @Localizer["SettingsProfile"]
+                                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary/10 text-brand-primary group/item-hover:bg-brand-primary group/item-hover:text-white transition-colors">
+                                        <i class="fa-solid fa-user-gear text-xs" aria-hidden="true"></i>
+                                    </div>
+                                    <span class="font-semibold text-white/90">@Localizer["SettingsProfile"]</span>
                                 </a>
                                 <a asp-controller="User" asp-action="Settings" class="dropdown-item">
-                                    <i class="fa-solid fa-palette text-brand-primary" aria-hidden="true"></i>
-                                    @Localizer["AppearanceAndSettings"]
+                                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary/10 text-brand-primary group/item-hover:bg-brand-primary group/item-hover:text-white transition-colors">
+                                        <i class="fa-solid fa-palette text-xs" aria-hidden="true"></i>
+                                    </div>
+                                    <span class="font-semibold text-white/90">@Localizer["AppearanceAndSettings"]</span>
                                 </a>
                                 <a asp-controller="User" asp-action="Groups" class="dropdown-item">
-                                    <i class="fa-solid fa-people-roof text-brand-primary" aria-hidden="true"></i>
-                                    @Localizer["MyCommunities"]
+                                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary/10 text-brand-primary group/item-hover:bg-brand-primary group/item-hover:text-white transition-colors">
+                                        <i class="fa-solid fa-people-roof text-xs" aria-hidden="true"></i>
+                                    </div>
+                                    <span class="font-semibold text-white/90">@Localizer["MyCommunities"]</span>
                                 </a>
 
                                 @if (User.IsInRole("Admin"))
                                 {
-                                    <div class="h-px bg-nav-border my-2"></div>
-                                    <a asp-controller="Admin" asp-action="ManageUsers" class="dropdown-item text-brand-primary">
-                                        <i class="fa-solid fa-users-gear" aria-hidden="true"></i>
-                                        @Localizer["UserManagement"]
+                                    <div class="h-px bg-nav-border my-2 mx-3"></div>
+                                    <a asp-controller="Admin" asp-action="ManageUsers" class="dropdown-item group/admin">
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-400">
+                                            <i class="fa-solid fa-users-gear text-xs" aria-hidden="true"></i>
+                                        </div>
+                                        <span class="font-semibold text-indigo-100">@Localizer["UserManagement"]</span>
                                     </a>
                                 }
 
-                                <div class="h-px bg-nav-border my-2"></div>
-                                <form asp-controller="Account" asp-action="Logout" method="post">
-                                    <button type="submit" class="w-full dropdown-item text-danger-primary hover:bg-danger-primary/10">
-                                        <i class="fa-solid fa-power-off" aria-hidden="true"></i>
-                                        @Localizer["SignOut"]
+                                <div class="h-px bg-nav-border my-2 mx-3"></div>
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="px-1">
+                                    <button type="submit" class="w-full dropdown-item-danger">
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-danger-primary/10 text-danger-primary">
+                                            <i class="fa-solid fa-power-off text-xs" aria-hidden="true"></i>
+                                        </div>
+                                        <span class="font-bold">@Localizer["SignOut"]</span>
                                     </button>
                                 </form>
                             </div>
@@ -173,7 +183,11 @@
     }
 
     .dropdown-item {
-        @@apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-nav-link hover:bg-glass-bg hover:text-white transition-all duration-200;
+        @@apply flex items-center gap-3 px-2 py-1.5 rounded-xl text-sm font-medium text-nav-link hover:bg-white/5 hover:text-white transition-all duration-200 group/item;
+    }
+
+    .dropdown-item-danger {
+        @@apply flex items-center gap-3 px-2 py-1.5 rounded-xl text-sm font-medium text-danger-primary hover:bg-danger-primary/10 transition-all duration-200;
     }
 
     #main-nav.scrolled #nav-container {
