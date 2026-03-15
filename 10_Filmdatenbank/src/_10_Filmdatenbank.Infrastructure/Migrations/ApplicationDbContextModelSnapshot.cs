@@ -672,8 +672,14 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<string>("ImdbId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double?>("ImdbRating")
+                        .HasColumnType("float");
+
                     b.Property<string>("InstagramId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MetacriticRating")
+                        .HasColumnType("int");
 
                     b.Property<double?>("Nutzerwertung")
                         .HasColumnType("float");
@@ -694,8 +700,17 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("ProductionNotes")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long?>("Revenue")
                         .HasColumnType("bigint");
+
+                    b.Property<int?>("RottenTomatoesAudienceRating")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RottenTomatoesCriticRating")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Runtime")
                         .HasColumnType("int");
@@ -718,6 +733,12 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
                     b.Property<string>("TrailerUrl")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TvdbId")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("TvdbRating")
+                        .HasColumnType("float");
 
                     b.Property<string>("TwitterId")
                         .HasColumnType("nvarchar(max)");
@@ -1187,6 +1208,12 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EmployeeCount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FoundedYear")
+                        .HasColumnType("int");
+
                     b.Property<string>("Headquarters")
                         .HasColumnType("nvarchar(max)");
 
@@ -1208,6 +1235,9 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
                     b.Property<int>("TmdbId")
                         .HasColumnType("int");
+
+                    b.Property<string>("WikidataId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductionCompanyID");
 

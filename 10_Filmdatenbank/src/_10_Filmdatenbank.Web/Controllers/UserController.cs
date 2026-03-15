@@ -32,8 +32,38 @@ public class UserController : Controller
             .Include(u => u.Notifications)
             .Include(u => u.GroupMemberships).ThenInclude(m => m.FanGroup)
             .Include(u => u.Threads)
+            .Include(u => u.UserRatings).ThenInclude(r => r.Film)
             .Include(u => u.FavoriteFilms).ThenInclude(ff => ff.Film)
+                .ThenInclude(f => f.PersonEigenschaftFilme).ThenInclude(pef => pef.Person)
+            .Include(u => u.FavoriteFilms).ThenInclude(ff => ff.Film)
+                .ThenInclude(f => f.Genres)
             .FirstOrDefaultAsync(u => u.Id == userId);
+
+        if (user == null) return NotFound();
+
+        // 📊 Collection Analytics
+        var favFilms = user.FavoriteFilms.Select(ff => ff.Film).ToList();
+
+        ViewBag.TopGenres = favFilms.SelectMany(f => f.Genres)
+            .GroupBy(g => g.Name)
+            .Select(g => new { Name = g.Key, Count = g.Count() })
+            .OrderByDescending(g => g.Count)
+            .Take(5).ToList();
+
+        ViewBag.FrequentCast = favFilms.SelectMany(f => f.PersonEigenschaftFilme)
+            .Where(pef => pef.Eigenschaft?.Name == "Actor" || pef.Eigenschaft?.Name == "Cast")
+            .GroupBy(pef => pef.Person)
+            .Select(g => new { Person = g.Key, Count = g.Count() })
+            .OrderByDescending(g => g.Count)
+            .Take(5).ToList();
+
+        ViewBag.TotalCollectionBudget = favFilms.Sum(f => f.Budget ?? 0);
+        ViewBag.AvgCollectionRating = favFilms.Any() ? favFilms.Average(f => f.VoteAverage ?? 0) : 0;
+
+        // 🛋️ Rating Insights
+        ViewBag.UserAvgRating = user.UserRatings.Any() ? user.UserRatings.Average(r => r.Value) : 0;
+        ViewBag.TotalRatingsCount = user.UserRatings.Count;
+        ViewBag.RecentRatings = user.UserRatings.OrderByDescending(r => r.CreatedAt).Take(4).ToList();
 
         return View(user);
     }
@@ -46,7 +76,7 @@ public class UserController : Controller
         var user = await _context.Users
             .Include(u => u.FavoriteFilms).ThenInclude(ff => ff.Film)
             .FirstOrDefaultAsync(u => u.Id == userId);
-            
+
         return View(user);
     }
 
@@ -116,8 +146,8 @@ public class UserController : Controller
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return Challenge();
 
-        var settings = string.IsNullOrEmpty(user.SettingsJson) 
-            ? new UserSettingsData() 
+        var settings = string.IsNullOrEmpty(user.SettingsJson)
+            ? new UserSettingsData()
             : System.Text.Json.JsonSerializer.Deserialize<UserSettingsData>(user.SettingsJson) ?? new UserSettingsData();
 
         var viewModel = new UserSettingsViewModel
@@ -145,7 +175,7 @@ public class UserController : Controller
         };
 
         user.SettingsJson = System.Text.Json.JsonSerializer.Serialize(settings);
-        
+
         var result = await _userManager.UpdateAsync(user);
         if (result.Succeeded)
         {

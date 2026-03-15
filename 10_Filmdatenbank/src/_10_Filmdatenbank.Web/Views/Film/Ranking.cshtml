@@ -1,0 +1,88 @@
+@model IEnumerable<_10_Filmdatenbank.Domain.Entities.Film>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "CouchDB Ranking";
+}
+
+<div class="mx-auto max-w-7xl px-6 lg:px-8 py-16">
+    <div class="mb-12">
+        <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4">
+            CouchDB <span class="text-brand-primary">Ranking</span>
+        </h1>
+        <p class="text-xl text-dark-text-muted max-w-2xl">
+            Entdecke die besten Filme, bewertet von unserer Community. Echtes Feedback für echte Couch-Momente.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6">
+        @{ int rank = 1; }
+        @foreach (var film in Model)
+        {
+            <div class="card-premium group overflow-hidden border border-white/5 hover:border-brand-primary/30 transition-all duration-500">
+                <div class="flex flex-col md:flex-row items-center gap-8 p-6">
+                    <!-- Rank Number -->
+                    <div class="flex-shrink-0 w-20 h-20 rounded-2xl bg-brand-primary/10 flex items-center justify-center border border-brand-primary/20">
+                        <span class="text-3xl font-black text-brand-primary">#@rank</span>
+                    </div>
+
+                    <!-- Film Poster -->
+                    <div class="relative w-24 aspect-[2/3] rounded-xl overflow-hidden shadow-2xl flex-shrink-0">
+                        <img src="@film.PosterUrl" alt="@film.Titel poster" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl"></div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="flex-grow text-center md:text-left">
+                        <div class="flex flex-wrap items-center gap-3 mb-2 justify-center md:justify-start">
+                            <h2 class="text-2xl font-black text-white group-hover:text-brand-primary transition-colors">@film.Titel</h2>
+                            <span class="px-2 py-0.5 rounded bg-surface-bright/10 text-[10px] font-bold text-dark-text-muted">@film.Erscheinungsjahr</span>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
+                            @foreach (var genre in film.Genres.Take(3))
+                            {
+                                <span class="text-[9px] font-black uppercase tracking-widest text-brand-primary/70">@genre.Name</span>
+                                @if (genre != film.Genres.Take(3).Last()) { <span class="text-white/20">•</span> }
+                            }
+                        </div>
+
+                        <p class="text-sm text-dark-text-muted line-clamp-2 max-w-3xl">@film.Handlung</p>
+                    </div>
+
+                    <!-- Scores -->
+                    <div class="flex-shrink-0 flex items-center gap-8 pr-4">
+                        <div class="text-center">
+                            <div class="flex justify-center mb-1">
+                                <div class="w-12 h-12 rounded-full border-2 border-brand-primary flex items-center justify-center">
+                                    <span class="text-lg font-black text-white">@(film.Nutzerwertung?.ToString("0.0") ?? "0.0")</span>
+                                </div>
+                            </div>
+                            <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">CouchDB Score</span>
+                            <div class="text-[9px] font-bold text-brand-primary mt-1">@film.CouchDbVoteCount Stimmen</div>
+                        </div>
+
+                        <a asp-action="Details" asp-route-id="@film.FilmID" class="w-12 h-12 rounded-2xl bg-white/5 hover:bg-brand-primary text-white flex items-center justify-center transition-all group-hover:scale-110">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            rank++;
+        }
+    </div>
+</div>
+
+<style>
+    .card-premium {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(10px);
+        border-radius: 1.5rem;
+    }
+    
+    .card-premium:hover {
+        background: rgba(255, 255, 255, 0.04);
+        transform: translateY(-4px);
+    }
+</style>

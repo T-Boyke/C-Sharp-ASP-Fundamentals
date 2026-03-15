@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Tvdb.Sdk.Model;
+using Tvdb.Sdk;
 
 namespace _10_Filmdatenbank.Application.Interfaces;
 
@@ -15,6 +15,13 @@ public interface ITvdbService
     /// <param name="query">Der Suchbegriff.</param>
     /// <returns>Eine Liste von Suchergebnissen.</returns>
     Task<IEnumerable<SearchResult>> SearchMoviesAsync(string query);
+
+    /// <summary>
+    /// Sucht ein Element anhand einer Remote-ID (z.B. IMDB ID).
+    /// </summary>
+    /// <param name="remoteId">Die Remote-ID.</param>
+    /// <returns>Die Suchergebnisse oder null.</returns>
+    Task<IEnumerable<SearchByRemoteIdResult>> GetByRemoteIdAsync(string remoteId);
 
     /// <summary>
     /// Ruft detaillierte Informationen zu einem Film ab.

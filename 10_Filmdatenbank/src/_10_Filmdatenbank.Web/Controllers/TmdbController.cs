@@ -54,7 +54,7 @@ public class TmdbController(ITmdbService tmdbService) : ControllerBase
             BackdropUrl = string.IsNullOrEmpty(movie.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{movie.BackdropPath}",
             Genres = movie.Genres.Select(g => new { g.Id, g.Name }),
             Keywords = movie.Keywords?.Keywords?.Select(k => new { k.Id, k.Name }) ?? [],
-            ProductionCompanies = movie.ProductionCompanies?.Select(pc => new 
+            ProductionCompanies = movie.ProductionCompanies?.Select(pc => new
             {
                 pc.Id,
                 pc.Name,

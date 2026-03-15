@@ -1,0 +1,63 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<div id="cookie-consent" class="fixed bottom-8 left-8 right-8 md:left-auto md:right-8 md:max-w-md transform translate-y-32 opacity-0 transition-all duration-700 ease-out z-[9999]" role="alert" aria-live="polite">
+    <div class="card-glass border border-white/10 p-6 shadow-2xl shadow-black/50 overflow-hidden relative group">
+        <!-- Floating Cookie Icon Background Decor -->
+        <div class="absolute -top-4 -right-4 w-24 h-24 bg-brand-primary/10 rounded-full blur-3xl group-hover:bg-brand-primary/20 transition-colors"></div>
+        <i class="fa-solid fa-cookie-bite absolute -top-2 -right-2 text-6xl text-white/5 rotate-12 group-hover:scale-110 transition-transform duration-500"></i>
+
+        <div class="relative">
+            <div class="flex items-center gap-4 mb-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-primary/20 flex items-center justify-center">
+                    <i class="fa-solid fa-cookie text-brand-primary"></i>
+                </div>
+                <h3 class="text-white font-black uppercase tracking-tight">@Localizer["CookieTitle"]</h3>
+            </div>
+            
+            <p class="text-dark-text-muted text-sm leading-relaxed mb-6">
+                @Localizer["CookieText"]
+            </p>
+
+            <div class="flex items-center gap-3">
+                <button id="accept-cookies" class="flex-1 btn-primary py-2.5 rounded-xl shadow-lg shadow-brand-shadow/20 text-sm">
+                    @Localizer["CookieAccept"]
+                </button>
+                <a asp-controller="Home" asp-action="Privacy" class="btn-group-btn text-xs font-bold text-white/50 hover:text-white transition-colors px-4">
+                    @Localizer["CookiePolicy"]
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const consentKey = 'couchdb_cookie_consent';
+        const banner = document.getElementById('cookie-consent');
+        const acceptBtn = document.getElementById('accept-cookies');
+
+        if (!localStorage.getItem(consentKey)) {
+            // Delay showing to not overwhelm
+            setTimeout(() => {
+                banner.classList.remove('translate-y-32', 'opacity-0');
+            }, 1000);
+        }
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem(consentKey, 'true');
+            banner.classList.add('translate-y-32', 'opacity-0');
+            setTimeout(() => {
+                banner.remove();
+            }, 700);
+        });
+    });
+</script>
+
+<style>
+    .card-glass {
+        background: rgba(15, 15, 20, 0.85);
+        backdrop-filter: blur(20px) saturate(180%);
+        border-radius: 1.5rem;
+    }
+</style>

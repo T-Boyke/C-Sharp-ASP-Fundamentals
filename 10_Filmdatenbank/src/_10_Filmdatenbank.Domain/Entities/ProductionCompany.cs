@@ -61,6 +61,21 @@ public class ProductionCompany
     public ProductionCompany? ParentCompany { get; set; }
 
     /// <summary>
+    /// Die ID der Firma auf Wikidata.
+    /// </summary>
+    public string? WikidataId { get; set; }
+
+    /// <summary>
+    /// Das Gründungsjahr der Firma.
+    /// </summary>
+    public int? FoundedYear { get; set; }
+
+    /// <summary>
+    /// Die Anzahl der Mitarbeiter.
+    /// </summary>
+    public string? EmployeeCount { get; set; }
+
+    /// <summary>
     /// Die strukturierten Auszeichnungen des Studios.
     /// </summary>
     public virtual ICollection<ProductionCompanyAward> ProductionCompanyAwards { get; set; } = new List<ProductionCompanyAward>();

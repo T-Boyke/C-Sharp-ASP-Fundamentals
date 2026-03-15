@@ -14,7 +14,7 @@ namespace _10_Filmdatenbank.Web.Controllers;
 [Authorize]
 [Route("Movies")]
 [Route("Movies/[action]")]
-public class FilmController(ApplicationDbContext context, ITmdbService tmdbService, ITvdbService tvdbService, UserManager<ApplicationUser> userManager) : Controller
+public class FilmController(ApplicationDbContext context, ITmdbService tmdbService, ITvdbService tvdbService, IRottenTomatoesService rtService, IImdbService imdbService, IWikidataService wikidataService, UserManager<ApplicationUser> userManager) : Controller
 {
     /// <summary>
     /// Zeigt eine Liste aller Filme an.
@@ -32,7 +32,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         }
 
         var userId = userManager.GetUserId(User);
-        var favoriteFilmIds = userId != null 
+        var favoriteFilmIds = userId != null
             ? await context.FavoriteFilms.Where(ff => ff.UserID == userId).Select(ff => ff.FilmID).ToListAsync()
             : new List<int>();
 
@@ -74,7 +74,122 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             .Include(f => f.FilmAwards)
             .FirstOrDefaultAsync(f => f.FilmID == id);
 
+        var userId = userManager.GetUserId(User);
+        if (userId != null)
+        {
+            var userRating = await context.UserRatings.FirstOrDefaultAsync(r => r.FilmID == id && r.UserID == userId);
+            ViewBag.CurrentUserRating = userRating?.Value;
+        }
+
         return film == null ? NotFound() : View(film);
+    }
+
+    /// <summary>
+    /// Ermöglicht es einem Benutzer, einen Film zu bewerten (0-10 Punkte).
+    /// </summary>
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Rate(int id, double rating)
+    {
+        var userId = userManager.GetUserId(User);
+        if (userId == null) return Challenge();
+
+        if (rating < 0 || rating > 10) return BadRequest("Rating must be between 0 and 10.");
+
+        var film = await context.Filme.Include(f => f.UserRatings).FirstOrDefaultAsync(f => f.FilmID == id);
+        if (film == null) return NotFound();
+
+        var existingRating = await context.UserRatings.FirstOrDefaultAsync(r => r.FilmID == id && r.UserID == userId);
+        if (existingRating != null)
+        {
+            existingRating.Value = rating;
+            existingRating.CreatedAt = DateTime.UtcNow;
+            context.UserRatings.Update(existingRating);
+        }
+        else
+        {
+            context.UserRatings.Add(new UserRating
+            {
+                FilmID = id,
+                UserID = userId,
+                Value = rating
+            });
+        }
+
+        await context.SaveChangesAsync();
+
+        // Update Cached Average
+        var ratings = await context.UserRatings.Where(r => r.FilmID == id).ToListAsync();
+        film.Nutzerwertung = ratings.Average(r => r.Value);
+        film.CouchDbVoteCount = ratings.Count;
+
+        await context.SaveChangesAsync();
+
+        TempData["SuccessMessage"] = "Bewertung erfolgreich gespeichert!";
+        return RedirectToAction(nameof(Details), new { id });
+    }
+
+    /// <summary>
+    /// Zeigt das globale Ranking der Filme basierend auf der CouchDB Nutzerwertung an.
+    /// </summary>
+    public async Task<IActionResult> Ranking()
+    {
+        var films = await context.Filme
+            .Include(f => f.Genres)
+            .Where(f => f.Nutzerwertung != null && f.CouchDbVoteCount > 0)
+            .OrderByDescending(f => f.Nutzerwertung)
+            .ThenByDescending(f => f.CouchDbVoteCount)
+            .Take(100)
+            .ToListAsync();
+
+        return View(films);
+    }
+
+    /// <summary>
+    /// Synchronisiert externe Bewertungen (RT, IMDb Metascore) für einen Film.
+    /// </summary>
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> SyncExternalScores(int id)
+    {
+        var film = await context.Filme.FindAsync(id);
+        if (film == null) return NotFound();
+
+        bool updated = false;
+
+        // 1. Rotten Tomatoes
+        var rtHit = await rtService.SearchMovieAsync(film.Titel, film.Erscheinungsjahr);
+        if (rtHit?.Scores != null)
+        {
+            film.RottenTomatoesCriticRating = rtHit.Scores.CriticsScore;
+            film.RottenTomatoesAudienceRating = rtHit.Scores.AudienceScore;
+            updated = true;
+        }
+
+        // 2. IMDb / Metacritic
+        if (!string.IsNullOrEmpty(film.ImdbId))
+        {
+            var imdbData = await imdbService.GetMetadataAsync(film.ImdbId);
+            if (imdbData != null)
+            {
+                if (imdbData.Metascore.HasValue) film.MetacriticRating = imdbData.Metascore;
+                if (imdbData.Rating.HasValue) film.ImdbRating = imdbData.Rating;
+                updated = true;
+            }
+        }
+
+        if (updated)
+        {
+            context.Filme.Update(film);
+            await context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Externe Scores erfolgreich synchronisiert!";
+        }
+        else
+        {
+            TempData["ErrorMessage"] = "Keine neuen Daten gefunden.";
+        }
+
+        return RedirectToAction(nameof(Details), new { id });
     }
 
     /// <summary>
@@ -130,7 +245,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                     context.Collections.Add(collection);
                     await context.SaveChangesAsync();
                 }
-                
+
                 if (collection != null)
                 {
                     film.CollectionID = collection.CollectionID;
@@ -158,13 +273,13 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                         var genre = context.Genres.Local.FirstOrDefault(g => g.TmdbId == item.Id)
                                     ?? await context.Genres.FirstOrDefaultAsync(g => g.TmdbId == item.Id)
                                     ?? await context.Genres.FirstOrDefaultAsync(g => g.Name == item.Name);
-                        
+
                         if (genre == null)
                         {
                             genre = new Genre { Name = item.Name, TmdbId = item.Id };
                             context.Genres.Add(genre);
                         }
-                        
+
                         if (!film.Genres.Any(g => g.TmdbId == item.Id))
                         {
                             film.Genres.Add(genre);
@@ -184,13 +299,13 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                         var keyword = context.Keywords.Local.FirstOrDefault(k => k.TmdbId == item.Id)
                                       ?? await context.Keywords.FirstOrDefaultAsync(k => k.TmdbId == item.Id)
                                       ?? await context.Keywords.FirstOrDefaultAsync(k => k.Name == item.Name);
-                        
+
                         if (keyword == null)
                         {
                             keyword = new Keyword { Name = item.Name, TmdbId = item.Id };
                             context.Keywords.Add(keyword);
                         }
-                        
+
                         if (!film.Keywords.Any(k => k.TmdbId == item.Id))
                         {
                             film.Keywords.Add(keyword);
@@ -210,7 +325,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                         var company = context.ProductionCompanies.Local.FirstOrDefault(c => c.TmdbId == item.Id)
                                       ?? await context.ProductionCompanies.FirstOrDefaultAsync(c => c.TmdbId == item.Id)
                                       ?? await context.ProductionCompanies.FirstOrDefaultAsync(c => c.Name == item.Name);
-                        
+
                         if (company == null)
                         {
                             var studio = await tmdbService.GetCompanyDetailsAsync(item.Id);
@@ -226,7 +341,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                             };
                             context.ProductionCompanies.Add(company);
                         }
-                        
+
                         if (!film.ProductionCompanies.Any(c => c.TmdbId == item.Id))
                         {
                             film.ProductionCompanies.Add(company);
@@ -265,11 +380,11 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             {
                 if (!film.AlternativeTitles.Any(at => at.Title == alt.Title))
                 {
-                    film.AlternativeTitles.Add(new AlternativeTitle 
-                    { 
-                        Title = alt.Title, 
-                        Iso3166_1 = alt.Iso_3166_1, 
-                        Type = alt.Type 
+                    film.AlternativeTitles.Add(new AlternativeTitle
+                    {
+                        Title = alt.Title ?? "Unknown",
+                        Iso3166_1 = alt.Iso_3166_1 ?? "",
+                        Type = alt.Type ?? ""
                     });
                 }
             }
@@ -280,17 +395,17 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         {
             foreach (var res in movie.ReleaseDates.Results)
             {
-                foreach (var release in res.ReleaseDates)
+                foreach (var release in res.ReleaseDates ?? new List<TmdbReleaseDate>())
                 {
                     if (!film.Releases.Any(r => r.Iso3166_1 == res.Iso_3166_1 && r.ReleaseDate == release.ReleaseDate))
                     {
                         film.Releases.Add(new FilmRelease
                         {
-                            Iso3166_1 = res.Iso_3166_1,
-                            Certification = release.Certification,
+                            Iso3166_1 = res.Iso_3166_1 ?? "",
+                            Certification = release.Certification ?? "",
                             ReleaseDate = release.ReleaseDate,
                             Type = (int)release.Type,
-                            Note = release.Note
+                            Note = release.Note ?? ""
                         });
                     }
                 }
@@ -308,7 +423,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                     dbLang = new Language { Iso639_1 = lang.Iso_639_1, Name = lang.Name };
                     context.Languages.Add(dbLang);
                 }
-                
+
                 if (!film.SpokenLanguages.Any(sl => sl.Iso639_1 == dbLang.Iso639_1))
                 {
                     film.SpokenLanguages.Add(dbLang);
@@ -324,10 +439,10 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                 var dbCountry = await context.Countries.FirstOrDefaultAsync(co => co.Iso3166_1 == c.Iso_3166_1);
                 if (dbCountry == null)
                 {
-                    dbCountry = new Country { Iso3166_1 = c.Iso_3166_1, Name = c.Name };
+                    dbCountry = new Country { Iso3166_1 = c.Iso_3166_1 ?? "", Name = c.Name ?? c.Iso_3166_1 ?? "Unknown" };
                     context.Countries.Add(dbCountry);
                 }
-                
+
                 if (!film.ProductionCountries.Any(pc => pc.Iso3166_1 == dbCountry.Iso3166_1))
                 {
                     film.ProductionCountries.Add(dbCountry);
@@ -339,11 +454,11 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         if (!film.TvdbId.HasValue && !string.IsNullOrEmpty(movie.ExternalIds?.ImdbId))
         {
             // Search for TVDB ID using IMDB ID
-            var tvdbResults = await tvdbService.SearchMoviesAsync(movie.ExternalIds.ImdbId);
-            var tvdbMovie = tvdbResults.FirstOrDefault(r => r.PrimaryLanguage == "eng" || r.PrimaryLanguage == "deu");
-            if (tvdbMovie != null && int.TryParse(tvdbMovie.TvdbId, out int tid))
+            var tvdbRemoteResults = await tvdbService.GetByRemoteIdAsync(movie.ExternalIds.ImdbId);
+            var tvdbMovieResult = tvdbRemoteResults.FirstOrDefault(r => r.Movie != null);
+            if (tvdbMovieResult?.Movie?.Id != null)
             {
-                film.TvdbId = tid;
+                film.TvdbId = (int)tvdbMovieResult.Movie.Id.Value;
             }
         }
 
@@ -364,9 +479,9 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                                 film.FilmAwards.Add(new FilmAward
                                 {
                                     Name = award.Name,
-                                    Year = award.Year,
-                                    Category = award.Category,
-                                    IsWinner = award.IsWinner
+                                    Year = int.TryParse(tvdbDetails.Year, out int y) ? y : (film.Erscheinungsdatum?.Year ?? 0),
+                                    Category = "Imported (TVDB)",
+                                    IsWin = false // TVDB record here only contains basic info
                                 });
                             }
                         }
@@ -375,9 +490,36 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                     // Box Office / Budget if missing from TMDB
                     if ((film.Budget == null || film.Budget == 0) && tvdbDetails.Budget != null && long.TryParse(tvdbDetails.Budget, out long b))
                         film.Budget = b;
-                    
+
                     if ((film.Revenue == null || film.Revenue == 0) && tvdbDetails.BoxOffice != null && long.TryParse(tvdbDetails.BoxOffice, out long r))
                         film.Revenue = r;
+
+                    // 1. Aliases mapping
+                    if (tvdbDetails.Aliases != null)
+                    {
+                        foreach (var alias in tvdbDetails.Aliases)
+                        {
+                            if (!film.AlternativeTitles.Any(at => at.Title == alias.Name))
+                            {
+                                film.AlternativeTitles.Add(new AlternativeTitle
+                                {
+                                    Title = alias.Name,
+                                    Iso3166_1 = alias.Language ?? "XX",
+                                    Type = "TVDB Alias"
+                                });
+                            }
+                        }
+                    }
+
+                    // 2. Inspirations (Books, real events, etc.)
+                    if (tvdbDetails.Inspirations != null && tvdbDetails.Inspirations.Any())
+                    {
+                        var notes = tvdbDetails.Inspirations.Select(i => $"{i.Type_name}: {i.Url}").ToList();
+                        film.ProductionNotes = string.Join("; ", notes);
+                    }
+
+                    if (tvdbDetails.Score != null)
+                        film.TvdbRating = tvdbDetails.Score > 10 ? tvdbDetails.Score / 10.0 : tvdbDetails.Score;
 
                     // Add more "Fanatic" info if available
                     // TVDB often has deeper tech specs or specialized lists
@@ -386,6 +528,144 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             catch (Exception ex)
             {
                 Console.WriteLine($"TVDB Enrichment Error: {ex.Message}");
+            }
+        }
+
+        // 🌀 Rotten Tomatoes Enrichment (Special Logic)
+        try
+        {
+            var releaseYear = film.Erscheinungsdatum?.Year;
+            var rtHit = await rtService.SearchMovieAsync(film.Titel, releaseYear);
+            if (rtHit?.Scores != null)
+            {
+                film.RottenTomatoesCriticRating = rtHit.Scores.CriticsScore;
+                film.RottenTomatoesAudienceRating = rtHit.Scores.AudienceScore;
+                Console.WriteLine($"RT Enrichment Success: {film.Titel} -> {film.RottenTomatoesCriticRating}%/{film.RottenTomatoesAudienceRating}%");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"RT Enrichment Error: {ex.Message}");
+        }
+
+        // 🎞️ IMDb & Metacritic Rating Enrichment (Shared Source)
+        if (!string.IsNullOrEmpty(film.ImdbId))
+        {
+            try
+            {
+                var imdbMeta = await imdbService.GetMetadataAsync(film.ImdbId);
+                if (imdbMeta != null)
+                {
+                    if (imdbMeta.Rating.HasValue)
+                        film.ImdbRating = imdbMeta.Rating.Value;
+
+                    if (imdbMeta.Metascore.HasValue)
+                        film.MetacriticRating = imdbMeta.Metascore.Value;
+
+                    Console.WriteLine($"IMDb/MC Enrichment Success: {film.Titel} -> IMDb: {film.ImdbRating}, Metascore: {film.MetacriticRating}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"IMDb Enrichment Error: {ex.Message}");
+            }
+        }
+
+        // 🏛️ Wikidata Enrichment (Studios & People)
+        try
+        {
+            await EnrichPeopleWithWikidataAsync(film);
+            await EnrichStudiosWithWikidataAsync(film);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Wikidata Enrichment Global Error: {ex.Message}");
+        }
+    }
+
+    private async Task EnrichPeopleWithWikidataAsync(Film film)
+    {
+        if (film.PersonEigenschaftFilme == null || !film.PersonEigenschaftFilme.Any()) return;
+
+        foreach (var pef in film.PersonEigenschaftFilme)
+        {
+            var person = pef.Person;
+            if (person == null) continue;
+
+            // Only enrich if we have an ID and data is missing
+            if ((!string.IsNullOrEmpty(person.WikidataId) || !string.IsNullOrEmpty(person.ImdbId)) && (string.IsNullOrEmpty(person.Geburtsort) || string.IsNullOrEmpty(person.InstagramId)))
+            {
+                try
+                {
+                    var wikiData = await wikidataService.GetPersonDetailsAsync(person.WikidataId, person.ImdbId);
+                    if (wikiData != null)
+                    {
+                        if (string.IsNullOrEmpty(person.Geburtsort)) person.Geburtsort = wikiData.BirthPlace;
+                        if (string.IsNullOrEmpty(person.Tags)) person.Tags = wikiData.ZodiacSign; // Using Tags for Zodiac
+
+                        if (string.IsNullOrEmpty(person.Biografie) && !string.IsNullOrEmpty(wikiData.Description))
+                            person.Biografie = wikiData.Description;
+
+                        person.InstagramId ??= wikiData.InstagramId;
+                        person.TwitterId ??= wikiData.TwitterId;
+                        person.FacebookId ??= wikiData.FacebookId;
+
+                        // Append Awards if not present
+                        if (person.PersonAwards != null && !person.PersonAwards.Any() && wikiData.Awards.Any())
+                        {
+                            foreach (var wa in wikiData.Awards)
+                            {
+                                person.PersonAwards.Add(new PersonAward
+                                {
+                                    Name = wa.Name,
+                                    Category = wa.Category,
+                                    Year = wa.Year,
+                                    IsWin = wa.IsWin
+                                });
+                            }
+                        }
+
+                        Console.WriteLine($"Wikidata Person Success: {person.Vorname} {person.Nachname}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Wikidata Person Error ({person.Nachname}): {ex.Message}");
+                }
+            }
+        }
+    }
+
+    private async Task EnrichStudiosWithWikidataAsync(Film film)
+    {
+        if (film.ProductionCompanies == null || !film.ProductionCompanies.Any()) return;
+
+        foreach (var company in film.ProductionCompanies)
+        {
+            // Try to enrich if we have at least one ID
+            if (!string.IsNullOrEmpty(company.WikidataId) || company.TmdbId > 0)
+            {
+                try
+                {
+                    var wikiData = await wikidataService.GetCompanyDetailsAsync(company.WikidataId, company.TmdbId);
+                    if (wikiData != null)
+                    {
+                        company.Headquarters ??= wikiData.Headquarters;
+                        company.FoundedYear ??= wikiData.FoundedYear;
+                        company.EmployeeCount ??= wikiData.EmployeeCount;
+                        // We could also store the parent company name in description if needed
+                        if (!string.IsNullOrEmpty(wikiData.ParentCompany) && !string.IsNullOrEmpty(company.Description) && !company.Description.Contains(wikiData.ParentCompany))
+                        {
+                            company.Description += $" (Teil von {wikiData.ParentCompany})";
+                        }
+
+                        Console.WriteLine($"Wikidata Studio Success: {company.Name}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Wikidata Studio Error ({company.Name}): {ex.Message}");
+                }
             }
         }
     }
@@ -455,7 +735,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             var tmdbPerson = await tmdbService.GetPersonDetailsAsync(tmdbId);
             if (tmdbPerson != null)
             {
-                var names = tmdbPerson.Name.Split(' ', 2);
+                var names = (tmdbPerson.Name ?? "Unknown").Split(' ', 2);
                 person = new Person
                 {
                     Vorname = names[0],

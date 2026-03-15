@@ -64,4 +64,16 @@
   <data name="AppTitle" xml:space="preserve">
     <value>Couch DB</value>
   </data>
+  <data name="CookieTitle" xml:space="preserve">
+    <value>Kekse auf der Couch!</value>
+  </data>
+  <data name="CookieText" xml:space="preserve">
+    <value>Wir verwenden nur technisch notwendige Kekse, damit deine Couch-Session reibungslos läuft. Keinerlei nervige Tracker – versprochen!</value>
+  </data>
+  <data name="CookieAccept" xml:space="preserve">
+    <value>Alles klar!</value>
+  </data>
+  <data name="CookiePolicy" xml:space="preserve">
+    <value>Mehr Infos</value>
+  </data>
 </root>

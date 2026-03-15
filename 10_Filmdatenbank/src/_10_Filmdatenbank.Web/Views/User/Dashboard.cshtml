@@ -49,6 +49,50 @@
                         <span class="block text-2xl font-black text-brand-primary">@Model.Threads.Count</span>
                         <span class="text-[10px] text-text-muted uppercase font-bold">@Localizer["Threads"]</span>
                     </div>
+                    <div class="p-4 rounded-xl bg-nav-surface border border-nav-border">
+                        <span class="block text-2xl font-black text-brand-primary">@ViewBag.TotalRatingsCount</span>
+                        <span class="text-[10px] text-text-muted uppercase font-bold">@Localizer["YourRatingsCount"]</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Rating Insight Card -->
+            <div class="card-glass p-6">
+                <h3 class="text-sm font-black text-white uppercase tracking-widest mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-couch text-brand-primary"></i> @Localizer["RatingActivity"]
+                </h3>
+                <div class="flex items-center gap-6 mb-8">
+                    <div class="relative w-24 h-24 flex items-center justify-center">
+                        <svg class="w-full h-full -rotate-90">
+                            <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="8" fill="transparent" class="text-white/5" />
+                            <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="8" fill="transparent" class="text-brand-primary" 
+                                    stroke-dasharray="251.2" stroke-dashoffset="@(251.2 * (1 - (ViewBag.UserAvgRating / 10.0)))" stroke-linecap="round" />
+                        </svg>
+                        <span class="absolute text-2xl font-black text-white">@ViewBag.UserAvgRating.ToString("0.0")</span>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] font-black text-text-muted uppercase tracking-widest">@Localizer["PersonalAvg"]</span>
+                        <span class="text-xs font-medium text-dark-text-muted">Basierend auf @ViewBag.TotalRatingsCount Bewertungen</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="text-[10px] font-black text-white uppercase tracking-widest border-b border-white/5 pb-2">@Localizer["LatestRatings"]</h4>
+                    @foreach (var rating in (List<UserRating>)ViewBag.RecentRatings)
+                    {
+                        <div class="flex items-center gap-3 group">
+                            <div class="w-10 aspect-[2/3] rounded bg-surface-bright/10 overflow-hidden shrink-0">
+                                <img src="@rating.Film.PosterUrl" alt="" class="w-full h-full object-cover" />
+                            </div>
+                            <div class="flex-grow overflow-hidden">
+                                <a asp-controller="Film" asp-action="Details" asp-route-id="@rating.FilmID" class="text-xs font-bold text-white group-hover:text-brand-primary truncate block transition-colors">@rating.Film.Titel</a>
+                                <div class="flex items-center gap-1 mt-0.5">
+                                    <i class="fa-solid fa-star text-[8px] text-brand-primary"></i>
+                                    <span class="text-[10px] font-black text-white">@rating.Value.ToString("0.0")</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -110,6 +154,66 @@
                             </div>
                         </a>
                     }
+                </div>
+            </div>
+
+            <!-- Collection Insights -->
+            <div class="card-glass p-6 space-y-8" aria-labelledby="insights-heading">
+                <div class="flex items-center justify-between">
+                    <h3 id="insights-heading" class="text-lg font-bold text-white">@Localizer["CollectionInsights"]</h3>
+                    <div class="flex items-center gap-4">
+                        <div class="text-right">
+                            <span class="block text-[8px] font-black text-text-muted uppercase">@Localizer["TotalValue"]</span>
+                            <span class="block text-xs font-bold text-brand-primary">$@((ViewBag.TotalCollectionBudget / 1000000.0).ToString("N1"))M</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[8px] font-black text-text-muted uppercase">@Localizer["AvgRating"]</span>
+                            <span class="block text-xs font-bold text-brand-primary">@ViewBag.AvgCollectionRating.ToString("0.0")</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Top Genres -->
+                    <div class="space-y-4">
+                        <h4 class="text-[10px] font-black text-white uppercase tracking-widest flex items-center gap-2">
+                             <i class="fa-solid fa-masks-theater text-brand-primary"></i> @Localizer["TopGenres"]
+                        </h4>
+                        <div class="space-y-3">
+                            @foreach (var genre in ViewBag.TopGenres)
+                            {
+                                <div class="space-y-1">
+                                    <div class="flex justify-between text-[9px] font-bold text-dark-text-muted">
+                                        <span>@genre.Name</span>
+                                        <span>@genre.Count @Localizer["Movies"]</span>
+                                    </div>
+                                    <div class="h-1 w-full bg-nav-surface rounded-full overflow-hidden">
+                                        @{
+                                            var maxGenre = ViewBag.TopGenres[0].Count;
+                                            var pct = (double)genre.Count / maxGenre * 100;
+                                        }
+                                        <div class="h-full bg-brand-primary rounded-full transition-all" style="width: @pct%"></div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Frequent Cast -->
+                    <div class="space-y-4">
+                        <h4 class="text-[10px] font-black text-white uppercase tracking-widest flex items-center gap-2">
+                             <i class="fa-solid fa-star text-brand-primary"></i> @Localizer["FrequentCast"]
+                        </h4>
+                        <div class="flex flex-wrap gap-2">
+                            @foreach (var cast in ViewBag.FrequentCast)
+                            {
+                                <a asp-controller="Person" asp-action="Details" asp-route-id="@cast.Person.PersonID" class="px-3 py-1.5 rounded-lg bg-nav-surface border border-nav-border hover:border-brand-primary transition-all flex items-center gap-2 group">
+                                    <span class="text-[10px] font-bold text-white group-hover:text-brand-primary transition-colors">@cast.Person.Vorname @cast.Person.Nachname</span>
+                                    <span class="text-[8px] font-black text-brand-primary bg-brand-primary/10 px-1 rounded">@cast.Count</span>
+                                </a>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
 

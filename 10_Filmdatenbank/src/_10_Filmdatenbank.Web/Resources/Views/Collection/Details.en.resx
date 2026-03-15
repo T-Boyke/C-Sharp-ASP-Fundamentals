@@ -4,8 +4,19 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="BackToCollections" xml:space="preserve"><value>Collections</value></data>
+  <data name="BackToCollections" xml:space="preserve"><value>Back to Collections</value></data>
   <data name="Edit" xml:space="preserve"><value>Edit</value></data>
-  <data name="FilmsInCollectionHeader" xml:space="preserve"><value>Movies in this collection</value></data>
+  <data name="FilmsInCollectionHeader" xml:space="preserve"><value>Films in this Collection</value></data>
   <data name="Films" xml:space="preserve"><value>Films</value></data>
+  <data name="CollectionCompletion" xml:space="preserve"><value>Completion Status</value></data>
+  <data name="CumulativeRevenue" xml:space="preserve"><value>Total Revenue</value></data>
+  <data name="SeriesAvgRating" xml:space="preserve"><value>Avg. Rating</value></data>
+  <data name="TotalBudget" xml:space="preserve"><value>Total Budget</value></data>
+  <data name="SeriesTotal" xml:space="preserve"><value>Series Total</value></data>
+  <data name="BasedOnLocalData" xml:space="preserve"><value>Based on Local Data</value></data>
+  <data name="Timeline" xml:space="preserve"><value>Timeline</value></data>
+  <data name="FinancialAnalytics" xml:space="preserve"><value>Financial Analytics</value></data>
+  <data name="ProfitMargin" xml:space="preserve"><value>Profit Margin</value></data>
+  <data name="ROICaption" xml:space="preserve"><value>ROI</value></data>
+  <data name="CollectionInsights" xml:space="preserve"><value>Collection Insights</value></data>
 </root>

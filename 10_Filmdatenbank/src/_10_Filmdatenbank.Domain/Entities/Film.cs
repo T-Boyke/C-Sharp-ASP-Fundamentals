@@ -62,9 +62,14 @@ public class Film
     /// </summary>
 
     /// <summary>
-    /// Die durchschnittliche Nutzerwertung (0-10).
+    /// Die durchschnittliche Nutzerwertung (0-10) der CouchDB Community.
     /// </summary>
     public double? Nutzerwertung { get; set; }
+
+    /// <summary>
+    /// Die Anzahl der CouchDB-Community-Stimmen.
+    /// </summary>
+    public int CouchDbVoteCount { get; set; }
 
 
     // --- TMDB PERFECT ALIGNMENT ---
@@ -140,6 +145,31 @@ public class Film
     public double? VoteAverage { get; set; }
 
     /// <summary>
+    /// Die durchschnittliche Nutzerwertung von IMDB (0.0 - 10.0).
+    /// </summary>
+    public double? ImdbRating { get; set; }
+
+    /// <summary>
+    /// Die durchschnittliche Nutzerwertung von TheTVDB (0-100 oder 0-10).
+    /// </summary>
+    public double? TvdbRating { get; set; }
+
+    /// <summary>
+    /// Der Rotten Tomatoes Score der Kritiker (0-100%).
+    /// </summary>
+    public int? RottenTomatoesCriticRating { get; set; }
+
+    /// <summary>
+    /// Der Rotten Tomatoes Score der Zuschauer (0-100%).
+    /// </summary>
+    public int? RottenTomatoesAudienceRating { get; set; }
+
+    /// <summary>
+    /// Der Metascore von Metacritic (0-100).
+    /// </summary>
+    public int? MetacriticRating { get; set; }
+
+    /// <summary>
     /// Die URL zum Hintergrundbild (Backdrop).
     /// </summary>
     public string? BackdropUrl { get; set; }
@@ -210,6 +240,11 @@ public class Film
     public string? TrailerUrl { get; set; }
 
     /// <summary>
+    /// Zusätzliche Trivia oder Inspirationen von spezialisierten Metadaten-Quellen.
+    /// </summary>
+    public string? ProductionNotes { get; set; }
+
+    /// <summary>
     /// Die strukturierten Auszeichnungen des Films.
     /// </summary>
     public virtual ICollection<FilmAward> FilmAwards { get; set; } = new List<FilmAward>();
@@ -238,4 +273,9 @@ public class Film
     /// Eine Sammlung von Personen und ihren Eigenschaften, die an diesem Film mitgewirkt haben.
     /// </summary>
     public ICollection<PersonEigenschaftFilm> PersonEigenschaftFilme { get; set; } = [];
+
+    /// <summary>
+    /// Die lokalen Nutzerbewertungen aus der CouchDB Community.
+    /// </summary>
+    public virtual ICollection<UserRating> UserRatings { get; set; } = new List<UserRating>();
 }

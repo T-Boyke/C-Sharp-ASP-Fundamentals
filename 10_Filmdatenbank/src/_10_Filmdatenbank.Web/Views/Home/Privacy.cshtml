@@ -5,56 +5,95 @@
 }
 
 <div class="py-24 px-6 lg:px-8 max-w-7xl mx-auto">
-    <div class="max-w-3xl mx-auto">
-        <h1 class="text-4xl font-extrabold tracking-tight text-text-main dark:text-white mb-8 border-l-4 border-brand-primary pl-6 uppercase">
-            @Localizer["PrivacyHeaderPrefix"]<span class="text-brand-primary">@Localizer["PrivacyHeaderHighlight"]</span>
-        </h1>
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight text-white uppercase">
+                @Localizer["PrivacyHeaderPrefix"]<span class="text-brand-primary">@Localizer["PrivacyHeaderHighlight"]</span>
+            </h1>
+            <p class="mt-4 text-xl text-dark-text-muted">Safe, Local, and Transparent.</p>
+        </div>
         
-        <div class="prose prose-slate dark:prose-invert max-w-none space-y-8 text-text-description dark:text-dark-text-muted">
-            <section class="accent-border bg-white-a50 dark:bg-dark-surface/50 p-8 rounded-xl shadow-sm border border-border-default dark:border-dark-border transition-all backdrop-blur-sm">
-                <h2 class="text-xl font-bold text-text-main dark:text-white mb-4 flex items-center gap-3">
-                    <i aria-hidden="true" class="fa-solid fa-shield-halved text-brand-primary"></i>
-                    @Localizer["GeneralInfoTitle"]
-                </h2>
-                <p>
-                    @Localizer["GeneralInfoText"]
-                </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- General Info -->
+            <section class="card-glass p-8 border border-white/5 hover:border-brand-primary/30 transition-all flex flex-col h-full" aria-labelledby="general-info-h">
+                <div class="w-12 h-12 rounded-2xl bg-brand-primary/10 flex items-center justify-center mb-6">
+                    <i aria-hidden="true" class="fa-solid fa-shield-halved text-brand-primary text-xl"></i>
+                </div>
+                <h2 id="general-info-h" class="text-xl font-black text-white mb-4 uppercase tracking-tight">@Localizer["GeneralInfoTitle"]</h2>
+                <p class="text-dark-text-muted leading-relaxed">@Localizer["GeneralInfoText"]</p>
             </section>
 
-            <section class="accent-border bg-white-a50 dark:bg-dark-surface/50 p-8 rounded-xl shadow-sm border border-border-default dark:border-dark-border transition-all backdrop-blur-sm">
-                <h2 class="text-xl font-bold text-text-main dark:text-white mb-4 flex items-center gap-3">
-                    <i aria-hidden="true" class="fa-solid fa-server text-brand-primary"></i>
-                    @Localizer["LocalProcessingTitle"]
-                </h2>
-                <p>
-                    @Localizer["LocalProcessingIntro"]
-                </p>
-                <ul class="list-disc pl-6 space-y-2 mt-4">
-                    <li>@Localizer["LocalProcessingItem1"]</li>
-                    <li>@Localizer["LocalProcessingItem2"]</li>
-                    <li>@Localizer["LocalProcessingItem3"]</li>
+            <!-- Local Assets -->
+            <section class="card-glass p-8 border border-white/5 hover:border-brand-primary/30 transition-all flex flex-col h-full" aria-labelledby="local-assets-h">
+                <div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6">
+                    <i aria-hidden="true" class="fa-solid fa-house-laptop text-blue-500 text-xl"></i>
+                </div>
+                <h2 id="local-assets-h" class="text-xl font-black text-white mb-4 uppercase tracking-tight">@Localizer["LocalProcessingTitle"]</h2>
+                <p class="text-dark-text-muted mb-6">@Localizer["LocalProcessingIntro"]</p>
+                <ul class="space-y-3" role="list">
+                    <li class="flex items-center gap-3 text-sm text-white/70">
+                        <i class="fa-solid fa-check text-brand-primary text-[10px]"></i> @Localizer["LocalProcessingItem1"]
+                    </li>
+                    <li class="flex items-center gap-3 text-sm text-white/70">
+                        <i class="fa-solid fa-check text-brand-primary text-[10px]"></i> @Localizer["LocalProcessingItem2"]
+                    </li>
+                    <li class="flex items-center gap-3 text-sm text-white/70">
+                        <i class="fa-solid fa-check text-brand-primary text-[10px]"></i> @Localizer["LocalProcessingItem3"]
+                    </li>
                 </ul>
-                <p class="mt-4 italic text-sm text-text-muted dark:text-dark-text-muted transition-colors">
+                <p class="mt-auto pt-6 italic text-[10px] text-text-muted uppercase tracking-widest font-black">
                     @Localizer["LocalProcessingFooter"]
                 </p>
             </section>
 
-            <section class="accent-border bg-white-a50 dark:bg-dark-surface/50 p-8 rounded-xl shadow-sm border border-border-default dark:border-dark-border transition-all backdrop-blur-sm">
-                <h2 class="text-xl font-bold text-text-main dark:text-white mb-4 flex items-center gap-3">
-                    <i aria-hidden="true" class="fa-solid fa-database text-brand-primary"></i>
-                    @Localizer["DataStorageTitle"]
-                </h2>
-                <p>
-                    @Localizer["DataStorageText"]
-                </p>
+            <!-- Data Storage -->
+            <section class="card-glass p-8 border border-white/5 hover:border-brand-primary/30 transition-all flex flex-col h-full" aria-labelledby="storage-h">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-6">
+                    <i aria-hidden="true" class="fa-solid fa-database text-indigo-500 text-xl"></i>
+                </div>
+                <h2 id="storage-h" class="text-xl font-black text-white mb-4 uppercase tracking-tight">@Localizer["DataStorageTitle"]</h2>
+                <p class="text-dark-text-muted leading-relaxed">@Localizer["DataStorageText"]</p>
+            </section>
+
+            <!-- External APIs -->
+            <section class="card-glass p-8 border border-white/5 hover:border-brand-primary/30 transition-all flex flex-col h-full" aria-labelledby="apis-h">
+                <div class="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-6">
+                    <i aria-hidden="true" class="fa-solid fa-cloud-arrow-down text-orange-500 text-xl"></i>
+                </div>
+                <h2 id="apis-h" class="text-xl font-black text-white mb-4 uppercase tracking-tight">@Localizer["ExternalAPIsTitle"]</h2>
+                <p class="text-dark-text-muted leading-relaxed">@Localizer["ExternalAPIsText"]</p>
+            </section>
+
+            <!-- Identity & Cookies -->
+            <section class="card-glass p-8 border border-white/5 hover:border-brand-primary/30 transition-all md:col-span-2" aria-labelledby="cookies-h">
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center shrink-0">
+                        <i aria-hidden="true" class="fa-solid fa-cookie-bite text-green-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 id="cookies-h" class="text-xl font-black text-white mb-4 uppercase tracking-tight">@Localizer["CookiesTitle"]</h2>
+                        <p class="text-dark-text-muted leading-relaxed">@Localizer["CookiesText"]</p>
+                    </div>
+                </div>
             </section>
         </div>
 
-        <div class="mt-16 flex items-center justify-center">
-            <a asp-controller="Home" asp-action="Index" class="btn-primary">
-                <i aria-hidden="true" class="fa-solid fa-arrow-left mr-2"></i>
+        <div class="mt-20 flex items-center justify-center gap-6">
+            <a asp-controller="Home" asp-action="Index" class="btn-group-btn px-8 py-3 rounded-xl border border-white/10 text-white hover:bg-white/5 transition-all font-bold flex items-center gap-2">
+                <i aria-hidden="true" class="fa-solid fa-house"></i>
                 @Localizer["BackToHome"]
+            </a>
+            <a href="mailto:privacy@couchdb.local" class="btn-primary px-8 py-3 shadow-2xl shadow-brand-shadow">
+                Contact Privacy Team
             </a>
         </div>
     </div>
 </div>
+
+<style>
+    .card-glass {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(12px);
+        border-radius: 2rem;
+    }
+</style>

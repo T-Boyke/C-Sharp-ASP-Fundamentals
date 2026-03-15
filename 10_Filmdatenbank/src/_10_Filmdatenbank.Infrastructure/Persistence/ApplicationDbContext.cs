@@ -91,6 +91,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Achievement> Achievements { get; set; } = null!;
     public DbSet<UserAchievement> UserAchievements { get; set; } = null!;
     public DbSet<FavoriteFilm> FavoriteFilms { get; set; } = null!;
+    public DbSet<UserRating> UserRatings { get; set; } = null!;
 
     /// <summary>
     /// Die Tabelle für Auszeichnungen von Personen.
@@ -351,6 +352,19 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
                 .WithMany()
                 .HasForeignKey(ff => ff.FilmID)
                 .OnDelete(DeleteBehavior.NoAction);
+        });
+
+        builder.Entity<UserRating>(entity =>
+        {
+            entity.HasKey(ur => ur.UserRatingID);
+            entity.HasOne(ur => ur.User)
+                .WithMany(u => u.UserRatings)
+                .HasForeignKey(ur => ur.UserID)
+                .OnDelete(DeleteBehavior.NoAction);
+            entity.HasOne(ur => ur.Film)
+                .WithMany(f => f.UserRatings)
+                .HasForeignKey(ur => ur.FilmID)
+                .OnDelete(DeleteBehavior.Cascade);
         });
 
         builder.Entity<PersonAward>(entity =>

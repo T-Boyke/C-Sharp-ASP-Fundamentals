@@ -14,8 +14,12 @@
   <data name="LocalProcessingItem1" xml:space="preserve"><value>Keine Einbindung von Google Fonts via Google-Server.</value></data>
   <data name="LocalProcessingItem2" xml:space="preserve"><value>Keine FontAwesome-Einbindung via CDN.</value></data>
   <data name="LocalProcessingItem3" xml:space="preserve"><value>Keine externen Tracker oder Analyse-Tools.</value></data>
-  <data name="LocalProcessingFooter" xml:space="preserve"><value>Dadurch werden keine IP-Adressen ungefragt an Drittanbieter (z.B. in die USA) übermittelt.</value></data>
-  <data name="DataStorageTitle" xml:space="preserve"><value>Speicherung von Filmdaten</value></data>
-  <data name="DataStorageText" xml:space="preserve"><value>Die von Ihnen eingegebenen Filmdaten (Titel, Jahr, Dauer, Preis) werden ausschließlich in der lokalen Projektdatenbank (Entity Framework Core) gespeichert und nicht an externe Dienste weitergegeben.</value></data>
+  <data name="LocalProcessingFooter" xml:space="preserve"><value>Dadurch werden keine IP-Adressen ungefragt an Drittanbieter (z.B. in die USA) übermittelt, sofern keine externen Inhalte explizit angefordert werden.</value></data>
+  <data name="DataStorageTitle" xml:space="preserve"><value>Speicherung von Film- &amp; Userdaten</value></data>
+  <data name="DataStorageText" xml:space="preserve"><value>Personenbezogene Daten (Name, E-Mail, Profilbild) sowie Ihre Film-Bewertungen werden sicher in unserer SQL-Server-Datenbank gespeichert. Diese Daten dienen der Bereitstellung des Dienstes und der Berechnung des CouchDB-Rankings.</value></data>
+  <data name="ExternalAPIsTitle" xml:space="preserve"><value>Integration externer Dienste</value></data>
+  <data name="ExternalAPIsText" xml:space="preserve"><value>Zur Anreicherung von Filmdaten nutzen wir die API von The Movie Database (TMDB). Bei der Suche oder dem Import von Filmen werden Anfragen an TMDB-Server gesendet. Des Weiteren rufen wir für das "Critical Consensus" Modul öffentlich zugängliche Scores von Rotten Tomatoes und Metacritic ab.</value></data>
+  <data name="CookiesTitle" xml:space="preserve"><value>Cookies &amp; Identität</value></data>
+  <data name="CookiesText" xml:space="preserve"><value>Wir nutzen essentielle Cookies für die Benutzer-Authentifizierung (ASP.NET Identity). Ohne diese Cookies ist ein Login nicht möglich. Wir verwenden keine Werbe- oder Tracking-Cookies von Drittanbietern.</value></data>
   <data name="BackToHome" xml:space="preserve"><value>Zurück zur Startseite</value></data>
 </root>

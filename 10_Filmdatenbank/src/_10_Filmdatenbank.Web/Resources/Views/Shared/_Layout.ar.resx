@@ -7,4 +7,19 @@
   <data name="SkipToContent" xml:space="preserve">
     <value>الانتقال إلى المحتوى</value>
   </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Couch DB</value>
+  </data>
+  <data name="CookieTitle" xml:space="preserve">
+    <value>Cookies on the Couch!</value>
+  </data>
+  <data name="CookieText" xml:space="preserve">
+    <value>We use only essential cookies to keep your couch session comfy. No annoying trackers – Scout's honor!</value>
+  </data>
+  <data name="CookieAccept" xml:space="preserve">
+    <value>Got it!</value>
+  </data>
+  <data name="CookiePolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
 </root>

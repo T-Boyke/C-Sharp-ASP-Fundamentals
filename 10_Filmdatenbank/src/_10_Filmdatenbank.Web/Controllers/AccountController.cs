@@ -32,10 +32,10 @@ public class AccountController(SignInManager<ApplicationUser> signInManager, Use
     {
         if (ModelState.IsValid)
         {
-            var user = new ApplicationUser 
-            { 
-                UserName = model.Email, 
-                Email = model.Email, 
+            var user = new ApplicationUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
                 EmailConfirmed = true,
                 CreatedAt = DateTime.UtcNow,
                 IsDisabled = false

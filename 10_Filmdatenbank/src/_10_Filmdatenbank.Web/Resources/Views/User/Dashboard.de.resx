@@ -20,4 +20,14 @@
   <data name="Watchlist" xml:space="preserve"><value>Merkzettel / Watchlist</value></data>
   <data name="FilmsCount" xml:space="preserve"><value>{0} Filme</value></data>
   <data name="NoFavorites" xml:space="preserve"><value>Noch keine Favoriten gespeichert.</value></data>
+  <data name="CollectionInsights" xml:space="preserve"><value>Einblicke in deine Sammlung</value></data>
+  <data name="TopGenres" xml:space="preserve"><value>Deine Top Genres</value></data>
+  <data name="FrequentCast" xml:space="preserve"><value>Oft gesehene Stars</value></data>
+  <data name="AvgRating" xml:space="preserve"><value>Durchschn. Bewertung</value></data>
+  <data name="TotalValue" xml:space="preserve"><value>Gesamtwert (Budget)</value></data>
+  <data name="RatingActivity" xml:space="preserve"><value>Bewertungs-Aktivität</value></data>
+  <data name="YourRatingsCount" xml:space="preserve"><value>Deine Bewertungen</value></data>
+  <data name="PersonalAvg" xml:space="preserve"><value>Dein Durchschnitt</value></data>
+  <data name="LatestRatings" xml:space="preserve"><value>Neueste Bewertungen</value></data>
+  <data name="Movies" xml:space="preserve"><value>Filme</value></data>
 </root>

@@ -30,4 +30,5 @@
   <data name="Notifications" xml:space="preserve"><value>Benachrichtigungen</value></data>
   <data name="Movies" xml:space="preserve"><value>Filme</value></data>
   <data name="AppearanceAndSettings" xml:space="preserve"><value>Darstellung &amp; Einstellungen</value></data>
+  <data name="SystemSettings" xml:space="preserve"><value>System-Einstellungen</value></data>
 </root>

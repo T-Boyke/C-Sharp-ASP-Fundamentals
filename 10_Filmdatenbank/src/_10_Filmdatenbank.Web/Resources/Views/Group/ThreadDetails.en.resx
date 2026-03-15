@@ -8,6 +8,10 @@
   <data name="Discussion" xml:space="preserve"><value>Discussion</value></data>
   <data name="Comments" xml:space="preserve"><value>Comments</value></data>
   <data name="CommentPlaceholder" xml:space="preserve"><value>Write a comment...</value></data>
-  <data name="PostComment" xml:space="preserve"><value>Post Answer</value></data>
-  <data name="NoCommentsYet" xml:space="preserve"><value>No comments yet. Be the first to reply!</value></data>
+  <data name="PostComment" xml:space="preserve"><value>Post Comment</value></data>
+  <data name="NoCommentsYet" xml:space="preserve"><value>No comments yet. Be the first to start the discussion!</value></data>
+  <data name="Reply" xml:space="preserve"><value>Reply</value></data>
+  <data name="ReplyPlaceholder" xml:space="preserve"><value>Write a reply...</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="PostReply" xml:space="preserve"><value>Post Reply</value></data>
 </root>

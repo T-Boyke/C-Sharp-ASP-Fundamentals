@@ -14,8 +14,12 @@
   <data name="LocalProcessingItem1" xml:space="preserve"><value>Sem integração do Google Fonts via servidores do Google.</value></data>
   <data name="LocalProcessingItem2" xml:space="preserve"><value>Sem integração do FontAwesome via CDN.</value></data>
   <data name="LocalProcessingItem3" xml:space="preserve"><value>Sem rastreadores externos ou ferramentas de análise.</value></data>
-  <data name="LocalProcessingFooter" xml:space="preserve"><value>Como resultado, nenhum endereço IP é transmitido a provedores terceirizados (ex: nos EUA) sem solicitação.</value></data>
-  <data name="DataStorageTitle" xml:space="preserve"><value>Armazenamento de Dados de Filmes</value></data>
-  <data name="DataStorageText" xml:space="preserve"><value>Os dados de filmes que você insere (título, ano, duração, preço) são armazenados exclusivamente no banco de dados local do projeto (Entity Framework Core) e não são repassados a serviços externos.</value></data>
-  <data name="BackToHome" xml:space="preserve"><value>Voltar para o Início</value></data>
+  <data name="LocalProcessingFooter" xml:space="preserve"><value>As a result, no IP addresses are transmitted to third-party providers (e.g., in the USA) without being asked, unless external content is explicitly requested.</value></data>
+  <data name="DataStorageTitle" xml:space="preserve"><value>Storage of Film &amp; User Data</value></data>
+  <data name="DataStorageText" xml:space="preserve"><value>Personal data (name, email, profile picture) and your film ratings are securely stored in our SQL Server database. This data is used to provide the service and calculate the CouchDB ranking.</value></data>
+  <data name="ExternalAPIsTitle" xml:space="preserve"><value>Integration of External Services</value></data>
+  <data name="ExternalAPIsText" xml:space="preserve"><value>To enrich film data, we use the API from The Movie Database (TMDB). When searching or importing films, requests are sent to TMDB servers. Furthermore, for the "Critical Consensus" module, we retrieve publicly accessible scores from Rotten Tomatoes and Metacritic.</value></data>
+  <data name="CookiesTitle" xml:space="preserve"><value>Cookies &amp; Identity</value></data>
+  <data name="CookiesText" xml:space="preserve"><value>We use essential cookies for user authentication (ASP.NET Identity). Without these cookies, login is not possible. We do not use third-party advertising or tracking cookies.</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>Zurück zur Startseite</value></data>
 </root>

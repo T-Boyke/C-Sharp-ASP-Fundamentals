@@ -14,4 +14,9 @@
   <data name="TotalBudget" xml:space="preserve"><value>Gesamtbudget</value></data>
   <data name="SeriesTotal" xml:space="preserve"><value>Serien-Gesamt</value></data>
   <data name="BasedOnLocalData" xml:space="preserve"><value>Basierend auf lokalen Daten</value></data>
+  <data name="Timeline" xml:space="preserve"><value>Zeitstrahl</value></data>
+  <data name="FinancialAnalytics" xml:space="preserve"><value>Finanzanalyse</value></data>
+  <data name="ProfitMargin" xml:space="preserve"><value>Gewinnspanne</value></data>
+  <data name="ROICaption" xml:space="preserve"><value>Rendite</value></data>
+  <data name="CollectionInsights" xml:space="preserve"><value>Einblicke in die Reihe</value></data>
 </root>

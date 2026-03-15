@@ -18,7 +18,10 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 builder.Services.AddScoped<ITmdbService, TmdbService>();
-builder.Services.AddScoped<ITvdbService, TvdbService>();
+builder.Services.AddHttpClient<ITvdbService, TvdbService>();
+builder.Services.AddHttpClient<IRottenTomatoesService, RottenTomatoesService>();
+builder.Services.AddHttpClient<IImdbService, ImdbService>();
+builder.Services.AddHttpClient<IWikidataService, WikidataService>();
 builder.Services.AddHttpClient("TVDB", client =>
 {
     client.BaseAddress = new Uri("https://api4.thetvdb.com/v4/");
@@ -26,7 +29,10 @@ builder.Services.AddHttpClient("TVDB", client =>
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-    b => b.MigrationsAssembly("_10_Filmdatenbank.Infrastructure")));
+    b => b.MigrationsAssembly("_10_Filmdatenbank.Infrastructure")
+          .EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)
+          .UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)
+          .CommandTimeout(60)));
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
@@ -95,19 +101,19 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     await context.Database.MigrateAsync();
     await DbSeeder.SeedAsync(context);
-    
+
     // Seed Admin/Member roles if needed
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     if (!await roleManager.RoleExistsAsync("Admin")) await roleManager.CreateAsync(new IdentityRole("Admin"));
     if (!await roleManager.RoleExistsAsync("Member")) await roleManager.CreateAsync(new IdentityRole("Member"));
-    
+
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
     if (await userManager.FindByEmailAsync("admin@film.de") == null)
     {
-        var admin = new ApplicationUser 
-        { 
-            UserName = "admin@film.de", 
-            Email = "admin@film.de", 
+        var admin = new ApplicationUser
+        {
+            UserName = "admin@film.de",
+            Email = "admin@film.de",
             EmailConfirmed = true,
             FirstName = "System",
             LastName = "Administrator",
@@ -120,10 +126,10 @@ using (var scope = app.Services.CreateScope())
 
     if (await userManager.FindByEmailAsync("user@film.de") == null)
     {
-        var user = new ApplicationUser 
-        { 
-            UserName = "user@film.de", 
-            Email = "user@film.de", 
+        var user = new ApplicationUser
+        {
+            UserName = "user@film.de",
+            Email = "user@film.de",
             EmailConfirmed = true,
             FirstName = "Standard",
             LastName = "User",

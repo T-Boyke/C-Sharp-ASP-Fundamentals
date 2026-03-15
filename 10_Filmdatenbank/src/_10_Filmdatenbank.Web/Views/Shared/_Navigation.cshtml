@@ -27,9 +27,13 @@
                             <i class="fa-solid fa-house-chimney text-xs" aria-hidden="true"></i>
                             @Localizer["Dashboard"]
                         </a>
-                        <a asp-controller="Film" asp-action="Index" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Film" ? "active" : "")" role="menuitem">
+                        <a asp-controller="Film" asp-action="Index" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Film" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")" role="menuitem">
                             <i class="fa-solid fa-film text-xs" aria-hidden="true"></i>
                             @Localizer["Movies"]
+                        </a>
+                        <a asp-controller="Film" asp-action="Ranking" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Film" && ViewContext.RouteData.Values["Action"]?.ToString() == "Ranking" ? "active" : "")" role="menuitem">
+                            <i class="fa-solid fa-trophy text-xs text-brand-primary" aria-hidden="true"></i>
+                            @Localizer["Ranking"]
                         </a>
                         <a asp-controller="Group" asp-action="Discovery" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Group" ? "active" : "")" role="menuitem">
                             <i class="fa-solid fa-people-group text-xs" aria-hidden="true"></i>
@@ -129,6 +133,12 @@
                                             <i class="fa-solid fa-users-gear text-xs" aria-hidden="true"></i>
                                         </div>
                                         <span class="font-semibold text-indigo-100">@Localizer["UserManagement"]</span>
+                                    </a>
+                                    <a asp-controller="Admin" asp-action="Settings" class="dropdown-item group/admin">
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-danger-primary/10 text-danger-primary">
+                                            <i class="fa-solid fa-microchip text-xs" aria-hidden="true"></i>
+                                        </div>
+                                        <span class="font-semibold text-danger-primary/80 group-hover/admin:text-danger-primary transition-colors">@Localizer["SystemSettings"]</span>
                                     </a>
                                 }
 

@@ -1,4 +1,5 @@
 using _10_Filmdatenbank.Infrastructure.Persistence;
+using _10_Filmdatenbank.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ namespace _10_Filmdatenbank.Web.Controllers;
 [Authorize]
 [Route("Schauspieler")]
 [Route("Schauspieler/[action]")]
-public class PersonController(ApplicationDbContext context) : Controller
+public class PersonController(ApplicationDbContext context, IWikidataService wikidataService) : Controller
 {
     /// <summary>
     /// Zeigt eine Liste aller Personen in der Datenbank an.
@@ -57,7 +58,60 @@ public class PersonController(ApplicationDbContext context) : Controller
 
         if (person == null) return NotFound();
 
+        // 🌀 Wikidata Enrichment (On Demand)
+        if (!string.IsNullOrEmpty(person.WikidataId) || !string.IsNullOrEmpty(person.ImdbId))
+        {
+            await EnrichPersonAsync(person);
+            await context.SaveChangesAsync();
+        }
+
         return View(person);
+    }
+
+    private async Task EnrichPersonAsync(_10_Filmdatenbank.Domain.Entities.Person person)
+    {
+        // Don't re-enrich if we already have awards or a bio
+        if (person.PersonAwards.Any() && !string.IsNullOrEmpty(person.Biografie)) return;
+
+        try
+        {
+            var wikiData = await wikidataService.GetPersonDetailsAsync(person.WikidataId, person.ImdbId);
+            if (wikiData != null)
+            {
+                // Update basic fields if empty
+                if (string.IsNullOrEmpty(person.Geburtsort)) person.Geburtsort = wikiData.BirthPlace;
+                if (string.IsNullOrEmpty(person.Tags)) person.Tags = wikiData.ZodiacSign;
+
+                person.InstagramId ??= wikiData.InstagramId;
+                person.TwitterId ??= wikiData.TwitterId;
+                person.FacebookId ??= wikiData.FacebookId;
+
+                // Enhanced Bio / Description
+                if (string.IsNullOrEmpty(person.Biografie) && !string.IsNullOrEmpty(wikiData.Description))
+                {
+                    person.Biografie = wikiData.Description;
+                }
+
+                // Append Awards if not present
+                if (!person.PersonAwards.Any() && wikiData.Awards.Any())
+                {
+                    foreach (var wa in wikiData.Awards)
+                    {
+                        person.PersonAwards.Add(new _10_Filmdatenbank.Domain.Entities.PersonAward
+                        {
+                            Name = wa.Name,
+                            Category = wa.Category,
+                            Year = wa.Year,
+                            IsWin = wa.IsWin
+                        });
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Wikidata Person Enrichment Error: {ex.Message}");
+        }
     }
 
     [Authorize(Roles = "Admin")]

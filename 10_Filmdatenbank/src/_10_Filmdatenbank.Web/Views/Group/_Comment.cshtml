@@ -1,0 +1,64 @@
+@model _10_Filmdatenbank.Domain.Entities.Comment
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    int depth = ViewBag.Depth ?? 0;
+    var indentClass = depth > 0 ? "ml-8 md:ml-12 border-l-2 border-nav-border pl-6 mt-4" : "";
+}
+
+<div class="@indentClass group/comment">
+    <div class="flex gap-4" id="comment-@Model.CommentID">
+        <div class="w-10 h-10 rounded-full bg-nav-surface border border-nav-border flex items-center justify-center shrink-0 overflow-hidden">
+             @if (Model.Author.ProfilePicture != null)
+             {
+                 <img src="data:@Model.Author.ProfilePictureContentType;base64,@Convert.ToBase64String(Model.Author.ProfilePicture)" class="w-full h-full object-cover" />
+             }
+             else
+             {
+                 <span class="text-xs font-bold text-text-muted">@Model.Author.FirstName?[0]</span>
+             }
+        </div>
+        <div class="flex-grow space-y-2">
+            <div class="flex items-center gap-3">
+                <span class="text-sm font-black text-white">@Model.Author.FirstName @Model.Author.LastName</span>
+                <span class="text-[10px] text-text-muted font-bold">@Model.CreatedAt.ToString("g")</span>
+            </div>
+            <div class="card-glass p-4 text-sm text-dark-text-muted leading-relaxed font-medium transition-colors group-hover/comment:border-brand-primary/20">
+                @Model.Content
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleReplyForm(@Model.CommentID)" class="text-[10px] font-black text-brand-primary uppercase tracking-widest hover:text-brand-hover transition-colors">
+                    @Localizer["Reply"]
+                </button>
+            </div>
+            
+            <!-- Reply Form (Hidden by default) -->
+            <div id="reply-form-@Model.CommentID" class="hidden mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                <div class="card-glass p-4 bg-white/[0.02]">
+                    <form asp-action="PostComment" method="post" class="space-y-4">
+                        <input type="hidden" name="ThreadID" value="@Model.ThreadID" />
+                        <input type="hidden" name="ParentCommentID" value="@Model.CommentID" />
+                        <textarea name="Content" rows="2" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none resize-none font-medium text-xs" placeholder='@Localizer["ReplyPlaceholder"]' required></textarea>
+                        <div class="flex justify-end gap-2">
+                            <button type="button" onclick="toggleReplyForm(@Model.CommentID)" class="px-4 py-2 rounded-lg text-[10px] font-black text-text-muted hover:text-white transition-all">
+                                @Localizer["Cancel"]
+                            </button>
+                            <button type="submit" class="px-4 py-2 rounded-lg bg-brand-primary text-white text-[10px] font-black hover:bg-brand-hover transition-all">
+                                @Localizer["PostReply"]
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    @if (Model.Replies != null && Model.Replies.Any())
+    {
+        foreach (var reply in Model.Replies.OrderBy(r => r.CreatedAt))
+        {
+            <partial name="_Comment" model="reply" view-data='new ViewDataDictionary(ViewData) { { "Depth", depth + 1 } }' />
+        }
+    }
+</div>

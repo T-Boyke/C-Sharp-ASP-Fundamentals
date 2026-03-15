@@ -67,9 +67,11 @@
             var ownedParts = Model.Films.Count;
             var completionPercentage = totalParts > 0 ? (double)ownedParts / totalParts * 100 : 0;
             
-            var cumulativeBudget = Model.Films.Sum(f => f.Budget ?? 0);
-            var cumulativeRevenue = Model.Films.Sum(f => f.Revenue ?? 0);
-            var avgRating = Model.Films.Any() ? Model.Films.Average(f => f.VoteAverage ?? 0) : 0;
+            var sortedFilms = Model.Films.OrderBy(f => f.Erscheinungsjahr).ToList();
+            var cumulativeBudget = sortedFilms.Sum(f => f.Budget ?? 0);
+            var cumulativeRevenue = sortedFilms.Sum(f => f.Revenue ?? 0);
+            var totalProfit = cumulativeRevenue - cumulativeBudget;
+            var avgRating = sortedFilms.Any() ? sortedFilms.Average(f => f.VoteAverage ?? 0) : 0;
         }
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -91,6 +93,18 @@
             </div>
 
             <div class="glass-premium p-6 rounded-2xl border border-glass-border">
+                <p class="text-[10px] font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["FinancialEfficiency"]</p>
+                @{
+                    var roi = cumulativeBudget > 0 ? (double)totalProfit / cumulativeBudget * 100 : 0;
+                }
+                <div class="flex items-center gap-2">
+                    <p class="text-2xl font-black @(totalProfit >= 0 ? "text-green-500" : "text-red-500")">@roi.ToString("N1")%</p>
+                    <span class="text-[10px] font-black uppercase text-text-muted">ROI</span>
+                </div>
+                <p class="text-[10px] font-bold text-text-muted mt-1 uppercase">@Localizer["ProfitMargin"]</p>
+            </div>
+
+            <div class="glass-premium p-6 rounded-2xl border border-glass-border">
                 <p class="text-[10px] font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["SeriesAvgRating"]</p>
                 <div class="flex items-center gap-2">
                     <i class="fa-solid fa-star text-star-primary"></i>
@@ -98,36 +112,168 @@
                 </div>
                 <p class="text-[10px] font-bold text-text-muted mt-1 uppercase">@Localizer["BasedOnLocalData"]</p>
             </div>
-
-            <div class="glass-premium p-6 rounded-2xl border border-glass-border">
-                <p class="text-[10px] font-black text-text-muted uppercase tracking-widest mb-2">@Localizer["TotalBudget"]</p>
-                <p class="text-2xl font-black text-text-main dark:text-white">$@cumulativeBudget.ToString("N0")</p>
-                <p class="text-[10px] font-bold text-text-muted mt-1 uppercase">@Localizer["SeriesTotal"]</p>
-            </div>
         </div>
     </section>
 
-    <div class="form-group-header !mb-12">
-        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["FilmsInCollectionHeader"]</h2>
-        <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
-    </div>
+    <!-- Visual Timeline & Deep Insights -->
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-12">
+        <!-- LEFT: Timeline -->
+        <div class="xl:col-span-2 space-y-12">
+            <div class="form-group-header !mb-0">
+                <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["Timeline"]</h2>
+                <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
+            </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        @foreach (var film in Model.Films.OrderBy(f => f.Erscheinungsjahr))
-        {
-            <a asp-controller="Film" asp-action="Details" asp-route-id="@film.FilmID" class="card-premium group flex flex-col">
-                <div class="aspect-[2/3] relative overflow-hidden bg-surface-subtle dark:bg-dark-surface-soft">
-                    @if (!string.IsNullOrEmpty(film.PosterUrl))
-                    {
-                        <img src="@film.PosterUrl" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    }
-                    <div class="absolute inset-0 bg-linear-to-t from-dark-surface/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="relative pl-12 border-l-2 border-border-muted dark:border-dark-border space-y-12">
+                @foreach (var film in sortedFilms)
+                {
+                    <div class="relative group">
+                        <!-- Dot -->
+                        <div class="absolute -left-[57px] top-6 w-10 h-10 rounded-full bg-surface-subtle dark:bg-dark-surface-soft border-4 border-white dark:border-dark-surface flex items-center justify-center text-brand-primary shadow-xl transition-all group-hover:bg-brand-primary group-hover:text-white">
+                            <i class="fa-solid fa-film text-xs"></i>
+                        </div>
+                        
+                        <div class="glass-premium p-8 rounded-3xl border border-glass-border flex flex-col md:flex-row gap-8 transition-all hover:translate-x-2">
+                            <div class="w-32 shrink-0 aspect-[2/3] rounded-xl overflow-hidden shadow-lg">
+                                <img src="@film.PosterUrl" alt="" class="w-full h-full object-cover" />
+                            </div>
+                            <div class="flex-grow min-w-0">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-sm font-black text-brand-primary uppercase tracking-widest">@film.Erscheinungsjahr</span>
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-star text-star-primary text-xs"></i>
+                                        <span class="text-sm font-black text-text-main dark:text-white">@film.VoteAverage?.ToString("0.0")</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-2xl font-black text-text-main dark:text-white mb-4">@film.Titel</h3>
+                                <p class="text-sm text-text-description dark:text-dark-text-muted leading-relaxed line-clamp-3 mb-6">@film.Handlung</p>
+                                
+                                <div class="flex flex-wrap gap-4 pt-6 border-t border-border-muted dark:border-dark-border">
+                                    <div class="flex flex-col">
+                                        <span class="text-[9px] font-black text-text-muted uppercase tracking-tighter">Budget</span>
+                                        <span class="text-xs font-bold text-text-main dark:text-white">@(film.Budget > 0 ? $"${film.Budget?.ToString("N0")}" : "N/A")</span>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-[9px] font-black text-text-muted uppercase tracking-tighter">Revenue</span>
+                                        <span class="text-xs font-bold text-text-main dark:text-white">@(film.Revenue > 0 ? $"${film.Revenue?.ToString("N0")}" : "N/A")</span>
+                                    </div>
+                                    <div class="flex-grow"></div>
+                                    <a asp-controller="Film" asp-action="Details" asp-route-id="@film.FilmID" class="btn-secondary !py-2 !px-4 !text-[10px]">
+                                        @Localizer["Details"]
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- RIGHT: Financial Analytics & Stats -->
+        <div class="space-y-12">
+            <div class="form-group-header !mb-0">
+                <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["FinancialAnalytics"]</h2>
+                <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
+            </div>
+
+            <div class="glass-premium p-8 rounded-3xl border border-glass-border space-y-8">
+                @foreach (var film in sortedFilms)
+                {
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-[10px] font-black uppercase tracking-widest">
+                            <span class="text-text-main dark:text-white truncate max-w-[150px]">@film.Titel</span>
+                            @if (film.Budget > 0 && film.Revenue > 0)
+                            {
+                                var margin = (double)(film.Revenue - film.Budget) / film.Revenue * 100;
+                                <span class="@(margin >= 0 ? "text-green-500" : "text-red-500")">@margin.ToString("0")% Profit</span>
+                            }
+                        </div>
+                        
+                        <div class="relative h-4 bg-surface-subtle dark:bg-dark-surface-soft rounded-full overflow-hidden flex shadow-inner">
+                            @{
+                                var maxVal = sortedFilms.Max(f => Math.Max(f.Budget ?? 0, f.Revenue ?? 0));
+                                var bPct = maxVal > 0 ? (double)(film.Budget ?? 0) / maxVal * 100 : 0;
+                                var rPct = maxVal > 0 ? (double)(film.Revenue ?? 0) / maxVal * 100 : 0;
+                            }
+                            <!-- Budget Bar -->
+                            <div class="absolute inset-y-0 left-0 bg-brand-primary/20 border-r border-brand-primary/30" style="width: @bPct.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)%"></div>
+                            <!-- Revenue Bar -->
+                            <div class="absolute inset-y-1.5 left-0 bg-brand-primary rounded-full mt-1.5 mx-1" style="height: 4px; width: calc(@rPct.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)% - 8px)"></div>
+                        </div>
+                        <div class="flex justify-between text-[8px] font-bold text-text-muted">
+                            <span>B: @(film.Budget > 0 ? $"${(film.Budget / 1000000.0)?.ToString("0.0")}M" : "0")</span>
+                            <span>R: @(film.Revenue > 0 ? $"${(film.Revenue / 1000000.0)?.ToString("0.0")}M" : "0")</span>
+                        </div>
+                    </div>
+                }
+
+                <div class="pt-8 border-t border-border-muted dark:border-dark-border">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-xl">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black text-text-muted uppercase">Total Net Profit</p>
+                            <p class="text-xl font-black text-text-main dark:text-white">@((totalProfit / 1000000.0).ToString("N1")) M</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-6">
-                    <p class="text-[10px] font-black text-brand-primary uppercase tracking-widest">@film.Erscheinungsjahr</p>
-                    <h3 class="text-lg font-black text-text-main dark:text-white mt-1 group-hover:text-brand-primary transition-colors">@film.Titel</h3>
+            </div>
+
+            <!-- Insights / Summary -->
+            <div class="form-group-header !mb-0">
+                <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["CollectionInsights"]</h2>
+                <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
+            </div>
+
+            <div class="glass-premium p-8 rounded-3xl border border-glass-border space-y-6">
+                @{
+                    var highestRated = sortedFilms.OrderByDescending(f => f.VoteAverage).FirstOrDefault();
+                    var mostProfitable = sortedFilms.OrderByDescending(f => (f.Revenue ?? 0) - (f.Budget ?? 0)).FirstOrDefault();
+                    var earliest = sortedFilms.FirstOrDefault();
+                    var latest = sortedFilms.LastOrDefault();
+                }
+
+                @if (highestRated != null)
+                {
+                    <div class="flex items-start gap-4">
+                        <div class="mt-1 w-2 h-2 rounded-full bg-brand-primary"></div>
+                        <div>
+                            <p class="text-[10px] font-black text-text-muted uppercase">Critic's Choice</p>
+                            <p class="text-sm font-bold text-text-main dark:text-white">@highestRated.Titel (@highestRated.VoteAverage.Value.ToString("0.0"))</p>
+                        </div>
+                    </div>
+                }
+
+                @if (mostProfitable != null && mostProfitable.Revenue > 0)
+                {
+                    <div class="flex items-start gap-4">
+                        <div class="mt-1 w-2 h-2 rounded-full bg-green-500"></div>
+                        <div>
+                            <p class="text-[10px] font-black text-text-muted uppercase">Box Office King</p>
+                            <p class="text-sm font-bold text-text-main dark:text-white">@mostProfitable.Titel ($@((mostProfitable.Revenue / 1000000.0)?.ToString("N0"))M)</p>
+                        </div>
+                    </div>
+                }
+
+                <div class="flex items-start gap-4">
+                    <div class="mt-1 w-2 h-2 rounded-full bg-surface-muted"></div>
+                    <div>
+                        <p class="text-[10px] font-black text-text-muted uppercase">Series Lifespan</p>
+                        <p class="text-sm font-bold text-text-main dark:text-white">@((latest?.Erscheinungsjahr ?? 0) - (earliest?.Erscheinungsjahr ?? 0)) Years (@earliest?.Erscheinungsjahr - @latest?.Erscheinungsjahr)</p>
+                    </div>
                 </div>
-            </a>
-        }
+
+                @if (completionPercentage >= 100)
+                {
+                    <div class="mt-8 p-6 rounded-2xl bg-brand-primary/5 border border-brand-primary/20 flex flex-col items-center text-center">
+                        <i class="fa-solid fa-crown text-3xl text-brand-primary mb-4 drop-shadow-glow"></i>
+                        <p class="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em]">Mastery Achieved</p>
+                        <p class="text-xs font-bold text-text-main dark:text-white mt-2">You own the complete saga.</p>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
+</div>
 </div>

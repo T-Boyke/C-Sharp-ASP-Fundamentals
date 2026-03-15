@@ -39,4 +39,12 @@
   <data name="Trailer" xml:space="preserve"><value>Trailer</value></data>
   <data name="PosterOf" xml:space="preserve"><value>Poster of {0}</value></data>
   <data name="Studios" xml:space="preserve"><value>Studios</value></data>
+  <data name="FinancialDashboard" xml:space="preserve"><value>Financial Dashboard</value></data>
+  <data name="RatingsMatrix" xml:space="preserve"><value>Ratings Matrix</value></data>
+  <data name="Critics" xml:space="preserve"><value>Critics</value></data>
+  <data name="Audience" xml:space="preserve"><value>Audience</value></data>
+  <data name="SyncNote" xml:space="preserve"><value>Synchronized from TMDB, TVDB, IMDB and Rotten Tomatoes.</value></data>
+  <data name="YourCouchRating" xml:space="preserve"><value>Your Couch Rating</value></data>
+  <data name="RateNow" xml:space="preserve"><value>Rate Now</value></data>
+  <data name="Ranking" xml:space="preserve"><value>Ranking</value></data>
 </root>

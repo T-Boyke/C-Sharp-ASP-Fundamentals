@@ -218,7 +218,7 @@ public class GroupController(ApplicationDbContext context, UserManager<Applicati
             comment.CreatedAt = DateTime.UtcNow;
 
             context.Comments.Add(comment);
-            
+
             // Update last activity of thread
             var thread = await context.DiscussionThreads.FindAsync(comment.ThreadID);
             if (thread != null)

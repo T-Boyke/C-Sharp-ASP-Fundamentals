@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
 namespace _10_Filmdatenbank.Web.Controllers;
@@ -16,11 +17,16 @@ public class AdminController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly ApplicationDbContext _context;
+    private readonly Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer _localizer;
 
-    public AdminController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+    public AdminController(
+        UserManager<ApplicationUser> userManager,
+        ApplicationDbContext context,
+        Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer)
     {
         _userManager = userManager;
         _context = context;
+        _localizer = localizer;
     }
 
     /// <summary>
@@ -32,6 +38,53 @@ public class AdminController : Controller
             .OrderByDescending(u => u.CreatedAt)
             .ToListAsync();
         return View(users);
+    }
+
+    /// <summary>
+    /// Displays the system settings and maintenance page.
+    /// </summary>
+    public IActionResult Settings()
+    {
+        return View();
+    }
+
+    /// <summary>
+    /// High-risk maintenance operation: Drops the entire database and resets it to a clean state.
+    /// </summary>
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DropDatabase()
+    {
+        // 1. Drop the database
+        await _context.Database.EnsureDeletedAsync();
+
+        // 2. Re-apply migrations
+        await _context.Database.MigrateAsync();
+
+        // 3. Re-seed essential data (Roles and Admin)
+        var roleManager = HttpContext.RequestServices.GetRequiredService<RoleManager<IdentityRole>>();
+        var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
+
+        if (!await roleManager.RoleExistsAsync("Admin")) await roleManager.CreateAsync(new IdentityRole("Admin"));
+        if (!await roleManager.RoleExistsAsync("Member")) await roleManager.CreateAsync(new IdentityRole("Member"));
+
+        if (await userManager.FindByEmailAsync("admin@film.de") == null)
+        {
+            var admin = new ApplicationUser
+            {
+                UserName = "admin@film.de",
+                Email = "admin@film.de",
+                EmailConfirmed = true,
+                FirstName = "System",
+                LastName = "Administrator",
+                CreatedAt = DateTime.UtcNow,
+                IsDisabled = false
+            };
+            await userManager.CreateAsync(admin, "Admin123!");
+            await userManager.AddToRoleAsync(admin, "Admin");
+        }
+
+        return RedirectToAction("Index", "Home");
     }
 
     /// <summary>

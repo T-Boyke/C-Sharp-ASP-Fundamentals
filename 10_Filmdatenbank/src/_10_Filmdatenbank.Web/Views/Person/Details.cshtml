@@ -195,7 +195,45 @@
                 }
             </header>
 
-            @if (!string.IsNullOrEmpty(Model.Awards))
+            @if (Model.PersonAwards.Any())
+            {
+                <section>
+                    <div class="form-group-header !mb-6">
+                        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["AccoladesAndRecognition"]</h2>
+                        <div class="h-1 w-12 bg-brand-primary rounded-full transition-colors"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        @foreach (var award in Model.PersonAwards.OrderByDescending(a => a.Year))
+                        {
+                            <div class="glass-premium p-4 rounded-2xl border border-glass-border flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-trophy text-brand-primary"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="text-[10px] font-black text-brand-primary uppercase">@award.Year</span>
+                                        @if (award.IsWin)
+                                        {
+                                            <span class="px-1.5 py-0.5 rounded bg-green-500/10 text-green-500 text-[8px] font-black uppercase">@Localizer["Winner"]</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="px-1.5 py-0.5 rounded bg-orange-500/10 text-orange-500 text-[8px] font-black uppercase">@Localizer["Nominated"]</span>
+                                        }
+                                    </div>
+                                    <p class="text-sm font-black text-text-main dark:text-white truncate">@award.Name</p>
+                                    @if (!string.IsNullOrEmpty(award.Category) && award.Category != "Win")
+                                    {
+                                        <p class="text-[10px] font-bold text-text-muted truncate">@award.Category</p>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+            }
+            else if (!string.IsNullOrEmpty(Model.Awards))
             {
                 <section>
                     <div class="glass-premium p-8 rounded-3xl border border-brand-primary/20 flex items-center gap-6 shadow-2xl">
