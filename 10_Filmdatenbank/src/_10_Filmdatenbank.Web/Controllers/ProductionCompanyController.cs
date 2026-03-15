@@ -12,6 +12,8 @@ namespace _10_Filmdatenbank.Web.Controllers;
 [Authorize]
 [Route("Studios")]
 [Route("Studios/[action]")]
+[Route("Studio")]
+[Route("Studio/[action]")]
 public class ProductionCompanyController(ApplicationDbContext context) : Controller
 {
     public async Task<IActionResult> Index(string? searchString)

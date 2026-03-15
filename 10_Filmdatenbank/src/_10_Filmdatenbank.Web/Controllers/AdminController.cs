@@ -110,4 +110,45 @@ public class AdminController : Controller
         }
         return RedirectToAction(nameof(ManageUsers));
     }
+
+    /// <summary>
+    /// Displays the edit user page.
+    /// </summary>
+    public async Task<IActionResult> Edit(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+        if (user == null) return NotFound();
+        return View(user);
+    }
+
+    /// <summary>
+    /// Updates the user information.
+    /// </summary>
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(ApplicationUser user)
+    {
+        var dbUser = await _userManager.FindByIdAsync(user.Id);
+        if (dbUser == null) return NotFound();
+
+        dbUser.FirstName = user.FirstName;
+        dbUser.LastName = user.LastName;
+        dbUser.Email = user.Email;
+        dbUser.UserName = user.Email; // Keep in sync for simplicity
+        dbUser.IsDisabled = user.IsDisabled;
+
+        var result = await _userManager.UpdateAsync(dbUser);
+        if (result.Succeeded)
+        {
+            TempData["Success"] = $"User '{dbUser.Email}' updated successfully.";
+            return RedirectToAction(nameof(ManageUsers));
+        }
+
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError("", error.Description);
+        }
+
+        return View(user);
+    }
 }

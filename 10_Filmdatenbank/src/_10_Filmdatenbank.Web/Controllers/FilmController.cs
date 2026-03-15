@@ -158,25 +158,15 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
 
         bool updated = false;
 
-        // 1. Rotten Tomatoes
-        var rtHit = await rtService.SearchMovieAsync(film.Titel, film.Erscheinungsjahr);
-        if (rtHit?.Scores != null)
+        // Fully sync with all metadata sources
+        try
         {
-            film.RottenTomatoesCriticRating = rtHit.Scores.CriticsScore;
-            film.RottenTomatoesAudienceRating = rtHit.Scores.AudienceScore;
+            await HandleEnrichedFilmMetadataAsync(film, tmdbService, context);
             updated = true;
         }
-
-        // 2. IMDb / Metacritic
-        if (!string.IsNullOrEmpty(film.ImdbId))
+        catch (Exception ex)
         {
-            var imdbData = await imdbService.GetMetadataAsync(film.ImdbId);
-            if (imdbData != null)
-            {
-                if (imdbData.Metascore.HasValue) film.MetacriticRating = imdbData.Metascore;
-                if (imdbData.Rating.HasValue) film.ImdbRating = imdbData.Rating;
-                updated = true;
-            }
+             Console.WriteLine($"Full Sync Error: {ex.Message}");
         }
 
         if (updated)
@@ -374,6 +364,19 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         var movie = await tmdbService.GetMovieDetailsAsync(film.TmdbId.Value);
         if (movie == null) return;
 
+        // 0. Base Stats (Overwrite to ensure 0-10 scale even if form post messed up culture)
+        film.VoteAverage = movie.VoteAverage;
+        film.VoteCount = movie.VoteCount;
+        film.Popularity = movie.Popularity;
+        film.Budget = movie.Budget;
+        film.Revenue = movie.Revenue;
+        film.Runtime = movie.Runtime;
+        film.OriginalLanguage = movie.OriginalLanguage;
+        film.OriginalTitle = movie.OriginalTitle;
+        film.Status = movie.Status;
+        film.Tagline = movie.Tagline;
+        film.Handlung = movie.Overview;
+
         // 1. Alternative Titles
         if (movie.AlternativeTitles?.Titles != null)
         {
@@ -520,7 +523,24 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                     }
 
                     if (tvdbDetails.Score != null)
-                        film.TvdbRating = tvdbDetails.Score > 10 ? tvdbDetails.Score / 10.0 : tvdbDetails.Score;
+                    {
+                        // TVDB Score normalization: Logic depends on the range. 
+                        // If it's a huge popularity number (e.g. 127000), we don't use it as rating.
+                        // If it's in a reasonable range (0-100 or 0-10), we normalize it to 10.
+                        double score = tvdbDetails.Score.Value;
+                        if (score > 1000) 
+                        {
+                             // This is likely a popularity score, not a rating. 
+                             // We might want to ignore it or map it differently.
+                             // For now, let's cap it or use a log scale? 
+                             // Better: TVDB Rating is often NULL if not present.
+                             film.TvdbRating = null; 
+                        }
+                        else
+                        {
+                            film.TvdbRating = score > 10 ? score / 10.0 : score;
+                        }
+                    }
 
                     // Add more "Fanatic" info if available
                     // TVDB often has deeper tech specs or specialized lists

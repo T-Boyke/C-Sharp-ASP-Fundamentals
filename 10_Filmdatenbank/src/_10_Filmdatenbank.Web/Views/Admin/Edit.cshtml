@@ -1,0 +1,59 @@
+@model _10_Filmdatenbank.Domain.Entities.ApplicationUser
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="max-w-3xl mx-auto px-6 py-12">
+    <div class="mb-12 flex items-center justify-between">
+        <div>
+            <h1 class="text-4xl font-extrabold text-white tracking-tight">
+                Edit <span class="text-brand-primary">User</span>
+            </h1>
+            <p class="mt-2 text-dark-text-muted">Modify user details and status.</p>
+        </div>
+        <a asp-action="ManageUsers" class="text-sm font-bold text-text-muted hover:text-brand-primary transition-all flex items-center gap-2 uppercase tracking-widest">
+            <i class="fa-solid fa-chevron-left"></i> Back
+        </a>
+    </div>
+
+    <form asp-action="Edit" method="post" class="space-y-8">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+
+        <div class="card-glass p-8 space-y-6">
+            <div asp-validation-summary="ModelOnly" class="text-danger-primary text-sm font-bold animate-pulse"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                    <label asp-for="FirstName" class="block text-xs font-black text-text-muted uppercase tracking-widest">First Name</label>
+                    <input asp-for="FirstName" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none" />
+                    <span asp-validation-for="FirstName" class="text-xs text-danger-primary"></span>
+                </div>
+                <div class="space-y-2">
+                    <label asp-for="LastName" class="block text-xs font-black text-text-muted uppercase tracking-widest">Last Name</label>
+                    <input asp-for="LastName" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none" />
+                    <span asp-validation-for="LastName" class="text-xs text-danger-primary"></span>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label asp-for="Email" class="block text-xs font-black text-text-muted uppercase tracking-widest">Email Address</label>
+                <input asp-for="Email" type="email" class="w-full bg-nav-surface border border-nav-border rounded-xl px-4 py-3 text-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all outline-none" />
+                <span asp-validation-for="Email" class="text-xs text-danger-primary"></span>
+            </div>
+
+            <div class="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/5 mt-4">
+                <input asp-for="IsDisabled" type="checkbox" class="w-5 h-5 rounded border-nav-border text-brand-primary focus:ring-brand-primary" />
+                <div>
+                    <label asp-for="IsDisabled" class="block text-sm font-bold text-white uppercase tracking-tight">Account Disabled</label>
+                    <p class="text-[10px] text-text-muted italic">Disabled users cannot sign in to the application.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-4">
+            <a asp-action="ManageUsers" class="px-6 py-3 rounded-xl border border-nav-border text-nav-link hover:bg-nav-surface transition-all font-bold">Cancel</a>
+            <button type="submit" class="px-8 py-3 rounded-xl bg-brand-primary text-white font-black hover:bg-brand-hover transition-all shadow-xl shadow-brand-primary/20">Save Changes</button>
+        </div>
+    </form>
+</div>

@@ -239,6 +239,42 @@
     }
     --animate-fade-in: fade-in 0.6s ease-out;
   }
+
+  [data-theme="emerald"] {
+    --color-brand-primary: var(--color-emerald-600);
+    --color-brand-hover: var(--color-emerald-700);
+    --color-brand-soft: var(--color-emerald-50);
+    --color-brand-border: var(--color-emerald-100);
+    --color-brand-shadow: color-mix(in srgb, var(--color-emerald-600), transparent 90%);
+    --color-brand-shadow-lg: color-mix(in srgb, var(--color-emerald-600), transparent 80%);
+  }
+
+  [data-theme="sunset"] {
+    --color-brand-primary: var(--color-red-600);
+    --color-brand-hover: var(--color-red-700);
+    --color-brand-soft: var(--color-red-50);
+    --color-brand-border: var(--color-red-100);
+    --color-brand-shadow: color-mix(in srgb, var(--color-red-600), transparent 90%);
+    --color-brand-shadow-lg: color-mix(in srgb, var(--color-red-600), transparent 80%);
+  }
+
+  [data-theme="midnight"] {
+    --color-brand-primary: var(--color-blue-700);
+    --color-brand-hover: var(--color-blue-800);
+    --color-brand-soft: var(--color-blue-50);
+    --color-brand-border: var(--color-blue-100);
+    --color-brand-shadow: color-mix(in srgb, var(--color-blue-700), transparent 90%);
+    --color-brand-shadow-lg: color-mix(in srgb, var(--color-blue-700), transparent 80%);
+  }
+
+  [data-theme="mocha"] {
+    --color-brand-primary: var(--color-amber-700);
+    --color-brand-hover: var(--color-amber-800);
+    --color-brand-soft: var(--color-amber-50);
+    --color-brand-border: var(--color-amber-100);
+    --color-brand-shadow: color-mix(in srgb, var(--color-amber-700), transparent 90%);
+    --color-brand-shadow-lg: color-mix(in srgb, var(--color-amber-700), transparent 80%);
+  }
 }
 @layer base {
   *, ::after, ::before, ::backdrop, ::file-selector-button {
@@ -5350,4 +5386,66 @@ input[type="password"]::-ms-reveal, input[type="password"]::-ms-clear {
       --tw-drop-shadow-size: initial;
     }
   }
+}
+
+/* Custom Toggle Switch for User Settings */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.toggle-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e2e8f0;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.dark .toggle-slider {
+  background-color: #334155;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.toggle-input:checked + .toggle-slider {
+  background-color: var(--color-brand-primary, #8b5cf6);
+}
+
+.toggle-input:checked + .toggle-slider:before {
+  transform: translateX(20px);
+}
+
+/* Fix for Rating Matrix and other missing classes */
+.glass-premium {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.dark .glass-premium {
+    background: rgba(15, 23, 42, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
