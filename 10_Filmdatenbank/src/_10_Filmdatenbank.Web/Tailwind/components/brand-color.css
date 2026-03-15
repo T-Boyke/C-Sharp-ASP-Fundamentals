@@ -4,12 +4,12 @@
      BRAND CORE IDENTITY (Themable)
      ==========================================================================
   */
-  --color-brand-primary: var(--theme-primary, #7c3aed); /* Violet 600 default */
-  --color-brand-hover: var(--theme-hover, #6d28d9);   /* Violet 700 default */
-  --color-brand-soft: var(--theme-soft, #f5f3ff);    /* Violet 50 default */
-  --color-brand-border: var(--theme-border, #ddd6fe);  /* Violet 200 default */
+  --color-brand-primary: var(--theme-primary, #0284c7); /* Sky 600 default (Premium Azure) */
+  --color-brand-hover: var(--theme-hover, #0369a1);   /* Sky 700 */
+  --color-brand-soft: var(--theme-soft, #f0f9ff);    /* Sky 50 */
+  --color-brand-border: var(--theme-border, #e0f2fe);  /* Sky 100 */
   
-  --color-brand-bg: #fafafa;
+  --color-brand-bg: #f8fafc; /* Slate 50 tint */
   
   /* Interactive Accents & Shadows */
   --color-brand-shadow: color-mix(in srgb, var(--color-brand-primary), transparent 90%);
@@ -29,14 +29,14 @@
   --color-star-primary: #fcd34d; /* Yellow 300 */
   
   /* New Semantic Text Variables */
-  --color-text-main: var(--color-slate-900);
-  --color-dark-text-main: var(--color-white);
-  --color-text-secondary: var(--color-slate-700);
-  --color-dark-text-secondary: var(--color-slate-200);
-  --color-text-muted: var(--color-slate-500);
-  --color-dark-text-muted: var(--color-slate-400);
-  --color-text-subtle: var(--color-slate-400);
-  --color-dark-text-subtle: var(--color-slate-500);
+  --color-text-main: #0f172a; /* Slate 900 */
+  --color-dark-text-main: #f8fafc; /* Slate 50 */
+  --color-text-secondary: #334155; /* Slate 700 */
+  --color-dark-text-secondary: #cbd5e1; /* Slate 300 - better contrast */
+  --color-text-muted: #64748b; /* Slate 500 */
+  --color-dark-text-muted: #94a3b8; /* Slate 400 */
+  --color-text-subtle: #94a3b8; /* Slate 400 */
+  --color-dark-text-subtle: #475569; /* Slate 600 */
   
   /* 
      ==========================================================================
@@ -60,11 +60,11 @@
   --color-text-description: var(--color-slate-500);
   
   /* Dark Mode Specific Extensions */
-  --color-dark-surface: var(--color-slate-950);
-  --color-dark-surface-soft: var(--color-slate-900);
-  --color-dark-surface-muted: var(--color-slate-800);
-  --color-dark-border: var(--color-slate-800);
-  --color-dark-border-muted: color-mix(in srgb, var(--color-slate-800), transparent 50%);
+  --color-dark-surface: #020617; /* Slate 950 base */
+  --color-dark-surface-soft: #0f172a; /* Slate 900 */
+  --color-dark-surface-muted: #1e293b; /* Slate 800 */
+  --color-dark-border: #1e293b;
+  --color-dark-border-muted: color-mix(in srgb, #334155, transparent 50%);
 
   /* 
      ==========================================================================
@@ -159,6 +159,61 @@
   --color-text-white-muted: var(--color-white-a60);
   --color-text-white-bright: color-mix(in srgb, white, transparent 10%);
   --color-shadow-overlay: var(--color-black-a40);
+
+  /* --- Premium Enhancements --- */
+  --bg-glass-premium: rgba(255, 255, 255, 0.05);
+  --dark-bg-glass-premium: rgba(15, 23, 42, 0.3);
+  --border-glass-premium: rgba(255, 255, 255, 0.1);
+  --dark-border-glass-premium: rgba(255, 255, 255, 0.05);
+}
+
+@utility glass-premium {
+  backdrop-filter: blur(var(--blur-md));
+  background: var(--bg-glass-premium);
+  border: 1px solid var(--border-glass-premium);
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+.dark [class*="glass-premium"] {
+  background: var(--dark-bg-glass-premium);
+  border: 1px solid var(--dark-border-glass-premium);
+}
+
+/* Custom Toggle Switch for User Settings */
+@utility toggle-switch {
+  @apply relative inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+@utility toggle-input {
+  @apply opacity-0 w-0 h-0;
+}
+
+@utility toggle-slider {
+  @apply absolute cursor-pointer inset-0 transition-all duration-300 rounded-full;
+  background-color: #e2e8f0;
+}
+
+.dark [class*="toggle-slider"] {
+  background-color: #334155;
+}
+
+.toggle-slider::before {
+  @apply absolute content-[''] transition-all duration-300 rounded-full bg-white shadow-sm;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+}
+
+input:checked + .toggle-slider {
+  background-color: var(--color-brand-primary, #8b5cf6);
+}
+
+input:checked + .toggle-slider::before {
+  transform: translateX(20px);
 }
 
 /* Theme Presets */
@@ -197,8 +252,8 @@
   
   /* Default Theme Dark Mode Refinement */
   &:not([data-theme]) {
-    --color-brand-primary: var(--color-violet-500);
-    --color-brand-hover: var(--color-violet-400);
+    --color-brand-primary: var(--color-sky-400);
+    --color-brand-hover: var(--color-sky-300);
   }
 }
 
