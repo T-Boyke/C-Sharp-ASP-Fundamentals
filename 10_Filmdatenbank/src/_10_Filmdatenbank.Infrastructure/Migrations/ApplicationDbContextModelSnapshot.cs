@@ -654,6 +654,9 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<int?>("CollectionID")
                         .HasColumnType("int");
 
+                    b.Property<int>("CouchDbVoteCount")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("Erscheinungsdatum")
                         .HasColumnType("datetime2");
 
@@ -1312,6 +1315,36 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.ToTable("UserAchievements");
                 });
 
+            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.UserRating", b =>
+                {
+                    b.Property<int>("UserRatingID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRatingID"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FilmID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
+
+                    b.HasKey("UserRatingID");
+
+                    b.HasIndex("FilmID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("UserRatings");
+                });
+
             modelBuilder.Entity("FilmGenres", b =>
                 {
                     b.HasOne("_10_Filmdatenbank.Domain.Entities.Film", null)
@@ -1731,6 +1764,25 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.UserRating", b =>
+                {
+                    b.HasOne("_10_Filmdatenbank.Domain.Entities.Film", "Film")
+                        .WithMany("UserRatings")
+                        .HasForeignKey("FilmID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("_10_Filmdatenbank.Domain.Entities.ApplicationUser", "User")
+                        .WithMany("UserRatings")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Film");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.Achievement", b =>
                 {
                     b.Navigation("EarnedBy");
@@ -1749,6 +1801,8 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Navigation("Notifications");
 
                     b.Navigation("Threads");
+
+                    b.Navigation("UserRatings");
                 });
 
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.Collection", b =>
@@ -1793,6 +1847,8 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Navigation("PersonEigenschaftFilme");
 
                     b.Navigation("Releases");
+
+                    b.Navigation("UserRatings");
                 });
 
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.Person", b =>

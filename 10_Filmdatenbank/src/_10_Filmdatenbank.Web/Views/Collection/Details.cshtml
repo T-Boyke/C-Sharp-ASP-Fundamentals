@@ -185,7 +185,7 @@
                             @if (film.Budget > 0 && film.Revenue > 0)
                             {
                                 var margin = (double)(film.Revenue - film.Budget) / film.Revenue * 100;
-                                <span class="@(margin >= 0 ? "text-green-500" : "text-red-500")">@margin.ToString("0")% Profit</span>
+                                <span class="@(margin >= 0 ? "text-green-500" : "text-red-500")">@((margin ?? 0).ToString("0"))% Profit</span>
                             }
                         </div>
                         
@@ -240,7 +240,7 @@
                         <div class="mt-1 w-2 h-2 rounded-full bg-brand-primary"></div>
                         <div>
                             <p class="text-[10px] font-black text-text-muted uppercase">Critic's Choice</p>
-                            <p class="text-sm font-bold text-text-main dark:text-white">@highestRated.Titel (@highestRated.VoteAverage.Value.ToString("0.0"))</p>
+                             <p class="text-sm font-bold text-text-main dark:text-white">@highestRated.Titel (@(highestRated.VoteAverage?.ToString("0.0") ?? "N/A"))</p>
                         </div>
                     </div>
                 }

@@ -15,7 +15,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     /// Initialisiert eine neue Instanz des Datenbankkontexts.
     /// </summary>
     /// <param name="options">Die Optionen für diesen Kontext.</param>
-    public ApplicationDbContext(DbContextOptions options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
     }

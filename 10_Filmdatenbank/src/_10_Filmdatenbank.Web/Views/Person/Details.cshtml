@@ -431,12 +431,12 @@
             <!-- Global Filmography Section (TMDB) -->
             @if (!string.IsNullOrEmpty(Model.TmdbFilmographyJson) && Model.TmdbFilmographyJson != "null")
             {
-                TMDbLib.Objects.People.CombinedCredits credits = null;
+                TMDbLib.Objects.People.CombinedCredits? credits = null;
                 try 
                 {
                     credits = Newtonsoft.Json.JsonConvert.DeserializeObject<TMDbLib.Objects.People.CombinedCredits>(Model.TmdbFilmographyJson);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     <!-- Logged as warning in console if needed, but prevent crash -->
                 }

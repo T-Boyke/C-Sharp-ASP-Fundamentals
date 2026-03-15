@@ -34,4 +34,10 @@
   <data name="Testimonial2Text" xml:space="preserve"><value>"Die TMDB Integration spart so viel Zeit. Ich kann meine Sammlung jetzt mühelos verwalten und mit meinen Freunden teilen."</value></data>
   <data name="Testimonial2Author" xml:space="preserve"><value>Maria L.</value></data>
   <data name="Testimonial2Role" xml:space="preserve"><value>Film-Sammlerin</value></data>
+  <data name="Testimonial3Text" xml:space="preserve"><value>"Die CouchDB ist mein täglicher Begleiter. Das Ranking-System ist genial und die Statistiken geben einen tollen Überblick."</value></data>
+  <data name="Testimonial3Author" xml:space="preserve"><value>Tobias M.</value></data>
+  <data name="Testimonial3Role" xml:space="preserve"><value>Datenbank-Enthusiast</value></data>
+  <data name="Testimonial4Text" xml:space="preserve"><value>"Sicher, schnell und lokal. Genau das, was ich gesucht habe, um meine private Filmsammlung professionell zu katalogisieren."</value></data>
+  <data name="Testimonial4Author" xml:space="preserve"><value>Sarah K.</value></data>
+  <data name="Testimonial4Role" xml:space="preserve"><value>Home Cinema Expertin</value></data>
 </root>

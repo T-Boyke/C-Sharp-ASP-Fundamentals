@@ -83,7 +83,7 @@
                                 }
                                 else
                                 {
-                                    <span aria-hidden="true">@User.Identity.Name?[0].ToString().ToUpper()</span>
+                                    <span aria-hidden="true">@(User.Identity?.Name?[0].ToString().ToUpper() ?? "?")</span>
                                 }
                             </div>
                             <span class="text-xs font-bold text-white hidden sm:block">@user?.FirstName</span>

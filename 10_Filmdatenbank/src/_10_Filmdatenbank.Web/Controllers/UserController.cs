@@ -51,7 +51,7 @@ public class UserController : Controller
             .Take(5).ToList();
 
         ViewBag.FrequentCast = favFilms.SelectMany(f => f.PersonEigenschaftFilme)
-            .Where(pef => pef.Eigenschaft?.Name == "Actor" || pef.Eigenschaft?.Name == "Cast")
+            .Where(pef => pef.Eigenschaft?.Bezeichnung == "Actor" || pef.Eigenschaft?.Bezeichnung == "Cast")
             .GroupBy(pef => pef.Person)
             .Select(g => new { Person = g.Key, Count = g.Count() })
             .OrderByDescending(g => g.Count)

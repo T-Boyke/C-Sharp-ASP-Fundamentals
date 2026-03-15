@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TMDbLib.Objects.Search;
 
 namespace _10_Filmdatenbank.Web.Controllers;
 
@@ -395,7 +396,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         {
             foreach (var res in movie.ReleaseDates.Results)
             {
-                foreach (var release in res.ReleaseDates ?? new List<TmdbReleaseDate>())
+                foreach (var release in res.ReleaseDates ?? new List<TMDbLib.Objects.Movies.ReleaseDateItem>())
                 {
                     if (!film.Releases.Any(r => r.Iso3166_1 == res.Iso_3166_1 && r.ReleaseDate == release.ReleaseDate))
                     {
@@ -420,7 +421,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                 var dbLang = await context.Languages.FirstOrDefaultAsync(l => l.Iso639_1 == lang.Iso_639_1);
                 if (dbLang == null)
                 {
-                    dbLang = new Language { Iso639_1 = lang.Iso_639_1, Name = lang.Name };
+                    dbLang = new Language { Iso639_1 = lang.Iso_639_1 ?? "??", Name = lang.Name ?? "Unknown" };
                     context.Languages.Add(dbLang);
                 }
 

@@ -142,6 +142,7 @@ public class GroupController(ApplicationDbContext context, UserManager<Applicati
 
         // Verify membership
         var user = await userManager.GetUserAsync(User);
+        if (user == null) return Challenge();
         var isMember = await context.GroupMembers
             .AnyAsync(m => m.FanGroupID == groupId && m.UserID == user.Id);
 

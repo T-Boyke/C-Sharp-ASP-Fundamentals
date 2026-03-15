@@ -34,4 +34,10 @@
   <data name="Testimonial2Text" xml:space="preserve"><value>"The TMDB integration saves so much time. I can now manage my collection effortlessly and share it with my friends."</value></data>
   <data name="Testimonial2Author" xml:space="preserve"><value>Maria L.</value></data>
   <data name="Testimonial2Role" xml:space="preserve"><value>Film Collector</value></data>
+  <data name="Testimonial3Text" xml:space="preserve"><value>"CouchDB is my daily companion. The ranking system is brilliant and the statistics provide a great overview."</value></data>
+  <data name="Testimonial3Author" xml:space="preserve"><value>Tobias M.</value></data>
+  <data name="Testimonial3Role" xml:space="preserve"><value>Database Enthusiast</value></data>
+  <data name="Testimonial4Text" xml:space="preserve"><value>"Secure, fast, and local. Exactly what I was looking for to professionally catalog my private film collection."</value></data>
+  <data name="Testimonial4Author" xml:space="preserve"><value>Sarah K.</value></data>
+  <data name="Testimonial4Role" xml:space="preserve"><value>Home Cinema Expert</value></data>
 </root>
