@@ -195,8 +195,23 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         builder.Entity<Eigenschaft>(entity => entity.HasKey(e => e.EigenschaftID));
         builder.Entity<Country>(entity => entity.HasKey(c => c.Iso3166_1));
         builder.Entity<Language>(entity => entity.HasKey(l => l.Iso639_1));
-        builder.Entity<AlternativeTitle>(entity => entity.HasKey(at => at.AlternativeTitleID));
-        builder.Entity<FilmRelease>(entity => entity.HasKey(r => r.ReleaseID));
+        builder.Entity<AlternativeTitle>(entity => 
+        {
+            entity.HasKey(at => at.AlternativeTitleID);
+            entity.HasOne(at => at.Film)
+                .WithMany(f => f.AlternativeTitles)
+                .HasForeignKey(at => at.FilmID)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<FilmRelease>(entity => 
+        {
+            entity.HasKey(r => r.ReleaseID);
+            entity.HasOne(r => r.Film)
+                .WithMany(f => f.Releases)
+                .HasForeignKey(r => r.FilmID)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
 
         builder.Entity<PersonEigenschaftFilm>(entity =>
             {
@@ -355,7 +370,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.HasOne(ff => ff.Film)
                 .WithMany()
                 .HasForeignKey(ff => ff.FilmID)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
         });
 
         builder.Entity<UserRating>(entity =>
