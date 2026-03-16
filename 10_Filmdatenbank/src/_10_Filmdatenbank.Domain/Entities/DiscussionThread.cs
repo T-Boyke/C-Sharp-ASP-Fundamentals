@@ -15,10 +15,10 @@ public class DiscussionThread
     public DateTime LastActivity { get; set; } = DateTime.UtcNow;
 
     public string AuthorID { get; set; } = null!;
-    public virtual ApplicationUser Author { get; set; } = null!;
+    public virtual ApplicationUser? Author { get; set; }
 
     public int FanGroupID { get; set; }
-    public virtual FanGroup FanGroup { get; set; } = null!;
+    public virtual FanGroup? FanGroup { get; set; }
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }
@@ -33,10 +33,10 @@ public class Comment
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public string AuthorID { get; set; } = null!;
-    public virtual ApplicationUser Author { get; set; } = null!;
+    public virtual ApplicationUser? Author { get; set; }
 
     public int ThreadID { get; set; }
-    public virtual DiscussionThread Thread { get; set; } = null!;
+    public virtual DiscussionThread? Thread { get; set; }
 
     // Hierarchische Kommentare (Antworten)
     public int? ParentCommentID { get; set; }
