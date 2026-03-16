@@ -26,7 +26,7 @@ public class AlternativeTitle
     /// Der Ländercode (ISO 3166-1) für diesen Titel.
     /// </summary>
     [Required]
-    [StringLength(2)]
+    [StringLength(10)]
     public string Iso3166_1 { get; set; } = string.Empty;
 
     /// <summary>

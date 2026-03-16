@@ -19,8 +19,9 @@ public class PersonController(ApplicationDbContext context, IWikidataService wik
     /// Zeigt eine Liste aller Personen in der Datenbank an.
     /// </summary>
     /// <param name="searchString">Optionaler Suchbegriff.</param>
+    /// <param name="role">Optionaler Filter nach Rolle (Bezeichnung).</param>
     /// <returns>Die Index-View mit einer Liste von Personen.</returns>
-    public async Task<IActionResult> Index(string? searchString)
+    public async Task<IActionResult> Index(string? searchString, string? role)
     {
         var query = context.Personen.AsQueryable();
 
@@ -28,6 +29,12 @@ public class PersonController(ApplicationDbContext context, IWikidataService wik
         {
             query = query.Where(p => p.Vorname.Contains(searchString) || p.Nachname.Contains(searchString) || (p.Biografie != null && p.Biografie.Contains(searchString)));
             ViewData["CurrentFilter"] = searchString;
+        }
+
+        if (!string.IsNullOrEmpty(role))
+        {
+            query = query.Where(p => p.PersonEigenschaftFilme.Any(pef => pef.Eigenschaft.Bezeichnung == role));
+            ViewData["CurrentRole"] = role;
         }
 
         var personen = await query

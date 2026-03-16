@@ -28,7 +28,7 @@ public class FilmRelease
     /// Der Ländercode (ISO 3166-1).
     /// </summary>
     [Required]
-    [StringLength(2)]
+    [StringLength(10)]
     public string Iso3166_1 { get; set; } = string.Empty;
 
     /// <summary>
