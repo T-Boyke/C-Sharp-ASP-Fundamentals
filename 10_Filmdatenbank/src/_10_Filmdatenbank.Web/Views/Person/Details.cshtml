@@ -328,7 +328,9 @@
                                         else
                                         {
                                             <div class="w-full h-full flex items-center justify-center bg-surface-muted dark:bg-dark-surface-soft">
-                                                <span class="text-xs font-black text-text-muted uppercase">@col.Person.Vorname[0]</span>
+                                                <span class="text-xs font-black text-text-muted uppercase">
+                                                    @(!string.IsNullOrEmpty(col.Person.Vorname) ? col.Person.Vorname[0] : '?')
+                                                </span>
                                             </div>
                                         }
                                         <div class="absolute inset-0 bg-brand-primary/0 group-hover:bg-brand-primary/10 transition-colors"></div>

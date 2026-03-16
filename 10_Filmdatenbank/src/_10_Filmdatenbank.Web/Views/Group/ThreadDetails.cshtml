@@ -35,7 +35,7 @@
                             }
                             else
                             {
-                                <span>@Model.Author.FirstName?[0]</span>
+                                <span>@(!string.IsNullOrEmpty(Model.Author?.FirstName) ? Model.Author.FirstName[0] : '?')</span>
                             }
                         </div>
                         <span class="text-xs font-black text-white">@Model.Author.FirstName @Model.Author.LastName</span>

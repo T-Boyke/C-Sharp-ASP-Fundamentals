@@ -26,7 +26,7 @@
                     else
                     {
                         <div class="w-full h-full flex items-center justify-center text-4xl font-black text-brand-primary" aria-hidden="true">
-                            @Model.UserName?[0].ToString().ToUpper()
+                            @(!string.IsNullOrEmpty(Model.UserName) ? Model.UserName[0].ToString().ToUpper() : "?")
                         </div>
                     }
                 </div>

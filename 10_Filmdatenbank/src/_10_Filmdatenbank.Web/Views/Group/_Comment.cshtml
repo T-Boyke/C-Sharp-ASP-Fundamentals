@@ -33,7 +33,7 @@
              }
              else
              {
-                 <span class="text-xs font-bold text-text-muted">@Model.Author?.FirstName?[0]</span>
+                 <span class="text-xs font-bold text-text-muted">@(!string.IsNullOrEmpty(Model.Author?.FirstName) ? Model.Author.FirstName[0] : '?')</span>
              }
         </div>
         <div class="flex-grow space-y-2">

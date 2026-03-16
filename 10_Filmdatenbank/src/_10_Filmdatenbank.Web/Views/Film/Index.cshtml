@@ -150,7 +150,9 @@
                                     }
                                     else
                                     {
-                                        <div class="w-full h-full flex items-center justify-center text-[10px] font-bold text-text-muted">@participation.Person.Vorname[0]</div>
+                                        <div class="w-full h-full flex items-center justify-center text-[10px] font-bold text-text-muted">
+                                            @(!string.IsNullOrEmpty(participation.Person.Vorname) ? participation.Person.Vorname[0] : '?')
+                                        </div>
                                     }
                                 </div>
                             }
