@@ -74,7 +74,7 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                             <div class="flex flex-col gap-1.5 flex-grow">
                                  <label for="inputTagline" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Tagline</label>
                                  <input asp-for="Tagline" id="inputTagline" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
@@ -82,6 +82,10 @@
                             <div class="flex flex-col gap-1.5 flex-grow">
                                  <label for="inputHomepage" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Homepage</label>
                                  <input asp-for="Homepage" id="inputHomepage" type="url" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" />
+                            </div>
+                            <div class="flex flex-col gap-1.5 flex-grow">
+                                 <label for="inputNovel" class="text-[10px] font-black text-text-muted dark:text-dark-text-muted uppercase tracking-widest px-1">Romanvorlage</label>
+                                 <input asp-for="NovelSource" id="inputNovel" class="w-full px-4 py-3 rounded-xl bg-surface-subtle dark:bg-dark-surface-soft border border-border-default dark:border-dark-border focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-hidden transition-all font-bold text-text-main dark:text-white" placeholder="Autor: Buch (Jahr)..." />
                             </div>
                         </div>
 

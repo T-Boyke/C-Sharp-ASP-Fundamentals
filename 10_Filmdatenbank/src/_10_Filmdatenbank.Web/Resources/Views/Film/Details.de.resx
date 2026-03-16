@@ -68,4 +68,5 @@
   <data name="UnknownPerson" xml:space="preserve"><value>Unbekannte Person</value></data>
   <data name="AddToWatchlist" xml:space="preserve"><value>Auf die Merkliste</value></data>
   <data name="RemoveFromWatchlist" xml:space="preserve"><value>Von der Merkliste entfernen</value></data>
+  <data name="NovelSource" xml:space="preserve"><value>Romanvorlage</value></data>
 </root>
