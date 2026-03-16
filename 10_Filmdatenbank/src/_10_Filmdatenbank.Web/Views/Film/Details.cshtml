@@ -17,26 +17,128 @@
     string GetRatingLogo(string iso, string cert)
     {
         if (string.IsNullOrEmpty(cert)) return null;
-        var c = cert.ToUpper().Replace("FSK", "").Replace("AB", "").Trim();
+        var c = cert.ToUpper()
+            .Replace("FSK", "").Replace("AB", "").Replace("MINORI", "")
+            .Replace("ANNI", "").Replace("Y", "").Replace("PLUS", "+")
+            .Replace("ANS", "").Replace("YEARS", "").Replace("ALT", "")
+            .Replace("ALDER", "").Replace("JAAR", "").Replace("ANS", "")
+            .Replace("RATED", "").Replace("BBFC", "").Replace("OFLC", "")
+            .Trim();
+        
+        // Clean up common prefixes/suffixes from cert string to get core rating
+        var n = System.Text.RegularExpressions.Regex.Match(c, @"\d+").Value;
 
-        // DE / FSK (Filename: FSK_X.svg)
-        if (iso == "DE")
+        switch (iso)
         {
-            if (c == "0") return "/images/ratings/de/FSK_0.svg";
-            if (c == "6") return "/images/ratings/de/FSK_6.svg";
-            if (c == "12") return "/images/ratings/de/FSK_12.svg";
-            if (c == "16") return "/images/ratings/de/FSK_16.svg";
-            if (c == "18") return "/images/ratings/de/FSK_18.svg";
-        }
-
-        // US / MPAA (Filename: MPA_X_RATING.svg)
-        if (iso == "US")
-        {
-            if (c == "G") return "/images/ratings/us/MPA_G_RATING.svg";
-            if (c == "PG") return "/images/ratings/us/MPA_PG_RATING.svg";
-            if (c == "PG-13") return "/images/ratings/us/MPA_PG-13_RATING.svg";
-            if (c == "R") return "/images/ratings/us/MPA_R_RATING.svg";
-            if (c == "NC-17") return "/images/ratings/us/MPA_NC-17_RATING.svg";
+            case "DE":
+                 if (c.Contains("0") || c == "L") return "/images/ratings/de/FSK_0.svg";
+                 if (c.Contains("6")) return "/images/ratings/de/FSK_6.svg";
+                 if (c.Contains("12")) return "/images/ratings/de/FSK_12.svg";
+                 if (c.Contains("16")) return "/images/ratings/de/FSK_16.svg";
+                 if (c.Contains("18")) return "/images/ratings/de/FSK_18.svg";
+                 break;
+            case "US":
+                 if (c == "G") return "/images/ratings/us/MPA_G_RATING.svg";
+                 if (c == "PG") return "/images/ratings/us/MPA_PG_RATING.svg";
+                 if (c == "PG-13" || c == "PG13") return "/images/ratings/us/MPA_PG-13_RATING.svg";
+                 if (c == "R") return "/images/ratings/us/MPA_R_RATING.svg";
+                 if (c == "NC-17" || c == "NC17") return "/images/ratings/us/MPA_NC-17_RATING.svg";
+                 break;
+            case "GB":
+                 if (c == "U") return "/images/ratings/gb/BBFC_U_2019.svg";
+                 if (c == "PG") return "/images/ratings/gb/BBFC_PG_2019.svg";
+                 if (c == "12") return "/images/ratings/gb/BBFC_12_2019.svg";
+                 if (c == "12A") return "/images/ratings/gb/BBFC_12A_2019.svg";
+                 if (c == "15") return "/images/ratings/gb/BBFC_15_2019.svg";
+                 if (c == "15A") return "/images/ratings/gb/BBFC_15A_2019.svg";
+                 if (c == "18") return "/images/ratings/gb/BBFC_18_2019.svg";
+                 if (c == "R18") return "/images/ratings/gb/BBFC_R18_2019.svg";
+                 break;
+            case "AU":
+                 if (c == "G") return "/images/ratings/au/Australian_Classification_General_(G).svg";
+                 if (c == "PG") return "/images/ratings/au/Australian_Classification_Parental_Guidance_(PG).svg";
+                 if (c == "M") return "/images/ratings/au/Australian_Classification_Mature_(M).svg";
+                 if (c.Contains("15")) return "/images/ratings/au/Australian_Classification_Mature_15+_(MA_15+).svg";
+                 if (c == "R" || (c.Contains("18") && c.Contains("R"))) return "/images/ratings/au/Australian_Classification_Restricted_18+_(R_18+).svg";
+                 if (c == "X" || (c.Contains("18") && c.Contains("X"))) return "/images/ratings/au/Australian_Classification_Restricted_18+_(X_18+).svg";
+                 break;
+            case "FR":
+                 if (c.Contains("12")) return "/images/ratings/fr/Moins12.svg";
+                 if (c.Contains("16")) return "/images/ratings/fr/Moins16.svg";
+                 if (c.Contains("18")) return "/images/ratings/fr/Moins18.svg";
+                 break;
+            case "IT":
+                 if (c == "T" || c == "ALL") return "/images/ratings/it/Mibact_Tutti.svg";
+                 if (c.Contains("6")) return "/images/ratings/it/Mibact_Minori6anni.svg";
+                 if (c.Contains("10")) return "/images/ratings/it/Mibact_Minori10anni.svg";
+                 if (c.Contains("14")) return "/images/ratings/it/Mibact_Minori14anni.svg";
+                 if (c.Contains("18")) return "/images/ratings/it/Mibact_Minori18anni.svg";
+                 break;
+            case "JP":
+                 if (c == "G") return "/images/ratings/jp/Eirin_Rated_G.svg";
+                 if (c.Contains("12")) return "/images/ratings/jp/Eirin_Rated_PG12.svg";
+                 if (c.Contains("15")) return "/images/ratings/jp/Eirin_Rated_R15+.svg";
+                 if (c.Contains("18")) return "/images/ratings/jp/Eirin_Rated_R18+.svg";
+                 break;
+            case "KR":
+                 if (c == "ALL" || c == "G") return "/images/ratings/kr/KMRB_All_(2021).svg";
+                 if (c.Contains("12")) return "/images/ratings/kr/KMRB_12_(2021).svg";
+                 if (c.Contains("15")) return "/images/ratings/kr/KMRB_15_(2021).svg";
+                 if (c.Contains("18") || c.Contains("19")) return "/images/ratings/kr/KMRB_19_(2024).svg";
+                 break;
+            case "NL":
+                 if (c == "AL" || c == "G") return "/images/ratings/nl/Kijkwijzer_AL.svg";
+                 if (c.Contains("6")) return "/images/ratings/nl/Kijkwijzer_6.svg";
+                 if (c.Contains("9")) return "/images/ratings/nl/Kijkwijzer_9.svg";
+                 if (c.Contains("12")) return "/images/ratings/nl/Kijkwijzer_12.svg";
+                 if (c.Contains("14")) return "/images/ratings/nl/Kijkwijzer_14.svg";
+                 if (c.Contains("16")) return "/images/ratings/nl/Kijkwijzer_16.svg";
+                 if (c.Contains("18")) return "/images/ratings/nl/Kijkwijzer_18.svg";
+                 break;
+            case "RU":
+                 if (c.Contains("0")) return "/images/ratings/ru/RARS_(0+).svg";
+                 if (c.Contains("6")) return "/images/ratings/ru/RARS_(6+).svg";
+                 if (c.Contains("12")) return "/images/ratings/ru/RARS_(12+).svg";
+                 if (c.Contains("16")) return "/images/ratings/ru/RARS_(16+).svg";
+                 if (c.Contains("18")) return "/images/ratings/ru/RARS_(18+).svg";
+                 break;
+            case "CA":
+                 if (c == "G") return "/images/ratings/ca/CHVRS_G_2014.svg";
+                 if (c == "PG") return "/images/ratings/ca/CHVRS_PG_2014.svg";
+                 if (c.Contains("14")) return "/images/ratings/ca/CHVRS_14A_2014.svg";
+                 if (c.Contains("18")) return "/images/ratings/ca/CHVRS_18A_2014.svg";
+                 if (c == "R") return "/images/ratings/ca/CHVRS_R_2014.svg";
+                 break;
+            case "CH":
+                 if (c == "G") return "/images/ratings/ch/GSRR_G_logo.svg";
+                 if (c == "P") return "/images/ratings/ch/GSRR_P_logo.svg";
+                 if (c.Contains("12")) return "/images/ratings/ch/GSRR_PG_12_logo.svg";
+                 if (c.Contains("15")) return "/images/ratings/ch/GSRR_PG_15_logo.svg";
+                 if (c == "R") return "/images/ratings/ch/GSRR_R_logo.svg";
+                 break;
+            case "FI":
+                 if (c == "S" || c == "ALL") return "/images/ratings/fi/FI-SALLITTU_(2016).svg";
+                 if (c.Contains("7")) return "/images/ratings/fi/FI-7_(2016).svg";
+                 if (c.Contains("12")) return "/images/ratings/fi/FI-12_(2016).svg";
+                 if (c.Contains("16")) return "/images/ratings/fi/FI-16_(2016).svg";
+                 if (c.Contains("18")) return "/images/ratings/fi/FI-18_(2016).svg";
+                 break;
+            case "DK":
+                 if (c == "ALL" || c == "G") return "/images/ratings/dk/DK_All.svg";
+                 if (c.Contains("7")) return "/images/ratings/dk/DK_7.svg";
+                 if (c.Contains("11")) return "/images/ratings/dk/DK_11.svg";
+                 if (c.Contains("15")) return "/images/ratings/dk/DK_15.svg";
+                 break;
+            case "NZ":
+                 if (c == "G") return "/images/ratings/nz/OFLC_G_label_(2022).svg";
+                 if (c == "PG") return "/images/ratings/nz/OFLC_PG_label_(2022).svg";
+                 if (c == "M") return "/images/ratings/nz/OFLC_M_label_(2022).svg";
+                 if (c == "R13") return "/images/ratings/nz/OFLC_Restricted_13_(R13)_label_(2022).svg";
+                 if (c == "R15") return "/images/ratings/nz/OFLC_Restricted_15_(R15)_label_(2022).svg";
+                 if (c == "R16") return "/images/ratings/nz/OFLC_Restricted_16_(R16)_label_(2022).svg";
+                 if (c == "R18") return "/images/ratings/nz/OFLC_Restricted_18_(R18)_label_(2022).svg";
+                 if (c.Contains("R") && !c.Contains("1")) return "/images/ratings/nz/OFLC_Restricted_(R)_label_(2022).svg";
+                 break;
         }
 
         return null;

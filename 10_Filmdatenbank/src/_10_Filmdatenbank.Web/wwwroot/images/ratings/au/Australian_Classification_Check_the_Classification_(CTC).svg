@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   viewBox="0.00 0.00 157.00 157.00"
+   id="svg9"
+   sodipodi:docname="Australian_Classification_Check_the_Classification_(CTC).svg"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs9" />
+  <sodipodi:namedview
+     id="namedview9"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="3.2542629"
+     inkscape:cx="78.05147"
+     inkscape:cy="78.05147"
+     inkscape:window-width="1280"
+     inkscape:window-height="717"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg9" />
+  <path
+     fill="#ffffff"
+     d="m 17.13,0 h 121.89 q 12.01,2.16 15.8,12.09 1.46,3.84 1.46,8.88 -0.07,55.46 -0.02,115.67 c 0.01,8.33 -4.82,15.66 -12.66,18.42 q -3.65,1.28 -9.01,1.27 -56.01,-0.17 -115.01,-0.05 -3.65,0 -7.43,-1.43 Q 2.06,151 0,138.89 V 17.01 Q 2.73,2.56 17.13,0 Z M 148.896,18.4764 A 11.36,11.36 0 0 0 137.5162,7.1362 L 18.4764,7.344 A 11.36,11.36 0 0 0 7.1362,18.7238 L 7.344,137.7636 a 11.36,11.36 0 0 0 11.3798,11.3402 l 119.0398,-0.2078 a 11.36,11.36 0 0 0 11.3402,-11.3798 z"
+     id="path5"
+     style="display:inline;stroke:none" />
+  <path
+     fill="#f6921e"
+     d="m 149.1038,137.5162 c 0.0109,6.27396 -5.06624,11.36887 -11.3402,11.3798 L 18.7238,149.1038 C 12.449841,149.11474 7.3549257,144.03756 7.344,137.7636 L 7.1362,18.7238 C 7.1252552,12.449841 12.202441,7.3549257 18.4764,7.344 L 137.5162,7.1362 c 6.27396,-0.010945 11.36887,5.066241 11.3798,11.3402 z"
+     id="path6"
+     style="display:inline;fill:#f68712;stroke:none"
+     sodipodi:nodetypes="ccccccccc" />
+  <path
+     id="path18"
+     d="m 49.41003,66.519292 c 0.07433,-3.031595 -0.148256,-6.062173 -1.557715,-7.762422 -1.409662,-1.700046 -4.600444,-2.292162 -6.009086,-2.292162 -5.639057,0 -7.864539,3.400905 -8.087945,4.140135 -0.222589,0.591506 -1.557919,1.922852 -1.557919,11.088651 v 14.267362 c 0,13.084345 4.302911,14.636664 9.570919,14.636664 2.077838,0 8.383642,-0.739229 8.458586,-11.16088 h 7.0477 C 57.57129,106.291 45.625813,106.291 42.139129,106.291 35.462481,106.291 25.224,105.84742 25.224,85.147561 V 70.067311 C 25.224,54.986248 31.900648,50.699 42.436664,50.699 c 10.608509,0 14.689648,5.470668 14.021881,15.820292 H 49.41003"
+     style="display:inline;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.203843"
+     clip-path="none" />
+  <path
+     id="path20"
+     d="m 94.750003,52 v 5.900835 H 80.661012 V 105.26 H 73.838375 V 57.900835 H 59.75 V 52 h 35.000003"
+     style="display:inline;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.20357"
+     clip-path="none" />
+  <path
+     id="path22"
+     d="m 122.92001,66.502375 c 0.0735,-3.034485 -0.14907,-6.067953 -1.55821,-7.769823 -1.40913,-1.701666 -4.60111,-2.294347 -6.01024,-2.294347 -5.63856,0 -7.86458,3.404147 -8.08718,4.144082 -0.2226,0.59207 -1.55821,1.924685 -1.55821,11.099223 v 14.280964 c 0,13.096817 4.30295,14.650626 9.57187,14.650626 2.07693,0 8.3833,-0.739939 8.45682,-11.171528 h 7.04973 C 131.08071,106.312 119.13579,106.312 115.64768,106.312 108.97167,106.312 98.732,105.868 98.732,85.148403 V 70.053776 c 0,-15.095441 6.67805,-19.386776 17.21384,-19.386776 10.60932,0 14.68967,5.475883 14.02186,15.835375 h -7.04769"
+     style="display:inline;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.203945"
+     clip-path="none" />
+</svg>
