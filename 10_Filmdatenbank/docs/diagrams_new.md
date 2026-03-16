@@ -26,8 +26,8 @@ erDiagram
         string MetaScore
         string TvdbScore
         string OmdbScore
-        long? Budget
-        long? Revenue
+        long Budget
+        long Revenue
         string CommercialNote
     }
 
