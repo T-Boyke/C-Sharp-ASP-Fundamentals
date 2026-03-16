@@ -10,18 +10,18 @@
 <div class="@indentClass group/comment">
     <div class="flex gap-4" id="comment-@Model.CommentID">
         <div class="w-10 h-10 rounded-full bg-nav-surface border border-nav-border flex items-center justify-center shrink-0 overflow-hidden">
-             @if (Model.Author.ProfilePicture != null)
+             @if (Model.Author?.ProfilePicture != null)
              {
                  <img src="data:@Model.Author.ProfilePictureContentType;base64,@Convert.ToBase64String(Model.Author.ProfilePicture)" class="w-full h-full object-cover" />
              }
              else
              {
-                 <span class="text-xs font-bold text-text-muted">@Model.Author.FirstName?[0]</span>
+                 <span class="text-xs font-bold text-text-muted">@Model.Author?.FirstName?[0]</span>
              }
         </div>
         <div class="flex-grow space-y-2">
             <div class="flex items-center gap-3">
-                <span class="text-sm font-black text-white">@Model.Author.FirstName @Model.Author.LastName</span>
+                <span class="text-sm font-black text-white">@Model.Author?.FirstName @Model.Author?.LastName</span>
                 <span class="text-[10px] text-text-muted font-bold">@Model.CreatedAt.ToString("g")</span>
             </div>
             <div class="card-glass p-4 text-sm text-dark-text-muted leading-relaxed font-medium transition-colors group-hover/comment:border-brand-primary/20">
@@ -58,7 +58,7 @@
     {
         foreach (var reply in Model.Replies.OrderBy(r => r.CreatedAt))
         {
-            <partial name="_Comment" model="reply" view-data='new ViewDataDictionary(ViewData) { { "Depth", depth + 1 } }' />
+            <partial name="_Comment" model="reply" view-data='new ViewDataDictionary(ViewData) { ["Depth"] = depth + 1 }' />
         }
     }
 </div>

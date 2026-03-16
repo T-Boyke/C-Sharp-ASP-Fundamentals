@@ -75,7 +75,7 @@
 
             @foreach (var comment in topLevelComments)
             {
-                <partial name="_Comment" model="comment" view-data='new ViewDataDictionary(ViewData) { { "Depth", 0 } }' />
+                <partial name="_Comment" model="comment" view-data='new ViewDataDictionary(ViewData) { ["Depth"] = 0 }' />
             }
 
             @if (!Model.Comments.Any())

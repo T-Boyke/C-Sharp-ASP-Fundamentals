@@ -454,7 +454,83 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             }
         }
 
-        // 5. TVDB ENRICHMENT
+        // 5. Genres
+        if (movie.Genres != null)
+        {
+            foreach (var g in movie.Genres)
+            {
+                var dbGenre = context.Genres.Local.FirstOrDefault(genre => genre.TmdbId == g.Id)
+                              ?? await context.Genres.FirstOrDefaultAsync(genre => genre.TmdbId == g.Id)
+                              ?? await context.Genres.FirstOrDefaultAsync(genre => genre.Name == g.Name);
+
+                if (dbGenre == null)
+                {
+                    dbGenre = new Genre { Name = g.Name ?? "Unknown", TmdbId = g.Id };
+                    context.Genres.Add(dbGenre);
+                }
+
+                if (!film.Genres.Any(fg => fg.TmdbId == g.Id))
+                {
+                    film.Genres.Add(dbGenre);
+                }
+            }
+        }
+
+        // 6. Keywords
+        if (movie.Keywords?.Keywords != null)
+        {
+            foreach (var k in movie.Keywords.Keywords)
+            {
+                var dbKeyword = context.Keywords.Local.FirstOrDefault(kw => kw.TmdbId == k.Id)
+                                ?? await context.Keywords.FirstOrDefaultAsync(kw => kw.TmdbId == k.Id)
+                                ?? await context.Keywords.FirstOrDefaultAsync(kw => kw.Name == k.Name);
+
+                if (dbKeyword == null)
+                {
+                    dbKeyword = new Keyword { Name = k.Name ?? "Unknown", TmdbId = k.Id };
+                    context.Keywords.Add(dbKeyword);
+                }
+
+                if (!film.Keywords.Any(fk => fk.TmdbId == k.Id))
+                {
+                    film.Keywords.Add(dbKeyword);
+                }
+            }
+        }
+
+        // 7. Production Companies
+        if (movie.ProductionCompanies != null)
+        {
+            foreach (var pc in movie.ProductionCompanies)
+            {
+                var dbCompany = context.ProductionCompanies.Local.FirstOrDefault(c => c.TmdbId == pc.Id)
+                                ?? await context.ProductionCompanies.FirstOrDefaultAsync(c => c.TmdbId == pc.Id)
+                                ?? await context.ProductionCompanies.FirstOrDefaultAsync(c => c.Name == pc.Name);
+
+                if (dbCompany == null)
+                {
+                    var studio = await tmdbService.GetCompanyDetailsAsync(pc.Id);
+                    dbCompany = new ProductionCompany
+                    {
+                        Name = pc.Name ?? "Unknown",
+                        TmdbId = pc.Id,
+                        LogoUrl = string.IsNullOrEmpty(studio?.LogoPath) ? null : $"https://image.tmdb.org/t/p/w500{studio.LogoPath}",
+                        OriginCountry = studio?.OriginCountry ?? pc.OriginCountry,
+                        Headquarters = studio?.Headquarters,
+                        Homepage = studio?.Homepage,
+                        Description = studio?.Description
+                    };
+                    context.ProductionCompanies.Add(dbCompany);
+                }
+
+                if (!film.ProductionCompanies.Any(fc => fc.TmdbId == pc.Id))
+                {
+                    film.ProductionCompanies.Add(dbCompany);
+                }
+            }
+        }
+
+        // 8. TVDB ENRICHMENT
         if (!film.TvdbId.HasValue && !string.IsNullOrEmpty(movie.ExternalIds?.ImdbId))
         {
             // Search for TVDB ID using IMDB ID

@@ -35,10 +35,17 @@ public class UserController : Controller
             .Include(u => u.GroupMemberships).ThenInclude(m => m.FanGroup)
             .Include(u => u.Threads)
             .Include(u => u.UserRatings).ThenInclude(r => r.Film)
-            .Include(u => u.FavoriteFilms).ThenInclude(ff => ff.Film)
-                .ThenInclude(f => f.PersonEigenschaftFilme).ThenInclude(pef => pef.Person)
-            .Include(u => u.FavoriteFilms).ThenInclude(ff => ff.Film)
-                .ThenInclude(f => f.Genres)
+            .Include(u => u.FavoriteFilms)
+                .ThenInclude(ff => ff.Film)
+                    .ThenInclude(f => f.PersonEigenschaftFilme)
+                        .ThenInclude(pef => pef.Person)
+            .Include(u => u.FavoriteFilms)
+                .ThenInclude(ff => ff.Film)
+                    .ThenInclude(f => f.PersonEigenschaftFilme)
+                        .ThenInclude(pef => pef.Eigenschaft)
+            .Include(u => u.FavoriteFilms)
+                .ThenInclude(ff => ff.Film)
+                    .ThenInclude(f => f.Genres)
             .FirstOrDefaultAsync(u => u.Id == userId);
 
         if (user == null)
@@ -52,13 +59,18 @@ public class UserController : Controller
 
         ViewBag.TopGenres = favFilms.SelectMany(f => f.Genres)
             .GroupBy(g => g.Name)
-            .Select(g => new { Name = g.Key, Count = g.Count() })
+            .Select(g => new { Name = string.IsNullOrWhiteSpace(g.Key) ? "Genre" : g.Key, Count = g.Count() })
+            .Where(g => g.Name != "Genre" || favFilms.Count > 0)
             .OrderByDescending(g => g.Count)
             .Take(5).ToList();
 
         ViewBag.FrequentCast = favFilms.SelectMany(f => f.PersonEigenschaftFilme)
-            .Where(pef => pef.Eigenschaft?.Bezeichnung == "Actor" || pef.Eigenschaft?.Bezeichnung == "Cast")
+            .Where(pef => pef.Eigenschaft != null && 
+                         (pef.Eigenschaft.Bezeichnung.Contains("Actor", StringComparison.OrdinalIgnoreCase) || 
+                          pef.Eigenschaft.Bezeichnung.Contains("Cast", StringComparison.OrdinalIgnoreCase) ||
+                          pef.Eigenschaft.Bezeichnung.Contains("Schauspieler", StringComparison.OrdinalIgnoreCase)))
             .GroupBy(pef => pef.Person)
+            .Where(g => g.Key != null)
             .Select(g => new { Person = g.Key, Count = g.Count() })
             .OrderByDescending(g => g.Count)
             .Take(5).ToList();
