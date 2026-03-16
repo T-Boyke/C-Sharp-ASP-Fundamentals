@@ -138,13 +138,54 @@
                                 <img src="@film.PosterUrl" alt="" class="w-full h-full object-cover" />
                             </div>
                             <div class="flex-grow min-w-0">
-                                <div class="flex items-center justify-between mb-4">
-                                    <span class="text-sm font-black text-brand-primary uppercase tracking-widest">@film.Erscheinungsjahr</span>
-                                    <div class="flex items-center gap-2">
-                                        <i class="fa-solid fa-star text-star-primary text-xs"></i>
-                                        <span class="text-sm font-black text-text-main dark:text-white">@film.VoteAverage?.ToString("0.0")</span>
+                                    <div class="flex items-center gap-3">
+                                        <!-- Score Matrix -->
+                                        <div class="flex items-center gap-3 px-3 py-1.5 rounded-xl bg-surface-bright/5 border border-white/5">
+                                            @if (film.VoteAverage.HasValue)
+                                            {
+                                                <div class="flex items-center gap-1.5" title="TMDB Score">
+                                                    <img src="/images/logos/tmdb.svg" class="h-2 w-auto" alt="TMDB" />
+                                                    <span class="text-xs font-black text-white">@film.VoteAverage.Value.ToString("0.0")</span>
+                                                </div>
+                                            }
+                                            @if (film.ImdbRating.HasValue)
+                                            {
+                                                <div class="flex items-center gap-1.5" title="IMDb Rating">
+                                                    <img src="/images/logos/imdb.svg" class="h-2 w-auto" alt="IMDb" />
+                                                    <span class="text-xs font-black text-white">@film.ImdbRating.Value.ToString("0.0")</span>
+                                                </div>
+                                            }
+                                            @if (film.MetacriticRating.HasValue)
+                                            {
+                                                <div class="flex items-center gap-1.5" title="Metascore">
+                                                    <img src="/images/logos/metacritic.svg" class="h-2 w-auto" alt="Metacritic" />
+                                                    <span class="text-xs font-black @(film.MetacriticRating >= 61 ? "text-[#6c3]" : (film.MetacriticRating >= 40 ? "text-[#fc3]" : "text-[#f33]"))">@film.MetacriticRating</span>
+                                                </div>
+                                            }
+                                            @if (film.TvdbRating.HasValue && film.TvdbRating > 0)
+                                            {
+                                                <div class="flex items-center gap-1.5" title="TVDB Score">
+                                                    <img src="/images/logos/tvdb.svg" class="h-2 w-auto opacity-80" alt="TVDB" />
+                                                    <span class="text-xs font-black text-white">@film.TvdbRating.Value.ToString("0.0")</span>
+                                                </div>
+                                            }
+                                            @if (film.RottenTomatoesCriticRating.HasValue)
+                                            {
+                                                <div class="flex items-center gap-1.5" title="Tomatometer">
+                                                    <img src="@(film.RottenTomatoesCriticRating >= 60 ? "/images/logos/rt.svg" : "/images/logos/rt_tomato_splat.svg")" class="h-2 w-auto" alt="RT" />
+                                                    <span class="text-xs font-black text-white">@film.RottenTomatoesCriticRating%</span>
+                                                </div>
+                                            }
+                                            @if (film.RottenTomatoesAudienceRating.HasValue)
+                                            {
+                                                <div class="flex items-center gap-1.5" title="RT Audience">
+                                                    <img src="@(film.RottenTomatoesAudienceRating >= 60 ? "/images/logos/rt_popcorn_fresh.svg" : "/images/logos/rt_popcorn_splat.svg")" class="h-2 w-auto" alt="RT Audience" />
+                                                    <span class="text-xs font-black text-white">@film.RottenTomatoesAudienceRating%</span>
+                                                </div>
+                                            }
+                                        </div>
+                                        <span class="text-sm font-black text-brand-primary uppercase tracking-widest">@film.Erscheinungsjahr</span>
                                     </div>
-                                </div>
                                 <h3 class="text-2xl font-black text-text-main dark:text-white mb-4">@film.Titel</h3>
                                 <p class="text-sm text-text-description dark:text-dark-text-muted leading-relaxed line-clamp-3 mb-6">@film.Handlung</p>
                                 
@@ -200,9 +241,9 @@
                             <!-- Revenue Bar -->
                             <div class="absolute inset-y-1.5 left-0 bg-brand-primary rounded-full mt-1.5 mx-1" style="height: 4px; width: calc(@rPct.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)% - 8px)"></div>
                         </div>
-                        <div class="flex justify-between text-[8px] font-bold text-text-muted">
-                            <span>B: @(film.Budget > 0 ? $"${(film.Budget / 1000000.0)?.ToString("0.0")}M" : "0")</span>
-                            <span>R: @(film.Revenue > 0 ? $"${(film.Revenue / 1000000.0)?.ToString("0.0")}M" : "0")</span>
+                        <div class="flex justify-between text-[11px] font-black text-text-muted mt-1 uppercase tracking-tighter">
+                            <span>B: <span class="text-text-main dark:text-white">@(film.Budget > 0 ? $"${(film.Budget / 1000000.0)?.ToString("0.0")}M" : "0")</span></span>
+                            <span>R: <span class="text-text-main dark:text-white">@(film.Revenue > 0 ? $"${(film.Revenue / 1000000.0)?.ToString("0.0")}M" : "0")</span></span>
                         </div>
                     </div>
                 }

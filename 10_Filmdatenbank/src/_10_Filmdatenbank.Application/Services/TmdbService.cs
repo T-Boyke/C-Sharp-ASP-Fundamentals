@@ -47,6 +47,7 @@ public class TmdbService : ITmdbService
             MovieMethods.Videos | 
             MovieMethods.AlternativeTitles | 
             MovieMethods.ReleaseDates |
+            MovieMethods.WatchProviders |
             MovieMethods.Images);
         _logger.LogInformation("TMDB GetMovieDetailsAsync returned movie: {Title}", movie?.Title);
         return movie;

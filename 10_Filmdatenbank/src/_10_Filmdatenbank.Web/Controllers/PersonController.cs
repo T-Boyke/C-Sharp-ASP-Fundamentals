@@ -13,7 +13,7 @@ namespace _10_Filmdatenbank.Web.Controllers;
 [Authorize]
 [Route("Schauspieler")]
 [Route("Schauspieler/[action]")]
-public class PersonController(ApplicationDbContext context, IWikidataService wikidataService) : Controller
+public class PersonController(ApplicationDbContext context, IWikidataService wikidataService, ITmdbService tmdbService) : Controller
 {
     /// <summary>
     /// Zeigt eine Liste aller Personen in der Datenbank an.
@@ -58,8 +58,8 @@ public class PersonController(ApplicationDbContext context, IWikidataService wik
 
         if (person == null) return NotFound();
 
-        // 🌀 Wikidata Enrichment (On Demand)
-        if (!string.IsNullOrEmpty(person.WikidataId) || !string.IsNullOrEmpty(person.ImdbId))
+        // 🌀 External Data Enrichment (On Demand)
+        if (!string.IsNullOrEmpty(person.WikidataId) || !string.IsNullOrEmpty(person.ImdbId) || person.TmdbId.HasValue)
         {
             await EnrichPersonAsync(person);
             await context.SaveChangesAsync();
@@ -70,7 +70,48 @@ public class PersonController(ApplicationDbContext context, IWikidataService wik
 
     private async Task EnrichPersonAsync(_10_Filmdatenbank.Domain.Entities.Person person)
     {
-        // Don't re-enrich if we already have awards or a bio
+        // Enrich from TMDB if ID available (Fetch Filmography)
+        if (person.TmdbId.HasValue)
+        {
+            try
+            {
+                var tmdbPerson = await tmdbService.GetPersonDetailsAsync(person.TmdbId.Value);
+                if (tmdbPerson != null)
+                {
+                    // Update basic info if missing
+                    person.ProfilBildUrl ??= string.IsNullOrEmpty(tmdbPerson.ProfilePath) ? null : $"https://image.tmdb.org/t/p/h632{tmdbPerson.ProfilePath}";
+                    person.Biografie ??= tmdbPerson.Biography;
+                    person.Geburtsdatum ??= tmdbPerson.Birthday;
+                    person.Deathday ??= tmdbPerson.Deathday;
+                    person.Homepage ??= tmdbPerson.Homepage;
+                    person.Popularity ??= tmdbPerson.Popularity;
+                    person.Gender ??= (int)tmdbPerson.Gender;
+                    person.KnownForDepartment ??= tmdbPerson.KnownForDepartment;
+
+                    if (tmdbPerson.ExternalIds != null)
+                    {
+                        person.ImdbId ??= tmdbPerson.ExternalIds.ImdbId;
+                        person.FacebookId ??= tmdbPerson.ExternalIds.FacebookId;
+                        person.InstagramId ??= tmdbPerson.ExternalIds.InstagramId;
+                        person.TwitterId ??= tmdbPerson.ExternalIds.TwitterId;
+                        person.FreebaseId ??= tmdbPerson.ExternalIds.FreebaseId;
+                        person.TvrageId ??= tmdbPerson.ExternalIds.TvrageId;
+                    }
+
+                    // 🎬 Store Combined Credits as JSON for Global Filmography
+                    if (tmdbPerson.CombinedCredits != null)
+                    {
+                        person.TmdbFilmographyJson = Newtonsoft.Json.JsonConvert.SerializeObject(tmdbPerson.CombinedCredits);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"TMDB Person Enrichment Error: {ex.Message}");
+            }
+        }
+
+        // Don't re-enrich from Wikidata if we already have structured awards and a bio
         if (person.PersonAwards.Any() && !string.IsNullOrEmpty(person.Biografie)) return;
 
         try

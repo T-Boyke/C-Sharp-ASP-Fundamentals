@@ -275,6 +275,27 @@ public class Film
     public ICollection<PersonEigenschaftFilm> PersonEigenschaftFilme { get; set; } = [];
 
     /// <summary>
+    /// Der lokale Pfad zum Film auf dem NAS (z.B. \\NAS\Filme\Action\Matrix.mkv).
+    /// Unterstützt SMB, NFS oder lokale Medienpfade.
+    /// </summary>
+    public string? LocalNasPath { get; set; }
+
+    /// <summary>
+    /// Detaillierte Box-Office-Historie des Films.
+    /// </summary>
+    public virtual ICollection<BoxOfficeEntry> BoxOfficeEntries { get; set; } = new List<BoxOfficeEntry>();
+
+    /// <summary>
+    /// Verfügbarkeit bei Streaming-Anbietern (Netflix, Disney+, etc.).
+    /// </summary>
+    public virtual ICollection<WatchProvider> WatchProviders { get; set; } = new List<WatchProvider>();
+
+    /// <summary>
+    /// Externe Ressourcen wie Amazon-Links, Merchandise oder Soundtrack-URLs.
+    /// </summary>
+    public virtual ICollection<ExternalResource> ExternalResources { get; set; } = new List<ExternalResource>();
+
+    /// <summary>
     /// Die lokalen Nutzerbewertungen aus der CouchDB Community.
     /// </summary>
     public virtual ICollection<UserRating> UserRatings { get; set; } = new List<UserRating>();

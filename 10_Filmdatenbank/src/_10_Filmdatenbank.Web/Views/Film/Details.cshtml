@@ -25,9 +25,6 @@
             .Replace("RATED", "").Replace("BBFC", "").Replace("OFLC", "")
             .Trim();
         
-        // Clean up common prefixes/suffixes from cert string to get core rating
-        var n = System.Text.RegularExpressions.Regex.Match(c, @"\d+").Value;
-
         switch (iso)
         {
             case "DE":
@@ -113,8 +110,15 @@
                  if (c == "G") return "/images/ratings/ch/GSRR_G_logo.svg";
                  if (c == "P") return "/images/ratings/ch/GSRR_P_logo.svg";
                  if (c.Contains("12")) return "/images/ratings/ch/GSRR_PG_12_logo.svg";
-                 if (c.Contains("15")) return "/images/ratings/ch/GSRR_PG_15_logo.svg";
-                 if (c == "R") return "/images/ratings/ch/GSRR_R_logo.svg";
+                 if (c.Contains("14")) return "/images/ratings/ch/GSRR_PG_14_logo.svg";
+                 if (c.Contains("16")) return "/images/ratings/ch/GSRR_16_logo.svg";
+                 break;
+            case "DK":
+                 if (c == "A" || c == "ALL") return "/images/ratings/dk/DK_All.svg";
+                 if (c.Contains("7")) return "/images/ratings/dk/DK_7.svg";
+                 if (c.Contains("11")) return "/images/ratings/dk/DK_11.svg";
+                 if (c.Contains("15")) return "/images/ratings/dk/DK_15.svg";
+                 if (c.Contains("E")) return "/images/ratings/dk/DK_Exempt.svg";
                  break;
             case "FI":
                  if (c == "S" || c == "ALL") return "/images/ratings/fi/FI-SALLITTU_(2016).svg";
@@ -122,12 +126,6 @@
                  if (c.Contains("12")) return "/images/ratings/fi/FI-12_(2016).svg";
                  if (c.Contains("16")) return "/images/ratings/fi/FI-16_(2016).svg";
                  if (c.Contains("18")) return "/images/ratings/fi/FI-18_(2016).svg";
-                 break;
-            case "DK":
-                 if (c == "ALL" || c == "G") return "/images/ratings/dk/DK_All.svg";
-                 if (c.Contains("7")) return "/images/ratings/dk/DK_7.svg";
-                 if (c.Contains("11")) return "/images/ratings/dk/DK_11.svg";
-                 if (c.Contains("15")) return "/images/ratings/dk/DK_15.svg";
                  break;
             case "NZ":
                  if (c == "G") return "/images/ratings/nz/OFLC_G_label_(2022).svg";
@@ -172,7 +170,7 @@
                         {
                             <span class="mx-2 text-white-a20">|</span>
                             <div class="flex items-center gap-1.5">
-                                <img src="/images/logos/tvdb.svg" class="h-2.5 w-auto" alt="TVDB" />
+                                <img src="/images/logos/tvdb.svg" class="h-2 w-auto opacity-80" alt="TVDB" />
                                 <span class="text-[10px] font-black text-text-white-muted uppercase tracking-widest">@Model.TvdbId</span>
                             </div>
                         }
@@ -302,63 +300,63 @@
                         <h3 class="text-[10px] font-black text-white/50 uppercase tracking-[0.2em] mb-6">@Localizer["CriticalConsensus"]</h3>
                         <div class="grid grid-cols-2 gap-4">
                             <!-- IMDb -->
-                            <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
-                                <div class="flex items-center gap-2 mb-2">
-                                    <img src="/images/logos/imdb.svg" class="h-4 w-auto" alt="IMDb" />
-                                    <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">IMDb</span>
-                                </div>
-                                <span class="text-lg font-black text-white">@(Model.ImdbRating?.ToString("0.0") ?? "N/A")</span>
-                            </div>
-                            <!-- Metacritic -->
-                            <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
-                                <div class="flex items-center gap-2 mb-2">
-                                    <img src="/images/logos/metacritic.svg" class="h-4 w-auto" alt="Metascore" />
-                                    <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">Metascore</span>
-                                </div>
+                             <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
+                                 <div class="flex items-center gap-2 mb-2">
+                                     <img src="/images/logos/imdb.svg" class="h-3 w-auto" alt="IMDb" />
+                                     <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">IMDb</span>
+                                 </div>
+                                 <span class="text-lg font-black text-white">@(Model.ImdbRating?.ToString("0.0") ?? "N/A")</span>
+                             </div>
+                             <!-- Metacritic -->
+                             <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
+                                 <div class="flex items-center gap-2 mb-2">
+                                     <img src="/images/logos/metacritic.svg" class="h-3 w-auto" alt="Metascore" />
+                                     <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">Metascore</span>
+                                 </div>
                                 @{
                                     var consensusMetaColor = Model.MetacriticRating >= 61 ? "text-[#6c3]" : (Model.MetacriticRating >= 40 ? "text-[#fc3]" : "text-[#f33]");
                                     if (Model.MetacriticRating == null) consensusMetaColor = "text-white";
                                 }
                                 <span class="text-lg font-black @consensusMetaColor">@(Model.MetacriticRating?.ToString() ?? "N/A")</span>
                             </div>
-                            <!-- Rotten Tomatoes Critics -->
-                            <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
-                                <div class="flex items-center gap-2 mb-2">
-                                    @if (Model.RottenTomatoesCriticRating >= 60)
-                                    {
-                                        <img src="/images/logos/rt.svg" class="h-4 w-auto" alt="Fresh" />
-                                    }
-                                    else if (Model.RottenTomatoesCriticRating != null)
-                                    {
-                                        <img src="/images/logos/rt_tomato_splat.svg" class="h-4 w-auto" alt="Rotten" />
-                                    }
-                                    else
-                                    {
-                                        <img src="/images/logos/rt.svg" class="h-4 w-auto grayscale opacity-50" alt="N/A" />
-                                    }
-                                    <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">Tomatometer</span>
-                                </div>
-                                <span class="text-lg font-black text-white">@(Model.RottenTomatoesCriticRating?.ToString() ?? "N/A")%</span>
-                            </div>
-                            <!-- Rotten Tomatoes Audience -->
-                            <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
-                                <div class="flex items-center gap-2 mb-2">
-                                    @if (Model.RottenTomatoesAudienceRating >= 60)
-                                    {
-                                        <img src="/images/logos/rt_popcorn_fresh.svg" class="h-4 w-auto" alt="Fresh" />
-                                    }
-                                    else if (Model.RottenTomatoesAudienceRating != null)
-                                    {
-                                        <img src="/images/logos/rt_popcorn_splat.svg" class="h-4 w-auto" alt="Splat" />
-                                    }
-                                    else
-                                    {
-                                        <img src="/images/logos/rt_popcorn_fresh.svg" class="h-4 w-auto grayscale opacity-50" alt="N/A" />
-                                    }
-                                    <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">Audience</span>
-                                </div>
-                                <span class="text-lg font-black text-white">@(Model.RottenTomatoesAudienceRating?.ToString() ?? "N/A")%</span>
-                            </div>
+                             <!-- Rotten Tomatoes Critics -->
+                             <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
+                                 <div class="flex items-center gap-2 mb-2">
+                                     @if (Model.RottenTomatoesCriticRating >= 60)
+                                     {
+                                         <img src="/images/logos/rt.svg" class="h-3 w-auto" alt="Fresh" />
+                                     }
+                                     else if (Model.RottenTomatoesCriticRating != null)
+                                     {
+                                         <img src="/images/logos/rt_tomato_splat.svg" class="h-3 w-auto" alt="Rotten" />
+                                     }
+                                     else
+                                     {
+                                         <img src="/images/logos/rt.svg" class="h-3 w-auto grayscale opacity-50" alt="N/A" />
+                                     }
+                                     <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">Tomatometer</span>
+                                 </div>
+                                 <span class="text-lg font-black text-white">@(Model.RottenTomatoesCriticRating?.ToString() ?? "N/A")%</span>
+                             </div>
+                             <!-- Rotten Tomatoes Audience -->
+                             <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
+                                 <div class="flex items-center gap-2 mb-2">
+                                     @if (Model.RottenTomatoesAudienceRating >= 60)
+                                     {
+                                         <img src="/images/logos/rt_popcorn_fresh.svg" class="h-3 w-auto" alt="Fresh" />
+                                     }
+                                     else if (Model.RottenTomatoesAudienceRating != null)
+                                     {
+                                         <img src="/images/logos/rt_popcorn_splat.svg" class="h-3 w-auto" alt="Splat" />
+                                     }
+                                     else
+                                     {
+                                         <img src="/images/logos/rt_popcorn_fresh.svg" class="h-3 w-auto grayscale opacity-50" alt="N/A" />
+                                     }
+                                     <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">Audience</span>
+                                 </div>
+                                 <span class="text-lg font-black text-white">@(Model.RottenTomatoesAudienceRating?.ToString() ?? "N/A")%</span>
+                             </div>
                         </div>
                     </div>
             </div>
@@ -368,11 +366,38 @@
                 <h3 class="text-sm font-black text-brand-primary uppercase tracking-[0.2em] mb-6">@Localizer["MovieFacts"]</h3>
                 <div class="space-y-6">
                     <div class="flex flex-col">
-                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["Genre"]</span>
-                        <span class="text-sm font-black text-text-main dark:text-white transition-colors">
-                            @(string.Join(", ", Model.Genres?.Select(g => g.Name).Where(n => !string.IsNullOrEmpty(n)) ?? Array.Empty<string>()))
-                        </span>
+                        <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-3">@Localizer["Genre"]</span>
+                        <div class="flex flex-wrap gap-2">
+                             @if (Model.Genres?.Any() == true)
+                             {
+                                 @foreach (var genre in Model.Genres)
+                                 {
+                                     <span class="px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 text-[11px] font-black text-brand-primary hover:bg-brand-primary hover:text-white transition-all cursor-default">
+                                         @genre.Name
+                                     </span>
+                                 }
+                             }
+                             else
+                             {
+                                 <span class="text-xs font-bold text-text-muted italic">Keine Genres hinterlegt</span>
+                             }
+                        </div>
                     </div>
+
+                    @if (Model.Keywords?.Any() == true)
+                    {
+                        <div class="flex flex-col pt-2">
+                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-3">Keywords & Tags</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                @foreach (var keyword in Model.Keywords)
+                                {
+                                    <span class="px-2 py-0.5 rounded-lg bg-surface-bright/5 border border-white/5 text-[9px] font-bold text-text-muted hover:text-white hover:border-white/20 transition-all cursor-default uppercase">
+                                        #@keyword.Name
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                    }
                     <div class="flex flex-col">
                         <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["OriginalTitle"]</span>
                         <span class="text-sm font-black text-text-main dark:text-white">@Model.OriginalTitle (@Model.OriginalLanguage?.ToUpper())</span>
@@ -478,6 +503,78 @@
                         </div>
                     }
 
+                    <!-- 📺 WATCH & BUY (COMMERCIAL HUB) -->
+                    <div class="p-6 rounded-3xl bg-surface-bright/5 border border-white/5 space-y-6 shadow-2xl relative overflow-hidden group/hub">
+                        <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-brand-primary/10 blur-[50px] group-hover/hub:bg-brand-primary/20 transition-all duration-1000"></div>
+                        
+                        <h4 class="text-[11px] font-black text-white uppercase tracking-[0.2em] flex items-center gap-2">
+                            <i class="fa-solid fa-cart-shopping text-brand-primary"></i> Streaming & Commerce
+                        </h4>
+
+                        @if (Model.WatchProviders?.Any() == true)
+                        {
+                            <div class="space-y-4">
+                                @foreach (var type in new[] { "flatrate", "rent", "buy" })
+                                {
+                                    var providers = Model.WatchProviders.Where(p => p.Type == type).OrderBy(p => p.DisplayPriority).ToList();
+                                    if (providers.Any())
+                                    {
+                                        <div>
+                                            <span class="text-[9px] font-black text-text-muted uppercase tracking-widest block mb-2">@(type == "flatrate" ? "STREAMING NOW" : type.ToUpper())</span>
+                                            <div class="flex flex-wrap gap-2">
+                                                @foreach (var p in providers)
+                                                {
+                                                    <div class="group/provider relative" title="@p.Name">
+                                                        <img src="@p.LogoUrl" class="w-8 h-8 rounded-lg border border-white/10 hover:border-brand-primary/50 transition-all shadow-lg" alt="@p.Name" />
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+
+                        @if (Model.ExternalResources?.Any() == true)
+                        {
+                            <div class="pt-4 border-t border-white/5 space-y-3">
+                                @foreach (var res in Model.ExternalResources)
+                                {
+                                    <a href="@res.Url" target="_blank" class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-brand-primary/30 transition-all group/res">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-black border border-white/10 flex items-center justify-center">
+                                                @if (res.Type == "Amazon") { <i class="fa-brands fa-amazon text-[#ff9900] text-lg"></i> }
+                                                else { <i class="fa-solid fa-shop text-brand-primary"></i> }
+                                            </div>
+                                            <span class="text-xs font-black text-white group-hover/res:text-brand-primary transition-colors">@res.Label</span>
+                                        </div>
+                                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-text-muted"></i>
+                                    </a>
+                                }
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.LocalNasPath))
+                        {
+                            <div class="pt-4 border-t border-white/5">
+                                <div class="p-4 rounded-2xl bg-success-primary/10 border border-success-primary/20 flex items-center justify-between shadow-lg group/nas">
+                                    <div class="flex items-center gap-3 overflow-hidden">
+                                        <div class="w-10 h-10 rounded-full bg-success-primary/20 flex items-center justify-center text-success-primary shrink-0">
+                                            <i class="fa-solid fa-server animate-pulse"></i>
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span class="text-[10px] font-black text-success-primary uppercase">NAS ONLINE</span>
+                                            <span class="text-[9px] font-bold text-text-muted truncate" title="@Model.LocalNasPath">@Model.LocalNasPath</span>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-primary !p-2 !rounded-lg text-[10px] ml-2 shrink-0" title="Copy Path" onclick="navigator.clipboard.writeText('@Model.LocalNasPath.Replace("\\", "\\\\")').then(() => alert('Path copied!'))">
+                                        <i class="fa-solid fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
                     @if (Model.ProductionCountries?.Any() == true)
                     {
                         <div class="flex flex-col">
@@ -504,7 +601,10 @@
                         <!-- TMDB -->
                         <div class="space-y-1">
                             <div class="flex items-center justify-between text-[10px]">
-                                <span class="font-black text-text-muted uppercase">The Movie DB</span>
+                                 <div class="flex items-center gap-2">
+                                     <img src="/images/logos/tmdb.svg" class="h-2 w-auto" alt="TMDB" />
+                                     <span class="font-black text-text-muted uppercase">The Movie DB</span>
+                                 </div>
                                 <span class="font-black text-white">@((Model.VoteAverage ?? 0).ToString("0.0"))<span class="text-text-muted">/10</span></span>
                             </div>
                             <div class="h-1 bg-black/30 rounded-full overflow-hidden">
@@ -515,7 +615,10 @@
                         <!-- TVDB -->
                         <div class="space-y-1">
                             <div class="flex items-center justify-between text-[10px]">
-                                <span class="font-black text-text-muted uppercase">The TVDB</span>
+                                <div class="flex items-center gap-2">
+                                    <img src="/images/logos/tvdb.svg" class="h-2 w-auto opacity-80" alt="TVDB" />
+                                    <span class="font-black text-text-muted uppercase">The TVDB</span>
+                                </div>
                                 <span class="font-black text-white">@((Model.TvdbRating ?? 0).ToString("0.0"))<span class="text-text-muted">/10</span></span>
                             </div>
                             <div class="h-1 bg-black/30 rounded-full overflow-hidden">
@@ -526,8 +629,11 @@
                         <!-- IMDB (Global) -->
                         <div class="space-y-1">
                             <div class="flex items-center justify-between text-[10px]">
-                                <span class="font-black text-text-muted uppercase">IMDb (Global)</span>
-                                <span class="font-black text-white">@(Model.ImdbRating?.ToString("0.0") ?? "N/A")<span class="text-text-muted">/10</span></span>
+                                 <div class="flex items-center gap-2">
+                                     <img src="/images/logos/imdb.svg" class="h-2 w-auto" alt="IMDb" />
+                                     <span class="font-black text-text-muted uppercase">IMDb (Global)</span>
+                                 </div>
+                                <span class="font-black text-white">@(Model.ImdbId != null ? (Model.ImdbRating?.ToString("0.0") ?? "N/A") : "N/A")<span class="text-text-muted">/10</span></span>
                             </div>
                             <div class="h-1 bg-black/30 rounded-full overflow-hidden">
                                 <div class="h-full bg-[#f5c518] shadow-[0_0_8px_rgba(245,197,24,0.5)]" style="width: @((Model.ImdbRating ?? 0) * 10)%"></div>
@@ -535,59 +641,61 @@
                         </div>
 
                         <div class="grid grid-cols-1 gap-3 pt-4">
-                            <!-- RT Tomato -->
-                            <div class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 group/rt hover:bg-white/10 transition-all">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-lg bg-[#fa320a]/10 flex items-center justify-center">
-                                        @{
-                                            var isFresh = (Model.RottenTomatoesCriticRating ?? 0) >= 60;
-                                            var tomatoIcon = isFresh ? "fa-solid fa-apple-whole" : "fa-solid fa-circle-xmark";
-                                        }
-                                        <i class="@tomatoIcon text-[#fa320a] text-sm"></i>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <span class="text-[10px] font-black text-white uppercase tracking-wider">Tomato @(isFresh ? "Fresh" : "Rotten")</span>
-                                        <span class="text-[8px] font-bold text-text-muted uppercase">RT Critics</span>
-                                    </div>
-                                </div>
-                                <span class="text-sm font-black text-white">@(Model.RottenTomatoesCriticRating?.ToString() ?? "N/A")%</span>
-                            </div>
+                             <!-- RT Tomato -->
+                             <div class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 group/rt hover:bg-white/10 transition-all">
+                                 <div class="flex items-center gap-3">
+                                     <div class="w-8 h-8 rounded-lg bg-[#fa320a]/5 flex items-center justify-center">
+                                         @{
+                                             var isFreshMatrix = (Model.RottenTomatoesCriticRating ?? 0) >= 60;
+                                             var tomatoMatrixLogo = isFreshMatrix ? "/images/logos/rt.svg" : "/images/logos/rt_tomato_splat.svg";
+                                             if (Model.RottenTomatoesCriticRating == null) tomatoMatrixLogo = "/images/logos/rt.svg";
+                                         }
+                                         <img src="@tomatoMatrixLogo" class="h-4 w-auto @(Model.RottenTomatoesCriticRating == null ? "grayscale opacity-30" : "")" alt="RT" />
+                                     </div>
+                                     <div class="flex flex-col">
+                                         <span class="text-[10px] font-black text-white uppercase tracking-wider">Tomato @(isFreshMatrix ? "Fresh" : "Rotten")</span>
+                                         <span class="text-[8px] font-bold text-text-muted uppercase">RT Critics</span>
+                                     </div>
+                                 </div>
+                                 <span class="text-sm font-black text-white">@(Model.RottenTomatoesCriticRating?.ToString() ?? "N/A")%</span>
+                             </div>
 
-                            <!-- RT Audience -->
-                            <div class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 group/rta hover:bg-white/10 transition-all">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-lg bg-[#fa320a]/10 flex items-center justify-center">
-                                        @{
-                                            var isFull = (Model.RottenTomatoesAudienceRating ?? 0) >= 60;
-                                            var audienceIcon = isFull ? "fa-solid fa-popcorn" : "fa-solid fa-glass-water-droplet";
-                                        }
-                                        <i class="@audienceIcon text-[#fa320a] text-sm"></i>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <span class="text-[10px] font-black text-white uppercase tracking-wider">@(isFull ? "Popcorn" : "Splat")</span>
-                                        <span class="text-[8px] font-bold text-text-muted uppercase">RT Audience</span>
-                                    </div>
-                                </div>
-                                <span class="text-sm font-black text-white">@(Model.RottenTomatoesAudienceRating?.ToString() ?? "N/A")%</span>
-                            </div>
+                             <!-- RT Audience -->
+                             <div class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 group/rta hover:bg-white/10 transition-all">
+                                 <div class="flex items-center gap-3">
+                                     <div class="w-8 h-8 rounded-lg bg-[#fa320a]/5 flex items-center justify-center">
+                                         @{
+                                             var isFullMatrix = (Model.RottenTomatoesAudienceRating ?? 0) >= 60;
+                                             var audienceMatrixLogo = isFullMatrix ? "/images/logos/rt_popcorn_fresh.svg" : "/images/logos/rt_popcorn_splat.svg";
+                                             if (Model.RottenTomatoesAudienceRating == null) audienceMatrixLogo = "/images/logos/rt_popcorn_fresh.svg";
+                                         }
+                                         <img src="@audienceMatrixLogo" class="h-4 w-auto @(Model.RottenTomatoesAudienceRating == null ? "grayscale opacity-30" : "")" alt="Popcorn" />
+                                     </div>
+                                     <div class="flex flex-col">
+                                         <span class="text-[10px] font-black text-white uppercase tracking-wider">@(isFullMatrix ? "Popcorn" : "Splat")</span>
+                                         <span class="text-[8px] font-bold text-text-muted uppercase">RT Audience</span>
+                                     </div>
+                                 </div>
+                                 <span class="text-sm font-black text-white">@(Model.RottenTomatoesAudienceRating?.ToString() ?? "N/A")%</span>
+                             </div>
 
-                            <!-- Metascore -->
-                            <div class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 group/meta hover:bg-white/10 transition-all">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-lg bg-black border border-white/20 flex items-center justify-center">
-                                        <span class="text-xs font-black text-white">M</span>
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <span class="text-[10px] font-black text-white uppercase tracking-wider">Metascore</span>
-                                        <span class="text-[8px] font-bold text-text-muted uppercase">Global Critics</span>
-                                    </div>
-                                </div>
-                                @{
-                                    var matrixMetaColor = Model.MetacriticRating >= 61 ? "text-[#6c3]" : (Model.MetacriticRating >= 40 ? "text-[#fc3]" : "text-[#f33]");
-                                    if (Model.MetacriticRating == null) matrixMetaColor = "text-white";
-                                }
-                                <span class="text-sm font-black @matrixMetaColor">@(Model.MetacriticRating?.ToString() ?? "N/A")</span>
-                            </div>
+                             <!-- Metascore -->
+                             <div class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 group/meta hover:bg-white/10 transition-all">
+                                 <div class="flex items-center gap-3">
+                                     <div class="w-8 h-8 rounded-lg bg-black border border-white/20 flex items-center justify-center overflow-hidden">
+                                         <img src="/images/logos/metacritic.svg" class="h-5 w-auto object-contain" alt="Metacritic" />
+                                     </div>
+                                     <div class="flex flex-col">
+                                         <span class="text-[10px] font-black text-white uppercase tracking-wider">Metascore</span>
+                                         <span class="text-[8px] font-bold text-text-muted uppercase">Global Critics</span>
+                                     </div>
+                                 </div>
+                                 @{
+                                     var matrixMetaColor = Model.MetacriticRating >= 61 ? "text-[#6c3]" : (Model.MetacriticRating >= 40 ? "text-[#fc3]" : "text-[#f33]");
+                                     if (Model.MetacriticRating == null) matrixMetaColor = "text-white";
+                                 }
+                                 <span class="text-sm font-black @matrixMetaColor">@(Model.MetacriticRating?.ToString() ?? "N/A")</span>
+                             </div>
                         </div>
                         
                         <div class="pt-2">
@@ -810,6 +918,35 @@
                                     </div>
                                     <p class="text-sm font-black text-text-main dark:text-white truncate">@award.Name</p>
                                     <p class="text-[10px] font-bold text-text-muted truncate">@award.Category</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+            }
+
+            @if (Model.BoxOfficeEntries?.Any() == true)
+            {
+                <section>
+                    <div class="form-group-header !mb-8">
+                        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["BoxOfficeHistory"]</h2>
+                        <div class="h-1 w-12 bg-success-primary rounded-full mt-2"></div>
+                    </div>
+                    
+                    <div class="glass-premium p-6 rounded-3xl border border-glass-border shadow-2xl space-y-3">
+                        @foreach (var entry in Model.BoxOfficeEntries.OrderBy(e => e.Date))
+                        {
+                            <div class="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all group/box">
+                                <div class="flex flex-col">
+                                    <span class="text-[10px] font-black text-text-muted uppercase tracking-widest">@entry.Date.ToString("MMMM yyyy") &bull; @entry.Region</span>
+                                    <span class="text-sm font-black text-white group-hover/box:text-brand-primary transition-colors">@entry.EntryType</span>
+                                </div>
+                                <div class="text-right flex flex-col items-end">
+                                    <span class="text-lg font-black text-success-primary tracking-tighter">@entry.Revenue.ToString("C0", new System.Globalization.CultureInfo("en-US"))</span>
+                                    @if (Model.Budget.HasValue && Model.Budget > 0)
+                                    {
+                                        <span class="text-[9px] font-bold text-text-muted italic">@(( (double)entry.Revenue / Model.Budget.Value).ToString("P0")) of Budget</span>
+                                    }
                                 </div>
                             </div>
                         }

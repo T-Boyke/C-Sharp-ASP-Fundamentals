@@ -386,6 +386,14 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         film.Status = movie.Status;
         film.Tagline = movie.Tagline;
         film.Handlung = movie.Overview;
+        film.PosterUrl ??= string.IsNullOrEmpty(movie.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{movie.PosterPath}";
+        film.BackdropUrl ??= string.IsNullOrEmpty(movie.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{movie.BackdropPath}";
+        
+        var trailer = movie.Videos?.Results?.FirstOrDefault(v => v.Site == "YouTube" && v.Type == "Trailer");
+        if (trailer != null && string.IsNullOrEmpty(film.TrailerUrl))
+        {
+            film.TrailerUrl = $"https://www.youtube.com/embed/{trailer.Key}";
+        }
 
         // 1. Alternative Titles
         if (movie.AlternativeTitles?.Titles != null)
@@ -639,6 +647,43 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                 Console.WriteLine($"TVDB Enrichment Error: {ex.Message}");
             }
         }
+
+        /*
+        // 9. Watch Providers (Streaming) - Priority Region "DE"
+        if (movie.WatchProviders?.Results != null && movie.WatchProviders.Results.ContainsKey("DE"))
+        {
+            var de = movie.WatchProviders.Results["DE"];
+            context.WatchProviders.RemoveRange(film.WatchProviders);
+            film.WatchProviders.Clear(); 
+            
+            if (de.Flatrate != null)
+                foreach(var p in de.Flatrate) film.WatchProviders.Add(new WatchProvider { Name = p.ProviderName, LogoUrl = $"https://image.tmdb.org/t/p/original{p.LogoPath}", Type = "flatrate", DisplayPriority = p.DisplayPriority ?? 0 });
+            
+            if (de.Rent != null)
+                foreach(var p in de.Rent) film.WatchProviders.Add(new WatchProvider { Name = p.ProviderName, LogoUrl = $"https://image.tmdb.org/t/p/original{p.LogoPath}", Type = "rent", DisplayPriority = p.DisplayPriority ?? 0 });
+
+            if (de.Buy != null)
+                foreach(var p in de.Buy) film.WatchProviders.Add(new WatchProvider { Name = p.ProviderName, LogoUrl = $"https://image.tmdb.org/t/p/original{p.LogoPath}", Type = "buy", DisplayPriority = p.DisplayPriority ?? 0 });
+        }
+
+        // 10. Commercial Resources (Amazon / Physical Media)
+        if (!film.ExternalResources.Any(r => r.Type == "Amazon"))
+        {
+            film.ExternalResources.Add(new ExternalResource 
+            { 
+                Type = "Amazon", 
+                Label = "Amazon Store (DE)", 
+                Url = $"https://www.amazon.de/s?k={Uri.EscapeDataString(film.Titel)}+Blu-ray" 
+            });
+        }
+
+        // 11. Local Media (Placeholder / NAS Detection Logic)
+        if (string.IsNullOrEmpty(film.LocalNasPath))
+        {
+            // Future logic: Check file system for matches
+            // film.LocalNasPath = $"\\\\NAS\\Movies\\{film.Titel} ({film.Erscheinungsjahr}).mkv";
+        }
+        */
 
         // 🌀 Rotten Tomatoes Enrichment (Special Logic)
         try
@@ -944,14 +989,142 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     /// <returns>Redirect zur Index-View bei Erfolg, andernfalls die Edit-View mit Fehlern.</returns>
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Edit(Film film)
+    public async Task<IActionResult> Edit(Film film, string? SelectedCastJson = null, string? SelectedCrewJson = null, string? SelectedGenresJson = null, string? SelectedKeywordsJson = null, string? SelectedCompaniesJson = null, int? TmdbCollectionId = null, string? TmdbCollectionName = null)
     {
+        ModelState.Remove(nameof(film.PersonEigenschaftFilme));
+        ModelState.Remove(nameof(film.Genres));
+        ModelState.Remove(nameof(film.Keywords));
+        ModelState.Remove(nameof(film.ProductionCompanies));
+        ModelState.Remove(nameof(film.Collection));
+
         if (ModelState.IsValid)
         {
-            context.Update(film);
+            var dbFilm = await context.Filme
+                .Include(f => f.Genres)
+                .Include(f => f.Keywords)
+                .Include(f => f.ProductionCompanies)
+                .Include(f => f.PersonEigenschaftFilme)
+                .Include(f => f.Collection)
+                .FirstOrDefaultAsync(f => f.FilmID == film.FilmID);
+
+            if (dbFilm == null) return NotFound();
+
+            // Update scalar properties
+            context.Entry(dbFilm).CurrentValues.SetValues(film);
+
+            // Handle Collection Synchronization
+            if (TmdbCollectionId.HasValue)
+            {
+                var collection = await context.Collections.FirstOrDefaultAsync(c => c.TmdbId == TmdbCollectionId.Value);
+                if (collection == null && !string.IsNullOrEmpty(TmdbCollectionName))
+                {
+                    var colDetails = await tmdbService.GetCollectionDetailsAsync(TmdbCollectionId.Value);
+                    collection = new Collection
+                    {
+                        TmdbId = TmdbCollectionId.Value,
+                        Name = TmdbCollectionName,
+                        Overview = colDetails?.Overview,
+                        PosterUrl = string.IsNullOrEmpty(colDetails?.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{colDetails.PosterPath}",
+                        BackdropUrl = string.IsNullOrEmpty(colDetails?.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{colDetails.BackdropPath}"
+                    };
+                    context.Collections.Add(collection);
+                    await context.SaveChangesAsync();
+                }
+                dbFilm.CollectionID = collection?.CollectionID;
+            }
+
+            // Handle Genres
+            if (!string.IsNullOrEmpty(SelectedGenresJson))
+            {
+                var genreData = System.Text.Json.JsonSerializer.Deserialize<List<GenreDto>>(SelectedGenresJson);
+                if (genreData != null)
+                {
+                    dbFilm.Genres.Clear();
+                    foreach (var item in genreData)
+                    {
+                        var genre = context.Genres.Local.FirstOrDefault(g => g.TmdbId == item.Id)
+                                    ?? await context.Genres.FirstOrDefaultAsync(g => g.TmdbId == item.Id)
+                                    ?? await context.Genres.FirstOrDefaultAsync(g => g.Name == item.Name);
+
+                        if (genre == null)
+                        {
+                            genre = new Genre { Name = item.Name, TmdbId = item.Id };
+                            context.Genres.Add(genre);
+                        }
+                        dbFilm.Genres.Add(genre);
+                    }
+                }
+            }
+
+            // Handle Keywords
+            if (!string.IsNullOrEmpty(SelectedKeywordsJson))
+            {
+                var keywordData = System.Text.Json.JsonSerializer.Deserialize<List<KeywordDto>>(SelectedKeywordsJson);
+                if (keywordData != null)
+                {
+                    dbFilm.Keywords.Clear();
+                    foreach (var item in keywordData)
+                    {
+                        var keyword = context.Keywords.Local.FirstOrDefault(k => k.TmdbId == item.Id)
+                                      ?? await context.Keywords.FirstOrDefaultAsync(k => k.TmdbId == item.Id)
+                                      ?? await context.Keywords.FirstOrDefaultAsync(k => k.Name == item.Name);
+
+                        if (keyword == null)
+                        {
+                            keyword = new Keyword { Name = item.Name, TmdbId = item.Id };
+                            context.Keywords.Add(keyword);
+                        }
+                        dbFilm.Keywords.Add(keyword);
+                    }
+                }
+            }
+
+            // Handle Production Companies
+            if (!string.IsNullOrEmpty(SelectedCompaniesJson))
+            {
+                var companies = System.Text.Json.JsonSerializer.Deserialize<List<CompanyDto>>(SelectedCompaniesJson);
+                if (companies != null)
+                {
+                    dbFilm.ProductionCompanies.Clear();
+                    foreach (var item in companies)
+                    {
+                        var company = context.ProductionCompanies.Local.FirstOrDefault(c => c.TmdbId == item.Id)
+                                      ?? await context.ProductionCompanies.FirstOrDefaultAsync(c => c.TmdbId == item.Id)
+                                      ?? await context.ProductionCompanies.FirstOrDefaultAsync(c => c.Name == item.Name);
+
+                        if (company == null)
+                        {
+                            var studio = await tmdbService.GetCompanyDetailsAsync(item.Id);
+                            company = new ProductionCompany
+                            {
+                                Name = item.Name,
+                                TmdbId = item.Id,
+                                LogoUrl = string.IsNullOrEmpty(studio?.LogoPath) ? item.LogoUrl : $"https://image.tmdb.org/t/p/w500{studio.LogoPath}",
+                                OriginCountry = studio?.OriginCountry ?? item.OriginCountry,
+                                Headquarters = studio?.Headquarters,
+                                Homepage = studio?.Homepage,
+                                Description = studio?.Description
+                            };
+                            context.ProductionCompanies.Add(company);
+                        }
+                        dbFilm.ProductionCompanies.Add(company);
+                    }
+                }
+            }
+
+            // Handle Cast & Crew
+            if (SelectedCastJson != null || SelectedCrewJson != null)
+            {
+                // We clear old relations for simplicity in Edit or we could merge. 
+                // Let's merge or follow Create logic. Create logic doesn't clear because it's new.
+                // In Edit, syncing usually means replacing the cast with the selection.
+                context.PersonEigenschaftFilme.RemoveRange(dbFilm.PersonEigenschaftFilme);
+                await HandleCastCrewSync(SelectedCastJson, SelectedCrewJson, dbFilm, context, tmdbService);
+            }
+
             await context.SaveChangesAsync();
-            TempData["Success"] = "Änderungen wurden gespeichert.";
-            return RedirectToAction(nameof(Index));
+            TempData["Success"] = "Änderungen wurden erfolgreich gespeichert.";
+            return RedirectToAction(nameof(Details), new { id = dbFilm.FilmID });
         }
         return View(film);
     }
