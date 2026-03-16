@@ -390,7 +390,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         film.Handlung = movie.Overview;
         film.PosterUrl ??= string.IsNullOrEmpty(movie.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{movie.PosterPath}";
         film.BackdropUrl ??= string.IsNullOrEmpty(movie.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{movie.BackdropPath}";
-        
+
         var trailer = movie.Videos?.Results?.FirstOrDefault(v => v.Site == "YouTube" && v.Type == "Trailer");
         if (trailer != null && string.IsNullOrEmpty(film.TrailerUrl))
         {
@@ -652,8 +652,8 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         {
             var de = (dynamic)deObj;
             context.WatchProviders.RemoveRange(film.WatchProviders);
-            film.WatchProviders.Clear(); 
-            
+            film.WatchProviders.Clear();
+
             if (de.Flatrate != null)
                 foreach (var p in de.Flatrate) film.WatchProviders.Add(new WatchProvider { Name = p.ProviderName, LogoUrl = $"https://image.tmdb.org/t/p/original{p.LogoPath}", Type = "flatrate", DisplayPriority = p.DisplayPriority ?? 0 });
 
@@ -665,13 +665,13 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         }
 
         // 10. Commercial Resources (Amazon / Physical Media)
-        if (!film.ExternalResources.Any(r => r.Type == "Amazon"))
+        if (film.ExternalResources.Count == 0 || !film.ExternalResources.Any(r => r.Type == "Amazon"))
         {
-            film.ExternalResources.Add(new ExternalResource 
-            { 
-                Type = "Amazon", 
-                Label = "Amazon Store (DE)", 
-                Url = $"https://www.amazon.de/s?k={Uri.EscapeDataString(film.Titel)}+Blu-ray" 
+            film.ExternalResources.Add(new ExternalResource
+            {
+                Type = "Amazon",
+                Label = "Amazon Store (DE)",
+                Url = $"https://www.amazon.de/s?k={Uri.EscapeDataString(film.Titel)}+Blu-ray"
             });
         }
 
@@ -854,7 +854,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         }
     }
 
-    private async Task HandleCastCrewSync(string? castJson, string? crewJson, Film film, ApplicationDbContext context, ITmdbService tmdbService)
+    private static async Task HandleCastCrewSync(string? castJson, string? crewJson, Film film, ApplicationDbContext context, ITmdbService tmdbService)
     {
         // 1. Handle Cast
         if (!string.IsNullOrEmpty(castJson))
@@ -871,7 +871,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
 
                     foreach (var item in castItems)
                     {
-                        var person = await GetOrCreatePerson(item.id, item.name, item.profileUrl, context, tmdbService);
+                        var person = await GetOrCreatePerson(item.Id, item.Name, item.ProfileUrl, context, tmdbService);
                         if (person != null && !film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == actorProperty.EigenschaftID))
                         {
                             context.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = actorProperty.EigenschaftID });
@@ -892,12 +892,12 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                 {
                     foreach (var item in crewItems)
                     {
-                        var property = await context.Eigenschaften.FirstOrDefaultAsync(e => e.Bezeichnung == item.job)
-                                       ?? new Eigenschaft { Bezeichnung = item.job };
+                        var property = await context.Eigenschaften.FirstOrDefaultAsync(e => e.Bezeichnung == item.Job)
+                                       ?? new Eigenschaft { Bezeichnung = item.Job };
 
                         if (property.EigenschaftID == 0) { context.Eigenschaften.Add(property); await context.SaveChangesAsync(); }
 
-                        var person = await GetOrCreatePerson(item.id, item.name, item.profileUrl, context, tmdbService);
+                        var person = await GetOrCreatePerson(item.Id, item.Name, item.ProfileUrl, context, tmdbService);
                         if (person != null && !film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == property.EigenschaftID))
                         {
                             context.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = property.EigenschaftID });
