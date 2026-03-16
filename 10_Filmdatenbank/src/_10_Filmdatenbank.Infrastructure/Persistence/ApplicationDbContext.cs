@@ -95,6 +95,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<BoxOfficeEntry> BoxOfficeEntries { get; set; } = null!;
     public DbSet<WatchProvider> WatchProviders { get; set; } = null!;
     public DbSet<ExternalResource> ExternalResources { get; set; } = null!;
+    public DbSet<MetacriticReview> MetacriticReviews { get; set; } = null!;
 
     /// <summary>
     /// Die Tabelle für Auszeichnungen von Personen.
@@ -424,6 +425,15 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.HasKey(e => e.ExternalResourceID);
             entity.HasOne(e => e.Film)
                 .WithMany(f => f.ExternalResources)
+                .HasForeignKey(e => e.FilmID)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<MetacriticReview>(entity => 
+        {
+            entity.HasKey(e => e.MetacriticReviewID);
+            entity.HasOne(e => e.Film)
+                .WithMany(f => f.MetacriticReviews)
                 .HasForeignKey(e => e.FilmID)
                 .OnDelete(DeleteBehavior.Cascade);
         });

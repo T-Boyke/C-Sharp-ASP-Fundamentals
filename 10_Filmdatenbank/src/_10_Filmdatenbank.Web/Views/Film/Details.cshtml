@@ -309,16 +309,31 @@
                              </div>
                              <!-- Metacritic -->
                              <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
-                                 <div class="flex items-center gap-2 mb-2">
-                                     <img src="/images/logos/metacritic.svg" class="h-3 w-auto" alt="Metascore" />
-                                     <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">Metascore</span>
+                                <div class="flex items-center justify-between mb-2">
+                                     <div class="flex items-center gap-2">
+                                         <img src="/images/logos/metacritic.svg" class="h-3 w-auto" alt="Metascore" />
+                                         <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">Metascore</span>
+                                     </div>
+                                     @if (!string.IsNullOrEmpty(Model.MetacriticUrl))
+                                     {
+                                         <a href="@Model.MetacriticUrl" target="_blank" class="text-[8px] font-black text-brand-primary hover:underline group-hover/stat:translate-x-0.5 transition-transform">Link <i class="fa-solid fa-external-link text-[6px]"></i></a>
+                                     }
                                  </div>
-                                @{
-                                    var consensusMetaColor = Model.MetacriticRating >= 61 ? "text-[#6c3]" : (Model.MetacriticRating >= 40 ? "text-[#fc3]" : "text-[#f33]");
-                                    if (Model.MetacriticRating == null) consensusMetaColor = "text-white";
-                                }
-                                <span class="text-lg font-black @consensusMetaColor">@(Model.MetacriticRating?.ToString() ?? "N/A")</span>
-                            </div>
+                                 <div class="flex items-baseline gap-3">
+                                    @{
+                                        var consensusMetaColorClass = Model.MetacriticRating >= 61 ? "bg-metascore-high" : (Model.MetacriticRating >= 40 ? "bg-metascore-med" : "bg-metascore-low");
+                                        if (Model.MetacriticRating == null) consensusMetaColorClass = "bg-surface-soft";
+                                    }
+                                    <span class="px-2 py-0.5 rounded text-lg font-black text-black @consensusMetaColorClass">@(Model.MetacriticRating?.ToString() ?? "N/A")</span>
+                                    @if (Model.MetacriticUserScore.HasValue)
+                                    {
+                                        <div class="flex flex-col">
+                                            <span class="text-[8px] font-black text-text-muted uppercase leading-none">User</span>
+                                            <span class="text-sm font-black text-white leading-tight">@Model.MetacriticUserScore.Value.ToString("0.0")</span>
+                                        </div>
+                                    }
+                                 </div>
+                             </div>
                              <!-- Rotten Tomatoes Critics -->
                              <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
                                  <div class="flex items-center gap-2 mb-2">
@@ -973,6 +988,67 @@
                                 class="rounded-2xl"></iframe>
                         
                         <div class="absolute inset-x-0 -bottom-1 h-2 bg-brand-primary opacity-50 group-hover:opacity-100 transition-opacity blur-sm"></div>
+                    </div>
+                </section>
+            }
+
+            <!-- Metacritic Deep Reviews -->
+            @if (Model.MetacriticReviews?.Any() == true)
+            {
+                <section class="mb-16">
+                    <div class="form-group-header !mb-10 flex items-center justify-between">
+                        <div>
+                            <h2 class="text-3xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["ExpertCritique"]</h2>
+                            <div class="h-1.5 w-24 bg-metascore-high rounded-full mt-3 shadow-[0_0_15px_#6c3]"></div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <img src="/images/logos/metacritic.svg" class="h-6 w-auto grayscale opacity-50 contrast-125" alt="" />
+                            <span class="badge-premium !bg-metascore-bg !text-metascore-high border-metascore-high/50">@Model.MetacriticReviews.Count Reviews</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        @foreach (var review in Model.MetacriticReviews)
+                        {
+                            <div class="glass-premium p-8 rounded-[2.5rem] border border-white/5 relative overflow-hidden group/review hover:border-brand-primary/20 transition-all duration-500">
+                                <div class="absolute -top-10 -right-10 w-40 h-40 bg-brand-primary/5 blur-[60px] group-hover/review:bg-brand-primary/10 transition-all duration-1000"></div>
+                                
+                                <div class="flex flex-col md:flex-row md:items-start gap-8 relative z-10">
+                                    <div class="shrink-0 flex flex-col items-center">
+                                        @{
+                                            var scoreColor = review.Score >= 61 ? "bg-metascore-high" : (review.Score >= 40 ? "bg-metascore-med" : "bg-metascore-low");
+                                            if (review.Score == null) scoreColor = "bg-surface-soft";
+                                        }
+                                        <div class="w-16 h-16 rounded-2xl @scoreColor flex items-center justify-center shadow-2xl shadow-black/20 group-hover/review:scale-110 transition-transform duration-500">
+                                            <span class="text-2xl font-black text-black">@(review.Score?.ToString() ?? "?")</span>
+                                        </div>
+                                        <div class="mt-4 h-12 w-px bg-linear-to-b from-white/20 to-transparent md:block hidden"></div>
+                                    </div>
+
+                                    <div class="flex-1 space-y-4">
+                                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                            <div class="flex flex-col">
+                                                <h4 class="text-lg font-black text-white leading-none">@review.Publication</h4>
+                                                @if (!string.IsNullOrEmpty(review.Author))
+                                                {
+                                                    <span class="text-[10px] font-bold text-brand-primary uppercase tracking-widest mt-1">By @review.Author</span>
+                                                }
+                                            </div>
+                                            @if (!string.IsNullOrEmpty(review.ReviewUrl))
+                                            {
+                                                <a href="@review.ReviewUrl" target="_blank" class="px-4 py-2 rounded-xl bg-white/5 border border-white/5 hover:bg-brand-primary/10 hover:border-brand-primary/30 text-[10px] font-black text-text-muted hover:text-white transition-all uppercase tracking-widest flex items-center gap-2">
+                                                    Full Review <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                                </a>
+                                            }
+                                        </div>
+
+                                        <blockquote class="text-lg text-text-white-bright leading-relaxed italic border-l-4 border-white/5 pl-6 py-2">
+                                            "@review.Content"
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </section>
             }

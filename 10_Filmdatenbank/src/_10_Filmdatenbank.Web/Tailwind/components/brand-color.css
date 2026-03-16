@@ -139,6 +139,12 @@
   --color-accent-instagram-from: #f9ce34;
   --color-accent-instagram-via: #ee2a7b;
   --color-accent-instagram-to: #6228d7;
+  
+  /* Metacritic Scoring Palette */
+  --color-metascore-bg: #000000;
+  --color-metascore-high: #66cc33; 
+  --color-metascore-med: #ffcc33;
+  --color-metascore-low: #ff0000;
 
   /* Glassmorphism & Alpha effects */
   --color-white-a5: color-mix(in srgb, white, transparent 95%);

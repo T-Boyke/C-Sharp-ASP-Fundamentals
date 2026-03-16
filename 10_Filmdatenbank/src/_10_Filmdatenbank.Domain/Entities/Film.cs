@@ -170,6 +170,21 @@ public class Film
     public int? MetacriticRating { get; set; }
 
     /// <summary>
+    /// Die durchschnittliche Nutzerwertung von Metacritic (0.0 - 10.0).
+    /// </summary>
+    public double? MetacriticUserScore { get; set; }
+
+    /// <summary>
+    /// Die URL zur Metacritic-Seite des Films.
+    /// </summary>
+    public string? MetacriticUrl { get; set; }
+
+    /// <summary>
+    /// Die "Deep" Kritiker-Rezensionen von Metacritic.
+    /// </summary>
+    public virtual ICollection<MetacriticReview> MetacriticReviews { get; set; } = new List<MetacriticReview>();
+
+    /// <summary>
     /// Die URL zum Hintergrundbild (Backdrop).
     /// </summary>
     public string? BackdropUrl { get; set; }

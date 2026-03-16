@@ -58,7 +58,10 @@
   <data name="RatingsMatrix" xml:space="preserve"><value>Bewertungs-Matrix</value></data>
   <data name="Critics" xml:space="preserve"><value>Kritiker</value></data>
   <data name="Audience" xml:space="preserve"><value>Zuschauer</value></data>
-  <data name="SyncNote" xml:space="preserve"><value>Synchronisiert von TMDB, TVDB, IMDB und Rotten Tomatoes.</value></data>
+  <data name="SyncNote" xml:space="preserve"><value>Synchronisiert von TMDB, TVDB, IMDB, Metacritic und Rotten Tomatoes.</value></data>
+  <data name="CriticalConsensus" xml:space="preserve"><value>Kritiker-Konsens</value></data>
+  <data name="ExpertCritique" xml:space="preserve"><value>Experten-Kritik</value></data>
+  <data name="ProductionInsights" xml:space="preserve"><value>Produktions-Einblicke</value></data>
   <data name="YourCouchRating" xml:space="preserve"><value>Deine Couch-Bewertung</value></data>
   <data name="RateNow" xml:space="preserve"><value>Jetzt bewerten</value></data>
   <data name="Ranking" xml:space="preserve"><value>Ranking</value></data>

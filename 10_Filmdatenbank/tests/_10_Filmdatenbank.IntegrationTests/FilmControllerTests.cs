@@ -17,6 +17,7 @@ namespace _10_Filmdatenbank.IntegrationTests.Web
         private readonly Mock<ITvdbService> _mockTvdbService = new();
         private readonly Mock<IRottenTomatoesService> _mockRtService = new();
         private readonly Mock<IImdbService> _mockImdbService = new();
+        private readonly Mock<IMetacriticService> _mockMetacriticService = new();
         private readonly Mock<IWikidataService> _mockWikidataService = new();
         private readonly Mock<UserManager<ApplicationUser>> _mockUserManager;
 
@@ -44,6 +45,7 @@ namespace _10_Filmdatenbank.IntegrationTests.Web
                 _mockTvdbService.Object, 
                 _mockRtService.Object, 
                 _mockImdbService.Object, 
+                _mockMetacriticService.Object,
                 _mockWikidataService.Object, 
                 _mockUserManager.Object);
         }

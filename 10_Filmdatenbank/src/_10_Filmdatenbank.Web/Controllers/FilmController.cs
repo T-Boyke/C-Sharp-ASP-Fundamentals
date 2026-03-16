@@ -15,7 +15,7 @@ namespace _10_Filmdatenbank.Web.Controllers;
 [Authorize]
 [Route("Movies")]
 [Route("Movies/[action]")]
-public class FilmController(ApplicationDbContext context, ITmdbService tmdbService, ITvdbService tvdbService, IRottenTomatoesService rtService, IImdbService imdbService, IWikidataService wikidataService, UserManager<ApplicationUser> userManager) : Controller
+public class FilmController(ApplicationDbContext context, ITmdbService tmdbService, ITvdbService tvdbService, IRottenTomatoesService rtService, IImdbService imdbService, IMetacriticService metacriticService, IWikidataService wikidataService, UserManager<ApplicationUser> userManager) : Controller
 {
     /// <summary>
     /// Zeigt eine Liste aller Filme an.
@@ -68,6 +68,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             .Include(f => f.AlternativeTitles)
             .Include(f => f.SimilarFilms)
             .Include(f => f.RecommendedFilms)
+            .Include(f => f.MetacriticReviews)
             .Include(f => f.PersonEigenschaftFilme)
                 .ThenInclude(pef => pef.Person)
             .Include(f => f.PersonEigenschaftFilme)
@@ -164,6 +165,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             .Include(f => f.PersonEigenschaftFilme)
                 .ThenInclude(pef => pef.Person)
             .Include(f => f.FilmAwards)
+            .Include(f => f.MetacriticReviews)
             .FirstOrDefaultAsync(f => f.FilmID == id);
         if (film == null) return NotFound();
 
@@ -721,6 +723,39 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             {
                 Console.WriteLine($"IMDb Enrichment Error: {ex.Message}");
             }
+        }
+
+        // 🧪 Metacritic Deep Scraping (Expert Reviews & User Scores)
+        try
+        {
+            var mcData = await metacriticService.GetDeepMetadataAsync(film.Titel, film.Erscheinungsdatum?.Year);
+            if (mcData != null)
+            {
+                if (mcData.Metascore.HasValue) film.MetacriticRating = mcData.Metascore.Value;
+                if (mcData.UserScore.HasValue) film.MetacriticUserScore = mcData.UserScore.Value;
+                if (!string.IsNullOrEmpty(mcData.MetacriticUrl)) film.MetacriticUrl = mcData.MetacriticUrl;
+
+                // Sync Reviews
+                context.MetacriticReviews.RemoveRange(film.MetacriticReviews);
+                film.MetacriticReviews.Clear();
+
+                foreach (var r in mcData.Reviews)
+                {
+                    film.MetacriticReviews.Add(new MetacriticReview
+                    {
+                        Author = r.Author,
+                        Publication = r.Publication,
+                        Score = r.Score,
+                        Content = r.Snippet ?? "",
+                        ReviewUrl = r.ReviewUrl
+                    });
+                }
+                Console.WriteLine($"Metacritic Deep Enrichment Success: {film.Titel} -> {film.MetacriticReviews.Count} reviews");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Metacritic Deep Enrichment Error: {ex.Message}");
         }
 
         // 🏛️ Wikidata Enrichment (Studios & People)

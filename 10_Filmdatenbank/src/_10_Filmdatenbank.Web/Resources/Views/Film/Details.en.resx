@@ -43,7 +43,10 @@
   <data name="RatingsMatrix" xml:space="preserve"><value>Ratings Matrix</value></data>
   <data name="Critics" xml:space="preserve"><value>Critics</value></data>
   <data name="Audience" xml:space="preserve"><value>Audience</value></data>
-  <data name="SyncNote" xml:space="preserve"><value>Synchronized from TMDB, TVDB, IMDB and Rotten Tomatoes.</value></data>
+  <data name="SyncNote" xml:space="preserve"><value>Synchronized from TMDB, TVDB, IMDB, Metacritic and Rotten Tomatoes.</value></data>
+  <data name="CriticalConsensus" xml:space="preserve"><value>Critical Consensus</value></data>
+  <data name="ExpertCritique" xml:space="preserve"><value>Expert Critique</value></data>
+  <data name="ProductionInsights" xml:space="preserve"><value>Production Insights</value></data>
   <data name="YourCouchRating" xml:space="preserve"><value>Your Couch Rating</value></data>
   <data name="RateNow" xml:space="preserve"><value>Rate Now</value></data>
   <data name="Ranking" xml:space="preserve"><value>Ranking</value></data>

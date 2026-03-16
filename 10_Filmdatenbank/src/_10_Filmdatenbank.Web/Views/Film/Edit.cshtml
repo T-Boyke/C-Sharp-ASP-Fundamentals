@@ -198,25 +198,46 @@
                                         <input asp-for="InstagramId" id="inputInstagramId" class="px-3 py-2 rounded-lg bg-surface-bright dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold" />
                                     </div>
                                     <div class="flex flex-col gap-1.5">
-                                        <label for="inputTwitterId" class="text-[9px] font-bold text-text-muted uppercase">Twitter ID</label>
-                                        <input asp-for="TwitterId" id="inputTwitterId" class="px-3 py-2 rounded-lg bg-white dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold" />
+                                        <label for="inputTwitterId" class="text-[9px] font-bold text-text-muted uppercase">Twitter / X ID</label>
+                                        <input asp-for="TwitterId" id="inputTwitterId" class="px-3 py-2 rounded-lg bg-surface-bright dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold" />
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4 border-t border-border-muted dark:border-dark-border">
+                                    <div class="flex flex-col gap-1.5">
+                                        <label for="inputMetacriticRating" class="text-[9px] font-bold text-text-muted uppercase">Metascore</label>
+                                        <input asp-for="MetacriticRating" id="inputMetacriticRating" class="px-3 py-2 rounded-lg bg-surface-bright dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold placeholder-text-muted/50" placeholder="z.B. 85" />
                                     </div>
                                     <div class="flex flex-col gap-1.5">
+                                        <label for="inputMetacriticUserScore" class="text-[9px] font-bold text-text-muted uppercase">Metacritic User Score</label>
+                                        <input asp-for="MetacriticUserScore" id="inputMetacriticUserScore" step="0.1" class="px-3 py-2 rounded-lg bg-surface-bright dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold placeholder-text-muted/50" placeholder="z.B. 8.2" />
+                                    </div>
+                                    <div class="flex flex-col gap-1.5">
+                                        <label for="inputMetacriticUrl" class="text-[9px] font-bold text-text-muted uppercase">Metacritic URL (Deep Link)</label>
+                                        <input asp-for="MetacriticUrl" id="inputMetacriticUrl" class="px-3 py-2 rounded-lg bg-surface-bright dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold placeholder-text-muted/50" placeholder="https://www.metacritic.com/movie/..." />
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4 border-t border-border-muted dark:border-dark-border">
+                                    <div class="flex flex-col gap-1.5">
                                         <label for="inputWikidataId" class="text-[9px] font-bold text-text-muted uppercase">Wikidata ID</label>
-                                        <input asp-for="WikidataId" id="inputWikidataId" class="px-3 py-2 rounded-lg bg-white dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold" />
+                                        <input asp-for="WikidataId" id="inputWikidataId" class="px-3 py-2 rounded-lg bg-surface-bright dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold" />
                                     </div>
                                     <div class="flex flex-col gap-1.5">
                                         <label for="inputPopularity" class="text-[9px] font-bold text-text-muted uppercase">Beliebtheit</label>
-                                        <input asp-for="Popularity" id="inputPopularity" type="number" step="0.1" class="px-3 py-2 rounded-lg bg-white dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold" />
+                                        <input asp-for="Popularity" id="inputPopularity" type="number" step="0.1" class="px-3 py-2 rounded-lg bg-surface-bright dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold" />
+                                    </div>
+                                    <div class="flex flex-col gap-1.5">
+                                        <label for="inputVotes" class="text-[9px] font-bold text-text-muted uppercase">Stimmen gesamt</label>
+                                        <input asp-for="StimmenGesamt" id="inputVotes" type="number" class="px-3 py-2 rounded-lg bg-surface-bright dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold" />
                                     </div>
                                     <div class="flex flex-col gap-1.5">
                                         <label for="inputLang" class="text-[9px] font-bold text-text-muted uppercase">Originalsprache (ISO)</label>
-                                        <input asp-for="OriginalLanguage" id="inputOriginalLanguage" class="px-3 py-2 rounded-lg bg-white dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold" />
+                                        <input asp-for="OriginalLanguage" id="inputOriginalLanguage" class="px-3 py-2 rounded-lg bg-surface-bright dark:bg-dark-surface-soft border border-border-muted dark:border-dark-border text-xs font-bold" />
                                     </div>
-                                     <div class="flex items-center gap-3 pt-4">
+                                    <div class="flex items-center gap-3 pt-6 lg:pt-0">
                                          <input asp-for="Adult" id="inputAdult" type="checkbox" class="w-5 h-5 rounded border-border-default dark:border-dark-border text-brand-primary" />
                                          <label for="inputAdult" class="text-xs font-bold">Nur für Erwachsene</label>
-                                     </div>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -229,7 +250,6 @@
                          </button>
                     </div>
                 </div>
-            </div>
         </form>
     </div>
 </div>
