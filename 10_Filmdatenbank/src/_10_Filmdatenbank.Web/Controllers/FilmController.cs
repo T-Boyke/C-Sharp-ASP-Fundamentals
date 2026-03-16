@@ -654,8 +654,8 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             context.WatchProviders.RemoveRange(film.WatchProviders);
             film.WatchProviders.Clear();
 
-            if (de.Flatrate != null)
-                foreach (var p in de.Flatrate) film.WatchProviders.Add(new WatchProvider { Name = p.ProviderName, LogoUrl = $"https://image.tmdb.org/t/p/original{p.LogoPath}", Type = "flatrate", DisplayPriority = p.DisplayPriority ?? 0 });
+            if (de.FlatRate != null)
+                foreach (var p in de.FlatRate) film.WatchProviders.Add(new WatchProvider { Name = p.ProviderName, LogoUrl = $"https://image.tmdb.org/t/p/original{p.LogoPath}", Type = "flatrate", DisplayPriority = p.DisplayPriority ?? 0 });
 
             if (de.Rent != null)
                 foreach (var p in de.Rent) film.WatchProviders.Add(new WatchProvider { Name = p.ProviderName, LogoUrl = $"https://image.tmdb.org/t/p/original{p.LogoPath}", Type = "rent", DisplayPriority = p.DisplayPriority ?? 0 });
