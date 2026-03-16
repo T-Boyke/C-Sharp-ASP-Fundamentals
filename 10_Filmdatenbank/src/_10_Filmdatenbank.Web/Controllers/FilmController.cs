@@ -376,8 +376,8 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         var movie = await tmdbService.GetMovieDetailsAsync(film.TmdbId.Value);
         if (movie == null) return;
 
-        // 0. Base Stats (Overwrite to ensure 0-10 scale even if form post messed up culture)
-        film.VoteAverage = movie.VoteAverage;
+        // 0. Base Stats (Safe mapping with 0-10 normalization)
+        film.VoteAverage = movie.VoteAverage > 100 ? movie.VoteAverage / 1000.0 : (movie.VoteAverage > 10 ? movie.VoteAverage / 10.0 : movie.VoteAverage);
         film.VoteCount = movie.VoteCount;
         film.Popularity = movie.Popularity;
         film.Budget = movie.Budget;
@@ -625,14 +625,16 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                         // TVDB Score normalization: Logic depends on the range. 
                         // If it's a huge popularity number (e.g. 127000), we don't use it as rating.
                         // If it's in a reasonable range (0-100 or 0-10), we normalize it to 10.
-                        var score = tvdbDetails.Score.Value;
+                        double score = tvdbDetails.Score.Value;
                         if (score > 1000)
                         {
-                            // Better: TVDB Rating is often NULL if not present.
-                            film.TvdbRating = null;
+                            // This is likely a popularity score (e.g. 127000), not a rating. 
+                            // We don't want to show this as /10 in the UI.
+                            film.TvdbRating = null; 
                         }
                         else
                         {
+                            // Map 0-100 to 0-10
                             film.TvdbRating = score > 10 ? score / 10.0 : score;
                         }
                     }

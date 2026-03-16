@@ -27,14 +27,14 @@
     }
 
     .flyout-content {
-        @apply absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm dark:bg-dark-surface dark:ring-white/10;
+        @apply w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-border-default dark:bg-dark-surface dark:ring-dark-border;
     }
 
     .flyout-item {
-        @apply group relative flex gap-x-6 rounded-lg p-4 hover:bg-surface-muted dark:hover:bg-dark-surface-soft;
+        @apply relative flex gap-x-6 rounded-lg p-4 hover:bg-surface-muted dark:hover:bg-dark-surface-soft;
     }
 
     .flyout-icon {
-        @apply mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-surface-muted group-hover:bg-white dark:bg-dark-surface-soft dark:group-hover:bg-dark-surface;
+        @apply mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-surface-muted dark:bg-dark-surface-soft;
     }
 }

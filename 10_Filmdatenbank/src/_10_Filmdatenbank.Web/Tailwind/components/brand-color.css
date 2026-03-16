@@ -28,27 +28,28 @@
   /* Star Highlight */
   --color-star-primary: #fcd34d; /* Yellow 300 */
   
-  /* New Semantic Text Variables */
-  --color-text-main: #0f172a; /* Slate 900 */
+  /* Base Semantic Colors - LIGHT MODE */
+  --color-text-main: #020617;      /* Slate 950 for massive contrast */
   --color-dark-text-main: #f8fafc; /* Slate 50 */
   --color-text-secondary: #334155; /* Slate 700 */
   --color-dark-text-secondary: #cbd5e1; /* Slate 300 - better contrast */
-  --color-text-muted: #64748b; /* Slate 500 */
+  --color-text-muted: #64748b;    /* Slate 500 */
   --color-dark-text-muted: #94a3b8; /* Slate 400 */
   --color-text-subtle: #94a3b8; /* Slate 400 */
   --color-dark-text-subtle: #475569; /* Slate 600 */
+  --color-text-description: #1e293b; /* Slate 800 */
   
   /* 
      ==========================================================================
      NAVIGATION SYSTEM
      ==========================================================================
   */
-  --color-nav-bg: var(--color-slate-950);
-  --color-nav-border: var(--color-slate-800);
-  --color-nav-link: var(--color-slate-400);
+  --color-nav-bg: #020617; /* Slate 950 base */
+  --color-nav-border: #0f172a; /* Slate 900 */
+  --color-nav-link: #94a3b8; /* Slate 400 */
   --color-nav-link-hover: var(--color-white);
-  --color-nav-surface: var(--color-slate-900);
-  --color-nav-accent: var(--color-slate-800); /* Dividers etc. */
+  --color-nav-surface: #0f172a;
+  --color-nav-accent: #1e293b; /* Dividers etc. */
 
   /* 
      ==========================================================================
@@ -57,7 +58,6 @@
   */
   --color-border-muted: var(--color-slate-100);
   --color-border-default: var(--color-slate-200);
-  --color-text-description: var(--color-slate-500);
   
   /* Dark Mode Specific Extensions */
   --color-dark-surface: #020617; /* Slate 950 base */
@@ -72,44 +72,44 @@
      ==========================================================================
   */
   
-  /* Success (Emerald) */
-  --color-success-primary: var(--color-emerald-600);
-  --color-success-content: var(--color-emerald-700);
-  --color-success-bg: var(--color-emerald-50);
-  --color-success-border: var(--color-emerald-100);
-  --color-success-dark-content: var(--color-emerald-400);
-  --color-success-dark-bg: color-mix(in srgb, var(--color-emerald-950), transparent 70%);
-  --color-success-dark-border: color-mix(in srgb, var(--color-emerald-800), transparent 50%);
-  --color-success-vibrant: var(--color-emerald-500);
+  /* Success (Premium Emerald) */
+  --color-success-primary: #059669; /* Emerald 600 */
+  --color-success-content: #064e3b; /* Emerald 900 */
+  --color-success-bg: #ecfdf5; /* Emerald 50 */
+  --color-success-border: #d1fae5; /* Emerald 100 */
+  --color-success-dark-content: #34d399; /* Emerald 400 */
+  --color-success-dark-bg: color-mix(in srgb, #064e3b, transparent 80%);
+  --color-success-dark-border: color-mix(in srgb, #059669, transparent 60%);
+  --color-success-vibrant: #10b981;
 
-  /* Danger / Error (Red) */
-  --color-danger-primary: var(--color-red-600);
-  --color-danger-content: var(--color-red-700);
-  --color-danger-bg: var(--color-red-50);
-  --color-danger-border: var(--color-red-100);
-  --color-danger-dark-content: var(--color-red-400);
-  --color-danger-dark-bg: color-mix(in srgb, var(--color-red-950), transparent 70%);
-  --color-danger-dark-border: color-mix(in srgb, var(--color-red-800), transparent 50%);
-  --color-danger-vibrant: var(--color-red-500);
-  --color-danger-hover: var(--color-red-700);
+  /* Danger / Error (Premium Rose-Red) */
+  --color-danger-primary: #e11d48; /* Rose 600 */
+  --color-danger-content: #4c0519; /* Rose 950 */
+  --color-danger-bg: #fff1f2; /* Rose 50 */
+  --color-danger-border: #ffe4e6; /* Rose 100 */
+  --color-danger-dark-content: #fb7185; /* Rose 400 */
+  --color-danger-dark-bg: color-mix(in srgb, #4c0519, transparent 80%);
+  --color-danger-dark-border: color-mix(in srgb, #e11d48, transparent 60%);
+  --color-danger-vibrant: #f43f5e;
+  --color-danger-hover: #be123c;
 
-  /* Warning (Amber) */
-  --color-warning-primary: var(--color-amber-600);
-  --color-warning-content: var(--color-amber-700);
-  --color-warning-bg: var(--color-amber-50);
-  --color-warning-border: var(--color-amber-100);
-  --color-warning-dark-content: var(--color-amber-400);
-  --color-warning-dark-bg: color-mix(in srgb, var(--color-amber-950), transparent 70%);
-  --color-warning-dark-border: color-mix(in srgb, var(--color-amber-800), transparent 50%);
+  /* Warning (Premium Amber) */
+  --color-warning-primary: #d97706; /* Amber 600 */
+  --color-warning-content: #451a03; /* Amber 950 */
+  --color-warning-bg: #fffbeb; /* Amber 50 */
+  --color-warning-border: #fef3c7; /* Amber 100 */
+  --color-warning-dark-content: #fbbf24; /* Amber 400 */
+  --color-warning-dark-bg: color-mix(in srgb, #451a03, transparent 80%);
+  --color-warning-dark-border: color-mix(in srgb, #d97706, transparent 60%);
 
-  /* Info (Sky) */
-  --color-info-primary: var(--color-sky-600);
-  --color-info-content: var(--color-sky-700);
-  --color-info-bg: var(--color-sky-50);
-  --color-info-border: var(--color-sky-100);
-  --color-info-dark-content: var(--color-sky-400);
-  --color-info-dark-bg: color-mix(in srgb, var(--color-sky-950), transparent 70%);
-  --color-info-dark-border: color-mix(in srgb, var(--color-sky-800), transparent 50%);
+  /* Info (Premium Indigo) - Distinct from Azure primary */
+  --color-info-primary: #4f46e5; /* Indigo 600 */
+  --color-info-content: #1e1b4b; /* Indigo 950 */
+  --color-info-bg: #eef2ff; /* Indigo 50 */
+  --color-info-border: #e0e7ff; /* Indigo 100 */
+  --color-info-dark-content: #818cf8; /* Indigo 400 */
+  --color-info-dark-bg: color-mix(in srgb, #1e1b4b, transparent 80%);
+  --color-info-dark-border: color-mix(in srgb, #4f46e5, transparent 60%);
 
   /* 
      ==========================================================================
@@ -198,12 +198,13 @@
 }
 
 @utility toggle-slider {
-  @apply absolute cursor-pointer inset-0 transition-all duration-300 rounded-full;
-  background-color: #e2e8f0;
+  @apply absolute cursor-pointer inset-0 transition-all duration-300 rounded-full border border-black/10;
+  background-color: #f1f5f9; /* Slate 100 */
 }
 
 .dark [class*="toggle-slider"] {
-  background-color: #334155;
+  background-color: #1e293b; /* Slate 800 for better contrast against deep background */
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .toggle-slider::before {
@@ -215,40 +216,45 @@
 }
 
 input:checked + .toggle-slider {
-  background-color: var(--color-brand-primary, #8b5cf6);
+  background-color: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+}
+
+.toggle-input:focus-visible + .toggle-slider {
+  @apply ring-2 ring-brand-primary ring-offset-2;
 }
 
 input:checked + .toggle-slider::before {
   transform: translateX(20px);
 }
 
-/* Theme Presets */
-:root[data-theme="emerald"] {
-  --theme-primary: var(--color-emerald-600);
-  --theme-hover: var(--color-emerald-700);
-  --theme-soft: var(--color-emerald-50);
-  --theme-border: var(--color-emerald-200);
+/* Theme Presets - Premium Gallery */
+:root[data-theme="mint"] {
+  --theme-primary: #059669; /* Emerald 600 */
+  --theme-hover: #047857;
+  --theme-soft: #ecfdf5;
+  --theme-border: #d1fae5;
 }
 
-:root[data-theme="sunset"] {
-  --theme-primary: var(--color-orange-600);
-  --theme-hover: var(--color-orange-700);
-  --theme-soft: var(--color-orange-50);
-  --theme-border: var(--color-orange-200);
+:root[data-theme="coral"] {
+  --theme-primary: #f43f5e; /* Rose 500 */
+  --theme-hover: #e11d48;
+  --theme-soft: #fff1f2;
+  --theme-border: #ffe4e6;
 }
 
-:root[data-theme="midnight"] {
-  --theme-primary: var(--color-blue-700);
-  --theme-hover: var(--color-blue-800);
-  --theme-soft: var(--color-blue-50);
-  --theme-border: var(--color-blue-200);
+:root[data-theme="ocean"] {
+  --theme-primary: #0284c7; /* Sky 600 */
+  --theme-hover: #0369a1;
+  --theme-soft: #f0f9ff;
+  --theme-border: #e0f2fe;
 }
 
-:root[data-theme="mocha"] {
-  --theme-primary: var(--color-amber-700);
-  --theme-hover: var(--color-amber-800);
-  --theme-soft: var(--color-amber-50);
-  --theme-border: var(--color-amber-200);
+:root[data-theme="gold"] {
+  --theme-primary: #b45309; /* Amber 700 */
+  --theme-hover: #92400e;
+  --theme-soft: #fffbeb;
+  --theme-border: #fef3c7;
 }
 
 /* Dark Mode Optimization for Themes */
@@ -263,22 +269,22 @@ input:checked + .toggle-slider::before {
   }
 }
 
-.dark[data-theme="emerald"] {
-  --theme-primary: var(--color-emerald-500);
-  --theme-hover: var(--color-emerald-400);
+.dark[data-theme="mint"] {
+  --theme-primary: #10b981;
+  --theme-hover: #34d399;
 }
 
-.dark[data-theme="sunset"] {
-  --theme-primary: var(--color-orange-500);
-  --theme-hover: var(--color-orange-400);
+.dark[data-theme="coral"] {
+  --theme-primary: #fb7185;
+  --theme-hover: #fda4af;
 }
 
-.dark[data-theme="midnight"] {
-  --theme-primary: var(--color-blue-500);
-  --theme-hover: var(--color-blue-400);
+.dark[data-theme="ocean"] {
+  --theme-primary: #38bdf8;
+  --theme-hover: #7dd3fc;
 }
 
-.dark[data-theme="mocha"] {
-  --theme-primary: var(--color-amber-500);
-  --theme-hover: var(--color-amber-400);
+.dark[data-theme="gold"] {
+  --theme-primary: #fbbf24;
+  --theme-hover: #fcd34d;
 }
