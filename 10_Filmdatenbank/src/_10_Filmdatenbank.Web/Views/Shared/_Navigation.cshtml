@@ -23,26 +23,35 @@
                 <div class="hidden lg:flex items-center gap-1" role="menubar">
                     @if (SignInManager.IsSignedIn(User))
                     {
-                         <a asp-controller="User" asp-action="Dashboard" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "User" && ViewContext.RouteData.Values["Action"]?.ToString() == "Dashboard" ? "active" : "")" role="menuitem">
+                        <!-- Group 1: General -->
+                        <a asp-controller="User" asp-action="Dashboard" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "User" && ViewContext.RouteData.Values["Action"]?.ToString() == "Dashboard" ? "active" : "")" role="menuitem">
                             <i class="fa-solid fa-house-chimney text-xs" aria-hidden="true"></i>
                             @Localizer["Dashboard"]
-                        </a>
-                        <a asp-controller="Film" asp-action="Index" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Film" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")" role="menuitem">
-                            <i class="fa-solid fa-film text-xs" aria-hidden="true"></i>
-                            @Localizer["Movies"]
-                        </a>
-                        <a asp-controller="Film" asp-action="Ranking" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Film" && ViewContext.RouteData.Values["Action"]?.ToString() == "Ranking" ? "active" : "")" role="menuitem">
-                            <i class="fa-solid fa-trophy text-xs text-brand-primary" aria-hidden="true"></i>
-                            @Localizer["Ranking"]
                         </a>
                         <a asp-controller="Group" asp-action="Discovery" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Group" ? "active" : "")" role="menuitem">
                             <i class="fa-solid fa-people-group text-xs" aria-hidden="true"></i>
                             @Localizer["Community"]
                         </a>
+                        <a asp-controller="Film" asp-action="Ranking" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Film" && ViewContext.RouteData.Values["Action"]?.ToString() == "Ranking" ? "active" : "")" role="menuitem">
+                            <i class="fa-solid fa-trophy text-xs text-brand-primary" aria-hidden="true"></i>
+                            @Localizer["Ranking"]
+                        </a>
+
+                        <div class="h-6 w-px bg-glass-border mx-2" aria-hidden="true"></div>
+
+                        <!-- Group 2: Content -->
+                        <a asp-controller="Film" asp-action="Index" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Film" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")" role="menuitem">
+                            <i class="fa-solid fa-film text-xs" aria-hidden="true"></i>
+                            @Localizer["Movies"]
+                        </a>
                         <a asp-controller="Collection" asp-action="Index" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Collection" ? "active" : "")" role="menuitem">
                             <i class="fa-solid fa-layer-group text-xs" aria-hidden="true"></i>
                             @Localizer["Collections"]
                         </a>
+
+                        <div class="h-6 w-px bg-glass-border mx-2" aria-hidden="true"></div>
+
+                        <!-- Group 3: Directory -->
                         <!-- People Dropdown -->
                         <div class="relative group">
                             <button class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Person" ? "active" : "") flex items-center gap-2" aria-haspopup="true" aria-expanded="false">

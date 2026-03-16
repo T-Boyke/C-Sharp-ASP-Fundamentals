@@ -26,12 +26,12 @@ public class TmdbService : ITmdbService
             // Fallback for user provided key if configuration is missing
             apiKey = "d32c6254aebfa68d0c01e5995711ffc1";
         }
+        _logger.LogInf
         _client = new TMDbClient(apiKey);
     }
 
     public async Task<IEnumerable<SearchMovie>> SearchMoviesAsync(string query, string language = "de-DE")
-    {
-        _logger.LogInformation("TMDB SearchMoviesAsync called with query: {Query}, language: {Language}", query, language);
+    {ormation("TMDB SearchMoviesAsync called with query: {Query}, language: {Language}", query, language);
         var results = await _client.SearchMovieAsync(query, language: language);
         _logger.LogInformation("TMDB SearchMoviesAsync returned {Count} results", results.Results.Count);
         return results.Results;
