@@ -211,10 +211,10 @@
                                     <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">Metascore</span>
                                 </div>
                                 @{
-                                    var metaColor = Model.MetacriticRating >= 61 ? "text-[#6c3]" : (Model.MetacriticRating >= 40 ? "text-[#fc3]" : "text-[#f33]");
-                                    if (Model.MetacriticRating == null) metaColor = "text-white";
+                                    var consensusMetaColor = Model.MetacriticRating >= 61 ? "text-[#6c3]" : (Model.MetacriticRating >= 40 ? "text-[#fc3]" : "text-[#f33]");
+                                    if (Model.MetacriticRating == null) consensusMetaColor = "text-white";
                                 }
-                                <span class="text-lg font-black @metaColor">@(Model.MetacriticRating?.ToString() ?? "N/A")</span>
+                                <span class="text-lg font-black @consensusMetaColor">@(Model.MetacriticRating?.ToString() ?? "N/A")</span>
                             </div>
                             <!-- Rotten Tomatoes Critics -->
                             <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
@@ -456,10 +456,10 @@
                                     </div>
                                 </div>
                                 @{
-                                    var metaColor = Model.MetacriticRating >= 61 ? "text-[#6c3]" : (Model.MetacriticRating >= 40 ? "text-[#fc3]" : "text-[#f33]");
-                                    if (Model.MetacriticRating == null) metaColor = "text-white";
+                                    var matrixMetaColor = Model.MetacriticRating >= 61 ? "text-[#6c3]" : (Model.MetacriticRating >= 40 ? "text-[#fc3]" : "text-[#f33]");
+                                    if (Model.MetacriticRating == null) matrixMetaColor = "text-white";
                                 }
-                                <span class="text-sm font-black @metaColor">@(Model.MetacriticRating?.ToString() ?? "N/A")</span>
+                                <span class="text-sm font-black @matrixMetaColor">@(Model.MetacriticRating?.ToString() ?? "N/A")</span>
                             </div>
                         </div>
                         
