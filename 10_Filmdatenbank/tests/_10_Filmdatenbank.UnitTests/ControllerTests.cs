@@ -31,18 +31,18 @@ namespace _10_Filmdatenbank.UnitTests.Web
 
     public class AccountControllerTests
     {
-        private readonly Mock<UserManager<IdentityUser>> _mockUserManager;
-        private readonly Mock<SignInManager<IdentityUser>> _mockSignInManager;
+        private readonly Mock<UserManager<_10_Filmdatenbank.Domain.Entities.ApplicationUser>> _mockUserManager;
+        private readonly Mock<SignInManager<_10_Filmdatenbank.Domain.Entities.ApplicationUser>> _mockSignInManager;
 
         public AccountControllerTests()
         {
-            _mockUserManager = new Mock<UserManager<IdentityUser>>(
-                new Mock<IUserStore<IdentityUser>>().Object, null, null, null, null, null, null, null, null);
+            _mockUserManager = new Mock<UserManager<_10_Filmdatenbank.Domain.Entities.ApplicationUser>>(
+                new Mock<IUserStore<_10_Filmdatenbank.Domain.Entities.ApplicationUser>>().Object, null, null, null, null, null, null, null, null);
             
-            _mockSignInManager = new Mock<SignInManager<IdentityUser>>(
+            _mockSignInManager = new Mock<SignInManager<_10_Filmdatenbank.Domain.Entities.ApplicationUser>>(
                 _mockUserManager.Object,
                 new Mock<IHttpContextAccessor>().Object,
-                new Mock<IUserClaimsPrincipalFactory<IdentityUser>>().Object,
+                new Mock<IUserClaimsPrincipalFactory<_10_Filmdatenbank.Domain.Entities.ApplicationUser>>().Object,
                 null, null, null, null);
         }
 

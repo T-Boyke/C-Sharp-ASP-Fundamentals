@@ -92,6 +92,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<UserAchievement> UserAchievements { get; set; } = null!;
     public DbSet<FavoriteFilm> FavoriteFilms { get; set; } = null!;
     public DbSet<UserRating> UserRatings { get; set; } = null!;
+    public DbSet<BoxOfficeEntry> BoxOfficeEntries { get; set; } = null!;
+    public DbSet<WatchProvider> WatchProviders { get; set; } = null!;
+    public DbSet<ExternalResource> ExternalResources { get; set; } = null!;
+    public DbSet<MetacriticReview> MetacriticReviews { get; set; } = null!;
 
     /// <summary>
     /// Die Tabelle für Auszeichnungen von Personen.
@@ -191,8 +195,23 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         builder.Entity<Eigenschaft>(entity => entity.HasKey(e => e.EigenschaftID));
         builder.Entity<Country>(entity => entity.HasKey(c => c.Iso3166_1));
         builder.Entity<Language>(entity => entity.HasKey(l => l.Iso639_1));
-        builder.Entity<AlternativeTitle>(entity => entity.HasKey(at => at.AlternativeTitleID));
-        builder.Entity<FilmRelease>(entity => entity.HasKey(r => r.ReleaseID));
+        builder.Entity<AlternativeTitle>(entity => 
+        {
+            entity.HasKey(at => at.AlternativeTitleID);
+            entity.HasOne(at => at.Film)
+                .WithMany(f => f.AlternativeTitles)
+                .HasForeignKey(at => at.FilmID)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<FilmRelease>(entity => 
+        {
+            entity.HasKey(r => r.ReleaseID);
+            entity.HasOne(r => r.Film)
+                .WithMany(f => f.Releases)
+                .HasForeignKey(r => r.FilmID)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
 
         builder.Entity<PersonEigenschaftFilm>(entity =>
             {
@@ -351,7 +370,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.HasOne(ff => ff.Film)
                 .WithMany()
                 .HasForeignKey(ff => ff.FilmID)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
         });
 
         builder.Entity<UserRating>(entity =>
@@ -394,6 +413,43 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.HasOne(a => a.ProductionCompany)
                 .WithMany(pc => pc.ProductionCompanyAwards)
                 .HasForeignKey(a => a.ProductionCompanyID)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // Specialized Data Configurations
+        builder.Entity<BoxOfficeEntry>(entity => 
+        {
+            entity.HasKey(e => e.BoxOfficeEntryID);
+            entity.HasOne(e => e.Film)
+                .WithMany(f => f.BoxOfficeEntries)
+                .HasForeignKey(e => e.FilmID)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<WatchProvider>(entity => 
+        {
+            entity.HasKey(e => e.WatchProviderID);
+            entity.HasOne(e => e.Film)
+                .WithMany(f => f.WatchProviders)
+                .HasForeignKey(e => e.FilmID)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<ExternalResource>(entity => 
+        {
+            entity.HasKey(e => e.ExternalResourceID);
+            entity.HasOne(e => e.Film)
+                .WithMany(f => f.ExternalResources)
+                .HasForeignKey(e => e.FilmID)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<MetacriticReview>(entity => 
+        {
+            entity.HasKey(e => e.MetacriticReviewID);
+            entity.HasOne(e => e.Film)
+                .WithMany(f => f.MetacriticReviews)
+                .HasForeignKey(e => e.FilmID)
                 .OnDelete(DeleteBehavior.Cascade);
         });
     }

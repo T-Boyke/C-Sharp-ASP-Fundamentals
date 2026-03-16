@@ -43,10 +43,49 @@
                             <i class="fa-solid fa-layer-group text-xs" aria-hidden="true"></i>
                             @Localizer["Collections"]
                         </a>
-                        <a asp-controller="Person" asp-action="Index" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Person" ? "active" : "")" role="menuitem">
-                            <i class="fa-solid fa-users-viewfinder text-xs" aria-hidden="true"></i>
-                            @Localizer["People"]
-                        </a>
+                        <!-- People Dropdown -->
+                        <div class="relative group">
+                            <button class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Person" ? "active" : "") flex items-center gap-2" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa-solid fa-users-viewfinder text-xs" aria-hidden="true"></i>
+                                @Localizer["People"]
+                                <i class="fa-solid fa-chevron-down text-[8px] opacity-50 transition-transform group-hover:rotate-180"></i>
+                            </button>
+                            <div class="absolute left-0 top-full pt-2 w-56 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all z-50">
+                                <div class="p-2 rounded-2xl bg-nav-surface border border-nav-border shadow-2xl">
+                                    <a asp-controller="Person" asp-action="Index" class="dropdown-item">
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary/10 text-brand-primary">
+                                            <i class="fa-solid fa-users text-xs"></i>
+                                        </div>
+                                        <span class="font-semibold text-white/90">@Localizer["AllPeople"]</span>
+                                    </a>
+                                    <div class="h-px bg-nav-border my-2 mx-3"></div>
+                                    <a asp-controller="Person" asp-action="Index" asp-route-role="Actor" class="dropdown-item">
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary/5 text-brand-primary">
+                                            <i class="fa-solid fa-user-tie text-xs"></i>
+                                        </div>
+                                        <span class="font-semibold text-white/80 hover:text-white">@Localizer["Actors"]</span>
+                                    </a>
+                                    <a asp-controller="Person" asp-action="Index" asp-route-role="Director" class="dropdown-item">
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary/5 text-brand-primary">
+                                            <i class="fa-solid fa-clapperboard text-xs"></i>
+                                        </div>
+                                        <span class="font-semibold text-white/80 hover:text-white">@Localizer["Directors"]</span>
+                                    </a>
+                                    <a asp-controller="Person" asp-action="Index" asp-route-role="Writer" class="dropdown-item">
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary/5 text-brand-primary">
+                                            <i class="fa-solid fa-pen-nib text-xs"></i>
+                                        </div>
+                                        <span class="font-semibold text-white/80 hover:text-white">@Localizer["Writers"]</span>
+                                    </a>
+                                    <a asp-controller="Person" asp-action="Index" asp-route-role="Producer" class="dropdown-item">
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-primary/5 text-brand-primary">
+                                            <i class="fa-solid fa-briefcase text-xs"></i>
+                                        </div>
+                                        <span class="font-semibold text-white/80 hover:text-white">@Localizer["Producers"]</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         <a asp-controller="Studio" asp-action="Index" class="nav-link-modern @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Studio" ? "active" : "")" role="menuitem">
                             <i class="fa-solid fa-building-columns text-xs" aria-hidden="true"></i>
                             @Localizer["Studios"]
@@ -83,7 +122,7 @@
                                 }
                                 else
                                 {
-                                    <span aria-hidden="true">@(User.Identity?.Name?[0].ToString().ToUpper() ?? "?")</span>
+                                    <span aria-hidden="true">@(!string.IsNullOrEmpty(User.Identity?.Name) ? User.Identity.Name[0].ToString().ToUpper() : "?")</span>
                                 }
                             </div>
                             <span class="text-xs font-bold text-white hidden sm:block">@user?.FirstName</span>
@@ -98,7 +137,7 @@
                                          {
                                              <img src="data:@user.ProfilePictureContentType;base64,@Convert.ToBase64String(user.ProfilePicture)" class="w-full h-full object-cover" alt="" />
                                          }
-                                         else { <span aria-hidden="true">@user?.FirstName?[0]</span> }
+                                         else { <span aria-hidden="true">@(!string.IsNullOrEmpty(user?.FirstName) ? user.FirstName[0] : '?')</span> }
                                     </div>
                                     <div class="flex flex-col overflow-hidden text-left">
                                         <p class="text-xs font-black text-white truncate">@user?.FirstName @user?.LastName</p>

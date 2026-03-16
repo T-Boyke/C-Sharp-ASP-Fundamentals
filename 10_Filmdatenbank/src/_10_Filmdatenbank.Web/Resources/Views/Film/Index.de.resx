@@ -16,4 +16,5 @@
   <data name="Delete" xml:space="preserve"><value>Löschen</value></data>
   <data name="MinSuffix" xml:space="preserve"><value>min</value></data>
   <data name="RentalPrice" xml:space="preserve"><value>Leihpreis</value></data>
+  <data name="SearchPlaceholder" xml:space="preserve"><value>Filme suchen...</value></data>
 </root>

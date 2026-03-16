@@ -15,11 +15,13 @@ namespace _10_Filmdatenbank.Web.Controllers;
 public class UserController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly ApplicationDbContext _context;
 
-    public UserController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+    public UserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context)
     {
         _userManager = userManager;
+        _signInManager = signInManager;
         _context = context;
     }
 
@@ -33,26 +35,42 @@ public class UserController : Controller
             .Include(u => u.GroupMemberships).ThenInclude(m => m.FanGroup)
             .Include(u => u.Threads)
             .Include(u => u.UserRatings).ThenInclude(r => r.Film)
-            .Include(u => u.FavoriteFilms).ThenInclude(ff => ff.Film)
-                .ThenInclude(f => f.PersonEigenschaftFilme).ThenInclude(pef => pef.Person)
-            .Include(u => u.FavoriteFilms).ThenInclude(ff => ff.Film)
-                .ThenInclude(f => f.Genres)
+            .Include(u => u.FavoriteFilms)
+                .ThenInclude(ff => ff.Film)
+                    .ThenInclude(f => f.PersonEigenschaftFilme)
+                        .ThenInclude(pef => pef.Person)
+            .Include(u => u.FavoriteFilms)
+                .ThenInclude(ff => ff.Film)
+                    .ThenInclude(f => f.PersonEigenschaftFilme)
+                        .ThenInclude(pef => pef.Eigenschaft)
+            .Include(u => u.FavoriteFilms)
+                .ThenInclude(ff => ff.Film)
+                    .ThenInclude(f => f.Genres)
             .FirstOrDefaultAsync(u => u.Id == userId);
 
-        if (user == null) return NotFound();
+        if (user == null)
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
+        }
 
         // 📊 Collection Analytics
         var favFilms = user.FavoriteFilms.Select(ff => ff.Film).ToList();
 
         ViewBag.TopGenres = favFilms.SelectMany(f => f.Genres)
             .GroupBy(g => g.Name)
-            .Select(g => new { Name = g.Key, Count = g.Count() })
+            .Select(g => new { Name = string.IsNullOrWhiteSpace(g.Key) ? "Genre" : g.Key, Count = g.Count() })
+            .Where(g => g.Name != "Genre" || favFilms.Count > 0)
             .OrderByDescending(g => g.Count)
             .Take(5).ToList();
 
         ViewBag.FrequentCast = favFilms.SelectMany(f => f.PersonEigenschaftFilme)
-            .Where(pef => pef.Eigenschaft?.Bezeichnung == "Actor" || pef.Eigenschaft?.Bezeichnung == "Cast")
+            .Where(pef => pef.Eigenschaft != null && 
+                         (pef.Eigenschaft.Bezeichnung.Contains("Actor", StringComparison.OrdinalIgnoreCase) || 
+                          pef.Eigenschaft.Bezeichnung.Contains("Cast", StringComparison.OrdinalIgnoreCase) ||
+                          pef.Eigenschaft.Bezeichnung.Contains("Schauspieler", StringComparison.OrdinalIgnoreCase)))
             .GroupBy(pef => pef.Person)
+            .Where(g => g.Key != null)
             .Select(g => new { Person = g.Key, Count = g.Count() })
             .OrderByDescending(g => g.Count)
             .Take(5).ToList();
@@ -65,6 +83,11 @@ public class UserController : Controller
         ViewBag.TotalRatingsCount = user.UserRatings.Count;
         ViewBag.RecentRatings = user.UserRatings.OrderByDescending(r => r.CreatedAt).Take(4).ToList();
 
+        // 🕒 Update Activity Tracker
+        user.LastDashboardViewedAt = DateTime.UtcNow;
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync();
+
         return View(user);
     }
 
@@ -76,6 +99,12 @@ public class UserController : Controller
         var user = await _context.Users
             .Include(u => u.FavoriteFilms).ThenInclude(ff => ff.Film)
             .FirstOrDefaultAsync(u => u.Id == userId);
+
+        if (user == null)
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
+        }
 
         return View(user);
     }

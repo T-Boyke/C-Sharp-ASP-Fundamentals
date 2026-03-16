@@ -41,7 +41,7 @@
                                         }
                                         else
                                         {
-                                            @(user.UserName?[0].ToString().ToUpper() ?? "?")
+                                            @(!string.IsNullOrEmpty(user.UserName) ? user.UserName[0].ToString().ToUpper() : "?")
                                         }
                                     </div>
                                     <div>

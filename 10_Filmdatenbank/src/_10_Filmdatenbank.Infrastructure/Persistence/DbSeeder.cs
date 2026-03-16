@@ -12,8 +12,5 @@ public static class DbSeeder
     /// </summary>
     /// <param name="context">Der Datenbankkontext.</param>
     /// <returns>Ein Task-Objekt.</returns>
-    public static Task SeedAsync(ApplicationDbContext _context)
-    {
-        return Task.CompletedTask;
-    }
+    public static Task SeedAsync(ApplicationDbContext _) => Task.CompletedTask;
 }

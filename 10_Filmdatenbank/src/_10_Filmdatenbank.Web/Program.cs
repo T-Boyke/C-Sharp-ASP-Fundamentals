@@ -21,6 +21,7 @@ builder.Services.AddScoped<ITmdbService, TmdbService>();
 builder.Services.AddHttpClient<ITvdbService, TvdbService>();
 builder.Services.AddHttpClient<IRottenTomatoesService, RottenTomatoesService>();
 builder.Services.AddHttpClient<IImdbService, ImdbService>();
+builder.Services.AddHttpClient<IMetacriticService, MetacriticService>();
 builder.Services.AddHttpClient<IWikidataService, WikidataService>();
 builder.Services.AddHttpClient("TVDB", client =>
 {

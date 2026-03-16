@@ -30,4 +30,5 @@
   <data name="PersonalAvg" xml:space="preserve"><value>Dein Durchschnitt</value></data>
   <data name="LatestRatings" xml:space="preserve"><value>Neueste Bewertungen</value></data>
   <data name="Movies" xml:space="preserve"><value>Filme</value></data>
+  <data name="NoDataAvailable" xml:space="preserve"><value>Keine Daten verfügbar</value></data>
 </root>

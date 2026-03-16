@@ -16,15 +16,18 @@ namespace _10_Filmdatenbank.Web.Controllers;
 public class AdminController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly ApplicationDbContext _context;
     private readonly Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer _localizer;
 
     public AdminController(
         UserManager<ApplicationUser> userManager,
+        SignInManager<ApplicationUser> signInManager,
         ApplicationDbContext context,
         Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer)
     {
         _userManager = userManager;
+        _signInManager = signInManager;
         _context = context;
         _localizer = localizer;
     }
@@ -84,7 +87,8 @@ public class AdminController : Controller
             await userManager.AddToRoleAsync(admin, "Admin");
         }
 
-        return RedirectToAction("Index", "Home");
+        await _signInManager.SignOutAsync();
+        return RedirectToAction("Login", "Account");
     }
 
     /// <summary>

@@ -170,6 +170,21 @@ public class Film
     public int? MetacriticRating { get; set; }
 
     /// <summary>
+    /// Die durchschnittliche Nutzerwertung von Metacritic (0.0 - 10.0).
+    /// </summary>
+    public double? MetacriticUserScore { get; set; }
+
+    /// <summary>
+    /// Die URL zur Metacritic-Seite des Films.
+    /// </summary>
+    public string? MetacriticUrl { get; set; }
+
+    /// <summary>
+    /// Die "Deep" Kritiker-Rezensionen von Metacritic.
+    /// </summary>
+    public virtual ICollection<MetacriticReview> MetacriticReviews { get; set; } = new List<MetacriticReview>();
+
+    /// <summary>
     /// Die URL zum Hintergrundbild (Backdrop).
     /// </summary>
     public string? BackdropUrl { get; set; }
@@ -245,6 +260,11 @@ public class Film
     public string? ProductionNotes { get; set; }
 
     /// <summary>
+    /// Informationen zur Romanvorlage (Autor, Titel, Jahr), falls der Film auf einem Buch basiert.
+    /// </summary>
+    public string? NovelSource { get; set; }
+
+    /// <summary>
     /// Die strukturierten Auszeichnungen des Films.
     /// </summary>
     public virtual ICollection<FilmAward> FilmAwards { get; set; } = new List<FilmAward>();
@@ -273,6 +293,27 @@ public class Film
     /// Eine Sammlung von Personen und ihren Eigenschaften, die an diesem Film mitgewirkt haben.
     /// </summary>
     public ICollection<PersonEigenschaftFilm> PersonEigenschaftFilme { get; set; } = [];
+
+    /// <summary>
+    /// Der lokale Pfad zum Film auf dem NAS (z.B. \\NAS\Filme\Action\Matrix.mkv).
+    /// Unterstützt SMB, NFS oder lokale Medienpfade.
+    /// </summary>
+    public string? LocalNasPath { get; set; }
+
+    /// <summary>
+    /// Detaillierte Box-Office-Historie des Films.
+    /// </summary>
+    public virtual ICollection<BoxOfficeEntry> BoxOfficeEntries { get; set; } = new List<BoxOfficeEntry>();
+
+    /// <summary>
+    /// Verfügbarkeit bei Streaming-Anbietern (Netflix, Disney+, etc.).
+    /// </summary>
+    public virtual ICollection<WatchProvider> WatchProviders { get; set; } = new List<WatchProvider>();
+
+    /// <summary>
+    /// Externe Ressourcen wie Amazon-Links, Merchandise oder Soundtrack-URLs.
+    /// </summary>
+    public virtual ICollection<ExternalResource> ExternalResources { get; set; } = new List<ExternalResource>();
 
     /// <summary>
     /// Die lokalen Nutzerbewertungen aus der CouchDB Community.

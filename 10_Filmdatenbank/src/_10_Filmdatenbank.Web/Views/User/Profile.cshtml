@@ -37,7 +37,7 @@
                         else
                         {
                             <div id="preview-placeholder" class="w-full h-full flex items-center justify-center text-4xl font-black text-text-muted">
-                                @Model.UserName?[0].ToString().ToUpper()
+                                @(!string.IsNullOrEmpty(Model.UserName) ? Model.UserName[0].ToString().ToUpper() : "?")
                             </div>
                         }
                     </div>

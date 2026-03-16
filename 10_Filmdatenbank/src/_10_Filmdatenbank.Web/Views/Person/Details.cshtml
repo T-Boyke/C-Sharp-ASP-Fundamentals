@@ -328,7 +328,9 @@
                                         else
                                         {
                                             <div class="w-full h-full flex items-center justify-center bg-surface-muted dark:bg-dark-surface-soft">
-                                                <span class="text-xs font-black text-text-muted uppercase">@col.Person.Vorname[0]</span>
+                                                <span class="text-xs font-black text-text-muted uppercase">
+                                                    @(!string.IsNullOrEmpty(col.Person.Vorname) ? col.Person.Vorname[0] : '?')
+                                                </span>
                                             </div>
                                         }
                                         <div class="absolute inset-0 bg-brand-primary/0 group-hover:bg-brand-primary/10 transition-colors"></div>
@@ -384,10 +386,13 @@
             <section>
                 <div class="form-group-header !mb-8 flex items-center justify-between">
                     <div>
-                        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["Filmography"]</h2>
+                        <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["LocalLibrary"]</h2>
                         <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
                     </div>
-                    <span class="badge-outline">@Model.PersonEigenschaftFilme.Count @Localizer["Projects"]</span>
+                    <div class="flex items-center gap-3">
+                        <span class="badge-outline">@Model.PersonEigenschaftFilme.Count @Localizer["Projects"]</span>
+                        <span class="text-[9px] font-black text-success-primary uppercase px-2 py-0.5 rounded border border-success-primary/20 bg-success-primary/5">In Collection</span>
+                    </div>
                 </div>
 
                 <div class="space-y-4">
@@ -446,7 +451,7 @@
                     <section class="mt-16">
                         <div class="form-group-header !mb-8 flex items-center justify-between">
                             <div>
-                                <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@Localizer["GlobalFilmography"]</h2>
+                                <h2 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">@(Localizer["GlobalFilmography"].IsResourceNotFound ? "Global Filmography" : Localizer["GlobalFilmography"])</h2>
                                 <div class="h-1 w-12 bg-brand-primary rounded-full mt-2"></div>
                             </div>
                             <div class="flex items-center gap-3">
@@ -457,6 +462,7 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             @{
+                                var localTmdbIds = Model.PersonEigenschaftFilme.Select(pef => pef.Film.TmdbId).Where(id => id.HasValue).Select(id => id.Value).ToHashSet();
                                 var allCredits = (credits.Cast?.Select(c => (dynamic)c) ?? Enumerable.Empty<dynamic>())
                                     .Concat(credits.Crew?.Select(c => (dynamic)c) ?? Enumerable.Empty<dynamic>())
                                     .OrderByDescending(c => {
@@ -471,6 +477,7 @@
                                 string mediaTypeUrl = "";
                                 string posterPath = "";
                                 int id = 0;
+                                bool isLocal = false;
 
                                 try {
                                     title = dynCredit.Title ?? dynCredit.Name ?? "Unknown";
@@ -478,11 +485,12 @@
                                     mediaTypeUrl = dynCredit.MediaType == TMDbLib.Objects.General.MediaType.Movie ? "movie" : "tv";
                                     posterPath = dynCredit.PosterPath;
                                     id = dynCredit.Id;
+                                    isLocal = localTmdbIds.Contains(id);
                                 } catch {
                                     title = "Unknown";
                                 }
                                 
-                                <div class="form-group-card flex items-center p-4 group transition-all border-l-4 border-l-surface-muted dark:border-l-dark-surface-soft hover:border-l-brand-primary/50 bg-surface-subtle/30 dark:bg-dark-surface/30">
+                                <div class="form-group-card flex items-center p-4 group transition-all border-l-4 @(isLocal ? "border-l-success-primary" : "border-l-surface-muted dark:border-l-dark-surface-soft") hover:border-l-brand-primary/50 bg-surface-subtle/30 dark:bg-dark-surface/30">
                                     <div class="w-12 h-18 rounded-md overflow-hidden shrink-0 border border-border-muted dark:border-dark-border" aria-hidden="true">
                                         @if (!string.IsNullOrEmpty(posterPath))
                                         {
@@ -497,23 +505,31 @@
                                     </div>
                                     <div class="ml-5 flex-grow min-w-0">
                                         <div class="flex items-center justify-between gap-4">
-                                            <p class="text-sm font-black text-text-main dark:text-white truncate" title="@title">@title</p>
+                                            <div class="flex flex-col min-w-0">
+                                                <div class="flex items-center gap-2">
+                                                    <p class="text-sm font-black text-text-main dark:text-white truncate" title="@title">@title</p>
+                                                    @if (isLocal)
+                                                    {
+                                                        <span class="text-[7px] font-black bg-success-primary text-white px-1 rounded">LIBRARY</span>
+                                                    }
+                                                </div>
+                                                <div class="flex items-center gap-2 mt-1">
+                                                    <span class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted italic truncate">
+                                                        @{
+                                                            string role = "N/A";
+                                                            try { role = dynCredit.Character ?? dynCredit.Job ?? "N/A"; } catch { }
+                                                        }
+                                                        @role
+                                                    </span>
+                                                </div>
+                                            </div>
                                             <span class="text-[9px] font-bold text-text-muted dark:text-dark-text-muted shrink-0 transition-colors">@(date?.Year.ToString() ?? "N/A")</span>
-                                        </div>
-                                        <div class="flex items-center gap-2 mt-1">
-                                            <span class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted italic truncate">
-                                                @{
-                                                    string role = "N/A";
-                                                    try { role = dynCredit.Character ?? dynCredit.Job ?? "N/A"; } catch { }
-                                                }
-                                                @role
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <a href="https://www.themoviedb.org/@mediaTypeUrl/@id" target="_blank" class="ml-4 p-2 text-text-muted hover:text-brand-primary transition-colors" title='@Localizer["ViewOnTmdb"]'>
-                                         <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                                    </a>
-                                </div>
+                                         </div>
+                                     </div>
+                                     <a href="https://www.themoviedb.org/@mediaTypeUrl/@id" target="_blank" class="ml-4 p-2 text-text-muted hover:text-brand-primary transition-colors" title='@Localizer["ViewOnTmdb"]'>
+                                          <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                                     </a>
+                                 </div>
                             }
                         </div>
                         

@@ -26,7 +26,7 @@
                     else
                     {
                         <div class="w-full h-full flex items-center justify-center text-4xl font-black text-brand-primary" aria-hidden="true">
-                            @Model.UserName?[0].ToString().ToUpper()
+                            @(!string.IsNullOrEmpty(Model.UserName) ? Model.UserName[0].ToString().ToUpper() : "?")
                         </div>
                     }
                 </div>
@@ -144,11 +144,18 @@
                     {
                         <a asp-controller="Group" asp-action="Details" asp-route-id="@membership.FanGroupID" class="p-4 rounded-xl bg-nav-surface border border-nav-border hover:border-brand-primary/50 transition-all group" aria-label="Go to @membership.FanGroup.Name">
                             <div class="flex items-center gap-4 text-left">
-                                <div class="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-xl text-brand-primary group-hover:scale-110 transition-transform">
-                                    <i class="fa-solid fa-people-roof" aria-hidden="true"></i>
+                                <div class="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-xl text-brand-primary group-hover:scale-110 transition-transform overflow-hidden shrink-0">
+                                    @if (membership.FanGroup.GroupImage != null)
+                                    {
+                                        <img src="data:@membership.FanGroup.GroupImageContentType;base64,@Convert.ToBase64String(membership.FanGroup.GroupImage)" class="w-full h-full object-cover" alt="@membership.FanGroup.Name image" />
+                                    }
+                                    else
+                                    {
+                                        <i class="fa-solid fa-people-roof" aria-hidden="true"></i>
+                                    }
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-white">@membership.FanGroup.Name</h4>
+                                    <h4 class="font-bold text-white leading-tight">@membership.FanGroup.Name</h4>
                                     <span class="text-[10px] text-brand-primary font-black uppercase tracking-widest">@membership.Role</span>
                                 </div>
                             </div>
@@ -180,21 +187,29 @@
                              <i class="fa-solid fa-masks-theater text-brand-primary"></i> @Localizer["TopGenres"]
                         </h4>
                         <div class="space-y-3">
-                            @foreach (var genre in ViewBag.TopGenres)
+                            @if (ViewBag.TopGenres != null && ((IEnumerable<dynamic>)ViewBag.TopGenres).Any())
                             {
-                                <div class="space-y-1">
-                                    <div class="flex justify-between text-[9px] font-bold text-dark-text-muted">
-                                        <span>@genre.Name</span>
-                                        <span>@genre.Count @Localizer["Movies"]</span>
+                                var topGenres = (IEnumerable<dynamic>)ViewBag.TopGenres;
+                                var maxGenre = topGenres.First().Count;
+                                @foreach (var genre in topGenres)
+                                {
+                                    <div class="space-y-1">
+                                        <div class="flex justify-between text-[9px] font-bold text-dark-text-muted">
+                                            <span>@(string.IsNullOrWhiteSpace(genre.Name) ? "Unbekannt" : genre.Name)</span>
+                                            <span>@genre.Count @Localizer["Movies"]</span>
+                                        </div>
+                                        <div class="h-1 w-full bg-nav-surface rounded-full overflow-hidden">
+                                            @{
+                                                var pct = maxGenre > 0 ? (double)genre.Count / maxGenre * 100 : 0;
+                                            }
+                                            <div class="h-full bg-brand-primary rounded-full transition-all" style="width: @pct%"></div>
+                                        </div>
                                     </div>
-                                    <div class="h-1 w-full bg-nav-surface rounded-full overflow-hidden">
-                                        @{
-                                            var maxGenre = ViewBag.TopGenres[0].Count;
-                                            var pct = (double)genre.Count / maxGenre * 100;
-                                        }
-                                        <div class="h-full bg-brand-primary rounded-full transition-all" style="width: @pct%"></div>
-                                    </div>
-                                </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-[10px] text-text-muted italic">@Localizer["NoDataAvailable"]</p>
                             }
                         </div>
                     </div>
@@ -205,12 +220,19 @@
                              <i class="fa-solid fa-star text-brand-primary"></i> @Localizer["FrequentCast"]
                         </h4>
                         <div class="flex flex-wrap gap-2">
-                            @foreach (var cast in ViewBag.FrequentCast)
+                            @if (ViewBag.FrequentCast != null && ((IEnumerable<dynamic>)ViewBag.FrequentCast).Any())
                             {
-                                <a asp-controller="Person" asp-action="Details" asp-route-id="@cast.Person.PersonID" class="px-3 py-1.5 rounded-lg bg-nav-surface border border-nav-border hover:border-brand-primary transition-all flex items-center gap-2 group">
-                                    <span class="text-[10px] font-bold text-white group-hover:text-brand-primary transition-colors">@cast.Person.Vorname @cast.Person.Nachname</span>
-                                    <span class="text-[8px] font-black text-brand-primary bg-brand-primary/10 px-1 rounded">@cast.Count</span>
-                                </a>
+                                @foreach (var cast in (IEnumerable<dynamic>)ViewBag.FrequentCast)
+                                {
+                                    <a asp-controller="Person" asp-action="Details" asp-route-id="@cast.Person.PersonID" class="px-3 py-1.5 rounded-lg bg-nav-surface border border-nav-border hover:border-brand-primary transition-all flex items-center gap-2 group">
+                                        <span class="text-[10px] font-bold text-white group-hover:text-brand-primary transition-colors">@cast.Person.Vorname @cast.Person.Nachname</span>
+                                        <span class="text-[8px] font-black text-brand-primary bg-brand-primary/10 px-1 rounded">@cast.Count</span>
+                                    </a>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-[10px] text-text-muted italic">@Localizer["NoDataAvailable"]</p>
                             }
                         </div>
                     </div>

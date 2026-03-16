@@ -32,6 +32,11 @@ public class ApplicationUser : IdentityUser
     public string? ZipCode { get; set; }
     public string? Country { get; set; }
 
+    /// <summary>
+    /// Tracking für ungelesene Aktivitäten im Dashboard.
+    /// </summary>
+    public DateTime LastDashboardViewedAt { get; set; } = DateTime.MinValue;
+
     // Navigation Properties
     public virtual ICollection<GroupMember> GroupMemberships { get; set; } = new List<GroupMember>();
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();

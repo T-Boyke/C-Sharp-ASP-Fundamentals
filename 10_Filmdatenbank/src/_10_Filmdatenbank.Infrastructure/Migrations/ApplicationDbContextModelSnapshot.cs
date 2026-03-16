@@ -17,7 +17,7 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.3")
+                .HasAnnotation("ProductVersion", "10.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -302,8 +302,8 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
                     b.Property<string>("Iso3166_1")
                         .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -352,6 +352,9 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
                     b.Property<bool>("IsDisabled")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastDashboardViewedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("LastLoginAt")
                         .HasColumnType("datetime2");
@@ -418,6 +421,38 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.BoxOfficeEntry", b =>
+                {
+                    b.Property<int>("BoxOfficeEntryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BoxOfficeEntryID"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EntryType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FilmID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Revenue")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("BoxOfficeEntryID");
+
+                    b.HasIndex("FilmID");
+
+                    b.ToTable("BoxOfficeEntries");
                 });
 
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.Collection", b =>
@@ -561,6 +596,39 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.ToTable("Eigenschaften");
                 });
 
+            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.ExternalResource", b =>
+                {
+                    b.Property<int>("ExternalResourceID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExternalResourceID"));
+
+                    b.Property<int>("FilmID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PriceHint")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ExternalResourceID");
+
+                    b.HasIndex("FilmID");
+
+                    b.ToTable("ExternalResources");
+                });
+
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.FanGroup", b =>
                 {
                     b.Property<int>("FanGroupID")
@@ -681,8 +749,20 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Property<string>("InstagramId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("LocalNasPath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("MetacriticRating")
                         .HasColumnType("int");
+
+                    b.Property<string>("MetacriticUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("MetacriticUserScore")
+                        .HasColumnType("float");
+
+                    b.Property<string>("NovelSource")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Nutzerwertung")
                         .HasColumnType("float");
@@ -814,8 +894,8 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
 
                     b.Property<string>("Iso3166_1")
                         .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
@@ -994,6 +1074,42 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("MembershipRequests");
+                });
+
+            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.MetacriticReview", b =>
+                {
+                    b.Property<int>("MetacriticReviewID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MetacriticReviewID"));
+
+                    b.Property<string>("Author")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FilmID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Publication")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ReviewUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Score")
+                        .HasColumnType("int");
+
+                    b.HasKey("MetacriticReviewID");
+
+                    b.HasIndex("FilmID");
+
+                    b.ToTable("MetacriticReviews");
                 });
 
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.Notification", b =>
@@ -1345,6 +1461,41 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.ToTable("UserRatings");
                 });
 
+            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.WatchProvider", b =>
+                {
+                    b.Property<int>("WatchProviderID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WatchProviderID"));
+
+                    b.Property<int>("DisplayPriority")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FilmID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LogoUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WatchUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WatchProviderID");
+
+                    b.HasIndex("FilmID");
+
+                    b.ToTable("WatchProviders");
+                });
+
             modelBuilder.Entity("FilmGenres", b =>
                 {
                     b.HasOne("_10_Filmdatenbank.Domain.Entities.Film", null)
@@ -1512,6 +1663,17 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Navigation("Film");
                 });
 
+            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.BoxOfficeEntry", b =>
+                {
+                    b.HasOne("_10_Filmdatenbank.Domain.Entities.Film", "Film")
+                        .WithMany("BoxOfficeEntries")
+                        .HasForeignKey("FilmID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Film");
+                });
+
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.Comment", b =>
                 {
                     b.HasOne("_10_Filmdatenbank.Domain.Entities.ApplicationUser", "Author")
@@ -1555,6 +1717,17 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("FanGroup");
+                });
+
+            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.ExternalResource", b =>
+                {
+                    b.HasOne("_10_Filmdatenbank.Domain.Entities.Film", "Film")
+                        .WithMany("ExternalResources")
+                        .HasForeignKey("FilmID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Film");
                 });
 
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.FanGroup", b =>
@@ -1675,6 +1848,17 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.MetacriticReview", b =>
+                {
+                    b.HasOne("_10_Filmdatenbank.Domain.Entities.Film", "Film")
+                        .WithMany("MetacriticReviews")
+                        .HasForeignKey("FilmID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Film");
+                });
+
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.Notification", b =>
                 {
                     b.HasOne("_10_Filmdatenbank.Domain.Entities.ApplicationUser", "User")
@@ -1783,6 +1967,17 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.WatchProvider", b =>
+                {
+                    b.HasOne("_10_Filmdatenbank.Domain.Entities.Film", "Film")
+                        .WithMany("WatchProviders")
+                        .HasForeignKey("FilmID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Film");
+                });
+
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.Achievement", b =>
                 {
                     b.Navigation("EarnedBy");
@@ -1842,13 +2037,21 @@ namespace _10_Filmdatenbank.Infrastructure.Migrations
                 {
                     b.Navigation("AlternativeTitles");
 
+                    b.Navigation("BoxOfficeEntries");
+
+                    b.Navigation("ExternalResources");
+
                     b.Navigation("FilmAwards");
+
+                    b.Navigation("MetacriticReviews");
 
                     b.Navigation("PersonEigenschaftFilme");
 
                     b.Navigation("Releases");
 
                     b.Navigation("UserRatings");
+
+                    b.Navigation("WatchProviders");
                 });
 
             modelBuilder.Entity("_10_Filmdatenbank.Domain.Entities.Person", b =>

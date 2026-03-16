@@ -31,4 +31,10 @@
   <data name="Movies" xml:space="preserve"><value>Filme</value></data>
   <data name="AppearanceAndSettings" xml:space="preserve"><value>Darstellung &amp; Einstellungen</value></data>
   <data name="SystemSettings" xml:space="preserve"><value>System-Einstellungen</value></data>
+  <data name="AllPeople" xml:space="preserve"><value>Alle Personen</value></data>
+  <data name="Actors" xml:space="preserve"><value>Schauspieler</value></data>
+  <data name="Directors" xml:space="preserve"><value>Regisseure</value></data>
+  <data name="Writers" xml:space="preserve"><value>Drehbuchautoren</value></data>
+  <data name="Producers" xml:space="preserve"><value>Produzenten</value></data>
+  <data name="Ranking" xml:space="preserve"><value>Ranking</value></data>
 </root>

@@ -131,7 +131,7 @@
                                      }
                                      else
                                      {
-                                         <span>@member.User.UserName?[0].ToString().ToUpper()</span>
+                                         <span>@(!string.IsNullOrEmpty(member.User.UserName) ? member.User.UserName[0].ToString().ToUpper() : "?")</span>
                                      }
                                 </div>
                                 <div class="flex flex-col">
