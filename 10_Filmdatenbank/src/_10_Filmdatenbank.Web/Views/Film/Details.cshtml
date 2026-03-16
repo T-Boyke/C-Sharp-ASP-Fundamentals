@@ -171,7 +171,10 @@
                         @if (Model.TvdbId.HasValue)
                         {
                             <span class="mx-2 text-white-a20">|</span>
-                            <span class="text-[10px] font-black text-text-white-muted uppercase tracking-widest">TVDB: @Model.TvdbId</span>
+                            <div class="flex items-center gap-1.5">
+                                <img src="/images/logos/tvdb.svg" class="h-2.5 w-auto" alt="TVDB" />
+                                <span class="text-[10px] font-black text-text-white-muted uppercase tracking-widest">@Model.TvdbId</span>
+                            </div>
                         }
                     </div>
                    <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter drop-shadow-2xl">@Model.Titel</h1>
@@ -189,8 +192,8 @@
                             <i class="fa-@(isFavorite ? "solid" : "regular") fa-heart text-2xl group-hover/heart:scale-110 transition-transform"></i>
                         </button>
                         <div class="glass-premium px-6 py-3 rounded-2xl flex items-center gap-3 border border-surface-bright/20">
-                            <div class="w-10 h-10 rounded-full bg-[#01d277] flex items-center justify-center text-white shadow-lg">
-                                <i class="fa-solid fa-ticket"></i>
+                            <div class="w-10 h-10 rounded-full bg-[#01d277]/10 flex items-center justify-center shadow-lg border border-[#01d277]/20">
+                                <img src="/images/logos/tmdb.svg" class="w-6 h-6 object-contain" alt="TMDB" />
                             </div>
                             <div>
                                 <p class="text-[10px] font-black text-text-white-muted uppercase tracking-widest">TMDB</p>
@@ -301,7 +304,7 @@
                             <!-- IMDb -->
                             <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
                                 <div class="flex items-center gap-2 mb-2">
-                                    <i class="fa-brands fa-imdb text-[#f5c518] text-lg"></i>
+                                    <img src="/images/logos/imdb.svg" class="h-4 w-auto" alt="IMDb" />
                                     <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">IMDb</span>
                                 </div>
                                 <span class="text-lg font-black text-white">@(Model.ImdbRating?.ToString("0.0") ?? "N/A")</span>
@@ -309,7 +312,7 @@
                             <!-- Metacritic -->
                             <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
                                 <div class="flex items-center gap-2 mb-2">
-                                    <div class="w-5 h-5 bg-black border border-white/20 rounded flex items-center justify-center text-[10px] font-black text-white">M</div>
+                                    <img src="/images/logos/metacritic.svg" class="h-4 w-auto" alt="Metascore" />
                                     <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">Metascore</span>
                                 </div>
                                 @{
@@ -321,7 +324,18 @@
                             <!-- Rotten Tomatoes Critics -->
                             <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
                                 <div class="flex items-center gap-2 mb-2">
-                                    <i class="fa-solid fa-apple-whole text-[#fa320a] text-sm"></i>
+                                    @if (Model.RottenTomatoesCriticRating >= 60)
+                                    {
+                                        <img src="/images/logos/rt.svg" class="h-4 w-auto" alt="Fresh" />
+                                    }
+                                    else if (Model.RottenTomatoesCriticRating != null)
+                                    {
+                                        <img src="/images/logos/rt_tomato_splat.svg" class="h-4 w-auto" alt="Rotten" />
+                                    }
+                                    else
+                                    {
+                                        <img src="/images/logos/rt.svg" class="h-4 w-auto grayscale opacity-50" alt="N/A" />
+                                    }
                                     <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">Tomatometer</span>
                                 </div>
                                 <span class="text-lg font-black text-white">@(Model.RottenTomatoesCriticRating?.ToString() ?? "N/A")%</span>
@@ -329,7 +343,18 @@
                             <!-- Rotten Tomatoes Audience -->
                             <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
                                 <div class="flex items-center gap-2 mb-2">
-                                    <i class="fa-solid fa-popcorn text-[#fa320a] text-sm"></i>
+                                    @if (Model.RottenTomatoesAudienceRating >= 60)
+                                    {
+                                        <img src="/images/logos/rt_popcorn_fresh.svg" class="h-4 w-auto" alt="Fresh" />
+                                    }
+                                    else if (Model.RottenTomatoesAudienceRating != null)
+                                    {
+                                        <img src="/images/logos/rt_popcorn_splat.svg" class="h-4 w-auto" alt="Splat" />
+                                    }
+                                    else
+                                    {
+                                        <img src="/images/logos/rt_popcorn_fresh.svg" class="h-4 w-auto grayscale opacity-50" alt="N/A" />
+                                    }
                                     <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">Audience</span>
                                 </div>
                                 <span class="text-lg font-black text-white">@(Model.RottenTomatoesAudienceRating?.ToString() ?? "N/A")%</span>
