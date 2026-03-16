@@ -153,7 +153,18 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> SyncExternalScores(int id)
     {
-        var film = await context.Filme.FindAsync(id);
+        var film = await context.Filme
+            .Include(f => f.Genres)
+            .Include(f => f.Keywords)
+            .Include(f => f.ProductionCountries)
+            .Include(f => f.SpokenLanguages)
+            .Include(f => f.Releases)
+            .Include(f => f.AlternativeTitles)
+            .Include(f => f.ProductionCompanies)
+            .Include(f => f.PersonEigenschaftFilme)
+                .ThenInclude(pef => pef.Person)
+            .Include(f => f.FilmAwards)
+            .FirstOrDefaultAsync(f => f.FilmID == id);
         if (film == null) return NotFound();
 
         bool updated = false;
@@ -171,7 +182,6 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
 
         if (updated)
         {
-            context.Filme.Update(film);
             await context.SaveChangesAsync();
             TempData["SuccessMessage"] = "Externe Scores erfolgreich synchronisiert!";
         }
@@ -421,7 +431,8 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         {
             foreach (var lang in movie.SpokenLanguages)
             {
-                var dbLang = await context.Languages.FirstOrDefaultAsync(l => l.Iso639_1 == lang.Iso_639_1);
+                var dbLang = context.Languages.Local.FirstOrDefault(l => l.Iso639_1 == lang.Iso_639_1)
+                                ?? await context.Languages.FirstOrDefaultAsync(l => l.Iso639_1 == lang.Iso_639_1);
                 if (dbLang == null)
                 {
                     dbLang = new Language { Iso639_1 = lang.Iso_639_1 ?? "??", Name = lang.Name ?? "Unknown" };
@@ -440,7 +451,8 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         {
             foreach (var c in movie.ProductionCountries)
             {
-                var dbCountry = await context.Countries.FirstOrDefaultAsync(co => co.Iso3166_1 == c.Iso_3166_1);
+                var dbCountry = context.Countries.Local.FirstOrDefault(co => co.Iso3166_1 == c.Iso_3166_1)
+                                ?? await context.Countries.FirstOrDefaultAsync(co => co.Iso3166_1 == c.Iso_3166_1);
                 if (dbCountry == null)
                 {
                     dbCountry = new Country { Iso3166_1 = c.Iso_3166_1 ?? "", Name = c.Name ?? c.Iso_3166_1 ?? "Unknown" };

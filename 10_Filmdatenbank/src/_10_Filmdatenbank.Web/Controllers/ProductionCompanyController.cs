@@ -10,12 +10,16 @@ namespace _10_Filmdatenbank.Web.Controllers;
 /// Controller für die Verwaltung von Produktionsfirmen (Studios).
 /// </summary>
 [Authorize]
-[Route("Studios")]
 [Route("Studios/[action]")]
-[Route("Studio")]
 [Route("Studio/[action]")]
+[Route("Studios")]
+[Route("Studio")]
 public class ProductionCompanyController(ApplicationDbContext context) : Controller
 {
+    [HttpGet("~/Studios")]
+    [HttpGet("~/Studio")]
+    [HttpGet("")]
+    [HttpGet("Index")]
     public async Task<IActionResult> Index(string? searchString)
     {
         var query = context.ProductionCompanies.AsQueryable();
@@ -32,6 +36,7 @@ public class ProductionCompanyController(ApplicationDbContext context) : Control
         return View(companies);
     }
 
+    [HttpGet("{id}")]
     public async Task<IActionResult> Details(int id)
     {
         var company = await context.ProductionCompanies
@@ -44,6 +49,7 @@ public class ProductionCompanyController(ApplicationDbContext context) : Control
         return View(company);
     }
 
+    [HttpGet]
     [Authorize(Roles = "Admin")]
     public IActionResult Create() => View();
 
@@ -60,6 +66,7 @@ public class ProductionCompanyController(ApplicationDbContext context) : Control
         return View(company);
     }
 
+    [HttpGet("{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int id)
     {
@@ -67,7 +74,7 @@ public class ProductionCompanyController(ApplicationDbContext context) : Control
         return company == null ? NotFound() : View(company);
     }
 
-    [HttpPost]
+    [HttpPost("{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(ProductionCompany company)
     {
@@ -80,6 +87,7 @@ public class ProductionCompanyController(ApplicationDbContext context) : Control
         return View(company);
     }
 
+    [HttpGet("{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -87,7 +95,7 @@ public class ProductionCompanyController(ApplicationDbContext context) : Control
         return company == null ? NotFound() : View(company);
     }
 
-    [HttpPost, ActionName("Delete")]
+    [HttpPost("{id}"), ActionName("Delete")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
