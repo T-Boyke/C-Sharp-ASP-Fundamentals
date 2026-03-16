@@ -35,7 +35,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         var userId = userManager.GetUserId(User);
         var favoriteFilmIds = userId != null
             ? await context.FavoriteFilms.Where(ff => ff.UserID == userId).Select(ff => ff.FilmID).ToListAsync()
-            : new List<int>();
+            : [];
 
         ViewBag.FavoriteFilmIds = favoriteFilmIds;
 
@@ -169,7 +169,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             .FirstOrDefaultAsync(f => f.FilmID == id);
         if (film == null) return NotFound();
 
-        bool updated = false;
+        var updated = false;
 
         // Fully sync with all metadata sources
         try
@@ -179,7 +179,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         }
         catch (Exception ex)
         {
-             Console.WriteLine($"Full Sync Error: {ex.Message}");
+            Console.WriteLine($"Full Sync Error: {ex.Message}");
         }
 
         if (updated)
@@ -419,7 +419,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         {
             foreach (var res in movie.ReleaseDates.Results)
             {
-                foreach (var release in res.ReleaseDates ?? new List<TMDbLib.Objects.Movies.ReleaseDateItem>())
+                foreach (var release in res.ReleaseDates ?? [])
                 {
                     if (!film.Releases.Any(r => r.Iso3166_1 == res.Iso_3166_1 && r.ReleaseDate == release.ReleaseDate))
                     {
@@ -581,7 +581,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                                 film.FilmAwards.Add(new FilmAward
                                 {
                                     Name = award.Name,
-                                    Year = int.TryParse(tvdbDetails.Year, out int y) ? y : (film.Erscheinungsdatum?.Year ?? 0),
+                                    Year = int.TryParse(tvdbDetails.Year, out var y) ? y : (film.Erscheinungsdatum?.Year ?? 0),
                                     Category = "Imported (TVDB)",
                                     IsWin = false // TVDB record here only contains basic info
                                 });
@@ -590,10 +590,10 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                     }
 
                     // Box Office / Budget if missing from TMDB
-                    if ((film.Budget == null || film.Budget == 0) && tvdbDetails.Budget != null && long.TryParse(tvdbDetails.Budget, out long b))
+                    if ((film.Budget == null || film.Budget == 0) && tvdbDetails.Budget != null && long.TryParse(tvdbDetails.Budget, out var b))
                         film.Budget = b;
 
-                    if ((film.Revenue == null || film.Revenue == 0) && tvdbDetails.BoxOffice != null && long.TryParse(tvdbDetails.BoxOffice, out long r))
+                    if ((film.Revenue == null || film.Revenue == 0) && tvdbDetails.BoxOffice != null && long.TryParse(tvdbDetails.BoxOffice, out var r))
                         film.Revenue = r;
 
                     // 1. Aliases mapping
@@ -614,7 +614,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                     }
 
                     // 2. Inspirations (Books, real events, etc.)
-                    if (tvdbDetails.Inspirations != null && tvdbDetails.Inspirations.Any())
+                    if (tvdbDetails.Inspirations != null && tvdbDetails.Inspirations.Count > 0)
                     {
                         var notes = tvdbDetails.Inspirations.Select(i => $"{i.Type_name}: {i.Url}").ToList();
                         film.ProductionNotes = string.Join("; ", notes);
@@ -625,14 +625,11 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                         // TVDB Score normalization: Logic depends on the range. 
                         // If it's a huge popularity number (e.g. 127000), we don't use it as rating.
                         // If it's in a reasonable range (0-100 or 0-10), we normalize it to 10.
-                        double score = tvdbDetails.Score.Value;
-                        if (score > 1000) 
+                        var score = tvdbDetails.Score.Value;
+                        if (score > 1000)
                         {
-                             // This is likely a popularity score, not a rating. 
-                             // We might want to ignore it or map it differently.
-                             // For now, let's cap it or use a log scale? 
-                             // Better: TVDB Rating is often NULL if not present.
-                             film.TvdbRating = null; 
+                            // Better: TVDB Rating is often NULL if not present.
+                            film.TvdbRating = null;
                         }
                         else
                         {
@@ -651,20 +648,20 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         }
 
         // 9. Watch Providers (Streaming) - Priority Region "DE"
-        if (movie.WatchProviders?.Results != null && movie.WatchProviders.Results.ContainsKey("DE"))
+        if (movie.WatchProviders?.Results != null && movie.WatchProviders.Results.TryGetValue("DE", out var deObj))
         {
-            dynamic de = movie.WatchProviders.Results["DE"];
+            var de = (dynamic)deObj;
             context.WatchProviders.RemoveRange(film.WatchProviders);
             film.WatchProviders.Clear(); 
             
             if (de.Flatrate != null)
-                foreach(var p in de.Flatrate) film.WatchProviders.Add(new WatchProvider { Name = p.ProviderName, LogoUrl = $"https://image.tmdb.org/t/p/original{p.LogoPath}", Type = "flatrate", DisplayPriority = p.DisplayPriority ?? 0 });
-            
+                foreach (var p in de.Flatrate) film.WatchProviders.Add(new WatchProvider { Name = p.ProviderName, LogoUrl = $"https://image.tmdb.org/t/p/original{p.LogoPath}", Type = "flatrate", DisplayPriority = p.DisplayPriority ?? 0 });
+
             if (de.Rent != null)
-                foreach(var p in de.Rent) film.WatchProviders.Add(new WatchProvider { Name = p.ProviderName, LogoUrl = $"https://image.tmdb.org/t/p/original{p.LogoPath}", Type = "rent", DisplayPriority = p.DisplayPriority ?? 0 });
+                foreach (var p in de.Rent) film.WatchProviders.Add(new WatchProvider { Name = p.ProviderName, LogoUrl = $"https://image.tmdb.org/t/p/original{p.LogoPath}", Type = "rent", DisplayPriority = p.DisplayPriority ?? 0 });
 
             if (de.Buy != null)
-                foreach(var p in de.Buy) film.WatchProviders.Add(new WatchProvider { Name = p.ProviderName, LogoUrl = $"https://image.tmdb.org/t/p/original{p.LogoPath}", Type = "buy", DisplayPriority = p.DisplayPriority ?? 0 });
+                foreach (var p in de.Buy) film.WatchProviders.Add(new WatchProvider { Name = p.ProviderName, LogoUrl = $"https://image.tmdb.org/t/p/original{p.LogoPath}", Type = "buy", DisplayPriority = p.DisplayPriority ?? 0 });
         }
 
         // 10. Commercial Resources (Amazon / Physical Media)
@@ -772,7 +769,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
 
     private async Task EnrichPeopleWithWikidataAsync(Film film)
     {
-        if (film.PersonEigenschaftFilme == null || !film.PersonEigenschaftFilme.Any()) return;
+        if (film.PersonEigenschaftFilme == null || film.PersonEigenschaftFilme.Count == 0) return;
 
         foreach (var pef in film.PersonEigenschaftFilme)
         {
@@ -798,7 +795,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                         person.FacebookId ??= wikiData.FacebookId;
 
                         // Append Awards if not present
-                        if (person.PersonAwards != null && !person.PersonAwards.Any() && wikiData.Awards.Any())
+                        if (person.PersonAwards != null && person.PersonAwards.Count == 0 && wikiData.Awards.Count > 0)
                         {
                             foreach (var wa in wikiData.Awards)
                             {
@@ -825,7 +822,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
 
     private async Task EnrichStudiosWithWikidataAsync(Film film)
     {
-        if (film.ProductionCompanies == null || !film.ProductionCompanies.Any()) return;
+        if (film.ProductionCompanies == null || film.ProductionCompanies.Count == 0) return;
 
         foreach (var company in film.ProductionCompanies)
         {
@@ -912,7 +909,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         }
     }
 
-    private async Task<Person?> GetOrCreatePerson(int tmdbId, string name, string? profileUrl, ApplicationDbContext context, ITmdbService tmdbService)
+    private static async Task<Person?> GetOrCreatePerson(int tmdbId, string name, string? profileUrl, ApplicationDbContext context, ITmdbService tmdbService)
     {
         var person = await context.Personen.FirstOrDefaultAsync(p => p.TmdbId == tmdbId)
                      ?? await context.Personen.FirstOrDefaultAsync(p => (p.Vorname + " " + p.Nachname).Trim() == name.Trim());
@@ -977,18 +974,18 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
 
     private class CastMemberDto
     {
-        public int id { get; set; }
-        public string name { get; set; } = string.Empty;
-        public string character { get; set; } = string.Empty;
-        public string? profileUrl { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Character { get; set; } = string.Empty;
+        public string? ProfileUrl { get; set; }
     }
 
     private class CrewMemberDto
     {
-        public int id { get; set; }
-        public string name { get; set; } = string.Empty;
-        public string job { get; set; } = string.Empty;
-        public string? profileUrl { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Job { get; set; } = string.Empty;
+        public string? ProfileUrl { get; set; }
     }
 
     private class GenreDto
@@ -1226,7 +1223,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
 
         await context.SaveChangesAsync();
 
-        if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+        if (Request.Headers.XRequestedWith == "XMLHttpRequest")
         {
             return Json(new { success = true, isAdded, message });
         }
