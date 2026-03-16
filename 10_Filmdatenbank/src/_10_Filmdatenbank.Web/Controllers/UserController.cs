@@ -83,6 +83,11 @@ public class UserController : Controller
         ViewBag.TotalRatingsCount = user.UserRatings.Count;
         ViewBag.RecentRatings = user.UserRatings.OrderByDescending(r => r.CreatedAt).Take(4).ToList();
 
+        // 🕒 Update Activity Tracker
+        user.LastDashboardViewedAt = DateTime.UtcNow;
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync();
+
         return View(user);
     }
 

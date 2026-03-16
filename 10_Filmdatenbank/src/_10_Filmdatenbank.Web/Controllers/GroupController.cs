@@ -227,14 +227,61 @@ public class GroupController(ApplicationDbContext context, UserManager<Applicati
         {
             context.Comments.Add(comment);
 
-            // Update last activity of thread
-            var thread = await context.DiscussionThreads.FindAsync(comment.ThreadID);
+            // Update activity and trigger notifications
+            var thread = await context.DiscussionThreads
+                .Include(t => t.Author)
+                .Include(t => t.FanGroup)
+                .FirstOrDefaultAsync(t => t.ThreadID == comment.ThreadID);
+
             if (thread != null)
             {
                 thread.LastActivity = DateTime.UtcNow;
+                await context.SaveChangesAsync();
+                
+                // 🔔 NOTIFICATION SYSTEM
+                try 
+                {
+                    string targetUrl = Url.Action("ThreadDetails", "Group", new { id = thread.ThreadID }) ?? "";
+                    
+                    // 1. Notify Thread Author (if not the commenter)
+                    if (thread.AuthorID != user.Id)
+                    {
+                        context.Notifications.Add(new Notification
+                        {
+                            UserID = thread.AuthorID,
+                            Message = $"Neuer Kommentar von {user.UserName} in deiner Diskussion '{thread.Title}'",
+                            TargetUrl = targetUrl,
+                            Type = NotificationType.CommentReply,
+                            CreatedAt = DateTime.UtcNow
+                        });
+                    }
+
+                    // 2. Notify Parent Comment Author (if it's a reply and not the same as thread author)
+                    if (comment.ParentCommentID.HasValue)
+                    {
+                        var parentComment = await context.Comments.FindAsync(comment.ParentCommentID.Value);
+                        if (parentComment != null && parentComment.AuthorID != user.Id && parentComment.AuthorID != thread.AuthorID)
+                        {
+                            context.Notifications.Add(new Notification
+                            {
+                                UserID = parentComment.AuthorID,
+                                Message = $"{user.UserName} hat auf deinen Kommentar geantwortet.",
+                                TargetUrl = targetUrl,
+                                Type = NotificationType.CommentReply,
+                                CreatedAt = DateTime.UtcNow
+                            });
+                        }
+                    }
+
+                    await context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    // Log notification failure but don't break the comment flow
+                    Console.WriteLine($"Notification Error: {ex.Message}");
+                }
             }
 
-            await context.SaveChangesAsync();
             TempData["Success"] = "Kommentar gepostet!";
             return RedirectToAction(nameof(ThreadDetails), new { id = comment.ThreadID });
         }

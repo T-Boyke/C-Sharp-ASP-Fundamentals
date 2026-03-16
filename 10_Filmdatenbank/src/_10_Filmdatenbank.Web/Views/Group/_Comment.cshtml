@@ -1,14 +1,31 @@
 @model _10_Filmdatenbank.Domain.Entities.Comment
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
+@inject Microsoft.AspNetCore.Identity.UserManager<_10_Filmdatenbank.Domain.Entities.ApplicationUser> UserManager
 
 @{
     int depth = ViewBag.Depth ?? 0;
     var indentClass = depth > 0 ? "ml-8 md:ml-12 border-l-2 border-nav-border pl-6 mt-4" : "";
+    
+    var lastViewed = (DateTime)(ViewData["LastDashboardViewedAt"] ?? DateTime.MinValue);
+    var currentUserId = UserManager.GetUserId(User);
+    
+    bool isUnread = Model.CreatedAt > lastViewed && Model.AuthorID != currentUserId;
+    var highlightClass = isUnread ? "border-brand-primary/50 shadow-md shadow-brand-primary/10 ring-1 ring-brand-primary/20" : "";
 }
 
 <div class="@indentClass group/comment">
-    <div class="flex gap-4" id="comment-@Model.CommentID">
+    <div class="flex gap-4 @(isUnread ? "relative" : "") @highlightClass p-2 rounded-xl transition-all" id="comment-@Model.CommentID">
+        @if (isUnread)
+        {
+            <div class="absolute -left-1 top-0 bottom-0 w-1 bg-brand-primary rounded-full animate-pulse"></div>
+            <div class="absolute -top-2 -right-2">
+                 <span class="flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-primary opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-primary"></span>
+                </span>
+            </div>
+        }
         <div class="w-10 h-10 rounded-full bg-nav-surface border border-nav-border flex items-center justify-center shrink-0 overflow-hidden">
              @if (Model.Author?.ProfilePicture != null)
              {
@@ -23,6 +40,10 @@
             <div class="flex items-center gap-3">
                 <span class="text-sm font-black text-white">@Model.Author?.FirstName @Model.Author?.LastName</span>
                 <span class="text-[10px] text-text-muted font-bold">@Model.CreatedAt.ToString("g")</span>
+                @if (isUnread)
+                {
+                    <span class="text-[8px] font-black text-brand-primary uppercase tracking-widest bg-brand-primary/10 px-1.5 py-0.5 rounded">Neu</span>
+                }
             </div>
             <div class="card-glass p-4 text-sm text-dark-text-muted leading-relaxed font-medium transition-colors group-hover/comment:border-brand-primary/20">
                 @Model.Content

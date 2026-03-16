@@ -4,7 +4,9 @@
 @inject Microsoft.AspNetCore.Identity.UserManager<_10_Filmdatenbank.Domain.Entities.ApplicationUser> UserManager
 @{
     ViewData["Title"] = Model.Title;
-    var currentUserId = UserManager.GetUserId(User);
+    var user = await UserManager.GetUserAsync(User);
+    var currentUserId = user?.Id;
+    ViewData["LastDashboardViewedAt"] = user?.LastDashboardViewedAt ?? DateTime.MinValue;
 }
 
 <div class="max-w-5xl mx-auto px-6 py-12">

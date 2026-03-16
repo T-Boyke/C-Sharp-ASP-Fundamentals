@@ -648,11 +648,10 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             }
         }
 
-        /*
         // 9. Watch Providers (Streaming) - Priority Region "DE"
         if (movie.WatchProviders?.Results != null && movie.WatchProviders.Results.ContainsKey("DE"))
         {
-            var de = movie.WatchProviders.Results["DE"];
+            dynamic de = movie.WatchProviders.Results["DE"];
             context.WatchProviders.RemoveRange(film.WatchProviders);
             film.WatchProviders.Clear(); 
             
@@ -683,7 +682,6 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             // Future logic: Check file system for matches
             // film.LocalNasPath = $"\\\\NAS\\Movies\\{film.Titel} ({film.Erscheinungsjahr}).mkv";
         }
-        */
 
         // 🌀 Rotten Tomatoes Enrichment (Special Logic)
         try
