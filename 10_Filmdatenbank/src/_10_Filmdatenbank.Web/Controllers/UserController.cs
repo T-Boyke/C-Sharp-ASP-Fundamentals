@@ -15,11 +15,13 @@ namespace _10_Filmdatenbank.Web.Controllers;
 public class UserController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly ApplicationDbContext _context;
 
-    public UserController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+    public UserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context)
     {
         _userManager = userManager;
+        _signInManager = signInManager;
         _context = context;
     }
 
@@ -39,7 +41,11 @@ public class UserController : Controller
                 .ThenInclude(f => f.Genres)
             .FirstOrDefaultAsync(u => u.Id == userId);
 
-        if (user == null) return NotFound();
+        if (user == null)
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
+        }
 
         // 📊 Collection Analytics
         var favFilms = user.FavoriteFilms.Select(ff => ff.Film).ToList();
@@ -76,6 +82,12 @@ public class UserController : Controller
         var user = await _context.Users
             .Include(u => u.FavoriteFilms).ThenInclude(ff => ff.Film)
             .FirstOrDefaultAsync(u => u.Id == userId);
+
+        if (user == null)
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
+        }
 
         return View(user);
     }

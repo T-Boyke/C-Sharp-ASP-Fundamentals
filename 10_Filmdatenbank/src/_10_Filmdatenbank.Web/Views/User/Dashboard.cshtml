@@ -144,11 +144,18 @@
                     {
                         <a asp-controller="Group" asp-action="Details" asp-route-id="@membership.FanGroupID" class="p-4 rounded-xl bg-nav-surface border border-nav-border hover:border-brand-primary/50 transition-all group" aria-label="Go to @membership.FanGroup.Name">
                             <div class="flex items-center gap-4 text-left">
-                                <div class="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-xl text-brand-primary group-hover:scale-110 transition-transform">
-                                    <i class="fa-solid fa-people-roof" aria-hidden="true"></i>
+                                <div class="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-xl text-brand-primary group-hover:scale-110 transition-transform overflow-hidden shrink-0">
+                                    @if (membership.FanGroup.GroupImage != null)
+                                    {
+                                        <img src="data:@membership.FanGroup.GroupImageContentType;base64,@Convert.ToBase64String(membership.FanGroup.GroupImage)" class="w-full h-full object-cover" alt="@membership.FanGroup.Name image" />
+                                    }
+                                    else
+                                    {
+                                        <i class="fa-solid fa-people-roof" aria-hidden="true"></i>
+                                    }
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-white">@membership.FanGroup.Name</h4>
+                                    <h4 class="font-bold text-white leading-tight">@membership.FanGroup.Name</h4>
                                     <span class="text-[10px] text-brand-primary font-black uppercase tracking-widest">@membership.Role</span>
                                 </div>
                             </div>

@@ -203,21 +203,28 @@ public class GroupController(ApplicationDbContext context, UserManager<Applicati
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> PostComment(Comment comment)
+    public async Task<IActionResult> PostComment([Bind("ThreadID,Content,ParentCommentID")] Comment comment)
     {
+        if (comment == null) return BadRequest("Kommentar-Daten konnten nicht gelesen werden.");
+
         var user = await userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
 
+        // Assign author before validation and remove navigation validation errors
+        comment.AuthorID = user.Id;
+        comment.CreatedAt = DateTime.UtcNow;
+
+        ModelState.Remove(nameof(comment.AuthorID));
+        ModelState.Remove(nameof(comment.Author));
+        ModelState.Remove(nameof(comment.Thread));
+
         if (string.IsNullOrWhiteSpace(comment.Content))
         {
-            ModelState.AddModelError("", "Kommentar darf nicht leer sein.");
+            ModelState.AddModelError("Content", "Kommentar darf nicht leer sein.");
         }
 
         if (ModelState.IsValid)
         {
-            comment.AuthorID = user.Id;
-            comment.CreatedAt = DateTime.UtcNow;
-
             context.Comments.Add(comment);
 
             // Update last activity of thread
@@ -228,9 +235,12 @@ public class GroupController(ApplicationDbContext context, UserManager<Applicati
             }
 
             await context.SaveChangesAsync();
+            TempData["Success"] = "Kommentar gepostet!";
             return RedirectToAction(nameof(ThreadDetails), new { id = comment.ThreadID });
         }
 
+        // If something failed, show error and redirect
+        TempData["Error"] = "Kommentar konnte nicht gespeichert werden.";
         return RedirectToAction(nameof(ThreadDetails), new { id = comment.ThreadID });
     }
 }
