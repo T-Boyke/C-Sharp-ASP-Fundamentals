@@ -122,6 +122,7 @@ graph TD
     Post -- Replies To --> Post
     System{Notification System} -- Alerts --> User
     Thread -- Triggers --> System
+```
 
 ---
 

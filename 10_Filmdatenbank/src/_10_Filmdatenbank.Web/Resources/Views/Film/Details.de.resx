@@ -65,4 +65,7 @@
   <data name="YourCouchRating" xml:space="preserve"><value>Deine Couch-Bewertung</value></data>
   <data name="RateNow" xml:space="preserve"><value>Jetzt bewerten</value></data>
   <data name="Ranking" xml:space="preserve"><value>Ranking</value></data>
+  <data name="UnknownPerson" xml:space="preserve"><value>Unbekannte Person</value></data>
+  <data name="AddToWatchlist" xml:space="preserve"><value>Auf die Merkliste</value></data>
+  <data name="RemoveFromWatchlist" xml:space="preserve"><value>Von der Merkliste entfernen</value></data>
 </root>

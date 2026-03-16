@@ -260,6 +260,11 @@ public class Film
     public string? ProductionNotes { get; set; }
 
     /// <summary>
+    /// Informationen zur Romanvorlage (Autor, Titel, Jahr), falls der Film auf einem Buch basiert.
+    /// </summary>
+    public string? NovelSource { get; set; }
+
+    /// <summary>
     /// Die strukturierten Auszeichnungen des Films.
     /// </summary>
     public virtual ICollection<FilmAward> FilmAwards { get; set; } = new List<FilmAward>();

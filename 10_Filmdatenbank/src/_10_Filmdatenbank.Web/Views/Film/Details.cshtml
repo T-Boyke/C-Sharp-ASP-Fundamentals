@@ -1086,7 +1086,20 @@
                                             }
                                         </div>
                                         <div class="ml-4 flex-grow min-w-0">
-                                            <p class="text-sm font-black text-text-main dark:text-white group-hover:text-brand-primary transition-colors truncate">@participation.Person.Vorname @participation.Person.Nachname</p>
+                                            @{
+                                                var p = participation.Person;
+                                                var firstName = (p?.Vorname ?? "").Trim();
+                                                var lastName = (p?.Nachname ?? "").Trim();
+                                                var fullName = $"{firstName} {lastName}".Trim();
+                                                
+                                                if (string.IsNullOrWhiteSpace(fullName)) 
+                                                {
+                                                    fullName = Localizer["UnknownPerson"]?.Value ?? "Unknown Person";
+                                                }
+                                            }
+                                            <p class="text-sm font-black text-white group-hover:text-brand-primary transition-colors">
+                                                @fullName
+                                            </p>
                                             
                                             <div class="flex items-center gap-2 mt-1">
                                                 @if (!string.IsNullOrEmpty(participation.Person.Geburtsort))

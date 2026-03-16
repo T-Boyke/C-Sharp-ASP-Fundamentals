@@ -50,4 +50,11 @@
   <data name="YourCouchRating" xml:space="preserve"><value>Your Couch Rating</value></data>
   <data name="RateNow" xml:space="preserve"><value>Rate Now</value></data>
   <data name="Ranking" xml:space="preserve"><value>Ranking</value></data>
+  <data name="UnknownPerson" xml:space="preserve"><value>Unknown Person</value></data>
+  <data name="AddToWatchlist" xml:space="preserve"><value>Add to Watchlist</value></data>
+  <data name="RemoveFromWatchlist" xml:space="preserve"><value>Remove from Watchlist</value></data>
+  <data name="AccoladesAndRecognition" xml:space="preserve"><value>Accolades &amp; Recognition</value></data>
+  <data name="GlobalReleases" xml:space="preserve"><value>Global Releases</value></data>
+  <data name="AlternativeTitles" xml:space="preserve"><value>Alternative Titles</value></data>
+  <data name="BoxOfficeHistory" xml:space="preserve"><value>Box Office History</value></data>
 </root>
