@@ -126,7 +126,7 @@ namespace _10_Filmdatenbank.IntegrationTests.Web
             film.Titel = "Updated";
 
             // Act
-            var result = await controller.Edit(film);
+            var result = await controller.Edit(film.FilmID, film);
 
             // Assert
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
@@ -150,6 +150,43 @@ namespace _10_Filmdatenbank.IntegrationTests.Web
             // Assert
             Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal(0, await context.Filme.CountAsync());
+        }
+
+        [Fact]
+        public async Task Details_Triggers_Enrichment_Paths()
+        {
+            // Arrange
+            using var context = GetContext();
+            var film = new Film 
+            { 
+                FilmID = 1, 
+                Titel = "Inception", 
+                TmdbId = 27205,
+                ImdbId = "tt1375666" 
+            };
+            context.Filme.Add(film);
+            await context.SaveChangesAsync();
+
+            _mockTmdbService.Setup(s => s.GetMovieDetailsAsync(27205))
+                .ReturnsAsync(new TMDbLib.Objects.Movies.Movie { Id = 27205, Title = "Inception", VoteAverage = 8.8 });
+            
+            _mockImdbService.Setup(s => s.GetMetadataAsync("tt1375666"))
+                .ReturnsAsync(new _10_Filmdatenbank.Application.Interfaces.ImdbMetadata { Rating = 8.8, Metascore = 74 });
+
+            var controller = GetController(context);
+
+            // Act
+            var result = await controller.Details(1);
+
+            // Assert
+            Assert.IsType<ViewResult>(result);
+            _mockTmdbService.Verify(s => s.GetMovieDetailsAsync(27205), Times.Once);
+            _mockImdbService.Verify(s => s.GetMetadataAsync("tt1375666"), Times.Once);
+            
+            var updatedFilm = await context.Filme.FindAsync(1);
+            Assert.NotNull(updatedFilm);
+            Assert.Equal(8.8, updatedFilm.ImdbRating);
+            Assert.Equal(74, updatedFilm.MetacriticRating);
         }
     }
 }

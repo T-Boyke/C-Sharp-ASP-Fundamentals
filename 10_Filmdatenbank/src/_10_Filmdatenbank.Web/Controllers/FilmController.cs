@@ -678,7 +678,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
 
                     if (tvdbDetails.Score != null)
                     {
-            var score = tvdbDetails.Score.Value;
+                        var score = tvdbDetails.Score.Value;
                         // In TVDB v4, "score" is often the popularity or a rating.
                         // We allow 0 as well.
                         if (score >= 0 && score <= 100)
@@ -830,9 +830,13 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                     foreach (var c in movie.Credits.Cast.Where(x => !string.IsNullOrWhiteSpace(x.Name)).Take(15))
                     {
                         var person = await GetOrCreatePerson(c.Id, c.Name!, string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}", context, tmdbService);
-                        if (person != null && !film.PersonEigenschaftFilme!.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == actorProperty.EigenschaftID))
+                        if (person != null)
                         {
-                            film.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = actorProperty.EigenschaftID });
+                            film.PersonEigenschaftFilme ??= new List<PersonEigenschaftFilm>();
+                            if (!film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == actorProperty.EigenschaftID))
+                            {
+                                film.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = actorProperty.EigenschaftID });
+                            }
                         }
                     }
                 }
@@ -846,9 +850,13 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                 if (director != null)
                 {
                     var person = await GetOrCreatePerson(director.Id, director.Name!, string.IsNullOrEmpty(director.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{director.ProfilePath}", context, tmdbService);
-                    if (person != null && !film.PersonEigenschaftFilme!.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == directorProperty.EigenschaftID))
+                    if (person != null)
                     {
-                        film.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = directorProperty.EigenschaftID });
+                        film.PersonEigenschaftFilme ??= new List<PersonEigenschaftFilm>();
+                        if (!film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == directorProperty.EigenschaftID))
+                        {
+                            film.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = directorProperty.EigenschaftID });
+                        }
                     }
                 }
             }

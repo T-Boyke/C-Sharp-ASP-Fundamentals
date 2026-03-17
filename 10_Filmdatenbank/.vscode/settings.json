@@ -123,5 +123,13 @@
   "scss.validate": false,
   "editor.quickSuggestions": {
     "strings": "on"
+  },
+  "playwright.testDir": "tests/_10_Filmdatenbank.PlaywrightTests",
+  "playwright.reuseBrowser": true,
+  "dotnet.unitTestDebuggingOptions": {
+    "env": {
+      "PWDEBUG": "0",
+      "ASPNETCORE_ENVIRONMENT": "Development"
+    }
   }
 }
