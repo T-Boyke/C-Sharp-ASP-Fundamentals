@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using _10_Filmdatenbank.Domain.Entities;
 using System;
 
-namespace _10_Filmdatenbank.IntegrationTests.Controllers
+namespace _10_Filmdatenbank.IntegrationTests
 {
     public class FilmControllerIntegrationTests : IClassFixture<CustomWebApplicationFactory<Program>>
     {

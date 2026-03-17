@@ -832,7 +832,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                         var person = await GetOrCreatePerson(c.Id, c.Name!, string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}", context, tmdbService);
                         if (person != null)
                         {
-                            film.PersonEigenschaftFilme ??= new List<PersonEigenschaftFilm>();
+                            film.PersonEigenschaftFilme ??= [];
                             if (!film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == actorProperty.EigenschaftID))
                             {
                                 film.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = actorProperty.EigenschaftID });
@@ -852,7 +852,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                     var person = await GetOrCreatePerson(director.Id, director.Name!, string.IsNullOrEmpty(director.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{director.ProfilePath}", context, tmdbService);
                     if (person != null)
                     {
-                        film.PersonEigenschaftFilme ??= new List<PersonEigenschaftFilm>();
+                        film.PersonEigenschaftFilme ??= [];
                         if (!film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == directorProperty.EigenschaftID))
                         {
                             film.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = directorProperty.EigenschaftID });
@@ -909,7 +909,10 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                             }
                         }
 
-                        logger.LogInformation("Wikidata Person Success: {Vorname} {Nachname}", person.Vorname, person.Nachname);
+                        if (logger.IsEnabled(LogLevel.Information))
+                        {
+                            logger.LogInformation("Wikidata Person Success: {Vorname} {Nachname}", person.Vorname, person.Nachname);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -943,7 +946,10 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                             company.Description += $" (Teil von {wikiData.ParentCompany})";
                         }
 
-                        logger.LogInformation("Wikidata Studio Success: {CompanyName}", company.Name);
+                        if (logger.IsEnabled(LogLevel.Information))
+                        {
+                            logger.LogInformation("Wikidata Studio Success: {CompanyName}", company.Name);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -1009,7 +1015,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         }
     }
 
-    private async Task<Person?> GetOrCreatePerson(int tmdbId, string name, string? profileUrl, ApplicationDbContext context, ITmdbService tmdbService)
+    private static async Task<Person?> GetOrCreatePerson(int tmdbId, string name, string? profileUrl, ApplicationDbContext context, ITmdbService tmdbService)
     {
         if (string.IsNullOrWhiteSpace(name) && tmdbId <= 0) return null;
 

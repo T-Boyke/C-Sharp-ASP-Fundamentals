@@ -18,7 +18,6 @@
     "*.css": "tailwindcss"
   },
   "workbench.colorCustomizations": {},
-  "workbench.iconTheme": "vscode-icons",
   "dotnet.server.useOmnisharp": false,
   "csharp.suppressDotnetRestoreNotification": true,
   "csharp.format.enable": true,
