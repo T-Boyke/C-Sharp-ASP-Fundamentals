@@ -37,6 +37,11 @@ if (!builder.Environment.IsEnvironment("Testing"))
               .UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)
               .CommandTimeout(60)));
 }
+else
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseInMemoryDatabase("InMemoryDbForTesting"));
+}
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
@@ -74,7 +79,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsEnvironment("Testing"))
+{
+    app.UseHttpsRedirection();
+}
 app.UseCookiePolicy();
 
 var supportedCultures = new[] { "de", "en", "pt", "ru", "ar", "tr" };
@@ -99,52 +107,57 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-if (!app.Environment.IsEnvironment("Testing"))
+// Seeding
+using (var scope = app.Services.CreateScope())
 {
-    // Seeding
-    using (var scope = app.Services.CreateScope())
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    if (context.Database.IsSqlServer())
     {
-        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         await context.Database.MigrateAsync();
-        await DbSeeder.SeedAsync(context);
+    }
+    else
+    {
+        await context.Database.EnsureCreatedAsync();
+    }
+    
+    await DbSeeder.SeedAsync(context);
 
-        // Seed Admin/Member roles if needed
-        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        if (!await roleManager.RoleExistsAsync("Admin")) await roleManager.CreateAsync(new IdentityRole("Admin"));
-        if (!await roleManager.RoleExistsAsync("Member")) await roleManager.CreateAsync(new IdentityRole("Member"));
+    // Seed Admin/Member roles if needed
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    if (!await roleManager.RoleExistsAsync("Admin")) await roleManager.CreateAsync(new IdentityRole("Admin"));
+    if (!await roleManager.RoleExistsAsync("Member")) await roleManager.CreateAsync(new IdentityRole("Member"));
 
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        if (await userManager.FindByEmailAsync("admin@film.de") == null)
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    if (await userManager.FindByEmailAsync("admin@film.de") == null)
+    {
+        var admin = new ApplicationUser
         {
-            var admin = new ApplicationUser
-            {
-                UserName = "admin@film.de",
-                Email = "admin@film.de",
-                EmailConfirmed = true,
-                FirstName = "System",
-                LastName = "Administrator",
-                CreatedAt = DateTime.UtcNow,
-                IsDisabled = false
-            };
-            await userManager.CreateAsync(admin, "Admin123!");
-            await userManager.AddToRoleAsync(admin, "Admin");
-        }
+            UserName = "admin@film.de",
+            Email = "admin@film.de",
+            EmailConfirmed = true,
+            FirstName = "System",
+            LastName = "Administrator",
+            CreatedAt = DateTime.UtcNow,
+            IsDisabled = false
+        };
+        await userManager.CreateAsync(admin, "Admin123!");
+        await userManager.AddToRoleAsync(admin, "Admin");
+    }
 
-        if (await userManager.FindByEmailAsync("user@film.de") == null)
+    if (await userManager.FindByEmailAsync("user@film.de") == null)
+    {
+        var user = new ApplicationUser
         {
-            var user = new ApplicationUser
-            {
-                UserName = "user@film.de",
-                Email = "user@film.de",
-                EmailConfirmed = true,
-                FirstName = "Standard",
-                LastName = "User",
-                CreatedAt = DateTime.UtcNow,
-                IsDisabled = false
-            };
-            await userManager.CreateAsync(user, "User123!");
-            await userManager.AddToRoleAsync(user, "Member");
-        }
+            UserName = "user@film.de",
+            Email = "user@film.de",
+            EmailConfirmed = true,
+            FirstName = "Standard",
+            LastName = "User",
+            CreatedAt = DateTime.UtcNow,
+            IsDisabled = false
+        };
+        await userManager.CreateAsync(user, "User123!");
+        await userManager.AddToRoleAsync(user, "Member");
     }
 }
 

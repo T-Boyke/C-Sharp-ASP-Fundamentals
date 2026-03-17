@@ -6,9 +6,15 @@ using FluentAssertions;
 
 namespace _10_Filmdatenbank.PlaywrightTests
 {
+    [Collection("SystemTestCollection")]
     public class AdminE2ETests : PageTest
     {
-        private const string BaseUrl = "http://localhost:5016";
+        private readonly string BaseUrl;
+
+        public AdminE2ETests(Infrastructure.TestHost<Program> host)
+        {
+            BaseUrl = host.BaseUrl;
+        }
 
         [Fact]
         public async Task Admin_UserManagement_Workflow()

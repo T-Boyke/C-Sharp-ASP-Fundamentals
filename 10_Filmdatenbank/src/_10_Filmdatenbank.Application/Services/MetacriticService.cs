@@ -67,7 +67,7 @@ public class MetacriticService : IMetacriticService
                             (resultTitle?.Equals(title, StringComparison.OrdinalIgnoreCase) == true))
                         {
                             // Check year if provided
-                            if (year.HasValue && !string.IsNullOrEmpty(releaseDate) && !releaseDate.Contains(year.ToString()))
+                            if (year.HasValue && !string.IsNullOrEmpty(releaseDate) && !releaseDate.Contains(year.Value.ToString()))
                                 continue;
 
                             slug = result.GetProperty("slug").GetString();
