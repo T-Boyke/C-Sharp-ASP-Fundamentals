@@ -58,4 +58,7 @@
   <data name="AlternativeTitles" xml:space="preserve"><value>Alternative Titles</value></data>
   <data name="BoxOfficeHistory" xml:space="preserve"><value>Box Office History</value></data>
   <data name="NovelSource" xml:space="preserve"><value>Novel Source</value></data>
+  <data name="PartOfTheCollection" xml:space="preserve"><value>Part of the Collection</value></data>
+  <data name="ViewFullSaga" xml:space="preserve"><value>View Full Saga</value></data>
+  <data name="TvdbScore" xml:space="preserve"><value>TVDB Score</value></data>
 </root>

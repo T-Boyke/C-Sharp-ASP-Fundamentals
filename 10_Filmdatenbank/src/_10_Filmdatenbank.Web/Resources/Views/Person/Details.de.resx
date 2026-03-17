@@ -43,4 +43,5 @@
   <data name="AccoladesAndRecognition" xml:space="preserve"><value>Auszeichnungen &amp; Anerkennungen</value></data>
   <data name="Winner" xml:space="preserve"><value>Gewinner</value></data>
   <data name="Nominated" xml:space="preserve"><value>Nominiert</value></data>
+  <data name="LocalLibrary" xml:space="preserve"><value>Lokale Bibliothek</value></data>
 </root>

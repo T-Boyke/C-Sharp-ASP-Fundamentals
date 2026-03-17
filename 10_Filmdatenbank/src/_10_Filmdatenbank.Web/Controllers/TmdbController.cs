@@ -27,65 +27,75 @@ public class TmdbController(ITmdbService tmdbService) : ControllerBase
     [HttpGet("details/{id}")]
     public async Task<IActionResult> Details(int id)
     {
-        var movie = await tmdbService.GetMovieDetailsAsync(id);
-        if (movie == null) return NotFound();
-
-        return Ok(new
+        try
         {
-            movie.Id,
-            movie.Title,
-            movie.OriginalTitle,
-            movie.OriginalLanguage,
-            movie.Overview,
-            movie.Tagline,
-            ReleaseDate = movie.ReleaseDate?.ToString("yyyy-MM-dd"),
-            ReleaseYear = movie.ReleaseDate?.Year,
-            Runtime = movie.Runtime,
-            movie.Status,
-            movie.Budget,
-            movie.Revenue,
-            movie.Homepage,
-            movie.Popularity,
-            movie.VoteCount,
-            movie.VoteAverage,
-            movie.Adult,
-            TrailerKey = movie.Videos?.Results?.FirstOrDefault(v => v.Site == "YouTube" && v.Type == "Trailer")?.Key,
-            PosterUrl = string.IsNullOrEmpty(movie.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{movie.PosterPath}",
-            BackdropUrl = string.IsNullOrEmpty(movie.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{movie.BackdropPath}",
-            Genres = movie.Genres?.Select(g => new { g.Id, g.Name }) ?? [],
-            Keywords = movie.Keywords?.Keywords?.Select(k => new { k.Id, k.Name }) ?? [],
-            ProductionCompanies = movie.ProductionCompanies?.Select(pc => new
+            var movie = await tmdbService.GetMovieDetailsAsync(id);
+            if (movie == null) return NotFound();
+
+            return Ok(new
             {
-                pc.Id,
-                pc.Name,
-                LogoUrl = string.IsNullOrEmpty(pc.LogoPath) ? null : $"https://image.tmdb.org/t/p/w500{pc.LogoPath}",
-                pc.OriginCountry
-            }) ?? [],
-            ImdbId = movie.ExternalIds?.ImdbId,
-            FacebookId = movie.ExternalIds?.FacebookId,
-            InstagramId = movie.ExternalIds?.InstagramId,
-            TwitterId = movie.ExternalIds?.TwitterId,
-            WikidataId = movie.ExternalIds?.WikidataId,
-            CollectionId = movie.BelongsToCollection?.Id,
-            CollectionName = movie.BelongsToCollection?.Name,
-            Cast = movie.Credits?.Cast?.Take(15).Select(c => new
-            {
-                c.Id,
-                c.Name,
-                c.Character,
-                ProfileUrl = string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}"
-            }) ?? [],
-            Crew = movie.Credits?.Crew?
-                .Where(c => c.Job == "Director" || c.Job == "Producer" || c.Job == "Executive Producer" || c.Job == "Writer" || c.Job == "Screenplay")
-                .Take(10)
-                .Select(c => new
+                movie.Id,
+                movie.Title,
+                movie.OriginalTitle,
+                movie.OriginalLanguage,
+                movie.Overview,
+                movie.Tagline,
+                ReleaseDate = movie.ReleaseDate?.ToString("yyyy-MM-dd"),
+                ReleaseYear = movie.ReleaseDate?.Year,
+                Runtime = movie.Runtime,
+                movie.Status,
+                movie.Budget,
+                movie.Revenue,
+                movie.Homepage,
+                movie.Popularity,
+                movie.VoteCount,
+                movie.VoteAverage,
+                movie.Adult,
+                TrailerKey = movie.Videos?.Results?.FirstOrDefault(v => v.Site == "YouTube" && v.Type == "Trailer")?.Key,
+                PosterUrl = string.IsNullOrEmpty(movie.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{movie.PosterPath}",
+                BackdropUrl = string.IsNullOrEmpty(movie.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{movie.BackdropPath}",
+                Genres = movie.Genres?.Select(g => new { g.Id, g.Name }) ?? [],
+                Keywords = movie.Keywords?.Keywords?.Select(k => new { k.Id, k.Name }) ?? [],
+                ProductionCompanies = movie.ProductionCompanies?.Select(pc => new
                 {
-                    c.Id,
-                    c.Name,
-                    c.Job,
-                    ProfileUrl = string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}"
-                }) ?? []
-        });
+                    pc.Id,
+                    pc.Name,
+                    LogoUrl = string.IsNullOrEmpty(pc.LogoPath) ? null : $"https://image.tmdb.org/t/p/w500{pc.LogoPath}",
+                    pc.OriginCountry
+                }) ?? [],
+                ImdbId = movie.ExternalIds?.ImdbId,
+                FacebookId = movie.ExternalIds?.FacebookId,
+                InstagramId = movie.ExternalIds?.InstagramId,
+                TwitterId = movie.ExternalIds?.TwitterId,
+                WikidataId = movie.ExternalIds?.WikidataId,
+                CollectionId = movie.BelongsToCollection?.Id,
+                CollectionName = movie.BelongsToCollection?.Name,
+                Cast = movie.Credits?.Cast?
+                    .Where(c => !string.IsNullOrWhiteSpace(c.Name))
+                    .Take(15)
+                    .Select(c => new
+                    {
+                        c.Id,
+                        c.Name,
+                        c.Character,
+                        ProfileUrl = string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}"
+                    }) ?? [],
+                Crew = movie.Credits?.Crew?
+                    .Where(c => !string.IsNullOrWhiteSpace(c.Name) && (c.Job == "Director" || c.Job == "Producer" || c.Job == "Executive Producer" || c.Job == "Writer" || c.Job == "Screenplay"))
+                    .Take(10)
+                    .Select(c => new
+                    {
+                        c.Id,
+                        c.Name,
+                        c.Job,
+                        ProfileUrl = string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}"
+                    }) ?? []
+            });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { error = ex.Message, details = ex.InnerException?.Message });
+        }
     }
 
     [HttpGet("search-person")]

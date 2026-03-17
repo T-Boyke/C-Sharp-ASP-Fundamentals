@@ -1,0 +1,7 @@
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\Services\TmdbService.cs(55,46): error CS1739: Die beste ├£berladung f├╝r "TMDbClient" enth├ñlt keinen Parameter mit dem Namen "httpClient". [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\_10_Filmdatenbank.Application.csproj]
+
+Fehler beim Buildvorgang.
+    6 Warnung(en)
+    1 Fehler
+
+Verstrichene Zeit 00:00:01.64

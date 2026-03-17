@@ -69,4 +69,7 @@
   <data name="AddToWatchlist" xml:space="preserve"><value>Auf die Merkliste</value></data>
   <data name="RemoveFromWatchlist" xml:space="preserve"><value>Von der Merkliste entfernen</value></data>
   <data name="NovelSource" xml:space="preserve"><value>Romanvorlage</value></data>
+  <data name="PartOfTheCollection" xml:space="preserve"><value>Teil der Filmreihe</value></data>
+  <data name="ViewFullSaga" xml:space="preserve"><value>Komplette Saga ansehen</value></data>
+  <data name="TvdbScore" xml:space="preserve"><value>TVDB Bewertung</value></data>
 </root>

@@ -1,0 +1,14 @@
+  Wiederherzustellende Projekte werden ermittelt...
+  Alle Projekte sind f├╝r die Wiederherstellung auf dem neuesten Stand.
+  _10_Filmdatenbank.Domain -> d:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Domain\bin\Debug\net10.0\_10_Filmdatenbank.Domain.dll
+d:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\Services\TmdbService.cs(102,43): error CS1739: Die beste ├£berladung f├╝r "TMDbClient" enth├ñlt keinen Parameter mit dem Namen "httpClient". [d:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\_10_Filmdatenbank.Application.csproj]
+d:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\Services\MetacriticService.cs(70,110): warning CS8604: M├Âgliches Nullverweisargument f├╝r den Parameter "value" in "bool string.Contains(string value)". [d:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\_10_Filmdatenbank.Application.csproj]
+
+Fehler beim Buildvorgang.
+
+d:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\Services\MetacriticService.cs(70,110): warning CS8604: M├Âgliches Nullverweisargument f├╝r den Parameter "value" in "bool string.Contains(string value)". [d:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\_10_Filmdatenbank.Application.csproj]
+d:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\Services\TmdbService.cs(102,43): error CS1739: Die beste ├£berladung f├╝r "TMDbClient" enth├ñlt keinen Parameter mit dem Namen "httpClient". [d:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\_10_Filmdatenbank.Application.csproj]
+    1 Warnung(en)
+    1 Fehler
+
+Verstrichene Zeit 00:00:01.41

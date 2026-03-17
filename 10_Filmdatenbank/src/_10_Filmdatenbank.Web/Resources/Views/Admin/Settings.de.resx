@@ -12,4 +12,9 @@
   <data name="ExecuteDrop" xml:space="preserve"><value>Datenbank jetzt droppen</value></data>
   <data name="Cancel" xml:space="preserve"><value>Abbrechen</value></data>
   <data name="ConfirmDrop" xml:space="preserve"><value>Endgültig Löschen</value></data>
+  <data name="ClearFilms" xml:space="preserve"><value>Filme löschen</value></data>
+  <data name="ClearPeople" xml:space="preserve"><value>Personen löschen</value></data>
+  <data name="ClearCollections" xml:space="preserve"><value>Kollektionen löschen</value></data>
+  <data name="ClearStudios" xml:space="preserve"><value>Studios löschen</value></data>
+  <data name="Confirm" xml:space="preserve"><value>Bestätigen</value></data>
 </root>

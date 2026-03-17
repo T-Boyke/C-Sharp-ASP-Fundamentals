@@ -42,11 +42,61 @@
                 <i class="fa-solid fa-skull-crossbones"></i>
                 @Localizer["DangerZone"]
             </h2>
-            <p class="text-sm text-text-description dark:text-dark-text-muted mb-8 max-w-xl">
+            <p class="text-sm text-dark-text-muted mb-8 max-w-xl">
                 These operations are destructive and cannot be undone. Extreme caution is advised.
             </p>
 
-            <div class="p-6 rounded-2xl bg-black/20 border border-danger-primary/20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <!-- Clear Films -->
+                <div class="p-4 rounded-2xl bg-black/20 border border-danger-primary/10 flex items-center justify-between">
+                    <div>
+                        <h4 class="text-[10px] font-black text-white uppercase">@Localizer["ClearFilms"]</h4>
+                        <p class="text-[9px] text-dark-text-muted">Delete all movies</p>
+                    </div>
+                    <button type="button" onclick="confirmAction('ClearFilms', 'DELETE-FILMS', 'All movies and their related data (ratings, genres) will be permanently deleted!')" 
+                            class="p-2 rounded-lg bg-danger-primary/10 text-danger-primary hover:bg-danger-primary hover:text-white transition-all">
+                        <i class="fa-solid fa-film"></i>
+                    </button>
+                </div>
+
+                <!-- Clear People -->
+                <div class="p-4 rounded-2xl bg-black/20 border border-danger-primary/10 flex items-center justify-between">
+                    <div>
+                        <h4 class="text-[10px] font-black text-white uppercase">@Localizer["ClearPeople"]</h4>
+                        <p class="text-[9px] text-dark-text-muted">Delete all persons</p>
+                    </div>
+                    <button type="button" onclick="confirmAction('ClearPeople', 'DELETE-PEOPLE', 'All cast and crew members will be permanently deleted!')" 
+                            class="p-2 rounded-lg bg-danger-primary/10 text-danger-primary hover:bg-danger-primary hover:text-white transition-all">
+                        <i class="fa-solid fa-user-ninja"></i>
+                    </button>
+                </div>
+
+                <!-- Clear Collections -->
+                <div class="p-4 rounded-2xl bg-black/20 border border-danger-primary/10 flex items-center justify-between">
+                    <div>
+                        <h4 class="text-[10px] font-black text-white uppercase">@Localizer["ClearCollections"]</h4>
+                        <p class="text-[9px] text-dark-text-muted">Delete movie series</p>
+                    </div>
+                    <button type="button" onclick="confirmAction('ClearCollections', 'DELETE-COLLECTIONS', 'All movie collections will be permanently deleted!')" 
+                            class="p-2 rounded-lg bg-danger-primary/10 text-danger-primary hover:bg-danger-primary hover:text-white transition-all">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </button>
+                </div>
+
+                <!-- Clear Studios -->
+                <div class="p-4 rounded-2xl bg-black/20 border border-danger-primary/10 flex items-center justify-between">
+                    <div>
+                        <h4 class="text-[10px] font-black text-white uppercase">@Localizer["ClearStudios"]</h4>
+                        <p class="text-[9px] text-dark-text-muted">Delete production companies</p>
+                    </div>
+                    <button type="button" onclick="confirmAction('ClearStudios', 'DELETE-STUDIOS', 'All production companies (studios) will be permanently deleted!')" 
+                            class="p-2 rounded-lg bg-danger-primary/10 text-danger-primary hover:bg-danger-primary hover:text-white transition-all">
+                        <i class="fa-solid fa-building"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-danger-primary/10 border border-danger-primary/20">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div>
                         <h4 class="text-sm font-black text-white uppercase mb-1">@Localizer["DropDatabase"]</h4>
@@ -67,32 +117,31 @@
     </div>
 </div>
 
-<!-- Confirmation Modal -->
-<div id="dropConfirmModal" class="fixed inset-0 z-[60] hidden">
-    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeDropModal()"></div>
+<!-- Generic Confirmation Modal -->
+<div id="actionConfirmModal" class="fixed inset-0 z-[60] hidden">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeActionModal()"></div>
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-6">
         <div class="card-glass p-8 border-danger-primary/50 shadow-[0_0_50px_rgba(239,68,68,0.2)] animate-in zoom-in duration-300">
             <div class="w-16 h-16 rounded-full bg-danger-primary/10 flex items-center justify-center text-danger-primary text-3xl mx-auto mb-6">
-                <i class="fa-solid fa-circle-exclamation"></i>
+                <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             
-            <h2 class="text-xl font-black text-white text-center mb-2 uppercase">Are you absolutely sure?</h2>
-            <p class="text-sm text-center text-dark-text-muted mb-8">
-                This will delete **EVERYTHING**: Users, Films, Groups, Comments. This action is terminal.
-            </p>
+            <h2 id="modalTitle" class="text-xl font-black text-white text-center mb-2 uppercase">Confirm Action</h2>
+            <p id="modalDescription" class="text-sm text-center text-dark-text-muted mb-8"></p>
             
-            <form asp-action="DropDatabase" method="post" class="space-y-4">
+            <form id="modalForm" method="post" class="space-y-4">
+                @Html.AntiForgeryToken()
                 <div class="space-y-2">
-                    <label class="text-[10px] font-black text-text-muted uppercase tracking-widest block text-center">Type "DELETE-ALL" to confirm</label>
-                    <input type="text" id="confirmInput" class="w-full bg-black/40 border border-nav-border rounded-xl px-4 py-3 text-white text-center font-black focus:border-danger-primary focus:ring-1 focus:ring-danger-primary transition-all outline-none" placeholder="....">
+                    <label id="modalHint" class="text-[10px] font-black text-text-muted uppercase tracking-widest block text-center"></label>
+                    <input type="text" id="actionConfirmInput" class="w-full bg-black/40 border border-nav-border rounded-xl px-4 py-3 text-white text-center font-black focus:border-danger-primary focus:ring-1 focus:ring-danger-primary transition-all outline-none" placeholder="....">
                 </div>
 
                 <div class="flex gap-3">
-                    <button type="button" onclick="closeDropModal()" class="flex-1 px-4 py-3 rounded-xl bg-surface-muted text-white font-bold hover:bg-surface-bright transition-all text-sm">
+                    <button type="button" onclick="closeActionModal()" class="flex-1 px-4 py-3 rounded-xl bg-surface-muted text-white font-bold hover:bg-surface-bright transition-all text-sm">
                         @Localizer["Cancel"]
                     </button>
-                    <button type="submit" id="finalDropBtn" disabled class="flex-1 px-4 py-3 rounded-xl bg-danger-primary text-white font-black opacity-30 cursor-not-allowed transition-all text-sm">
-                        @Localizer["ConfirmDrop"]
+                    <button type="submit" id="finalActionBtn" disabled class="flex-1 px-4 py-3 rounded-xl bg-danger-primary text-white font-black opacity-30 cursor-not-allowed transition-all text-sm">
+                        @Localizer["Confirm"]
                     </button>
                 </div>
             </form>
@@ -102,18 +151,42 @@
 
 @section Scripts {
     <script>
+        let requiredText = '';
+
+        function confirmAction(action, confirmWord, description) {
+            const modal = document.getElementById('actionConfirmModal');
+            const form = document.getElementById('modalForm');
+            const title = document.getElementById('modalTitle');
+            const desc = document.getElementById('modalDescription');
+            const hint = document.getElementById('modalHint');
+            const input = document.getElementById('actionConfirmInput');
+            const btn = document.getElementById('finalActionBtn');
+
+            requiredText = confirmWord;
+            form.action = '/Admin/' + action;
+            title.innerText = action.replace('Clear', 'Clear ').toUpperCase();
+            desc.innerText = description;
+            hint.innerText = `Type "${confirmWord}" to confirm`;
+            
+            input.value = '';
+            btn.disabled = true;
+            btn.classList.add('opacity-30', 'cursor-not-allowed');
+
+            modal.classList.remove('hidden');
+            input.focus();
+        }
+
         function confirmDatabaseDrop() {
-            document.getElementById('dropConfirmModal').classList.remove('hidden');
-            document.getElementById('confirmInput').focus();
+            confirmAction('DropDatabase', 'DELETE-ALL', 'This will delete EVERYTHING: Users, Films, Groups, Comments. This action is terminal and will sign you out.');
         }
 
-        function closeDropModal() {
-            document.getElementById('dropConfirmModal').classList.add('hidden');
+        function closeActionModal() {
+            document.getElementById('actionConfirmModal').classList.add('hidden');
         }
 
-        document.getElementById('confirmInput')?.addEventListener('input', (e) => {
-            const btn = document.getElementById('finalDropBtn');
-            if (e.target.value === 'DELETE-ALL') {
+        document.getElementById('actionConfirmInput')?.addEventListener('input', (e) => {
+            const btn = document.getElementById('finalActionBtn');
+            if (e.target.value === requiredText) {
                 btn.disabled = false;
                 btn.classList.remove('opacity-30', 'cursor-not-allowed');
             } else {

@@ -1,0 +1,7 @@
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\Services\TmdbService.cs(111,26): error CS7036: Es wurde kein Argument angegeben, das dem erforderlichen Parameter "includeImageLanguages" von "TMDbClient.GetCollectionAsync(int, string?, string?, CollectionMethods, CancellationToken)" entspricht. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\_10_Filmdatenbank.Application.csproj]
+
+Fehler beim Buildvorgang.
+    5 Warnung(en)
+    1 Fehler
+
+Verstrichene Zeit 00:00:01.68

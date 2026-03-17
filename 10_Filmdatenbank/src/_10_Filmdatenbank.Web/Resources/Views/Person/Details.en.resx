@@ -37,4 +37,11 @@
   <data name="TmdbDataSource" xml:space="preserve"><value>Data provided by TMDB</value></data>
   <data name="ViewOnTmdb" xml:space="preserve"><value>View on TMDB</value></data>
   <data name="KnownFrom" xml:space="preserve"><value>Known from {0}</value></data>
+  <data name="GenreDistribution" xml:space="preserve"><value>Genre Distribution</value></data>
+  <data name="CollaborationMatrix" xml:space="preserve"><value>Collaboration Matrix</value></data>
+  <data name="NoData" xml:space="preserve"><value>No data available</value></data>
+  <data name="AccoladesAndRecognition" xml:space="preserve"><value>Accolades &amp; Recognition</value></data>
+  <data name="Winner" xml:space="preserve"><value>Winner</value></data>
+  <data name="Nominated" xml:space="preserve"><value>Nominated</value></data>
+  <data name="LocalLibrary" xml:space="preserve"><value>Local Library</value></data>
 </root>

@@ -92,6 +92,54 @@ public class AdminController : Controller
     }
 
     /// <summary>
+    /// Clears the entire Films table.
+    /// </summary>
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ClearFilms()
+    {
+        await _context.Filme.ExecuteDeleteAsync();
+        TempData["Success"] = "Alle Filme wurden unwiderruflich gelöscht.";
+        return RedirectToAction(nameof(Settings));
+    }
+
+    /// <summary>
+    /// Clears the entire People table.
+    /// </summary>
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ClearPeople()
+    {
+        await _context.Personen.ExecuteDeleteAsync();
+        TempData["Success"] = "Alle Personen wurden unwiderruflich gelöscht.";
+        return RedirectToAction(nameof(Settings));
+    }
+
+    /// <summary>
+    /// Clears the entire Collections table.
+    /// </summary>
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ClearCollections()
+    {
+        await _context.Collections.ExecuteDeleteAsync();
+        TempData["Success"] = "Alle Kollektionen wurden unwiderruflich gelöscht.";
+        return RedirectToAction(nameof(Settings));
+    }
+
+    /// <summary>
+    /// Clears the entire Production Companies (Studios) table.
+    /// </summary>
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ClearStudios()
+    {
+        await _context.ProductionCompanies.ExecuteDeleteAsync();
+        TempData["Success"] = "Alle Studios wurden unwiderruflich gelöscht.";
+        return RedirectToAction(nameof(Settings));
+    }
+
+    /// <summary>
     /// Displays the group moderation page (COMM).
     /// </summary>
     public async Task<IActionResult> ManageGroups()

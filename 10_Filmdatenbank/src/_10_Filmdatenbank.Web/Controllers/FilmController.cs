@@ -15,7 +15,7 @@ namespace _10_Filmdatenbank.Web.Controllers;
 [Authorize]
 [Route("Movies")]
 [Route("Movies/[action]")]
-public class FilmController(ApplicationDbContext context, ITmdbService tmdbService, ITvdbService tvdbService, IRottenTomatoesService rtService, IImdbService imdbService, IMetacriticService metacriticService, IWikidataService wikidataService, UserManager<ApplicationUser> userManager) : Controller
+public class FilmController(ApplicationDbContext context, ITmdbService tmdbService, ITvdbService tvdbService, IRottenTomatoesService rtService, IImdbService imdbService, IMetacriticService metacriticService, IWikidataService wikidataService, UserManager<ApplicationUser> userManager, ILogger<FilmController> logger) : Controller
 {
     /// <summary>
     /// Zeigt eine Liste aller Filme an.
@@ -83,7 +83,24 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             ViewBag.CurrentUserRating = userRating?.Value;
         }
 
-        return film == null ? NotFound() : View(film);
+        if (film == null) return NotFound();
+        
+        // 🌀 External Data Enrichment (On Demand / Auto-Fill missing details)
+        // If critical metadata is missing or was never fetched, we trigger an enrichment.
+        if (!film.TvdbId.HasValue || film.TvdbRating == null || film.Nutzerwertung == 0 || !film.Genres.Any())
+        {
+            try
+            {
+                await HandleEnrichedFilmMetadataAsync(film, tmdbService, context);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning($"On-demand enrichment failed for film {id}: {ex.Message}");
+            }
+        }
+
+        return View(film);
     }
 
     /// <summary>
@@ -179,7 +196,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Full Sync Error: {ex.Message}");
+            logger.LogError(ex, "Full Sync Error for film {FilmId}", id);
         }
 
         if (updated)
@@ -363,7 +380,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         // Log validation errors for debugging
         foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
         {
-            Console.WriteLine($"Validation Error: {error.ErrorMessage}");
+            logger.LogWarning("Validation Error: {ErrorMessage}", error.ErrorMessage);
         }
 
         return View(film);
@@ -553,14 +570,17 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         }
 
         // 8. TVDB ENRICHMENT
-        if (!film.TvdbId.HasValue && !string.IsNullOrEmpty(movie.ExternalIds?.ImdbId))
+        if (!film.TvdbId.HasValue)
         {
-            // Search for TVDB ID using IMDB ID
-            var tvdbRemoteResults = await tvdbService.GetByRemoteIdAsync(movie.ExternalIds.ImdbId);
-            var tvdbMovieResult = tvdbRemoteResults.FirstOrDefault(r => r.Movie != null);
-            if (tvdbMovieResult?.Movie?.Id != null)
+            // 🎬 Search by IMDB ID
+            if (!string.IsNullOrEmpty(movie.ExternalIds?.ImdbId))
             {
-                film.TvdbId = (int)tvdbMovieResult.Movie.Id.Value;
+                var tvdbRemoteResults = await tvdbService.GetByRemoteIdAsync(movie.ExternalIds.ImdbId);
+                var tvdbMovieResult = tvdbRemoteResults.FirstOrDefault(r => r.Movie != null);
+                if (tvdbMovieResult?.Movie?.Id != null)
+                {
+                    film.TvdbId = (int)tvdbMovieResult.Movie.Id.Value;
+                }
             }
         }
 
@@ -622,19 +642,11 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
 
                     if (tvdbDetails.Score != null)
                     {
-                        // TVDB Score normalization: Logic depends on the range. 
-                        // If it's a huge popularity number (e.g. 127000), we don't use it as rating.
-                        // If it's in a reasonable range (0-100 or 0-10), we normalize it to 10.
                         double score = tvdbDetails.Score.Value;
-                        if (score > 1000)
+                        // In TVDB v4, "score" is often the popularity. 
+                        // However, if it resides in [0..100], we can interpret it as a rating.
+                        if (score > 0 && score <= 100)
                         {
-                            // This is likely a popularity score (e.g. 127000), not a rating. 
-                            // We don't want to show this as /10 in the UI.
-                            film.TvdbRating = null; 
-                        }
-                        else
-                        {
-                            // Map 0-100 to 0-10
                             film.TvdbRating = score > 10 ? score / 10.0 : score;
                         }
                     }
@@ -765,7 +777,49 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Wikidata Enrichment Global Error: {ex.Message}");
+            logger.LogWarning(ex, "Wikidata Enrichment Global Error");
+        }
+
+        // 🎭 TMDB Cast & Crew Enrichment (Resilience Fallback)
+        if (movie.Credits != null && (film.PersonEigenschaftFilme == null || film.PersonEigenschaftFilme.Count == 0))
+        {
+            try 
+            {
+                var actorProperty = await context.Eigenschaften.FirstOrDefaultAsync(e => e.Bezeichnung == "Actor")
+                                    ?? new Eigenschaft { Bezeichnung = "Actor" };
+                if (actorProperty.EigenschaftID == 0) { context.Eigenschaften.Add(actorProperty); await context.SaveChangesAsync(); }
+
+                if (movie.Credits.Cast != null)
+                {
+                    foreach (var c in movie.Credits.Cast.Where(x => !string.IsNullOrWhiteSpace(x.Name)).Take(15))
+                    {
+                        var person = await GetOrCreatePerson(c.Id, c.Name, string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}", context, tmdbService);
+                        if (person != null && !film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == actorProperty.EigenschaftID))
+                        {
+                            film.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = actorProperty.EigenschaftID });
+                        }
+                    }
+                }
+
+                // Add Director
+                var directorProperty = await context.Eigenschaften.FirstOrDefaultAsync(e => e.Bezeichnung == "Director")
+                                       ?? new Eigenschaft { Bezeichnung = "Director" };
+                if (directorProperty.EigenschaftID == 0) { context.Eigenschaften.Add(directorProperty); await context.SaveChangesAsync(); }
+
+                var director = movie.Credits.Crew?.FirstOrDefault(c => c.Job == "Director" && !string.IsNullOrWhiteSpace(c.Name));
+                if (director != null)
+                {
+                    var person = await GetOrCreatePerson(director.Id, director.Name, string.IsNullOrEmpty(director.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{director.ProfilePath}", context, tmdbService);
+                    if (person != null && !film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == directorProperty.EigenschaftID))
+                    {
+                        film.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = directorProperty.EigenschaftID });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning(ex, "Error syncing Cast/Crew in HandleEnrichedFilmMetadataAsync");
+            }
         }
     }
 
@@ -811,12 +865,12 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                             }
                         }
 
-                        Console.WriteLine($"Wikidata Person Success: {person.Vorname} {person.Nachname}");
+                        logger.LogInformation("Wikidata Person Success: {Vorname} {Nachname}", person.Vorname, person.Nachname);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Wikidata Person Error ({person.Nachname}): {ex.Message}");
+                    logger.LogWarning(ex, "Wikidata Person Error ({Nachname})", person.Nachname);
                 }
             }
         }
@@ -845,18 +899,18 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                             company.Description += $" (Teil von {wikiData.ParentCompany})";
                         }
 
-                        Console.WriteLine($"Wikidata Studio Success: {company.Name}");
+                        logger.LogInformation("Wikidata Studio Success: {CompanyName}", company.Name);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Wikidata Studio Error ({company.Name}): {ex.Message}");
+                    logger.LogWarning(ex, "Wikidata Studio Error ({CompanyName})", company.Name);
                 }
             }
         }
     }
 
-    private static async Task HandleCastCrewSync(string? castJson, string? crewJson, Film film, ApplicationDbContext context, ITmdbService tmdbService)
+    private async Task HandleCastCrewSync(string? castJson, string? crewJson, Film film, ApplicationDbContext context, ITmdbService tmdbService)
     {
         // 1. Handle Cast
         if (!string.IsNullOrEmpty(castJson))
@@ -871,17 +925,17 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
 
                     if (actorProperty.EigenschaftID == 0) { context.Eigenschaften.Add(actorProperty); await context.SaveChangesAsync(); }
 
-                    foreach (var item in castItems)
+                    foreach (var item in castItems.Where(x => !string.IsNullOrWhiteSpace(x.Name)))
                     {
                         var person = await GetOrCreatePerson(item.Id, item.Name, item.ProfileUrl, context, tmdbService);
                         if (person != null && !film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == actorProperty.EigenschaftID))
                         {
-                            context.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = actorProperty.EigenschaftID });
+                            film.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = actorProperty.EigenschaftID });
                         }
                     }
                 }
             }
-            catch (Exception ex) { Console.WriteLine($"Cast Sync Error: {ex.Message}"); }
+            catch (Exception ex) { logger.LogError(ex, "Cast Sync Error"); }
         }
 
         // 2. Handle Crew
@@ -892,7 +946,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                 var crewItems = System.Text.Json.JsonSerializer.Deserialize<List<CrewMemberDto>>(crewJson);
                 if (crewItems != null)
                 {
-                    foreach (var item in crewItems)
+                    foreach (var item in crewItems.Where(x => !string.IsNullOrWhiteSpace(x.Name) && !string.IsNullOrWhiteSpace(x.Job)))
                     {
                         var property = await context.Eigenschaften.FirstOrDefaultAsync(e => e.Bezeichnung == item.Job)
                                        ?? new Eigenschaft { Bezeichnung = item.Job };
@@ -902,26 +956,29 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                         var person = await GetOrCreatePerson(item.Id, item.Name, item.ProfileUrl, context, tmdbService);
                         if (person != null && !film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == property.EigenschaftID))
                         {
-                            context.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = property.EigenschaftID });
+                            film.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = property.EigenschaftID });
                         }
                     }
                 }
             }
-            catch (Exception ex) { Console.WriteLine($"Crew Sync Error: {ex.Message}"); }
+            catch (Exception ex) { logger.LogError(ex, "Crew Sync Error"); }
         }
     }
 
-    private static async Task<Person?> GetOrCreatePerson(int tmdbId, string name, string? profileUrl, ApplicationDbContext context, ITmdbService tmdbService)
+    private async Task<Person?> GetOrCreatePerson(int tmdbId, string name, string? profileUrl, ApplicationDbContext context, ITmdbService tmdbService)
     {
+        if (string.IsNullOrWhiteSpace(name) && tmdbId <= 0) return null;
+
         var person = await context.Personen.FirstOrDefaultAsync(p => p.TmdbId == tmdbId)
                      ?? await context.Personen.FirstOrDefaultAsync(p => (p.Vorname + " " + p.Nachname).Trim() == name.Trim());
 
         if (person == null)
         {
-            var tmdbPerson = await tmdbService.GetPersonDetailsAsync(tmdbId);
+            var tmdbPerson = tmdbId > 0 ? await tmdbService.GetPersonDetailsAsync(tmdbId) : null;
             if (tmdbPerson != null)
             {
-                var names = (tmdbPerson.Name ?? "Unknown").Split(' ', 2);
+                var cleanName = (tmdbPerson.Name ?? name ?? "Unknown").Trim();
+                var names = cleanName.Split(' ', 2);
                 person = new Person
                 {
                     Vorname = names[0],
@@ -951,17 +1008,24 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             }
             else
             {
-                var names = name.Split(' ', 2);
+                var cleanName = (name ?? "Unknown").Trim();
+                if (string.IsNullOrWhiteSpace(cleanName) || cleanName.Equals("Unknown", StringComparison.OrdinalIgnoreCase)) return null;
+
+                var names = cleanName.Split(' ', 2);
                 person = new Person
                 {
                     Vorname = names[0],
                     Nachname = names.Length > 1 ? names[1] : string.Empty,
-                    TmdbId = tmdbId,
+                    TmdbId = tmdbId > 0 ? tmdbId : null,
                     ProfilBildUrl = profileUrl
                 };
             }
-            context.Personen.Add(person);
-            await context.SaveChangesAsync();
+
+            if (person != null)
+            {
+                context.Personen.Add(person);
+                await context.SaveChangesAsync();
+            }
         }
         return person;
     }

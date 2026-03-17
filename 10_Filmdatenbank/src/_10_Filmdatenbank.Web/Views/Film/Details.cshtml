@@ -372,6 +372,14 @@
                                  </div>
                                  <span class="text-lg font-black text-white">@(Model.RottenTomatoesAudienceRating?.ToString() ?? "N/A")%</span>
                              </div>
+                             <!-- TVDB -->
+                             <div class="p-3 rounded-xl bg-nav-surface/50 border border-white/5 hover:border-brand-primary/30 transition-all group/stat">
+                                 <div class="flex items-center gap-2 mb-2">
+                                     <img src="/images/logos/tvdb.svg" class="h-3 w-auto" alt="TVDB" />
+                                     <span class="text-[8px] font-black text-text-muted uppercase tracking-widest">@Localizer["TvdbScore"]</span>
+                                 </div>
+                                 <span class="text-lg font-black text-white">@(Model.TvdbRating?.ToString("0.0") ?? "N/A")</span>
+                             </div>
                         </div>
                     </div>
             </div>
@@ -431,11 +439,27 @@
                     </div>
                     @if (Model.Collection != null)
                     {
-                        <div class="flex flex-col">
-                            <span class="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">@Localizer["CollectionSeries"]</span>
-                            <a asp-controller="Collection" asp-action="Details" asp-route-id="@Model.CollectionID" class="text-sm font-black text-brand-primary hover:text-brand-hover transition-colors">
-                                @Model.Collection.Name
+                        <div class="mt-8 space-y-4">
+                            <span class="text-[10px] font-black text-text-muted uppercase tracking-[0.2em]">@Localizer["PartOfTheCollection"]</span>
+                            <a asp-controller="Collection" asp-action="Details" asp-route-id="@Model.CollectionID" 
+                               class="group block relative w-full h-32 rounded-2xl overflow-hidden border border-glass-border shadow-xl hover:border-brand-primary/50 transition-all">
+                                @if (!string.IsNullOrEmpty(Model.Collection.BackdropUrl))
+                                {
+                                    <img src="@Model.Collection.BackdropUrl" alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                }
+                                <div class="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent flex items-center p-8">
+                                    <div class="min-w-0">
+                                        <p class="text-xl font-black text-white group-hover:text-brand-primary transition-colors truncate">@Model.Collection.Name</p>
+                                        <p class="text-[10px] font-bold text-white/60 uppercase tracking-widest mt-1">@Localizer["ViewFullSaga"] <i class="fa-solid fa-arrow-right-long ml-2"></i></p>
+                                    </div>
+                                </div>
                             </a>
+                            @if (!string.IsNullOrEmpty(Model.Collection.Overview))
+                            {
+                                <p class="text-xs text-text-description dark:text-dark-text-muted italic leading-relaxed line-clamp-2">
+                                    @Model.Collection.Overview
+                                </p>
+                            }
                         </div>
                     }
                     @if (Model.ProductionCompanies?.Any() == true)

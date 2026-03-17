@@ -512,6 +512,10 @@
                                                     {
                                                         <span class="text-[7px] font-black bg-success-primary text-white px-1 rounded">LIBRARY</span>
                                                     }
+                                                    else
+                                                    {
+                                                        <a asp-controller="Film" asp-action="Create" asp-route-searchQuery="@title" class="px-1.5 py-0.5 rounded bg-brand-primary/20 hover:bg-brand-primary text-brand-primary hover:text-white text-[7px] font-black uppercase transition-all">IMPORT</a>
+                                                    }
                                                 </div>
                                                 <div class="flex items-center gap-2 mt-1">
                                                     <span class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted italic truncate">

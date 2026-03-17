@@ -35,7 +35,7 @@
                            placeholder='@Localizer["TmdbSearchPlaceholder"]' />
                     
                     <!-- Search Results Dropdown -->
-                    <div id="searchResults" class="hidden absolute top-full left-0 right-0 mt-2 bg-surface-bright dark:bg-dark-surface rounded-2xl shadow-2xl border border-border-default dark:border-dark-border z-100 max-h-96 overflow-y-auto overflow-x-hidden backdrop-blur-xl bg-surface-bright/95 dark:bg-dark-surface/95 scroll-smooth">
+                    <div id="searchResults" class="hidden absolute top-full left-0 right-0 mt-2 rounded-2xl shadow-2xl border border-border-default dark:border-dark-border z-100 max-h-96 overflow-y-auto overflow-x-hidden backdrop-blur-xl bg-surface-bright/95 dark:bg-dark-surface/95 scroll-smooth">
                         <!-- Filled by JS -->
                     </div>
                 </div>
@@ -213,12 +213,20 @@
                     resultsDropdown.classList.add('hidden');
                     return;
                 }
-
+ 
                 debounceTimer = setTimeout(() => {
                     fetchSearchResults(query);
                 }, 400);
             });
-
+ 
+            // Auto-search if searchQuery exists in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const autoQuery = urlParams.get('searchQuery');
+            if (autoQuery) {
+                searchInput.value = autoQuery;
+                fetchSearchResults(autoQuery);
+            }
+ 
             async function fetchSearchResults(query) {
                 try {
                     resultsDropdown.innerHTML = `<div class="p-6 text-center text-xs font-bold text-text-muted dark:text-dark-text-muted italic animate-pulse">@Localizer["Searching"]</div>`;
