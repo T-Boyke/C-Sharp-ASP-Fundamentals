@@ -111,8 +111,8 @@ public class TmdbService : ITmdbService
             var url = $"search/movie?query={Uri.EscapeDataString(query)}&language={language}";
             var json = await _httpClient.GetStringAsync(url);
             
-            // Verwende SearchContainer<SearchMovie> statt eines unbekannten Typs
-            var response = Newtonsoft.Json.JsonConvert.DeserializeObject<TMDbLib.Objects.General.SearchContainer<SearchMovie>>(json);
+            // Verwende System.Text.Json für TMDbLib 3.0.0 (SnakeCase)
+            var response = System.Text.Json.JsonSerializer.Deserialize<TMDbLib.Objects.General.SearchContainer<SearchMovie>>(json, _jsonOptions);
             return response?.Results ?? Enumerable.Empty<SearchMovie>();
         }
         catch (Exception ex)
@@ -138,7 +138,7 @@ public class TmdbService : ITmdbService
         {
             var url = $"movie/{tmdbId}?language={language}&append_to_response=credits,external_ids,keywords,videos,alternative_titles,release_dates,watch/providers,images";
             var json = await _httpClient.GetStringAsync(url);
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Movie>(json);
+            return System.Text.Json.JsonSerializer.Deserialize<Movie>(json, _jsonOptions);
         }
         catch (Exception ex)
         {
@@ -182,7 +182,7 @@ public class TmdbService : ITmdbService
             // Manueller Resilient-Weg
             var url = $"person/{tmdbId}?language={language}&append_to_response=images,movie_credits,tv_credits,external_ids,combined_credits";
             var json = await _httpClient.GetStringAsync(url);
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Person>(json);
+            return System.Text.Json.JsonSerializer.Deserialize<Person>(json, _jsonOptions);
         }
         catch (Exception ex)
         {
@@ -197,7 +197,7 @@ public class TmdbService : ITmdbService
         {
             var url = $"search/collection?query={Uri.EscapeDataString(query)}&language={language}";
             var json = await _httpClient.GetStringAsync(url);
-            var response = Newtonsoft.Json.JsonConvert.DeserializeObject<TmdbSearchResponse<SearchCollection>>(json);
+            var response = System.Text.Json.JsonSerializer.Deserialize<TMDbLib.Objects.General.SearchContainer<SearchCollection>>(json, _jsonOptions);
             return response?.Results ?? Enumerable.Empty<SearchCollection>();
         }
         catch
@@ -212,7 +212,7 @@ public class TmdbService : ITmdbService
         {
             var url = $"collection/{tmdbId}?language={language}";
             var json = await _httpClient.GetStringAsync(url);
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Collection>(json);
+            return System.Text.Json.JsonSerializer.Deserialize<Collection>(json, _jsonOptions);
         }
         catch (Exception ex)
         {
@@ -261,7 +261,7 @@ public class TmdbService : ITmdbService
         {
             var url = $"company/{tmdbId}";
             var json = await _httpClient.GetStringAsync(url);
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<TMDbLib.Objects.Companies.Company>(json);
+            return System.Text.Json.JsonSerializer.Deserialize<TMDbLib.Objects.Companies.Company>(json, _jsonOptions);
         }
         catch (Exception ex)
         {

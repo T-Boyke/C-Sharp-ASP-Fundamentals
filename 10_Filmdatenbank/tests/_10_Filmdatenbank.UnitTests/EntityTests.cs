@@ -92,5 +92,68 @@ namespace _10_Filmdatenbank.UnitTests.Domain
             Assert.Equal(1, pef.EigenschaftID);
             Assert.Equal(eigenschaft, pef.Eigenschaft);
         }
+
+        [Fact]
+        public void ApplicationUser_Should_Initialize_Correctly()
+        {
+            // Arrange
+            var user = new ApplicationUser
+            {
+                Id = "user1",
+                UserName = "testuser",
+                FirstName = "Test",
+                LastName = "User",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            // Assert
+            Assert.Equal("user1", user.Id);
+            Assert.Equal("testuser", user.UserName);
+            Assert.Equal("Test", user.FirstName);
+            Assert.Equal("User", user.LastName);
+            Assert.NotNull(user.FavoriteFilms);
+            Assert.NotNull(user.EarnedAchievements);
+        }
+
+        [Fact]
+        public void Achievement_Should_Initialize_Correctly()
+        {
+            // Arrange
+            var achievement = new Achievement
+            {
+                AchievementID = 1,
+                Name = "Master Collector",
+                Description = "Collect 100 films"
+            };
+
+            // Assert
+            Assert.Equal(1, achievement.AchievementID);
+            Assert.Equal("Master Collector", achievement.Name);
+            Assert.NotNull(achievement.EarnedBy);
+        }
+
+        [Fact]
+        public void FavoriteFilm_Should_Initialize_Correctly()
+        {
+            // Arrange
+            var user = new ApplicationUser { Id = "user1" };
+            var film = new Film { FilmID = 1 };
+            var favorite = new FavoriteFilm
+            {
+                FavoriteFilmID = 1,
+                UserID = "user1",
+                User = user,
+                FilmID = 1,
+                Film = film,
+                AddedAt = DateTime.UtcNow
+            };
+
+            // Assert
+            Assert.Equal(1, favorite.FavoriteFilmID);
+            Assert.Equal("user1", favorite.UserID);
+            Assert.Equal(user, favorite.User);
+            Assert.Equal(1, favorite.FilmID);
+            Assert.Equal(film, favorite.Film);
+        }
     }
 }

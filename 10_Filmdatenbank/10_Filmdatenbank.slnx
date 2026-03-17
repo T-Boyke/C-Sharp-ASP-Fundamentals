@@ -9,4 +9,5 @@
     <Project Path="tests/_10_Filmdatenbank.UnitTests/_10_Filmdatenbank.UnitTests.csproj" />
     <Project Path="tests/_10_Filmdatenbank.IntegrationTests/_10_Filmdatenbank.IntegrationTests.csproj" />
   </Folder>
+  <Project Path="tests/_10_Filmdatenbank.PlaywrightTests/_10_Filmdatenbank.PlaywrightTests.csproj" />
 </Solution>

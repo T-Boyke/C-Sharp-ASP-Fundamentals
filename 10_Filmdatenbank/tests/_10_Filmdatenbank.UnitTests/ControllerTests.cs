@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace _10_Filmdatenbank.UnitTests.Web
 {
@@ -12,18 +15,42 @@ namespace _10_Filmdatenbank.UnitTests.Web
     {
         private readonly Mock<ILogger<HomeController>> _mockLogger = new();
 
-        [Fact]
-        public void Index_Returns_View()
+        private HomeController GetController()
         {
             var controller = new HomeController(_mockLogger.Object);
+            var context = new DefaultHttpContext();
+            controller.ControllerContext = new ControllerContext
+            {
+                HttpContext = context
+            };
+            return controller;
+        }
+
+        [Fact]
+        public void Index_Returns_View_When_Not_Authenticated()
+        {
+            var controller = GetController();
             var result = controller.Index();
             Assert.IsType<ViewResult>(result);
         }
 
         [Fact]
+        public void Index_Redirects_To_Dashboard_When_Authenticated()
+        {
+            var controller = GetController();
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, "test") }, "Test"));
+            controller.HttpContext.User = user;
+
+            var result = controller.Index();
+            var redirectResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Dashboard", redirectResult.ActionName);
+            Assert.Equal("User", redirectResult.ControllerName);
+        }
+
+        [Fact]
         public void Privacy_Returns_View()
         {
-            var controller = new HomeController(_mockLogger.Object);
+            var controller = GetController();
             var result = controller.Privacy();
             Assert.IsType<ViewResult>(result);
         }
@@ -37,13 +64,17 @@ namespace _10_Filmdatenbank.UnitTests.Web
         public AccountControllerTests()
         {
             _mockUserManager = new Mock<UserManager<_10_Filmdatenbank.Domain.Entities.ApplicationUser>>(
-                new Mock<IUserStore<_10_Filmdatenbank.Domain.Entities.ApplicationUser>>().Object, null, null, null, null, null, null, null, null);
+                new Mock<IUserStore<_10_Filmdatenbank.Domain.Entities.ApplicationUser>>().Object, 
+                null!, null!, null!, null!, null!, null!, null!, null!);
             
             _mockSignInManager = new Mock<SignInManager<_10_Filmdatenbank.Domain.Entities.ApplicationUser>>(
                 _mockUserManager.Object,
                 new Mock<IHttpContextAccessor>().Object,
                 new Mock<IUserClaimsPrincipalFactory<_10_Filmdatenbank.Domain.Entities.ApplicationUser>>().Object,
-                null, null, null, null);
+                new Mock<IOptions<IdentityOptions>>().Object,
+                new Mock<ILogger<SignInManager<_10_Filmdatenbank.Domain.Entities.ApplicationUser>>>().Object,
+                new Mock<Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider>().Object,
+                new Mock<IUserConfirmation<_10_Filmdatenbank.Domain.Entities.ApplicationUser>>().Object);
         }
 
         [Fact]

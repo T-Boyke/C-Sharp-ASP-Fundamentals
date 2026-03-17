@@ -12,8 +12,7 @@ namespace _10_Filmdatenbank.Web.Controllers;
 /// <param name="context">Der Datenbankkontext für den Zugriff auf Personendaten.</param>
 [Authorize]
 [Route("Schauspieler")]
-[Route("Schauspieler/[action]")]
-public class PersonController(ApplicationDbContext context, IWikidataService wikidataService, ITmdbService tmdbService) : Controller
+public class PersonController(ApplicationDbContext context, IWikidataService wikidataService, ITmdbService tmdbService, ILogger<PersonController> logger) : Controller
 {
     /// <summary>
     /// Zeigt eine Liste aller Personen in der Datenbank an.
@@ -21,6 +20,8 @@ public class PersonController(ApplicationDbContext context, IWikidataService wik
     /// <param name="searchString">Optionaler Suchbegriff.</param>
     /// <param name="role">Optionaler Filter nach Rolle (Bezeichnung).</param>
     /// <returns>Die Index-View mit einer Liste von Personen.</returns>
+    [HttpGet("")]
+    [HttpGet("Index")]
     public async Task<IActionResult> Index(string? searchString, string? role)
     {
         var query = context.Personen.AsQueryable();
@@ -48,6 +49,7 @@ public class PersonController(ApplicationDbContext context, IWikidataService wik
     /// <summary>
     /// Zeigt die Details einer bestimmten Person an.
     /// </summary>
+    [HttpGet("Details/{id}")]
     public async Task<IActionResult> Details(int id)
     {
         var person = await context.Personen
@@ -158,14 +160,38 @@ public class PersonController(ApplicationDbContext context, IWikidataService wik
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Wikidata Person Enrichment Error: {ex.Message}");
+            logger.LogWarning(ex, "Wikidata Person Enrichment Error for PersonID {PersonId}", person.PersonID);
         }
     }
 
+    /// <summary>
+    /// Erzwingt eine manuelle Synchronisierung der Personendaten mit TMDB und Wikidata.
+    /// </summary>
+    /// <param name="id">Die ID der Person.</param>
+    /// <returns>Redirect zur Details-Seite.</returns>
+    [HttpPost("SyncWithTmdb/{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> SyncWithTmdb(int id)
+    {
+        var person = await context.Personen
+            .Include(p => p.PersonAwards)
+            .Include(p => p.PersonEigenschaftFilme)
+            .FirstOrDefaultAsync(p => p.PersonID == id);
+
+        if (person == null) return NotFound();
+
+        await EnrichPersonAsync(person);
+        await context.SaveChangesAsync();
+
+        TempData["Success"] = "Daten wurden erfolgreich mit TMDB & Wikidata synchronisiert.";
+        return RedirectToAction(nameof(Details), new { id = person.PersonID });
+    }
+
+    [HttpGet("Create")]
     [Authorize(Roles = "Admin")]
     public IActionResult Create() => View();
 
-    [HttpPost]
+    [HttpPost("Create")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(_10_Filmdatenbank.Domain.Entities.Person person)
     {
@@ -178,6 +204,7 @@ public class PersonController(ApplicationDbContext context, IWikidataService wik
         return View(person);
     }
 
+    [HttpGet("Edit/{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int id)
     {
@@ -185,7 +212,7 @@ public class PersonController(ApplicationDbContext context, IWikidataService wik
         return person == null ? NotFound() : View(person);
     }
 
-    [HttpPost]
+    [HttpPost("Edit/{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(_10_Filmdatenbank.Domain.Entities.Person person)
     {
@@ -198,6 +225,7 @@ public class PersonController(ApplicationDbContext context, IWikidataService wik
         return View(person);
     }
 
+    [HttpGet("Delete/{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -205,7 +233,7 @@ public class PersonController(ApplicationDbContext context, IWikidataService wik
         return person == null ? NotFound() : View(person);
     }
 
-    [HttpPost, ActionName("Delete")]
+    [HttpPost("Delete/{id}"), ActionName("Delete")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {

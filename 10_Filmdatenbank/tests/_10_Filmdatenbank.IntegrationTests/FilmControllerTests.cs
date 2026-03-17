@@ -8,6 +8,11 @@ using Moq;
 using _10_Filmdatenbank.Application.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace _10_Filmdatenbank.IntegrationTests.Web
 {
@@ -20,11 +25,12 @@ namespace _10_Filmdatenbank.IntegrationTests.Web
         private readonly Mock<IMetacriticService> _mockMetacriticService = new();
         private readonly Mock<IWikidataService> _mockWikidataService = new();
         private readonly Mock<UserManager<ApplicationUser>> _mockUserManager;
+        private readonly Mock<ILogger<FilmController>> _mockLogger = new();
 
         public FilmControllerTests()
         {
             _mockUserManager = new Mock<UserManager<ApplicationUser>>(
-                new Mock<IUserStore<ApplicationUser>>().Object, null, null, null, null, null, null, null, null);
+                new Mock<IUserStore<ApplicationUser>>().Object, null!, null!, null!, null!, null!, null!, null!, null!);
         }
 
         private ApplicationDbContext GetContext()
@@ -39,7 +45,7 @@ namespace _10_Filmdatenbank.IntegrationTests.Web
 
         private FilmController GetController(ApplicationDbContext context)
         {
-            return new FilmController(
+            var controller = new FilmController(
                 context, 
                 _mockTmdbService.Object, 
                 _mockTvdbService.Object, 
@@ -47,7 +53,12 @@ namespace _10_Filmdatenbank.IntegrationTests.Web
                 _mockImdbService.Object, 
                 _mockMetacriticService.Object,
                 _mockWikidataService.Object, 
-                _mockUserManager.Object);
+                _mockUserManager.Object,
+                _mockLogger.Object);
+
+            controller.TempData = new Mock<ITempDataDictionary>().Object;
+
+            return controller;
         }
 
         [Fact]

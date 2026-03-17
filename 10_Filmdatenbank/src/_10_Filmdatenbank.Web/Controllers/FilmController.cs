@@ -14,7 +14,6 @@ namespace _10_Filmdatenbank.Web.Controllers;
 /// </summary>
 [Authorize]
 [Route("Movies")]
-[Route("Movies/[action]")]
 public class FilmController(ApplicationDbContext context, ITmdbService tmdbService, ITvdbService tvdbService, IRottenTomatoesService rtService, IImdbService imdbService, IMetacriticService metacriticService, IWikidataService wikidataService, UserManager<ApplicationUser> userManager, ILogger<FilmController> logger) : Controller
 {
     /// <summary>
@@ -22,6 +21,8 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     /// </summary>
     /// <param name="searchString">Optionaler Suchbegriff.</param>
     /// <returns>Die Index-View mit einer Liste von Filmen.</returns>
+    [HttpGet("")]
+    [HttpGet("Index")]
     public async Task<IActionResult> Index(string? searchString = null)
     {
         var query = context.Filme.AsQueryable();
@@ -55,6 +56,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     /// </summary>
     /// <param name="id">Die ID des Films.</param>
     /// <returns>Die Details-View des Films oder NotFound.</returns>
+    [HttpGet("Details/{id}")]
     public async Task<IActionResult> Details(int id)
     {
         var film = await context.Filme
@@ -151,6 +153,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     /// <summary>
     /// Zeigt das globale Ranking der Filme basierend auf der CouchDB Nutzerwertung an.
     /// </summary>
+    [HttpGet("Ranking")]
     public async Task<IActionResult> Ranking()
     {
         var films = await context.Filme
@@ -216,6 +219,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     /// Zeigt das Formular zum Erstellen eines neuen Films an.
     /// </summary>
     /// <returns>Die Create-View.</returns>
+    [HttpGet("Create")]
     [Authorize(Roles = "Admin")]
     public IActionResult Create() => View();
 
@@ -225,7 +229,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     /// <param name="film">Das zu erstellende Film-Objekt.</param>
     /// <param name="SelectedCastJson">JSON-String der ausgewählten Cast-Mitglieder.</param>
     /// <returns>Redirect zur Index-View bei Erfolg, andernfalls die Create-View mit Fehlern.</returns>
-    [HttpPost]
+    [HttpPost("Create")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(Film film, string? SelectedCastJson = null, string? SelectedCrewJson = null, string? SelectedGenresJson = null, string? SelectedKeywordsJson = null, string? SelectedCompaniesJson = null, int? TmdbCollectionId = null, string? TmdbCollectionName = null)
     {
@@ -414,6 +418,38 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             film.TrailerUrl = $"https://www.youtube.com/embed/{trailer.Key}";
         }
 
+        // 0.5 Collection Synchronization
+        if (movie.BelongsToCollection != null)
+        {
+            var collection = await context.Collections.FirstOrDefaultAsync(c => c.TmdbId == movie.BelongsToCollection.Id);
+            if (collection == null)
+            {
+                var colDetails = await tmdbService.GetCollectionDetailsAsync(movie.BelongsToCollection.Id);
+                collection = new Collection
+                {
+                    TmdbId = movie.BelongsToCollection.Id,
+                    Name = movie.BelongsToCollection.Name ?? "Unknown Saga",
+                    Overview = colDetails?.Overview,
+                    PosterUrl = string.IsNullOrEmpty(colDetails?.PosterPath) ? (string.IsNullOrEmpty(movie.BelongsToCollection.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{movie.BelongsToCollection.PosterPath}") : $"https://image.tmdb.org/t/p/w500{colDetails.PosterPath}",
+                    BackdropUrl = string.IsNullOrEmpty(colDetails?.BackdropPath) ? (string.IsNullOrEmpty(movie.BelongsToCollection.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{movie.BelongsToCollection.BackdropPath}") : $"https://image.tmdb.org/t/p/original{colDetails.BackdropPath}"
+                };
+                context.Collections.Add(collection);
+                await context.SaveChangesAsync();
+            }
+            else if (string.IsNullOrEmpty(collection.Overview) || string.IsNullOrEmpty(collection.BackdropUrl))
+            {
+                // Refresh existing collection if details are missing
+                var colDetails = await tmdbService.GetCollectionDetailsAsync(collection.TmdbId);
+                if (colDetails != null)
+                {
+                    collection.Overview ??= colDetails.Overview;
+                    collection.PosterUrl ??= string.IsNullOrEmpty(colDetails.PosterPath) ? null : $"https://image.tmdb.org/t/p/w500{colDetails.PosterPath}";
+                    collection.BackdropUrl ??= string.IsNullOrEmpty(colDetails.BackdropPath) ? null : $"https://image.tmdb.org/t/p/original{colDetails.BackdropPath}";
+                }
+            }
+            film.CollectionID = collection.CollectionID;
+        }
+
         // 1. Alternative Titles
         if (movie.AlternativeTitles?.Titles != null)
         {
@@ -553,7 +589,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                     {
                         Name = pc.Name ?? "Unknown",
                         TmdbId = pc.Id,
-                        LogoUrl = string.IsNullOrEmpty(studio?.LogoPath) ? null : $"https://image.tmdb.org/t/p/w500{studio.LogoPath}",
+                        LogoUrl = string.IsNullOrEmpty(studio?.LogoPath) ? (string.IsNullOrEmpty(pc.LogoPath) ? null : $"https://image.tmdb.org/t/p/w500{pc.LogoPath}") : $"https://image.tmdb.org/t/p/w500{studio.LogoPath}",
                         OriginCountry = studio?.OriginCountry ?? pc.OriginCountry,
                         Headquarters = studio?.Headquarters,
                         Homepage = studio?.Homepage,
@@ -643,9 +679,9 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                     if (tvdbDetails.Score != null)
                     {
                         double score = tvdbDetails.Score.Value;
-                        // In TVDB v4, "score" is often the popularity. 
-                        // However, if it resides in [0..100], we can interpret it as a rating.
-                        if (score > 0 && score <= 100)
+                        // In TVDB v4, "score" is often the popularity or a rating.
+                        // We allow 0 as well.
+                        if (score >= 0 && score <= 100)
                         {
                             film.TvdbRating = score > 10 ? score / 10.0 : score;
                         }
@@ -1071,6 +1107,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     /// </summary>
     /// <param name="id">Die ID des zu bearbeitenden Films.</param>
     /// <returns>Die Edit-View oder NotFound.</returns>
+    [HttpGet("Edit/{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int id)
     {
@@ -1083,7 +1120,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     /// </summary>
     /// <param name="film">Das aktualisierte Film-Objekt.</param>
     /// <returns>Redirect zur Index-View bei Erfolg, andernfalls die Edit-View mit Fehlern.</returns>
-    [HttpPost]
+    [HttpPost("Edit/{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(Film film, string? SelectedCastJson = null, string? SelectedCrewJson = null, string? SelectedGenresJson = null, string? SelectedKeywordsJson = null, string? SelectedCompaniesJson = null, int? TmdbCollectionId = null, string? TmdbCollectionName = null)
     {
@@ -1230,6 +1267,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     /// </summary>
     /// <param name="id">Die ID des zu löschenden Films.</param>
     /// <returns>Die Delete-View oder NotFound.</returns>
+    [HttpGet("Delete/{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -1242,7 +1280,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     /// </summary>
     /// <param name="id">Die ID des zu löschenden Films.</param>
     /// <returns>Redirect zur Index-View.</returns>
-    [HttpPost, ActionName("Delete")]
+    [HttpPost("Delete/{FilmID}"), ActionName("Delete")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int FilmID)
     {

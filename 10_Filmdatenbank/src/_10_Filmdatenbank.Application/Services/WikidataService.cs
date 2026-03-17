@@ -215,7 +215,7 @@ public class WikidataService : IWikidataService
         return null;
     }
 
-    private async Task<Dictionary<string, JsonElement>[]> ExecuteSparqlAsync(string query)
+    private async Task<Dictionary<string, string>[]> ExecuteSparqlAsync(string query)
     {
         var url = "https://query.wikidata.org/sparql?query=" + Uri.EscapeDataString(query);
         var response = await _httpClient.GetStringAsync(url);
@@ -225,25 +225,25 @@ public class WikidataService : IWikidataService
             .GetProperty("results")
             .GetProperty("bindings");
 
-        var list = new List<Dictionary<string, JsonElement>>();
+        var list = new List<Dictionary<string, string>>();
         foreach (var item in bindings.EnumerateArray())
         {
-            var dict = new Dictionary<string, JsonElement>();
+            var dict = new Dictionary<string, string>();
             foreach (var prop in item.EnumerateObject())
             {
-                dict[prop.Name] = prop.Value;
+                if (prop.Value.TryGetProperty("value", out var val))
+                {
+                    var s = val.GetString();
+                    if (s != null) dict[prop.Name] = s;
+                }
             }
             list.Add(dict);
         }
         return list.ToArray();
     }
 
-    private string? GetVal(Dictionary<string, JsonElement> dict, string key)
+    private string? GetVal(Dictionary<string, string> dict, string key)
     {
-        if (dict.TryGetValue(key, out var element) && element.TryGetProperty("value", out var val))
-        {
-            return val.GetString();
-        }
-        return null;
+        return dict.TryGetValue(key, out var val) ? val : null;
     }
 }

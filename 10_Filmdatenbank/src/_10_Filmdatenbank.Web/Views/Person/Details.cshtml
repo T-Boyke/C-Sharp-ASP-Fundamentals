@@ -90,7 +90,17 @@
                                 </div>
                             }
 
-                            <div class="flex items-center gap-4 mt-4 py-2">
+                            <div class="flex flex-wrap items-center gap-4 mt-6">
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <form asp-action="SyncWithTmdb" method="post" class="mr-2">
+                                        <input type="hidden" name="id" value="@Model.PersonID" />
+                                        <button type="submit" class="btn-secondary !py-2 !px-4 text-[10px] shadow-lg shadow-brand-primary/10" title="TMDB & Wikidata Sync">
+                                            <i class="fa-solid fa-cloud-arrow-down mr-2"></i> Sync
+                                        </button>
+                                    </form>
+                                }
+                                
                                 @if (!string.IsNullOrEmpty(Model.ImdbId))
                                 {
                                     <a href="https://www.imdb.com/name/@Model.ImdbId" target="_blank" class="w-8 h-8 rounded-lg bg-accent-imdb text-black flex items-center justify-center font-black transition-transform hover:scale-110 shadow-lg" title="IMDb Profile">
@@ -120,12 +130,6 @@
                                     <a href="https://www.wikidata.org/wiki/@Model.WikidataId" target="_blank" class="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center transition-transform hover:scale-110 shadow-lg border border-border-muted" title="Wikidata">
                                         <i class="fa-solid fa-barcode"></i>
                                     </a>
-                                }
-                                @if (Model.Adult)
-                                {
-                                    <span class="px-2 py-1 rounded bg-danger-primary text-white text-[10px] font-black uppercase tracking-tighter shadow-lg" title='@Localizer["OnlyAdults"]'>
-                                        18+
-                                    </span>
                                 }
                             </div>
                             
