@@ -29,8 +29,8 @@ Die Tests sind in drei Hauptprojekte unterteilt, um eine klare Trennung zwischen
 - **Inhalt**:
   - **UI/UX**: Testet Benutzer-Workflows (Login, Suche, Import, Admin-Bereich).
   - **Cross-Browser**: Unterstützt Chromium, Firefox und Webkit via **Playwright**.
-  - **Self-Hosted**: Startet automatisch einen Test-Server auf Port 5016.
-- **Vorteil**: Validiert das fertige System aus der Sicht des Endbenutzers.
+  - **Self-Hosted**: Startet automatisch einen Test-Server auf Port 5018 via Hintergrund-Prozess (`dotnet run`).
+- **Vorteil**: Validiert das fertige System aus der Sicht des Endbenutzers. Die Tests sind durch Attribut-basierte Selektoren unabhängig von der Sprache (Lokalisierung).
 
 ## 🚀 Tests ausführen
 

@@ -20,10 +20,9 @@ namespace _10_Filmdatenbank.PlaywrightTests
         public async Task Login_Logout_Workflow()
         {
             await Page.GotoAsync($"{BaseUrl}/Account/Login");
-            
-            await Page.GetByLabel("Email").FillAsync("admin@film.de");
-            await Page.GetByLabel("Passwort").FillAsync("Admin123!");
-            await Page.GetByRole(AriaRole.Button, new() { Name = "Anmelden" }).ClickAsync();
+            await Page.Locator("input[type='email']").FillAsync("admin@film.de");
+            await Page.Locator("input[type='password']").FillAsync("Admin123!");
+            await Page.Locator("button[type='submit']").First.ClickAsync();
 
             await Expect(Page).ToHaveURLAsync(BaseUrl);
             await Expect(Page.Locator("text=System Administrator")).ToBeVisibleAsync();

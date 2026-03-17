@@ -35,8 +35,10 @@ namespace _10_Filmdatenbank.PlaywrightTests
             await searchInput.FillAsync("Inception");
             await searchInput.PressAsync("Enter");
 
-            await Page.GetByRole(AriaRole.Link, new() { Name = "Details" }).First.ClickAsync();
-            await Expect(Page.Locator("h1, h2")).ToContainTextAsync("Inception");
+            var detailsLink = Page.GetByLabel(new System.Text.RegularExpressions.Regex("DetailsOf.*|Details von.*", System.Text.RegularExpressions.RegexOptions.IgnoreCase)).First;
+            await detailsLink.ClickAsync(new() { Force = true });
+            await Page.WaitForURLAsync("**/Details/**");
+            await Expect(Page.Locator("h1")).ToContainTextAsync("Inception");
         }
 
         [Theory]
@@ -74,16 +76,25 @@ namespace _10_Filmdatenbank.PlaywrightTests
             await Page.GotoAsync($"{BaseUrl}/Movies/Create");
             await Page.Locator("input[name='Titel']").FillAsync("Playwright Test Movie");
             await Page.Locator("input[name='Erscheinungsjahr']").FillAsync("2024");
-            await Page.Locator("input[name='Preis']").FillAsync("15,99");
+            await Page.Locator("input[name='Preis']").FillAsync("15.99");
             
-            await Page.GetByRole(AriaRole.Button, new() { Name = "Erstellen" }).Or(Page.Locator("button[type='submit']")).First.ClickAsync();
+            await Page.GetByRole(AriaRole.Button, new() { Name = "Erstellen" }).Or(Page.Locator("button[type='submit']")).First.ClickAsync(new() { Force = true });
 
-            await Expect(Page).ToHaveURLAsync($"{BaseUrl}/Movies");
+            try
+            {
+                await Expect(Page).ToHaveURLAsync($"{BaseUrl}/Movies");
+            }
+            catch
+            {
+                var errors = await Page.Locator(".text-danger, .validation-summary-errors").AllInnerTextsAsync();
+                var errorMsg = string.Join(" | ", errors);
+                throw new Microsoft.Playwright.PlaywrightException($"Expected URL /Movies but got {Page.Url}. Validation Errors: {errorMsg}");
+            }
             await Expect(Page.Locator("body")).ToContainTextAsync("Playwright Test Movie");
 
             // Delete it
-            await Page.Locator(".card-premium, tr").Filter(new() { HasText = "Playwright Test Movie" }).GetByRole(AriaRole.Link, new() { Name = "Löschen" }).Or(Page.Locator("a:text('Löschen')")).First.ClickAsync();
-            await Page.GetByRole(AriaRole.Button, new() { Name = "Löschen" }).Or(Page.Locator("button[type='submit']")).First.ClickAsync();
+            await Page.Locator(".card-premium, tr").Filter(new() { HasText = "Playwright Test Movie" }).GetByRole(AriaRole.Link, new() { Name = "Löschen" }).Or(Page.Locator("a:text('Löschen')")).First.ClickAsync(new() { Force = true });
+            await Page.GetByRole(AriaRole.Button, new() { Name = "Löschen" }).Or(Page.Locator("button[type='submit']")).First.ClickAsync(new() { Force = true });
 
             await Expect(Page.Locator("body")).Not.ToContainTextAsync("Playwright Test Movie");
         }

@@ -1,29 +1,81 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.Hosting;
 using System;
+using System.Diagnostics;
+using System.IO;
+using System.Net.Sockets;
+using System.Threading;
 
 namespace _10_Filmdatenbank.PlaywrightTests.Infrastructure
 {
-    public class TestHost<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
+    public class TestHost<TProgram> : IDisposable where TProgram : class
     {
-        public string BaseUrl => "http://127.0.0.1:5018";
+        private Process? _process;
+        public string BaseUrl { get; } = "http://127.0.0.1:5018";
 
-        protected override void ConfigureWebHost(IWebHostBuilder builder)
+        public TestHost()
         {
-            builder.UseEnvironment("Testing");
-            builder.UseKestrel(options =>
+            try
             {
-                options.ListenAnyIP(5018);
-            });
-            base.ConfigureWebHost(builder);
+                var baseDir = AppContext.BaseDirectory;
+                var rootDir = baseDir;
+                while (rootDir != null && !Directory.Exists(Path.Combine(rootDir, "src")))
+                {
+                    rootDir = Path.GetDirectoryName(rootDir);
+                }
+
+                if (rootDir == null) throw new Exception("Could not find root directory with 'src' folder.");
+
+                var projectDir = Path.Combine(rootDir, "src", "_10_Filmdatenbank.Web");
+                
+                _process = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "dotnet",
+                        Arguments = $"run --project \"{projectDir}\" --environment Testing --urls {BaseUrl}",
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    }
+                };
+
+                _process.Start();
+                Console.WriteLine($"[TestHost] Starting background process in {projectDir}");
+                
+                // Wait for port 5018 to be open
+                bool isReady = false;
+                for (int i = 0; i < 30; i++) // 30 seconds max
+                {
+                    try
+                    {
+                        using var client = new TcpClient("127.0.0.1", 5018);
+                        isReady = true;
+                        break;
+                    }
+                    catch
+                    {
+                        Thread.Sleep(1000);
+                    }
+                }
+
+                if (!isReady)
+                {
+                    throw new Exception("Timed out waiting for port 5018 to be open.");
+                }
+
+                Console.WriteLine("[TestHost] Port 5018 is OPEN. Host is ready.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[TestHost] Critical failure: {ex.Message}");
+            }
         }
 
-        protected override IHost CreateHost(IHostBuilder builder)
+        public void Dispose()
         {
-            var host = builder.Build();
-            host.Start();
-            return host;
+            if (_process != null && !_process.HasExited)
+            {
+                try { _process.Kill(true); } catch { }
+                _process.Dispose();
+            }
         }
     }
 }

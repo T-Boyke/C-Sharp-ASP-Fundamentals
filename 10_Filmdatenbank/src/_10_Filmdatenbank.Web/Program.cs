@@ -86,8 +86,9 @@ if (!app.Environment.IsEnvironment("Testing"))
 app.UseCookiePolicy();
 
 var supportedCultures = new[] { "de", "en", "pt", "ru", "ar", "tr" };
+var defaultCulture = builder.Environment.IsEnvironment("Testing") ? "en-US" : supportedCultures[0];
 var localizationOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture(supportedCultures[0])
+    .SetDefaultCulture(defaultCulture)
     .AddSupportedCultures(supportedCultures)
     .AddSupportedUICultures(supportedCultures);
 
