@@ -93,7 +93,7 @@ public class TmdbService : ITmdbService
 
         _logger.LogInformation("Initializing Resilient TmdbService (IPv4 & HTTP/1.1 enforced)");
 
-        if (!string.IsNullOrEmpty(_accessToken) && _httpClient.DefaultRequestHeaders.Authorization == null)
+        if (!string.IsNullOrEmpty(_accessToken))
         {
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _accessToken);
         }
@@ -110,7 +110,9 @@ public class TmdbService : ITmdbService
             // Manueller Pfad über HttpClient (Erzwingt IPv4 und HTTP/1.1)
             var url = $"search/movie?query={Uri.EscapeDataString(query)}&language={language}";
             var json = await _httpClient.GetStringAsync(url);
-            var response = Newtonsoft.Json.JsonConvert.DeserializeObject<TmdbSearchResponse<SearchMovie>>(json);
+            
+            // Verwende SearchContainer<SearchMovie> statt eines unbekannten Typs
+            var response = Newtonsoft.Json.JsonConvert.DeserializeObject<TMDbLib.Objects.General.SearchContainer<SearchMovie>>(json);
             return response?.Results ?? Enumerable.Empty<SearchMovie>();
         }
         catch (Exception ex)
@@ -140,11 +142,19 @@ public class TmdbService : ITmdbService
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "Manual Details fetch failed, trying library fallback.");
-            return await _client.GetMovieAsync(tmdbId, language: language, extraMethods:
-                MovieMethods.Credits | MovieMethods.ExternalIds | MovieMethods.Keywords |
-                MovieMethods.Videos | MovieMethods.AlternativeTitles | MovieMethods.ReleaseDates |
-                MovieMethods.WatchProviders | MovieMethods.Images);
+            _logger.LogWarning($"Manual Movie Details fetch failed for ID {tmdbId}: {ex.Message}. Trying library fallback.");
+            try
+            {
+                return await _client.GetMovieAsync(tmdbId, language: language, extraMethods:
+                    MovieMethods.Credits | MovieMethods.ExternalIds | MovieMethods.Keywords |
+                    MovieMethods.Videos | MovieMethods.AlternativeTitles | MovieMethods.ReleaseDates |
+                    MovieMethods.WatchProviders | MovieMethods.Images);
+            }
+            catch (Exception ex2)
+            {
+                _logger.LogError(ex2, $"CRITICAL: Library fallback also failed for Movie {tmdbId}.");
+                throw;
+            }
         }
     }
 
@@ -169,12 +179,14 @@ public class TmdbService : ITmdbService
     {
         try
         {
-            var url = $"person/{tmdbId}?language={language}&append_to_response=combined_credits,external_ids";
+            // Manueller Resilient-Weg
+            var url = $"person/{tmdbId}?language={language}&append_to_response=images,movie_credits,tv_credits,external_ids,combined_credits";
             var json = await _httpClient.GetStringAsync(url);
             return Newtonsoft.Json.JsonConvert.DeserializeObject<Person>(json);
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogWarning($"Manual Person fetch failed for ID {tmdbId}: {ex.Message}. Trying library fallback.");
             return await _client.GetPersonAsync(tmdbId, language: language, extraMethods: PersonMethods.CombinedCredits | PersonMethods.ExternalIds);
         }
     }
@@ -224,12 +236,22 @@ public class TmdbService : ITmdbService
         {
             var url = $"search/company?query={Uri.EscapeDataString(query)}";
             var json = await _httpClient.GetStringAsync(url);
-            var response = Newtonsoft.Json.JsonConvert.DeserializeObject<TmdbSearchResponse<SearchCompany>>(json);
+            var response = Newtonsoft.Json.JsonConvert.DeserializeObject<TMDbLib.Objects.General.SearchContainer<SearchCompany>>(json);
             return response?.Results ?? Enumerable.Empty<SearchCompany>();
         }
-        catch
+        catch (Exception ex)
         {
-            return (await _client.SearchCompanyAsync(query))?.Results ?? Enumerable.Empty<SearchCompany>();
+            _logger.LogWarning(ex, $"Resilient Company Search failed: {ex.Message}. Falling back to library.");
+            try
+            {
+                var libraryResults = await _client.SearchCompanyAsync(query);
+                return libraryResults?.Results ?? Enumerable.Empty<SearchCompany>();
+            }
+            catch (Exception ex2)
+            {
+                _logger.LogError(ex2, "CRITICAL: All company search attempts failed.");
+                return Enumerable.Empty<SearchCompany>();
+            }
         }
     }
 
@@ -241,9 +263,20 @@ public class TmdbService : ITmdbService
             var json = await _httpClient.GetStringAsync(url);
             return Newtonsoft.Json.JsonConvert.DeserializeObject<TMDbLib.Objects.Companies.Company>(json);
         }
-        catch
+        catch (Exception ex)
         {
-            return await _client.GetCompanyAsync(tmdbId);
+            _logger.LogWarning($"Manual Company fetch failed for ID {tmdbId}: {ex.Message}. Trying library fallback.");
+            try
+            {
+                return await _client.GetCompanyAsync(tmdbId);
+            }
+            catch (Exception ex2)
+            {
+                _logger.LogError(ex2, $"CRITICAL: Library fallback also failed for Company {tmdbId}.");
+                // Wir werfen die Exception nicht weiter, damit der Film-Erstellungsprozess 
+                // nicht komplett abbricht, nur weil ein Studio-Logo fehlt.
+                return null;
+            }
         }
     }
 }
