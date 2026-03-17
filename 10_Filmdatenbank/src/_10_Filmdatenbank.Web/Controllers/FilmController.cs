@@ -86,10 +86,10 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         }
 
         if (film == null) return NotFound();
-        
+
         // 🌀 External Data Enrichment (On Demand / Auto-Fill missing details)
         // If critical metadata is missing or was never fetched, we trigger an enrichment.
-        if (!film.TvdbId.HasValue || film.TvdbRating == null || film.Nutzerwertung == 0 || !film.Genres.Any())
+        if (!film.TvdbId.HasValue || film.TvdbRating == null || film.Nutzerwertung == 0 || film.Genres.Count == 0)
         {
             try
             {
@@ -98,7 +98,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             }
             catch (Exception ex)
             {
-                logger.LogWarning($"On-demand enrichment failed for film {id}: {ex.Message}");
+                logger.LogWarning("On-demand enrichment failed for film {FilmId}: {ErrorMessage}", id, ex.Message);
             }
         }
 
@@ -678,7 +678,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
 
                     if (tvdbDetails.Score != null)
                     {
-                        double score = tvdbDetails.Score.Value;
+            var score = tvdbDetails.Score.Value;
                         // In TVDB v4, "score" is often the popularity or a rating.
                         // We allow 0 as well.
                         if (score >= 0 && score <= 100)
@@ -819,7 +819,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         // 🎭 TMDB Cast & Crew Enrichment (Resilience Fallback)
         if (movie.Credits != null && (film.PersonEigenschaftFilme == null || film.PersonEigenschaftFilme.Count == 0))
         {
-            try 
+            try
             {
                 var actorProperty = await context.Eigenschaften.FirstOrDefaultAsync(e => e.Bezeichnung == "Actor")
                                     ?? new Eigenschaft { Bezeichnung = "Actor" };
@@ -829,8 +829,8 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                 {
                     foreach (var c in movie.Credits.Cast.Where(x => !string.IsNullOrWhiteSpace(x.Name)).Take(15))
                     {
-                        var person = await GetOrCreatePerson(c.Id, c.Name, string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}", context, tmdbService);
-                        if (person != null && !film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == actorProperty.EigenschaftID))
+                        var person = await GetOrCreatePerson(c.Id, c.Name!, string.IsNullOrEmpty(c.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{c.ProfilePath}", context, tmdbService);
+                        if (person != null && !film.PersonEigenschaftFilme!.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == actorProperty.EigenschaftID))
                         {
                             film.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = actorProperty.EigenschaftID });
                         }
@@ -845,8 +845,8 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                 var director = movie.Credits.Crew?.FirstOrDefault(c => c.Job == "Director" && !string.IsNullOrWhiteSpace(c.Name));
                 if (director != null)
                 {
-                    var person = await GetOrCreatePerson(director.Id, director.Name, string.IsNullOrEmpty(director.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{director.ProfilePath}", context, tmdbService);
-                    if (person != null && !film.PersonEigenschaftFilme.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == directorProperty.EigenschaftID))
+                    var person = await GetOrCreatePerson(director.Id, director.Name!, string.IsNullOrEmpty(director.ProfilePath) ? null : $"https://image.tmdb.org/t/p/w185{director.ProfilePath}", context, tmdbService);
+                    if (person != null && !film.PersonEigenschaftFilme!.Any(pef => pef.PersonID == person.PersonID && pef.EigenschaftID == directorProperty.EigenschaftID))
                     {
                         film.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm { FilmID = film.FilmID, PersonID = person.PersonID, EigenschaftID = directorProperty.EigenschaftID });
                     }
@@ -1122,8 +1122,9 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     /// <returns>Redirect zur Index-View bei Erfolg, andernfalls die Edit-View mit Fehlern.</returns>
     [HttpPost("Edit/{id}")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Edit(Film film, string? SelectedCastJson = null, string? SelectedCrewJson = null, string? SelectedGenresJson = null, string? SelectedKeywordsJson = null, string? SelectedCompaniesJson = null, int? TmdbCollectionId = null, string? TmdbCollectionName = null)
+    public async Task<IActionResult> Edit(int id, Film film, string? SelectedCastJson = null, string? SelectedCrewJson = null, string? SelectedGenresJson = null, string? SelectedKeywordsJson = null, string? SelectedCompaniesJson = null, int? TmdbCollectionId = null, string? TmdbCollectionName = null)
     {
+        if (id != film.FilmID) return BadRequest();
         ModelState.Remove(nameof(film.PersonEigenschaftFilme));
         ModelState.Remove(nameof(film.Genres));
         ModelState.Remove(nameof(film.Keywords));

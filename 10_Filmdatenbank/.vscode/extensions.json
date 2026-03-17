@@ -13,6 +13,7 @@
     "christian-kohler.path-intellisense",
     "formulahendry.auto-rename-tag",
     "ms-vscode.live-server",
-    "editorconfig.editorconfig"
+    "editorconfig.editorconfig",
+    "tenninebt.vscode-koverage"
   ]
 }

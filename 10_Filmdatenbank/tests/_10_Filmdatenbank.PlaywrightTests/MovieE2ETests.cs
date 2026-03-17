@@ -24,6 +24,20 @@ namespace _10_Filmdatenbank.PlaywrightTests
             await Expect(Page.Locator("h1")).ToContainTextAsync(new System.Text.RegularExpressions.Regex(".+", System.Text.RegularExpressions.RegexOptions.IgnoreCase));
         }
 
+        [Theory]
+        [InlineData("Inception", "Inception")]
+        [InlineData("The Dark Knight", "The Dark Knight")]
+        [InlineData("Matrix", "The Matrix")]
+        public async Task Search_Multiple_Movies(string searchQuery, string expectedTitle)
+        {
+            await Page.GotoAsync($"{BaseUrl}/Movies");
+            var searchInput = Page.GetByPlaceholder("Film suchen...");
+            await searchInput.FillAsync(searchQuery);
+            await searchInput.PressAsync("Enter");
+
+            await Expect(Page.Locator("body")).ToContainTextAsync(expectedTitle);
+        }
+
         [Fact]
         public async Task Ranking_Page_Loads()
         {

@@ -1,4 +1,5 @@
 using _10_Filmdatenbank.Application.Interfaces;
+using _10_Filmdatenbank.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -198,8 +199,10 @@ public class TmdbController(ITmdbService tmdbService, ApplicationDbContext conte
                 Titel = movie.Title,
                 TmdbId = movie.Id,
                 Handlung = movie.Overview,
-                ReleaseDatum = movie.ReleaseDate,
-                Laufzeit = movie.Runtime ?? 0
+                Erscheinungsdatum = movie.ReleaseDate,
+                Erscheinungsjahr = movie.ReleaseDate?.Year ?? 0,
+                Runtime = movie.Runtime ?? 0,
+                Spieldauer = movie.Runtime ?? 0
             };
 
             context.Filme.Add(film);
