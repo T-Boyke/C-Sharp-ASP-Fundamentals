@@ -28,7 +28,11 @@ public class PersonController(ApplicationDbContext context, IWikidataService wik
 
         if (!string.IsNullOrEmpty(searchString))
         {
-            query = query.Where(p => p.Vorname.Contains(searchString) || p.Nachname.Contains(searchString) || (p.Biografie != null && p.Biografie.Contains(searchString)));
+            var searchLower = searchString.ToLower();
+            query = query.Where(p => p.Vorname.ToLower().Contains(searchLower) 
+                                || p.Nachname.ToLower().Contains(searchLower) 
+                                || (p.Vorname + " " + p.Nachname).ToLower().Contains(searchLower)
+                                || (p.Biografie != null && p.Biografie.ToLower().Contains(searchLower)));
             ViewData["CurrentFilter"] = searchString;
         }
 
