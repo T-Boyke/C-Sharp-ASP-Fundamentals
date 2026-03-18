@@ -33,7 +33,8 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
             query = query.Where(f => f.Titel.ToLower().Contains(searchLower) 
                                 || (f.Handlung != null && f.Handlung.ToLower().Contains(searchLower))
                                 || f.PersonEigenschaftFilme.Any(pef => pef.Person.Vorname.ToLower().Contains(searchLower) 
-                                                                    || pef.Person.Nachname.ToLower().Contains(searchLower)));
+                                                                    || pef.Person.Nachname.ToLower().Contains(searchLower)
+                                                                    || (pef.Person.Vorname + " " + pef.Person.Nachname).ToLower().Contains(searchLower)));
             ViewData["CurrentFilter"] = searchString;
         }
 
