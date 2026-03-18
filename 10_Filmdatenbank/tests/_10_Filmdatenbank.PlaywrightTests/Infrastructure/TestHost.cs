@@ -31,7 +31,7 @@ namespace _10_Filmdatenbank.PlaywrightTests.Infrastructure
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = "dotnet",
-                        Arguments = $"run --project \"{projectDir}\" --environment Testing --urls {BaseUrl}",
+                        Arguments = $"run --project \"{projectDir}\" --environment E2ETesting --urls {BaseUrl}",
                         UseShellExecute = false,
                         CreateNoWindow = true
                     }

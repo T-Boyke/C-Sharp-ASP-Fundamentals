@@ -22,6 +22,7 @@ namespace _10_Filmdatenbank.IntegrationTests
             {
                 AllowAutoRedirect = false
             });
+            _client.DefaultRequestHeaders.Add("X-Test-Auto-Auth", "true");
         }
 
         [Fact]

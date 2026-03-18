@@ -16,6 +16,8 @@ namespace _10_Filmdatenbank.Web.Controllers;
 [Route("Kollektionen/[action]")]
 public class CollectionController(ApplicationDbContext context, ITmdbService tmdbService) : Controller
 {
+    [HttpGet("")]
+    [HttpGet("Index")]
     public async Task<IActionResult> Index(string? searchString)
     {
         var query = context.Collections.AsQueryable();
@@ -33,6 +35,7 @@ public class CollectionController(ApplicationDbContext context, ITmdbService tmd
         return View(collections);
     }
 
+    [HttpGet("Details/{id}")]
     public async Task<IActionResult> Details(int id)
     {
         var collection = await context.Collections
@@ -51,10 +54,11 @@ public class CollectionController(ApplicationDbContext context, ITmdbService tmd
         return View(collection);
     }
 
+    [HttpGet("Create")]
     [Authorize(Roles = "Admin")]
     public IActionResult Create() => View();
 
-    [HttpPost]
+    [HttpPost("Create")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(Collection collection)
     {
@@ -67,6 +71,7 @@ public class CollectionController(ApplicationDbContext context, ITmdbService tmd
         return View(collection);
     }
 
+    [HttpGet("Edit/{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int id)
     {
@@ -74,7 +79,7 @@ public class CollectionController(ApplicationDbContext context, ITmdbService tmd
         return collection == null ? NotFound() : View(collection);
     }
 
-    [HttpPost]
+    [HttpPost("Edit/{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(Collection collection)
     {
@@ -87,6 +92,7 @@ public class CollectionController(ApplicationDbContext context, ITmdbService tmd
         return View(collection);
     }
 
+    [HttpGet("Delete/{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -94,7 +100,7 @@ public class CollectionController(ApplicationDbContext context, ITmdbService tmd
         return collection == null ? NotFound() : View(collection);
     }
 
-    [HttpPost, ActionName("Delete")]
+    [HttpPost("Delete/{id}"), ActionName("Delete")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {

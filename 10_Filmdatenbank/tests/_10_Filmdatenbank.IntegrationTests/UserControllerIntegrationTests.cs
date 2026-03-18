@@ -23,27 +23,12 @@ namespace _10_Filmdatenbank.IntegrationTests.Controllers
             {
                 AllowAutoRedirect = false
             });
+            _client.DefaultRequestHeaders.Add("X-Test-Auto-Auth", "true");
         }
 
         [Fact]
         public async Task Dashboard_Returns_Success_For_Authenticated_User()
         {
-            // Arrange
-            using (var scope = _factory.Services.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                if (!db.Users.Any(u => u.Id == "test-user-id"))
-                {
-                    db.Users.Add(new ApplicationUser 
-                    { 
-                        Id = "test-user-id", 
-                        UserName = "test@user.com", 
-                        Email = "test@user.com" 
-                    });
-                    await db.SaveChangesAsync();
-                }
-            }
-
             // Act
             var response = await _client.GetAsync("/User/Dashboard");
 
@@ -54,22 +39,6 @@ namespace _10_Filmdatenbank.IntegrationTests.Controllers
         [Fact]
         public async Task Profile_Returns_Success()
         {
-            // Arrange
-            using (var scope = _factory.Services.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                if (!db.Users.Any(u => u.Id == "test-user-id"))
-                {
-                    db.Users.Add(new ApplicationUser 
-                    { 
-                        Id = "test-user-id", 
-                        UserName = "test@user.com", 
-                        Email = "test@user.com" 
-                    });
-                    await db.SaveChangesAsync();
-                }
-            }
-
             // Act
             var response = await _client.GetAsync("/User/Profile");
 
@@ -80,22 +49,6 @@ namespace _10_Filmdatenbank.IntegrationTests.Controllers
         [Fact]
         public async Task Settings_Returns_Success()
         {
-             // Arrange
-            using (var scope = _factory.Services.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                if (!db.Users.Any(u => u.Id == "test-user-id"))
-                {
-                    db.Users.Add(new ApplicationUser 
-                    { 
-                        Id = "test-user-id", 
-                        UserName = "test@user.com", 
-                        Email = "test@user.com" 
-                    });
-                    await db.SaveChangesAsync();
-                }
-            }
-
             // Act
             var response = await _client.GetAsync("/User/Settings");
 

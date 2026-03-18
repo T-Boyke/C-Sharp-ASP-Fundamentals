@@ -17,6 +17,11 @@ namespace _10_Filmdatenbank.IntegrationTests
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
+            if (!Context.Request.Headers.ContainsKey("X-Test-Auto-Auth"))
+            {
+                return Task.FromResult(AuthenticateResult.NoResult());
+            }
+
             var claims = new[] { 
                 new Claim(ClaimTypes.Name, "TestUser"),
                 new Claim(ClaimTypes.NameIdentifier, "test-user-id"),
@@ -26,9 +31,7 @@ namespace _10_Filmdatenbank.IntegrationTests
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, "Test");
 
-            var result = AuthenticateResult.Success(ticket);
-
-            return Task.FromResult(result);
+            return Task.FromResult(AuthenticateResult.Success(ticket));
         }
     }
 }

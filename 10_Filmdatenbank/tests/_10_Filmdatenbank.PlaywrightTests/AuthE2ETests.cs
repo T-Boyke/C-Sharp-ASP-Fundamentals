@@ -16,21 +16,30 @@ namespace _10_Filmdatenbank.PlaywrightTests
             BaseUrl = host.BaseUrl;
         }
 
+        public override BrowserNewContextOptions ContextOptions()
+        {
+            return new BrowserNewContextOptions
+            {
+                Locale = "de-DE"
+            };
+        }
+
         [Fact]
         public async Task Login_Logout_Workflow()
         {
             await Page.GotoAsync($"{BaseUrl}/Account/Login");
-            await Page.Locator("input[type='email']").FillAsync("admin@film.de");
-            await Page.Locator("input[type='password']").FillAsync("Admin123!");
-            await Page.Locator("button[type='submit']").First.ClickAsync();
+            await Page.GetByLabel("Email").FillAsync("admin@film.de");
+            await Page.GetByLabel("Passwort", new() { Exact = true }).FillAsync("Admin123!");
+            await Page.GetByRole(AriaRole.Button, new() { Name = "Anmelden" }).ClickAsync();
 
-            await Expect(Page).ToHaveURLAsync(BaseUrl);
-            await Expect(Page.Locator("text=System Administrator")).ToBeVisibleAsync();
+            await Expect(Page).ToHaveURLAsync($"{BaseUrl}/User/Dashboard");
+            await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "System Administrator", Exact = true })).ToBeVisibleAsync();
 
-            // Logout
-            var logoutButton = Page.GetByRole(AriaRole.Button, new() { Name = "Abmelden" }).Or(Page.Locator("form[action='/Account/Logout'] button"));
+            // Logout - open dropdown first
+            await Page.GetByRole(AriaRole.Button, new() { Name = "System" }).ClickAsync();
+            var logoutButton = Page.Locator("button[title='Abmelden']").Or(Page.Locator("form[action='/Account/Logout'] button"));
             await logoutButton.ClickAsync();
-            await Expect(Page).ToHaveURLAsync(new System.Text.RegularExpressions.Regex(".*/Account/Login"));
+            await Expect(Page).ToHaveURLAsync(BaseUrl);
         }
 
         [Fact]
@@ -39,7 +48,7 @@ namespace _10_Filmdatenbank.PlaywrightTests
             // Login first
             await Page.GotoAsync($"{BaseUrl}/Account/Login");
             await Page.GetByLabel("Email").FillAsync("user@film.de");
-            await Page.GetByLabel("Passwort").FillAsync("User123!");
+            await Page.GetByLabel("Passwort", new() { Exact = true }).FillAsync("User123!");
             await Page.GetByRole(AriaRole.Button, new() { Name = "Anmelden" }).ClickAsync();
 
             await Page.GotoAsync($"{BaseUrl}/User/Profile");
@@ -48,7 +57,8 @@ namespace _10_Filmdatenbank.PlaywrightTests
             await Page.GetByLabel("Vorname").FillAsync("UpdatedName");
             await Page.GetByRole(AriaRole.Button, new() { Name = "Speichern" }).ClickAsync();
 
-            await Expect(Page.Locator("text=UpdatedName")).ToBeVisibleAsync();
+            // Use a more specific locator to avoid multi-match errors
+            await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "UpdatedName User", Exact = true })).ToBeVisibleAsync();
         }
 
         [Fact]
@@ -56,20 +66,24 @@ namespace _10_Filmdatenbank.PlaywrightTests
         {
             await Page.GotoAsync($"{BaseUrl}/Account/Login");
             await Page.GetByLabel("Email").FillAsync("user@film.de");
-            await Page.GetByLabel("Passwort").FillAsync("User123!");
+            await Page.GetByLabel("Passwort", new() { Exact = true }).FillAsync("User123!");
             await Page.GetByRole(AriaRole.Button, new() { Name = "Anmelden" }).ClickAsync();
 
             await Page.GotoAsync($"{BaseUrl}/User/Settings");
             
-            // Select English
-            await Page.GetByLabel("Bevorzugte Sprache").Or(Page.Locator("#PreferredLanguage")).SelectOptionAsync(new[] { "en" });
-            // Select Dark Theme
-            await Page.GetByLabel("Theme").Or(Page.Locator("#Theme")).SelectOptionAsync(new[] { "dark" });
+            // Select English - use ID and First() to handle responsive duplicates
+            await Page.Locator("#PreferredLanguage").First.SelectOptionAsync(new[] { "en" });
             
-            await Page.GetByRole(AriaRole.Button, new() { Name = "Speichern" }).ClickAsync();
+            // Selection for Theme (Radio) - use Force because of sr-only and sticky nav
+            await Page.Locator("input[value='coral']").First.CheckAsync(new() { Force = true });
+            
+            await Page.GetByRole(AriaRole.Button, new() { Name = "Änderungen speichern" })
+                .Or(Page.GetByRole(AriaRole.Button, new() { Name = "Speichern" }))
+                .Or(Page.GetByRole(AriaRole.Button, new() { Name = "Save Changes" }))
+                .First.ClickAsync(new() { Force = true });
 
             var successMsg = Page.Locator("text=Einstellungen wurden gespeichert.").Or(Page.Locator("text=Settings saved."));
-            await Expect(successMsg).ToBeVisibleAsync();
+            await Expect(successMsg.First).ToBeVisibleAsync();
         }
     }
 }

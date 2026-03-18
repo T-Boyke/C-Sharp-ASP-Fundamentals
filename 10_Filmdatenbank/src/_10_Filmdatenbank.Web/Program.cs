@@ -28,7 +28,7 @@ builder.Services.AddHttpClient("TVDB", client =>
     client.BaseAddress = new Uri("https://api4.thetvdb.com/v4/");
 });
 
-if (!builder.Environment.IsEnvironment("Testing"))
+if (!builder.Environment.IsEnvironment("Testing") && !builder.Environment.IsEnvironment("E2ETesting"))
 {
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -109,56 +109,59 @@ app.MapControllerRoute(
     .WithStaticAssets();
 
 // Seeding
-using (var scope = app.Services.CreateScope())
+if (!app.Environment.IsEnvironment("Testing"))
 {
-    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    if (context.Database.IsSqlServer())
+    using (var scope = app.Services.CreateScope())
     {
-        await context.Database.MigrateAsync();
-    }
-    else
-    {
-        await context.Database.EnsureCreatedAsync();
-    }
-    
-    await DbSeeder.SeedAsync(context);
-
-    // Seed Admin/Member roles if needed
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    if (!await roleManager.RoleExistsAsync("Admin")) await roleManager.CreateAsync(new IdentityRole("Admin"));
-    if (!await roleManager.RoleExistsAsync("Member")) await roleManager.CreateAsync(new IdentityRole("Member"));
-
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-    if (await userManager.FindByEmailAsync("admin@film.de") == null)
-    {
-        var admin = new ApplicationUser
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        if (context.Database.IsSqlServer())
         {
-            UserName = "admin@film.de",
-            Email = "admin@film.de",
-            EmailConfirmed = true,
-            FirstName = "System",
-            LastName = "Administrator",
-            CreatedAt = DateTime.UtcNow,
-            IsDisabled = false
-        };
-        await userManager.CreateAsync(admin, "Admin123!");
-        await userManager.AddToRoleAsync(admin, "Admin");
-    }
-
-    if (await userManager.FindByEmailAsync("user@film.de") == null)
-    {
-        var user = new ApplicationUser
+            await context.Database.MigrateAsync();
+        }
+        else
         {
-            UserName = "user@film.de",
-            Email = "user@film.de",
-            EmailConfirmed = true,
-            FirstName = "Standard",
-            LastName = "User",
-            CreatedAt = DateTime.UtcNow,
-            IsDisabled = false
-        };
-        await userManager.CreateAsync(user, "User123!");
-        await userManager.AddToRoleAsync(user, "Member");
+            await context.Database.EnsureCreatedAsync();
+        }
+        
+        await DbSeeder.SeedAsync(context);
+
+        // Seed Admin/Member roles if needed
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        if (!await roleManager.RoleExistsAsync("Admin")) await roleManager.CreateAsync(new IdentityRole("Admin"));
+        if (!await roleManager.RoleExistsAsync("Member")) await roleManager.CreateAsync(new IdentityRole("Member"));
+
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        if (await userManager.FindByEmailAsync("admin@film.de") == null)
+        {
+            var admin = new ApplicationUser
+            {
+                UserName = "admin@film.de",
+                Email = "admin@film.de",
+                EmailConfirmed = true,
+                FirstName = "System",
+                LastName = "Administrator",
+                CreatedAt = DateTime.UtcNow,
+                IsDisabled = false
+            };
+            await userManager.CreateAsync(admin, "Admin123!");
+            await userManager.AddToRoleAsync(admin, "Admin");
+        }
+
+        if (await userManager.FindByEmailAsync("user@film.de") == null)
+        {
+            var user = new ApplicationUser
+            {
+                UserName = "user@film.de",
+                Email = "user@film.de",
+                EmailConfirmed = true,
+                FirstName = "Standard",
+                LastName = "User",
+                CreatedAt = DateTime.UtcNow,
+                IsDisabled = false
+            };
+            await userManager.CreateAsync(user, "User123!");
+            await userManager.AddToRoleAsync(user, "Member");
+        }
     }
 }
 

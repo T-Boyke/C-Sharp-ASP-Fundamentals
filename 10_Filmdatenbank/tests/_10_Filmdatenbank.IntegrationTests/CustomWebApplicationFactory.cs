@@ -10,6 +10,13 @@ namespace _10_Filmdatenbank.IntegrationTests
 {
     public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
     {
+        public CustomWebApplicationFactory()
+        {
+            System.Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Testing");
+        }
+
+        private readonly string _dbName = System.Guid.NewGuid().ToString();
+
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.UseEnvironment("Testing");
@@ -33,36 +40,45 @@ namespace _10_Filmdatenbank.IntegrationTests
 
                 services.AddDbContext<ApplicationDbContext>(options =>
                 {
-                    options.UseInMemoryDatabase("InMemoryDbForTesting");
+                    options.UseInMemoryDatabase(_dbName);
                 });
 
-                services.AddAuthentication("Test")
-                    .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>("Test", options => { });
-
-                var sp = services.BuildServiceProvider();
-
-                using (var scope = sp.CreateScope())
-                {
-                    var scopedServices = scope.ServiceProvider;
-                    var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-                    db.Database.EnsureCreated();
-
-                    // Seed Test User
-                    if (!db.Users.Any(u => u.Id == "test-user-id"))
+                services.AddAuthentication(options =>
                     {
-                        db.Users.Add(new _10_Filmdatenbank.Domain.Entities.ApplicationUser
-                        {
-                            Id = "test-user-id",
-                            UserName = "test@film.de",
-                            Email = "test@film.de",
-                            FirstName = "Test",
-                            LastName = "User",
-                            CreatedAt = System.DateTime.UtcNow
-                        });
-                        db.SaveChanges();
-                    }
-                }
+                        options.DefaultAuthenticateScheme = "Test";
+                        options.DefaultChallengeScheme = "Test";
+                        options.DefaultScheme = "Test";
+                    })
+                    .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>("Test", options => { });
             });
+        }
+
+        protected override Microsoft.Extensions.Hosting.IHost CreateHost(Microsoft.Extensions.Hosting.IHostBuilder builder)
+        {
+            var host = base.CreateHost(builder);
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                db.Database.EnsureCreated();
+
+                // Seed Test User
+                if (!db.Users.Any(u => u.Id == "test-user-id"))
+                {
+                    db.Users.Add(new _10_Filmdatenbank.Domain.Entities.ApplicationUser
+                    {
+                        Id = "test-user-id",
+                        UserName = "test@film.de",
+                        Email = "test@film.de",
+                        FirstName = "Test",
+                        LastName = "User",
+                        CreatedAt = System.DateTime.UtcNow
+                    });
+                    db.SaveChanges();
+                }
+            }
+
+            return host;
         }
     }
 }

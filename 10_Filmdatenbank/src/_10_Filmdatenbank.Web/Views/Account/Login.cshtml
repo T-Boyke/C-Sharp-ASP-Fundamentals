@@ -38,7 +38,7 @@
                         <i aria-hidden="true" class="fa-solid fa-key mr-1 text-text-muted dark:text-dark-text-muted"></i> @Localizer["Password"]
                     </label>
                     <div class="form-input-container group">
-                        <input asp-for="Password" type="password" id="password_input" autocomplete="current-password" required class="form-input pr-12" placeholder="••••••••">
+                        <input asp-for="Password" type="password" id="Password" autocomplete="current-password" required class="form-input pr-12" placeholder="••••••••">
                         <button type="button" onclick="togglePasswordVisibility()" class="form-input-icon-right focus:text-brand-primary outline-hidden" aria-label='@Localizer["TogglePasswordVisibility"]' id="password_toggle_button">
                             <i id="password_toggle_icon" class="fa-solid fa-eye" aria-hidden="true"></i>
                         </button>
@@ -48,7 +48,7 @@
 
                 <script>
                     function togglePasswordVisibility() {
-                        const input = document.getElementById('password_input');
+                        const input = document.getElementById('Password');
                         const icon = document.getElementById('password_toggle_icon');
                         const button = document.getElementById('password_toggle_button');
                         if (input.type === 'password') {

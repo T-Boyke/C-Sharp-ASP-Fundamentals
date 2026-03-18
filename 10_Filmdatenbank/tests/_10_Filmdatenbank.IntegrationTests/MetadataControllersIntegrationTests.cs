@@ -19,6 +19,7 @@ namespace _10_Filmdatenbank.IntegrationTests
         {
             _factory = factory;
             _client = factory.CreateClient();
+            _client.DefaultRequestHeaders.Add("X-Test-Auto-Auth", "true");
         }
 
         [Fact]
