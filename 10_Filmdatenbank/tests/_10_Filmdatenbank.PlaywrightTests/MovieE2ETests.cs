@@ -2,7 +2,6 @@ using Microsoft.Playwright;
 using Microsoft.Playwright.Xunit;
 using System.Threading.Tasks;
 using Xunit;
-using FluentAssertions;
 
 namespace _10_Filmdatenbank.PlaywrightTests
 {
@@ -72,31 +71,52 @@ namespace _10_Filmdatenbank.PlaywrightTests
             await Page.Locator("input[type='email']").FillAsync("admin@film.de");
             await Page.Locator("input[type='password']").FillAsync("Admin123!");
             await Page.GetByRole(AriaRole.Button, new() { Name = "Anmelden" }).Or(Page.Locator("button[type='submit']")).First.ClickAsync();
+            await Expect(Page).Not.ToHaveURLAsync(new System.Text.RegularExpressions.Regex(".*/Account/Login.*"));
+
+            // Admin: Film erstellen und löschen
+            // Create a unique title for this test run to avoid interference
+            string uniqueId = System.Guid.NewGuid().ToString().Substring(0, 8);
+            string movieTitle = $"Playwright Test Movie {uniqueId}";
 
             await Page.GotoAsync($"{BaseUrl}/Movies/Create");
-            await Page.Locator("input[name='Titel']").FillAsync("Playwright Test Movie");
-            await Page.Locator("input[name='Erscheinungsjahr']").FillAsync("2024");
-            await Page.Locator("input[name='Preis']").FillAsync("15.99");
-            
-            await Page.GetByRole(AriaRole.Button, new() { Name = "Erstellen" }).Or(Page.Locator("button[type='submit']")).First.ClickAsync(new() { Force = true });
+            await Page.Locator("#Titel").FillAsync(movieTitle);
+            await Page.Locator("#Erscheinungsjahr").FillAsync("2024");
+            await Page.Locator("#Handlung").FillAsync("This movie was created by an automated Playwright test.");
+            await Page.Locator("#Spieldauer").FillAsync("120");
+            await Page.Locator("#Preis").FillAsync("15.99");
 
+            // Click Create
+            await Page.Locator("#createForm button[type='submit']").ClickAsync();
+
+            // Wait for redirect to /Movies or /Movies/Index
             try
             {
-                await Expect(Page).ToHaveURLAsync($"{BaseUrl}/Movies");
+                await Expect(Page).ToHaveURLAsync(new System.Text.RegularExpressions.Regex($".*/Movies(/Index)?$"));
             }
-            catch
+            catch (System.Exception ex)
             {
-                var errors = await Page.Locator(".text-danger, .validation-summary-errors").AllInnerTextsAsync();
-                var errorMsg = string.Join(" | ", errors);
-                throw new Microsoft.Playwright.PlaywrightException($"Expected URL /Movies but got {Page.Url}. Validation Errors: {errorMsg}");
+                // Better error reporting for validation errors
+                var validationSummary = await Page.Locator(".text-danger-primary, .validation-summary-errors, .field-validation-error").AllInnerTextsAsync();
+                var pageContent = await Page.Locator("body").InnerTextAsync();
+                var currentUrl = Page.Url;
+                throw new Microsoft.Playwright.PlaywrightException(
+                    $"Expected URL /Movies but got {currentUrl}. Validation Errors: {string.Join(", ", validationSummary)}. Exception: {ex.Message}. Page Body Snippet: {pageContent.Substring(0, System.Math.Min(500, pageContent.Length))}");
             }
-            await Expect(Page.Locator("body")).ToContainTextAsync("Playwright Test Movie");
+
+            // Verify movie exists in list
+            await Expect(Page.Locator("body")).ToContainTextAsync(movieTitle);
 
             // Delete it
-            await Page.Locator(".card-premium, tr").Filter(new() { HasText = "Playwright Test Movie" }).GetByRole(AriaRole.Link, new() { Name = "Löschen" }).Or(Page.Locator("a:text('Löschen')")).First.ClickAsync(new() { Force = true });
-            await Page.GetByRole(AriaRole.Button, new() { Name = "Löschen" }).Or(Page.Locator("button[type='submit']")).First.ClickAsync(new() { Force = true });
+            await Page.Locator(".card-premium, tr").Filter(new() { HasText = movieTitle }).Locator("a[href*='Delete']").First.ClickAsync(new() { Force = true });
+            
+            // Confirm Delete
+            await Page.Locator("button[type='submit']").Filter(new() { HasText = "Löschen" }).Or(Page.Locator("form[action*='Delete'] button[type='submit']")).First.ClickAsync(new() { Force = true });
 
-            await Expect(Page.Locator("body")).Not.ToContainTextAsync("Playwright Test Movie");
+            // Ensure we are back on the movies list
+            await Expect(Page).ToHaveURLAsync(new System.Text.RegularExpressions.Regex($".*/Movies(/Index)?$"));
+
+            // Verify movie is gone from the list
+            await Expect(Page.Locator("body")).Not.ToContainTextAsync(movieTitle);
         }
     }
 }

@@ -11,15 +11,15 @@
     <value>Couch DB</value>
   </data>
   <data name="CookieTitle" xml:space="preserve">
-    <value>Cookies on the Couch!</value>
+    <value>ملفات تعريف الارتباط على الأريكة!</value>
   </data>
   <data name="CookieText" xml:space="preserve">
-    <value>We use only essential cookies to keep your couch session comfy. No annoying trackers – Scout's honor!</value>
+    <value>نحن نستخدم فقط ملفات تعريف الارتباط الأساسية للحفاظ على جلسة الأريكة مريحة. لا توجد أدوات تتبع مزعجة – شرف الكشافة!</value>
   </data>
   <data name="CookieAccept" xml:space="preserve">
-    <value>Got it!</value>
+    <value>فهمت ذلك!</value>
   </data>
   <data name="CookiePolicy" xml:space="preserve">
-    <value>Privacy Policy</value>
+    <value>سياسة الخصوصية</value>
   </data>
 </root>

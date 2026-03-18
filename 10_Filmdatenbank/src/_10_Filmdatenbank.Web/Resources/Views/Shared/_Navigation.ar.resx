@@ -12,18 +12,29 @@
   <data name="Logout" xml:space="preserve"><value>تسجيل الخروج</value></data>
   <data name="Register" xml:space="preserve"><value>تسجيل</value></data>
   <data name="Login" xml:space="preserve"><value>تسجيل الدخول</value></data>
-  <data name="AdminSettings" xml:space="preserve"><value>Admin Settings</value></data>
-  <data name="EditProfile" xml:space="preserve"><value>Edit Profile</value></data>
-  <data name="UserManagement" xml:space="preserve"><value>User Management</value></data>
-  <data name="PremiumEdition" xml:space="preserve"><value>Premium Edition</value></data>
-  <data name="Dashboard" xml:space="preserve"><value>Dashboard</value></data>
-  <data name="Community" xml:space="preserve"><value>Community</value></data>
-  <data name="More" xml:space="preserve"><value>More</value></data>
-  <data name="SettingsProfile" xml:space="preserve"><value>Settings &amp; Profile</value></data>
-  <data name="MyCommunities" xml:space="preserve"><value>My Communities</value></data>
-  <data name="SignOut" xml:space="preserve"><value>Sign Out</value></data>
-  <data name="JoinNow" xml:space="preserve"><value>Join Now</value></data>
-  <data name="Menu" xml:space="preserve"><value>Menu</value></data>
-  <data name="Notifications" xml:space="preserve"><value>Notifications</value></data>
+  <data name="AdminSettings" xml:space="preserve"><value>إعدادات المسؤول</value></data>
+  <data name="EditProfile" xml:space="preserve"><value>تعديل الملف الشخصي</value></data>
+  <data name="UserManagement" xml:space="preserve"><value>إدارة المستخدمين</value></data>
+  <data name="PremiumEdition" xml:space="preserve"><value>نسخة بريميوم</value></data>
+  <data name="Dashboard" xml:space="preserve"><value>لوحة التحكم</value></data>
+  <data name="Community" xml:space="preserve"><value>المجتمع</value></data>
+  <data name="More" xml:space="preserve"><value>المزيد</value></data>
+  <data name="SettingsProfile" xml:space="preserve"><value>الإعدادات والملف الشخصي</value></data>
+  <data name="MyCommunities" xml:space="preserve"><value>مجتمعاتي</value></data>
+  <data name="SignOut" xml:space="preserve"><value>تسجيل الخروج</value></data>
+  <data name="JoinNow" xml:space="preserve"><value>انضم الآن</value></data>
+  <data name="Menu" xml:space="preserve"><value>القائمة</value></data>
+  <data name="Notifications" xml:space="preserve"><value>التنبيهات</value></data>
+  <data name="People" xml:space="preserve"><value>الأشخاص</value></data>
+  <data name="AllPeople" xml:space="preserve"><value>كل الأشخاص</value></data>
+  <data name="Actors" xml:space="preserve"><value>الممثلون</value></data>
+  <data name="Directors" xml:space="preserve"><value>المخرجون</value></data>
+  <data name="Writers" xml:space="preserve"><value>الكتاب</value></data>
+  <data name="Producers" xml:space="preserve"><value>المنتجون</value></data>
+  <data name="Ranking" xml:space="preserve"><value>التصنيف</value></data>
+  <data name="SystemSettings" xml:space="preserve"><value>إعدادات النظام</value></data>
+  <data name="AppearanceAndSettings" xml:space="preserve"><value>المظهر والإعدادات</value></data>
+  <data name="Movies" xml:space="preserve"><value>الأفلام</value></data>
+  <data name="Collections" xml:space="preserve"><value>المجموعات</value></data>
+  <data name="Studios" xml:space="preserve"><value>الاستوديوهات</value></data>
 </root>
-

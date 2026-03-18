@@ -1,0 +1,55 @@
+  Wiederherzustellende Projekte werden ermittelt...
+  Alle Projekte sind f├╝r die Wiederherstellung auf dem neuesten Stand.
+  _10_Filmdatenbank.Domain -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Domain\bin\Debug\net10.0\_10_Filmdatenbank.Domain.dll
+  _10_Filmdatenbank.Application -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\bin\Debug\net10.0\_10_Filmdatenbank.Application.dll
+  _10_Filmdatenbank.Infrastructure -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Infrastructure\bin\Debug\net10.0\_10_Filmdatenbank.Infrastructure.dll
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Group\Details.cshtml(95,115): warning CS8602: Dereferenzierung eines m├Âglichen Nullverweises. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Group\ThreadDetails.cshtml(17,134): warning CS8602: Dereferenzierung eines m├Âglichen Nullverweises. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Group\ThreadDetails.cshtml(32,34): warning CS8602: Dereferenzierung eines m├Âglichen Nullverweises. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Group\ThreadDetails.cshtml(41,70): warning CS8602: Dereferenzierung eines m├Âglichen Nullverweises. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Controllers\TmdbController.cs(199,25): warning CS8601: M├Âgliche Nullverweiszuweisung. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Controllers\FilmController.cs(395,35): warning CS8602: Dereferenzierung eines m├Âglichen Nullverweises. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Film\Details.cshtml(19,48): warning CS8603: M├Âgliche Nullverweisr├╝ckgabe. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Film\Details.cshtml(142,16): warning CS8603: M├Âgliche Nullverweisr├╝ckgabe. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\Views\Person\Details.cshtml(469,150): warning CS8629: Ein Werttyp, der NULL zul├ñsst, kann NULL sein. [D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\_10_Filmdatenbank.Web.csproj]
+  _10_Filmdatenbank.Web -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\bin\Debug\net10.0\_10_Filmdatenbank.Web.dll
+  _10_Filmdatenbank.PlaywrightTests -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\bin\Debug\net10.0\_10_Filmdatenbank.PlaywrightTests.dll
+Testlauf f├╝r "D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\bin\Debug\net10.0\_10_Filmdatenbank.PlaywrightTests.dll" (.NETCoreApp,Version=v10.0)
+Insgesamt 1 Testdateien stimmten mit dem angegebenen Muster ├╝berein.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.4)
+[xUnit.net 00:00:00.07]   Discovering: _10_Filmdatenbank.PlaywrightTests
+[xUnit.net 00:00:00.11]   Discovered:  _10_Filmdatenbank.PlaywrightTests
+[xUnit.net 00:00:00.13]   Starting:    _10_Filmdatenbank.PlaywrightTests
+[TestHost] Starting background process in D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web
+[TestHost] Port 5018 is OPEN. Host is ready.
+[xUnit.net 00:00:18.92]     _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie [FAIL]
+[xUnit.net 00:00:18.93]       Microsoft.Playwright.PlaywrightException : TypeError: Cannot read properties of null (reading 'checkValidity')
+    at eval (eval at evaluate (:290:30), <anonymous>:1:38)
+    at eval (<anonymous>)
+    at UtilityScript.evaluate (<anonymous>:290:30)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+[xUnit.net 00:00:18.93]       Stack Trace:
+[xUnit.net 00:00:18.93]         /_/src/Playwright/Transport/Connection.cs(201,0): at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls)
+[xUnit.net 00:00:18.93]         /_/src/Playwright/Transport/Connection.cs(499,0): at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal, String title)
+[xUnit.net 00:00:18.93]         /_/src/Playwright/Core/Frame.cs(722,0): at Microsoft.Playwright.Core.Frame.EvaluateAsync[T](String script, Object arg)
+[xUnit.net 00:00:18.93]         D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\MovieE2ETests.cs(93,0): at _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie()
+[xUnit.net 00:00:18.93]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:18.96]   Finished:    _10_Filmdatenbank.PlaywrightTests
+  Fehler _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie [8 s]
+  Fehlermeldung:
+   Microsoft.Playwright.PlaywrightException : TypeError: Cannot read properties of null (reading 'checkValidity')
+    at eval (eval at evaluate (:290:30), <anonymous>:1:38)
+    at eval (<anonymous>)
+    at UtilityScript.evaluate (<anonymous>:290:30)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+  Stapelverfolgung:
+     at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 201
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal, String title) in /_/src/Playwright/Transport/Connection.cs:line 499
+   at Microsoft.Playwright.Core.Frame.EvaluateAsync[T](String script, Object arg) in /_/src/Playwright/Core/Frame.cs:line 722
+   at _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie() in D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\MovieE2ETests.cs:line 93
+--- End of stack trace from previous location ---
+
+Fehler beim Testlauf.
+Gesamtzahl Tests: 1
+     Nicht bestanden: 1
+ Gesamtzeit: 19,4149 Sekunden

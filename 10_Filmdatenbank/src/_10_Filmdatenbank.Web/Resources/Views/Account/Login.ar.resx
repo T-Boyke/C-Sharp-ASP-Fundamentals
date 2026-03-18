@@ -18,4 +18,6 @@
   <data name="TestAccessAdmin" xml:space="preserve"><value>الدخول التجريبي (مسؤول)</value></data>
   <data name="HidePassword" xml:space="preserve"><value>إخفاء كلمة المرور</value></data>
   <data name="ShowPassword" xml:space="preserve"><value>إظهار كلمة المرور</value></data>
+  <data name="Admin" xml:space="preserve"><value>مسؤول النظام</value></data>
+  <data name="User" xml:space="preserve"><value>مستخدم عادي</value></data>
 </root>

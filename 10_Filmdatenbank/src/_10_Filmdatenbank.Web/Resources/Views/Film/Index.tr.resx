@@ -16,4 +16,5 @@
   <data name="Delete" xml:space="preserve"><value>Sil</value></data>
   <data name="MinSuffix" xml:space="preserve"><value>dk</value></data>
   <data name="RentalPrice" xml:space="preserve"><value>Kiralama Ücreti</value></data>
+  <data name="SearchPlaceholder" xml:space="preserve"><value>Film ara...</value></data>
 </root>

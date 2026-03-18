@@ -1,0 +1,1566 @@
+  Wiederherzustellende Projekte werden ermittelt...
+  Alle Projekte sind f├╝r die Wiederherstellung auf dem neuesten Stand.
+  _10_Filmdatenbank.Domain -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Domain\bin\Debug\net10.0\_10_Filmdatenbank.Domain.dll
+  _10_Filmdatenbank.Application -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\bin\Debug\net10.0\_10_Filmdatenbank.Application.dll
+  _10_Filmdatenbank.Infrastructure -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Infrastructure\bin\Debug\net10.0\_10_Filmdatenbank.Infrastructure.dll
+  _10_Filmdatenbank.Web -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\bin\Debug\net10.0\_10_Filmdatenbank.Web.dll
+  _10_Filmdatenbank.PlaywrightTests -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\bin\Debug\net10.0\_10_Filmdatenbank.PlaywrightTests.dll
+Testlauf f├╝r "D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\bin\Debug\net10.0\_10_Filmdatenbank.PlaywrightTests.dll" (.NETCoreApp,Version=v10.0)
+Insgesamt 1 Testdateien stimmten mit dem angegebenen Muster ├╝berein.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.4)
+[xUnit.net 00:00:00.09]   Discovering: _10_Filmdatenbank.PlaywrightTests
+[xUnit.net 00:00:00.15]   Discovered:  _10_Filmdatenbank.PlaywrightTests
+[xUnit.net 00:00:00.17]   Starting:    _10_Filmdatenbank.PlaywrightTests
+[TestHost] Starting background process in D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web
+[TestHost] Port 5018 is OPEN. Host is ready.
+[xUnit.net 00:00:19.58]     _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie [FAIL]
+[xUnit.net 00:00:19.58]       Microsoft.Playwright.PlaywrightException : Locator expected not to contain text 'Playwright Test Movie'
+But was: '
+    
+        Skip to content
+    
+    
+    
+
+    
+        
+            
+            
+            
+                
+                    
+                        
+                    
+                    
+                        COUCHDB
+                        Premium Edition
+                    
+                
+
+                
+                
+                        
+                        
+                            
+                            Dashboard
+                        
+                        
+                            
+                            Community
+                        
+                        
+                            
+                            Ranking
+                        
+                        
+                        
+                        
+                            
+                            Movies
+                        
+                        
+                            
+                            Collections
+                        
+                        
+                        
+                        
+                        
+                            
+                                
+                                People
+                                
+                            
+                            
+                                
+                                    
+                                        
+                                            
+                                        
+                                        All People
+                                    
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Actors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Directors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Writers
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Producers
+                                    
+                                
+                            
+                        
+                        
+                            
+                            Studios
+                        
+                
+            
+
+            
+            
+                
+                    
+                    
+                        
+                            
+                            
+
+                        
+                    
+                    
+                    
+                    
+                        
+                            
+                                    A
+                            
+                            System
+                            
+                        
+
+                        
+                            
+                                
+                                    
+ S                                     
+                                    
+                                        System Administrator
+                                        admin@film.de
+                                    
+                                
+                                
+                                
+                                    
+                                        
+                                    
+                                    Settings & Profile
+                                
+                                
+                                    
+                                        
+                                    
+                                    Appearance & Settings
+                                
+                                
+                                    
+                                        
+                                    
+                                    My Communities
+                                
+
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        User Management
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        System Settings
+                                    
+
+                                
+                                
+                                    
+                                        
+                                            
+                                        
+                                        Sign Out
+                                    
+                                
+                            
+                        
+                    
+
+                
+                
+                    
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+        
+
+
+    
+        
+            
+        
+        
+        Delete permanently?
+        
+        
+            
+                You are about to remove the movie "Playwright Test Movie" permanently from the database. This process is irreversible.
+            
+        
+
+        
+            
+                    
+                        
+                    
+            
+            
+                Metadata Control
+                
+                    Playwright Test Movie
+                    
+                          2024
+                         
+                          
+                         
+                          
+                    
+                
+            
+        
+
+        
+            
+                
+                
+                     Confirm & Delete
+                
+            
+            
+                Cancel
+            
+        
+    
+
+
+    
+
+    
+    
+        
+            
+                
+                    
+                
+                COUCHDB
+            
+            
+            
+                
+                
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                
+
+                
+                
+                        
+                            
+                                DE
+                            
+                        
+                        
+                            
+                                EN
+                            
+                        
+                        
+                            
+                                PT
+                            
+                        
+                        
+                            
+                                RU
+                            
+                        
+                        
+                            
+                                AR
+                            
+                        
+                        
+                            
+                                TR
+                            
+                        
+                
+            
+            
+            
+                
+                     Repository
+                
+            
+        
+        
+        
+            
+                Couch DB was coded by Tobias Boyke with loads of 
+            
+            
+                Made with  for NE4 Excellence
+            
+            
+            
+                Legal Notice
+                Privacy Policy
+            
+        
+    
+
+
+    
+
+
+
+
+
+
+
+    
+
+    
+        
+        
+        
+
+        
+            
+                
+                    
+                
+                CookieTitle
+            
+            
+            
+                CookieText
+            
+
+            
+                
+                    CookieAccept
+                
+                
+                    CookiePolicy
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+    
+
+
+' 
+Call log:
+  - Expect "ToContainTextAsync" with timeout 5000ms
+  - waiting for Locator("body")
+    9 ├ù locator resolved to <body class="h-full flex flex-col bg-brand-bg dark:bg-dark-surface text-text-main dark:text-dark-text-main font-sans antialiased transition-colors duration-300">ÔÇª</body>
+      - unexpected value "
+    
+        Skip to content
+    
+    
+    
+
+    
+        
+            
+            
+            
+                
+                    
+                        
+                    
+                    
+                        COUCHDB
+                        Premium Edition
+                    
+                
+
+                
+                
+                        
+                        
+                            
+                            Dashboard
+                        
+                        
+                            
+                            Community
+                        
+                        
+                            
+                            Ranking
+                        
+                        
+                        
+                        
+                            
+                            Movies
+                        
+                        
+                            
+                            Collections
+                        
+                        
+                        
+                        
+                        
+                            
+                                
+                                People
+                                
+                            
+                            
+                                
+                                    
+                                        
+                                            
+                                        
+                                        All People
+                                    
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Actors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Directors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Writers
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Producers
+                                    
+                                
+                            
+                        
+                        
+                            
+                            Studios
+                        
+                
+            
+
+            
+            
+                
+                    
+                    
+                        
+                            
+                            
+
+                        
+                    
+                    
+                    
+                    
+                        
+                            
+                                    A
+                            
+                            System
+                            
+                        
+
+                        
+                            
+                                
+                                    
+ S                                     
+                                    
+                                        System Administrator
+                                        admin@film.de
+                                    
+                                
+                                
+                                
+                                    
+                                        
+                                    
+                                    Settings & Profile
+                                
+                                
+                                    
+                                        
+                                    
+                                    Appearance & Settings
+                                
+                                
+                                    
+                                        
+                                    
+                                    My Communities
+                                
+
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        User Management
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        System Settings
+                                    
+
+                                
+                                
+                                    
+                                        
+                                            
+                                        
+                                        Sign Out
+                                    
+                                
+                            
+                        
+                    
+
+                
+                
+                    
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+        
+
+
+    
+        
+            
+        
+        
+        Delete permanently?
+        
+        
+            
+                You are about to remove the movie "Playwright Test Movie" permanently from the database. This process is irreversible.
+            
+        
+
+        
+            
+                    
+                        
+                    
+            
+            
+                Metadata Control
+                
+                    Playwright Test Movie
+                    
+                          2024
+                         
+                          
+                         
+                          
+                    
+                
+            
+        
+
+        
+            
+                
+                
+                     Confirm & Delete
+                
+            
+            
+                Cancel
+            
+        
+    
+
+
+    
+
+    
+    
+        
+            
+                
+                    
+                
+                COUCHDB
+            
+            
+            
+                
+                
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                
+
+                
+                
+                        
+                            
+                                DE
+                            
+                        
+                        
+                            
+                                EN
+                            
+                        
+                        
+                            
+                                PT
+                            
+                        
+                        
+                            
+                                RU
+                            
+                        
+                        
+                            
+                                AR
+                            
+                        
+                        
+                            
+                                TR
+                            
+                        
+                
+            
+            
+            
+                
+                     Repository
+                
+            
+        
+        
+        
+            
+                Couch DB was coded by Tobias Boyke with loads of 
+            
+            
+                Made with  for NE4 Excellence
+            
+            
+            
+                Legal Notice
+                Privacy Policy
+            
+        
+    
+
+
+    
+
+
+
+
+
+
+
+    
+
+    
+        
+        
+        
+
+        
+            
+                
+                    
+                
+                CookieTitle
+            
+            
+            
+                CookieText
+            
+
+            
+                
+                    CookieAccept
+                
+                
+                    CookiePolicy
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+    
+
+
+"
+[xUnit.net 00:00:19.59]       Stack Trace:
+[xUnit.net 00:00:19.59]         /_/src/Playwright/Core/AssertionsBase.cs(92,0): at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, FrameExpectOptions expectOptions, Object expected, String message, String title)
+[xUnit.net 00:00:19.59]         /_/src/Playwright/Core/AssertionsBase.cs(66,0): at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue[] expectedText, Object expected, String message, String title, FrameExpectOptions options)
+[xUnit.net 00:00:19.59]         /_/src/Playwright/Core/AssertionsBase.cs(58,0): at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue textValue, Object expected, String message, String title, FrameExpectOptions options)
+[xUnit.net 00:00:19.59]         D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\MovieE2ETests.cs(100,0): at _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie()
+[xUnit.net 00:00:19.59]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:19.63]   Finished:    _10_Filmdatenbank.PlaywrightTests
+  Fehler _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie [8 s]
+  Fehlermeldung:
+   Microsoft.Playwright.PlaywrightException : Locator expected not to contain text 'Playwright Test Movie'
+But was: '
+    
+        Skip to content
+    
+    
+    
+
+    
+        
+            
+            
+            
+                
+                    
+                        
+                    
+                    
+                        COUCHDB
+                        Premium Edition
+                    
+                
+
+                
+                
+                        
+                        
+                            
+                            Dashboard
+                        
+                        
+                            
+                            Community
+                        
+                        
+                            
+                            Ranking
+                        
+                        
+                        
+                        
+                            
+                            Movies
+                        
+                        
+                            
+                            Collections
+                        
+                        
+                        
+                        
+                        
+                            
+                                
+                                People
+                                
+                            
+                            
+                                
+                                    
+                                        
+                                            
+                                        
+                                        All People
+                                    
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Actors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Directors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Writers
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Producers
+                                    
+                                
+                            
+                        
+                        
+                            
+                            Studios
+                        
+                
+            
+
+            
+            
+                
+                    
+                    
+                        
+                            
+                            
+
+                        
+                    
+                    
+                    
+                    
+                        
+                            
+                                    A
+                            
+                            System
+                            
+                        
+
+                        
+                            
+                                
+                                    
+ S                                     
+                                    
+                                        System Administrator
+                                        admin@film.de
+                                    
+                                
+                                
+                                
+                                    
+                                        
+                                    
+                                    Settings & Profile
+                                
+                                
+                                    
+                                        
+                                    
+                                    Appearance & Settings
+                                
+                                
+                                    
+                                        
+                                    
+                                    My Communities
+                                
+
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        User Management
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        System Settings
+                                    
+
+                                
+                                
+                                    
+                                        
+                                            
+                                        
+                                        Sign Out
+                                    
+                                
+                            
+                        
+                    
+
+                
+                
+                    
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+        
+
+
+    
+        
+            
+        
+        
+        Delete permanently?
+        
+        
+            
+                You are about to remove the movie "Playwright Test Movie" permanently from the database. This process is irreversible.
+            
+        
+
+        
+            
+                    
+                        
+                    
+            
+            
+                Metadata Control
+                
+                    Playwright Test Movie
+                    
+                          2024
+                         
+                          
+                         
+                          
+                    
+                
+            
+        
+
+        
+            
+                
+                
+                     Confirm & Delete
+                
+            
+            
+                Cancel
+            
+        
+    
+
+
+    
+
+    
+    
+        
+            
+                
+                    
+                
+                COUCHDB
+            
+            
+            
+                
+                
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                
+
+                
+                
+                        
+                            
+                                DE
+                            
+                        
+                        
+                            
+                                EN
+                            
+                        
+                        
+                            
+                                PT
+                            
+                        
+                        
+                            
+                                RU
+                            
+                        
+                        
+                            
+                                AR
+                            
+                        
+                        
+                            
+                                TR
+                            
+                        
+                
+            
+            
+            
+                
+                     Repository
+                
+            
+        
+        
+        
+            
+                Couch DB was coded by Tobias Boyke with loads of 
+            
+            
+                Made with  for NE4 Excellence
+            
+            
+            
+                Legal Notice
+                Privacy Policy
+            
+        
+    
+
+
+    
+
+
+
+
+
+
+
+    
+
+    
+        
+        
+        
+
+        
+            
+                
+                    
+                
+                CookieTitle
+            
+            
+            
+                CookieText
+            
+
+            
+                
+                    CookieAccept
+                
+                
+                    CookiePolicy
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+    
+
+
+' 
+Call log:
+  - Expect "ToContainTextAsync" with timeout 5000ms
+  - waiting for Locator("body")
+    9 ├ù locator resolved to <body class="h-full flex flex-col bg-brand-bg dark:bg-dark-surface text-text-main dark:text-dark-text-main font-sans antialiased transition-colors duration-300">ÔÇª</body>
+      - unexpected value "
+    
+        Skip to content
+    
+    
+    
+
+    
+        
+            
+            
+            
+                
+                    
+                        
+                    
+                    
+                        COUCHDB
+                        Premium Edition
+                    
+                
+
+                
+                
+                        
+                        
+                            
+                            Dashboard
+                        
+                        
+                            
+                            Community
+                        
+                        
+                            
+                            Ranking
+                        
+                        
+                        
+                        
+                            
+                            Movies
+                        
+                        
+                            
+                            Collections
+                        
+                        
+                        
+                        
+                        
+                            
+                                
+                                People
+                                
+                            
+                            
+                                
+                                    
+                                        
+                                            
+                                        
+                                        All People
+                                    
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Actors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Directors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Writers
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Producers
+                                    
+                                
+                            
+                        
+                        
+                            
+                            Studios
+                        
+                
+            
+
+            
+            
+                
+                    
+                    
+                        
+                            
+                            
+
+                        
+                    
+                    
+                    
+                    
+                        
+                            
+                                    A
+                            
+                            System
+                            
+                        
+
+                        
+                            
+                                
+                                    
+ S                                     
+                                    
+                                        System Administrator
+                                        admin@film.de
+                                    
+                                
+                                
+                                
+                                    
+                                        
+                                    
+                                    Settings & Profile
+                                
+                                
+                                    
+                                        
+                                    
+                                    Appearance & Settings
+                                
+                                
+                                    
+                                        
+                                    
+                                    My Communities
+                                
+
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        User Management
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        System Settings
+                                    
+
+                                
+                                
+                                    
+                                        
+                                            
+                                        
+                                        Sign Out
+                                    
+                                
+                            
+                        
+                    
+
+                
+                
+                    
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+        
+
+
+    
+        
+            
+        
+        
+        Delete permanently?
+        
+        
+            
+                You are about to remove the movie "Playwright Test Movie" permanently from the database. This process is irreversible.
+            
+        
+
+        
+            
+                    
+                        
+                    
+            
+            
+                Metadata Control
+                
+                    Playwright Test Movie
+                    
+                          2024
+                         
+                          
+                         
+                          
+                    
+                
+            
+        
+
+        
+            
+                
+                
+                     Confirm & Delete
+                
+            
+            
+                Cancel
+            
+        
+    
+
+
+    
+
+    
+    
+        
+            
+                
+                    
+                
+                COUCHDB
+            
+            
+            
+                
+                
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                
+
+                
+                
+                        
+                            
+                                DE
+                            
+                        
+                        
+                            
+                                EN
+                            
+                        
+                        
+                            
+                                PT
+                            
+                        
+                        
+                            
+                                RU
+                            
+                        
+                        
+                            
+                                AR
+                            
+                        
+                        
+                            
+                                TR
+                            
+                        
+                
+            
+            
+            
+                
+                     Repository
+                
+            
+        
+        
+        
+            
+                Couch DB was coded by Tobias Boyke with loads of 
+            
+            
+                Made with  for NE4 Excellence
+            
+            
+            
+                Legal Notice
+                Privacy Policy
+            
+        
+    
+
+
+    
+
+
+
+
+
+
+
+    
+
+    
+        
+        
+        
+
+        
+            
+                
+                    
+                
+                CookieTitle
+            
+            
+            
+                CookieText
+            
+
+            
+                
+                    CookieAccept
+                
+                
+                    CookiePolicy
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+    
+
+
+"
+  Stapelverfolgung:
+     at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, FrameExpectOptions expectOptions, Object expected, String message, String title) in /_/src/Playwright/Core/AssertionsBase.cs:line 92
+   at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue[] expectedText, Object expected, String message, String title, FrameExpectOptions options) in /_/src/Playwright/Core/AssertionsBase.cs:line 66
+   at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue textValue, Object expected, String message, String title, FrameExpectOptions options) in /_/src/Playwright/Core/AssertionsBase.cs:line 58
+   at _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie() in D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\MovieE2ETests.cs:line 100
+--- End of stack trace from previous location ---
+
+Fehler beim Testlauf.
+Gesamtzahl Tests: 1
+     Nicht bestanden: 1
+ Gesamtzeit: 20,2369 Sekunden

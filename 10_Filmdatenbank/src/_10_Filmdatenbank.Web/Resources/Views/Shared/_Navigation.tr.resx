@@ -12,15 +12,29 @@
   <data name="Logout" xml:space="preserve"><value>Çıkış Yap</value></data>
   <data name="Register" xml:space="preserve"><value>Kaydol</value></data>
   <data name="Login" xml:space="preserve"><value>Giriş Yap</value></data>
-  <data name="PremiumEdition" xml:space="preserve"><value>Premium Edition</value></data>
-  <data name="Dashboard" xml:space="preserve"><value>Dashboard</value></data>
-  <data name="Community" xml:space="preserve"><value>Community</value></data>
-  <data name="More" xml:space="preserve"><value>More</value></data>
-  <data name="SettingsProfile" xml:space="preserve"><value>Settings &amp; Profile</value></data>
-  <data name="MyCommunities" xml:space="preserve"><value>My Communities</value></data>
-  <data name="SignOut" xml:space="preserve"><value>Sign Out</value></data>
-  <data name="JoinNow" xml:space="preserve"><value>Join Now</value></data>
-  <data name="Menu" xml:space="preserve"><value>Menu</value></data>
-  <data name="Notifications" xml:space="preserve"><value>Notifications</value></data>
+  <data name="AdminSettings" xml:space="preserve"><value>Yönetici Ayarları</value></data>
+  <data name="EditProfile" xml:space="preserve"><value>Profili Düzenle</value></data>
+  <data name="UserManagement" xml:space="preserve"><value>Kullanıcı Yönetimi</value></data>
+  <data name="PremiumEdition" xml:space="preserve"><value>Premium Sürüm</value></data>
+  <data name="Dashboard" xml:space="preserve"><value>Panel</value></data>
+  <data name="Community" xml:space="preserve"><value>Topluluk</value></data>
+  <data name="More" xml:space="preserve"><value>Daha Fazla</value></data>
+  <data name="SettingsProfile" xml:space="preserve"><value>Ayarlar &amp; Profil</value></data>
+  <data name="MyCommunities" xml:space="preserve"><value>Topluluklarım</value></data>
+  <data name="SignOut" xml:space="preserve"><value>Çıkış Yap</value></data>
+  <data name="JoinNow" xml:space="preserve"><value>Hemen Katıl</value></data>
+  <data name="Menu" xml:space="preserve"><value>Menü</value></data>
+  <data name="Notifications" xml:space="preserve"><value>Bildirimler</value></data>
+  <data name="People" xml:space="preserve"><value>Kişiler</value></data>
+  <data name="AllPeople" xml:space="preserve"><value>Tüm Kişiler</value></data>
+  <data name="Actors" xml:space="preserve"><value>Oyuncular</value></data>
+  <data name="Directors" xml:space="preserve"><value>Yönetmenler</value></data>
+  <data name="Writers" xml:space="preserve"><value>Yazarlar</value></data>
+  <data name="Producers" xml:space="preserve"><value>Yapımcılar</value></data>
+  <data name="Ranking" xml:space="preserve"><value>Sıralama</value></data>
+  <data name="SystemSettings" xml:space="preserve"><value>Sistem Ayarları</value></data>
+  <data name="AppearanceAndSettings" xml:space="preserve"><value>Görünüm &amp; Ayarlar</value></data>
+  <data name="Movies" xml:space="preserve"><value>Filmler</value></data>
+  <data name="Collections" xml:space="preserve"><value>Koleksiyonlar</value></data>
+  <data name="Studios" xml:space="preserve"><value>Stüdyolar</value></data>
 </root>
-

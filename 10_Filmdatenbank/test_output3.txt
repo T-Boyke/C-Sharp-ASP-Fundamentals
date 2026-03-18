@@ -1,0 +1,25 @@
+Testlauf f├╝r "D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\bin\Debug\net10.0\_10_Filmdatenbank.PlaywrightTests.dll" (.NETCoreApp,Version=v10.0)
+Insgesamt 1 Testdateien stimmten mit dem angegebenen Muster ├╝berein.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.4)
+[xUnit.net 00:00:00.08]   Discovering: _10_Filmdatenbank.PlaywrightTests
+[xUnit.net 00:00:00.12]   Discovered:  _10_Filmdatenbank.PlaywrightTests
+[xUnit.net 00:00:00.14]   Starting:    _10_Filmdatenbank.PlaywrightTests
+[TestHost] Starting background process in D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web
+[TestHost] Port 5018 is OPEN. Host is ready.
+[xUnit.net 00:00:15.15]     _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie [FAIL]
+[xUnit.net 00:00:15.16]       Microsoft.Playwright.PlaywrightException : Expected URL /Movies but got http://127.0.0.1:5018/Movies/Create. Validation Errors: 
+[xUnit.net 00:00:15.16]       Stack Trace:
+[xUnit.net 00:00:15.16]         D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\MovieE2ETests.cs(92,0): at _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie()
+[xUnit.net 00:00:15.16]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:15.18]   Finished:    _10_Filmdatenbank.PlaywrightTests
+  Fehler _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie [6 s]
+  Fehlermeldung:
+   Microsoft.Playwright.PlaywrightException : Expected URL /Movies but got http://127.0.0.1:5018/Movies/Create. Validation Errors: 
+  Stapelverfolgung:
+     at _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie() in D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\MovieE2ETests.cs:line 92
+--- End of stack trace from previous location ---
+
+Fehler beim Testlauf.
+Gesamtzahl Tests: 1
+     Nicht bestanden: 1
+ Gesamtzeit: 15,6925 Sekunden

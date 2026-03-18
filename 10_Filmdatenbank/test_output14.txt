@@ -1,0 +1,15 @@
+  Wiederherzustellende Projekte werden ermittelt...
+  Alle Projekte sind f├╝r die Wiederherstellung auf dem neuesten Stand.
+  _10_Filmdatenbank.Domain -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Domain\bin\Debug\net10.0\_10_Filmdatenbank.Domain.dll
+  _10_Filmdatenbank.Application -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\bin\Debug\net10.0\_10_Filmdatenbank.Application.dll
+  _10_Filmdatenbank.Infrastructure -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Infrastructure\bin\Debug\net10.0\_10_Filmdatenbank.Infrastructure.dll
+  _10_Filmdatenbank.Web -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\bin\Debug\net10.0\_10_Filmdatenbank.Web.dll
+  _10_Filmdatenbank.PlaywrightTests -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\bin\Debug\net10.0\_10_Filmdatenbank.PlaywrightTests.dll
+Testlauf f├╝r "D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\bin\Debug\net10.0\_10_Filmdatenbank.PlaywrightTests.dll" (.NETCoreApp,Version=v10.0)
+Insgesamt 1 Testdateien stimmten mit dem angegebenen Muster ├╝berein.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.4)
+[xUnit.net 00:00:00.09]   Discovering: _10_Filmdatenbank.PlaywrightTests
+[xUnit.net 00:00:00.15]   Discovered:  _10_Filmdatenbank.PlaywrightTests
+[xUnit.net 00:00:00.18]   Starting:    _10_Filmdatenbank.PlaywrightTests
+[TestHost] Starting background process in D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web
+[TestHost] Port 5018 is OPEN. Host is ready.

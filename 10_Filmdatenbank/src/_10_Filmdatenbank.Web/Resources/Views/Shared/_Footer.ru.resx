@@ -9,7 +9,7 @@
   <data name="SystemDesign" xml:space="preserve"><value>Системная тема</value></data>
   <data name="DarkDesign" xml:space="preserve"><value>Темная тема</value></data>
   <data name="Repository" xml:space="preserve"><value>Репозиторий</value></data>
-  <data name="CodedBy" xml:space="preserve"><value>FilmDB был написан</value></data>
+  <data name="CodedBy" xml:space="preserve"><value>Couch DB был написан</value></data>
   <data name="WithMug" xml:space="preserve"><value>с большой любовью и</value></data>
   <data name="MadeWith" xml:space="preserve"><value>Сделано с</value></data>
   <data name="ForExcellence" xml:space="preserve"><value>для NE4 Excellence</value></data>

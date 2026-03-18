@@ -1,0 +1,122 @@
+  Wiederherzustellende Projekte werden ermittelt...
+  Alle Projekte sind f├╝r die Wiederherstellung auf dem neuesten Stand.
+  _10_Filmdatenbank.Domain -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Domain\bin\Debug\net10.0\_10_Filmdatenbank.Domain.dll
+  _10_Filmdatenbank.Application -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\bin\Debug\net10.0\_10_Filmdatenbank.Application.dll
+  _10_Filmdatenbank.Infrastructure -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Infrastructure\bin\Debug\net10.0\_10_Filmdatenbank.Infrastructure.dll
+  _10_Filmdatenbank.Web -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\bin\Debug\net10.0\_10_Filmdatenbank.Web.dll
+  _10_Filmdatenbank.PlaywrightTests -> D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\bin\Debug\net10.0\_10_Filmdatenbank.PlaywrightTests.dll
+Testlauf f├╝r "D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\bin\Debug\net10.0\_10_Filmdatenbank.PlaywrightTests.dll" (.NETCoreApp,Version=v10.0)
+Insgesamt 1 Testdateien stimmten mit dem angegebenen Muster ├╝berein.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.4)
+[xUnit.net 00:00:00.07]   Discovering: _10_Filmdatenbank.PlaywrightTests
+[xUnit.net 00:00:00.12]   Discovered:  _10_Filmdatenbank.PlaywrightTests
+[xUnit.net 00:00:00.14]   Starting:    _10_Filmdatenbank.PlaywrightTests
+[TestHost] Starting background process in D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web
+[TestHost] Port 5018 is OPEN. Host is ready.
+[xUnit.net 00:00:15.12]     _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie [FAIL]
+[xUnit.net 00:00:15.12]       Microsoft.Playwright.PlaywrightException : Expected URL /Movies but got http://127.0.0.1:5018/Movies/Create. Validation Errors:  |  |  |  |  | 
+Body: Skip to content
+COUCHDB
+PREMIUM EDITION
+ Dashboard
+ Community
+ Ranking
+ Movies
+ Collections
+People
+ Studios
+A
+System
+New Catalog Entry
+
+ENTER MOVIE METADATA
+
+BACK
+TMDB QUICK SEARCH
+
+ Simplifies data entry by importing from TMDB.
+
+MOVIE INFORMATION
+
+BASIC DATA AND METADATA
+
+TITLE
+YEAR
+DATE
+INITIAL RATING
+RUNTIME (MIN.)
+PRICE (Ôé¼)
+ROMANVORLAGE
+POSTER IMAGE URL
+HOMEPAGE
+PLOT
+TAGLINE
+Nur f├╝r Erwachsene
+Cancel 
+Create Film
+
+System validation active ÔÇó All changes become visible instantly.
+
+COUCHDB
+DE
+E
+[xUnit.net 00:00:15.12]       Stack Trace:
+[xUnit.net 00:00:15.12]         D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\MovieE2ETests.cs(93,0): at _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie()
+[xUnit.net 00:00:15.12]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:15.16]   Finished:    _10_Filmdatenbank.PlaywrightTests
+  Fehler _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie [6 s]
+  Fehlermeldung:
+   Microsoft.Playwright.PlaywrightException : Expected URL /Movies but got http://127.0.0.1:5018/Movies/Create. Validation Errors:  |  |  |  |  | 
+Body: Skip to content
+COUCHDB
+PREMIUM EDITION
+ Dashboard
+ Community
+ Ranking
+ Movies
+ Collections
+People
+ Studios
+A
+System
+New Catalog Entry
+
+ENTER MOVIE METADATA
+
+BACK
+TMDB QUICK SEARCH
+
+ Simplifies data entry by importing from TMDB.
+
+MOVIE INFORMATION
+
+BASIC DATA AND METADATA
+
+TITLE
+YEAR
+DATE
+INITIAL RATING
+RUNTIME (MIN.)
+PRICE (Ôé¼)
+ROMANVORLAGE
+POSTER IMAGE URL
+HOMEPAGE
+PLOT
+TAGLINE
+Nur f├╝r Erwachsene
+Cancel 
+Create Film
+
+System validation active ÔÇó All changes become visible instantly.
+
+COUCHDB
+DE
+E
+  Stapelverfolgung:
+     at _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Admin_Add_And_Delete_Movie() in D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\MovieE2ETests.cs:line 93
+--- End of stack trace from previous location ---
+
+Fehler beim Testlauf.
+Gesamtzahl Tests: 1
+     Nicht bestanden: 1
+ Gesamtzeit: 15,6867 Sekunden

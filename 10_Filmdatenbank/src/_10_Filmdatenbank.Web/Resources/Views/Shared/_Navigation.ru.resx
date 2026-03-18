@@ -12,15 +12,29 @@
   <data name="Logout" xml:space="preserve"><value>Выйти</value></data>
   <data name="Register" xml:space="preserve"><value>Регистрация</value></data>
   <data name="Login" xml:space="preserve"><value>Войти</value></data>
+  <data name="AdminSettings" xml:space="preserve"><value>Настройки администратора</value></data>
+  <data name="EditProfile" xml:space="preserve"><value>Редактировать профиль</value></data>
+  <data name="UserManagement" xml:space="preserve"><value>Управление пользователями</value></data>
   <data name="PremiumEdition" xml:space="preserve"><value>Premium Edition</value></data>
-  <data name="Dashboard" xml:space="preserve"><value>Dashboard</value></data>
-  <data name="Community" xml:space="preserve"><value>Community</value></data>
-  <data name="More" xml:space="preserve"><value>More</value></data>
-  <data name="SettingsProfile" xml:space="preserve"><value>Settings &amp; Profile</value></data>
-  <data name="MyCommunities" xml:space="preserve"><value>My Communities</value></data>
-  <data name="SignOut" xml:space="preserve"><value>Sign Out</value></data>
-  <data name="JoinNow" xml:space="preserve"><value>Join Now</value></data>
-  <data name="Menu" xml:space="preserve"><value>Menu</value></data>
-  <data name="Notifications" xml:space="preserve"><value>Notifications</value></data>
+  <data name="Dashboard" xml:space="preserve"><value>Панель управления</value></data>
+  <data name="Community" xml:space="preserve"><value>Сообщество</value></data>
+  <data name="More" xml:space="preserve"><value>Еще</value></data>
+  <data name="SettingsProfile" xml:space="preserve"><value>Настройки и профиль</value></data>
+  <data name="MyCommunities" xml:space="preserve"><value>Мои сообщества</value></data>
+  <data name="SignOut" xml:space="preserve"><value>Выйти</value></data>
+  <data name="JoinNow" xml:space="preserve"><value>Присоединиться</value></data>
+  <data name="Menu" xml:space="preserve"><value>Меню</value></data>
+  <data name="Notifications" xml:space="preserve"><value>Уведомления</value></data>
+  <data name="People" xml:space="preserve"><value>Люди</value></data>
+  <data name="AllPeople" xml:space="preserve"><value>Все люди</value></data>
+  <data name="Actors" xml:space="preserve"><value>Актеры</value></data>
+  <data name="Directors" xml:space="preserve"><value>Режиссеры</value></data>
+  <data name="Writers" xml:space="preserve"><value>Сценаристы</value></data>
+  <data name="Producers" xml:space="preserve"><value>Продюсеры</value></data>
+  <data name="Ranking" xml:space="preserve"><value>Рейтинг</value></data>
+  <data name="SystemSettings" xml:space="preserve"><value>Системные настройки</value></data>
+  <data name="AppearanceAndSettings" xml:space="preserve"><value>Внешний вид и настройки</value></data>
+  <data name="Movies" xml:space="preserve"><value>Фильмы</value></data>
+  <data name="Collections" xml:space="preserve"><value>Коллекции</value></data>
+  <data name="Studios" xml:space="preserve"><value>Студии</value></data>
 </root>
-

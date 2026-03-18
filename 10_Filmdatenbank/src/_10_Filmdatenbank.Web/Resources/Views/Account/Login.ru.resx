@@ -18,4 +18,6 @@
   <data name="TestAccessAdmin" xml:space="preserve"><value>Тестовый доступ (Админ)</value></data>
   <data name="HidePassword" xml:space="preserve"><value>Скрыть пароль</value></data>
   <data name="ShowPassword" xml:space="preserve"><value>Показать пароль</value></data>
+  <data name="Admin" xml:space="preserve"><value>Администратор</value></data>
+  <data name="User" xml:space="preserve"><value>Стандартный пользователь</value></data>
 </root>

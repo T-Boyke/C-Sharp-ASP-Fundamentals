@@ -7,4 +7,19 @@
   <data name="SkipToContent" xml:space="preserve">
     <value>Pular para o conteúdo</value>
   </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Couch DB</value>
+  </data>
+  <data name="CookieTitle" xml:space="preserve">
+    <value>Cookies no sofá!</value>
+  </data>
+  <data name="CookieText" xml:space="preserve">
+    <value>Usamos apenas cookies essenciais para manter sua sessão no sofá confortável. Sem rastreadores irritantes – honra de escoteiro!</value>
+  </data>
+  <data name="CookieAccept" xml:space="preserve">
+    <value>Entendi!</value>
+  </data>
+  <data name="CookiePolicy" xml:space="preserve">
+    <value>Política de Privacidade</value>
+  </data>
 </root>

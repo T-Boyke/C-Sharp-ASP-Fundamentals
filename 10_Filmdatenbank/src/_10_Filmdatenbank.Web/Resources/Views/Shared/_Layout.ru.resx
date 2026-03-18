@@ -7,4 +7,19 @@
   <data name="SkipToContent" xml:space="preserve">
     <value>Перейти к основному содержанию</value>
   </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Couch DB</value>
+  </data>
+  <data name="CookieTitle" xml:space="preserve">
+    <value>Куки на диване!</value>
+  </data>
+  <data name="CookieText" xml:space="preserve">
+    <value>Мы используем только необходимые куки, чтобы ваша сессия на диване была комфортной. Никаких раздражающих трекеров — честное слово скаута!</value>
+  </data>
+  <data name="CookieAccept" xml:space="preserve">
+    <value>Понятно!</value>
+  </data>
+  <data name="CookiePolicy" xml:space="preserve">
+    <value>Политика конфиденциальности</value>
+  </data>
 </root>

@@ -29,12 +29,13 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
 
         if (!string.IsNullOrEmpty(searchString))
         {
-            var searchLower = searchString.ToLower();
-            query = query.Where(f => f.Titel.ToLower().Contains(searchLower) 
-                                || (f.Handlung != null && f.Handlung.ToLower().Contains(searchLower))
-                                || f.PersonEigenschaftFilme.Any(pef => pef.Person.Vorname.ToLower().Contains(searchLower) 
-                                                                    || pef.Person.Nachname.ToLower().Contains(searchLower)
-                                                                    || (pef.Person.Vorname + " " + pef.Person.Nachname).ToLower().Contains(searchLower)));
+            var searchTerms = searchString.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            foreach (var term in searchTerms)
+            {
+                query = query.Where(f => f.Titel.ToLower().Contains(term) 
+                                    || (f.Handlung != null && f.Handlung.ToLower().Contains(term))
+                                    || f.PersonEigenschaftFilme.Any(pef => pef.Person != null && (pef.Person.Vorname + " " + pef.Person.Nachname).ToLower().Contains(term)));
+            }
             ViewData["CurrentFilter"] = searchString;
         }
 
@@ -387,10 +388,17 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         }
 
         // Log validation errors for debugging
-        foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+        var errorMessages = new List<string>();
+        foreach (var key in ModelState.Keys)
         {
-            logger.LogWarning("Validation Error: {ErrorMessage}", error.ErrorMessage);
+            var state = ModelState[key];
+            foreach (var error in state.Errors)
+            {
+                logger.LogWarning("Validation Error on {Key}: {ErrorMessage}", key, error.ErrorMessage);
+                errorMessages.Add($"{key}: {error.ErrorMessage}");
+            }
         }
+        TempData["Error"] = string.Join(" | ", errorMessages);
 
         return View(film);
     }

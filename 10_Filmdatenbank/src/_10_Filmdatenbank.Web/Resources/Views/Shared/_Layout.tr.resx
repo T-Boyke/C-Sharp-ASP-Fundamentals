@@ -7,4 +7,19 @@
   <data name="SkipToContent" xml:space="preserve">
     <value>İçeriğe atla</value>
   </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Couch DB</value>
+  </data>
+  <data name="CookieTitle" xml:space="preserve">
+    <value>Kanepede Çerezler!</value>
+  </data>
+  <data name="CookieText" xml:space="preserve">
+    <value>Kanepe oturumunuzu konforlu tutmak için yalnızca temel çerezleri kullanıyoruz. Can sıkıcı takipçiler yok — İzci sözü!</value>
+  </data>
+  <data name="CookieAccept" xml:space="preserve">
+    <value>Anladım!</value>
+  </data>
+  <data name="CookiePolicy" xml:space="preserve">
+    <value>Gizlilik Politikası</value>
+  </data>
 </root>

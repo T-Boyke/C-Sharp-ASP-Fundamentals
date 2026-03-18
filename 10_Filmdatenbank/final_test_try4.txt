@@ -1,0 +1,1441 @@
+Testlauf f├╝r "D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\bin\Debug\net10.0\_10_Filmdatenbank.PlaywrightTests.dll" (.NETCoreApp,Version=v10.0)
+Insgesamt 1 Testdateien stimmten mit dem angegebenen Muster ├╝berein.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.4)
+[xUnit.net 00:00:00.08]   Discovering: _10_Filmdatenbank.PlaywrightTests
+[xUnit.net 00:00:00.13]   Discovered:  _10_Filmdatenbank.PlaywrightTests
+[xUnit.net 00:00:00.16]   Starting:    _10_Filmdatenbank.PlaywrightTests
+[TestHost] Starting background process in D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web
+[TestHost] Port 5018 is OPEN. Host is ready.
+  Bestanden _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Search_Multiple_Movies(searchQuery: "Inception", expectedTitle: "Inception") [2 s]
+[xUnit.net 00:00:16.81]     _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Search_Multiple_Movies(searchQuery: "Christopher Nolan", expectedTitle: "Inception") [FAIL]
+[xUnit.net 00:00:16.81]       Microsoft.Playwright.PlaywrightException : Locator expected to contain text 'Inception'
+But was: '
+    
+        Skip to content
+    
+    
+    
+
+    
+        
+            
+            
+            
+                
+                    
+                        
+                    
+                    
+                        COUCHDB
+                        Premium Edition
+                    
+                
+
+                
+                
+                        
+                        
+                            
+                            Dashboard
+                        
+                        
+                            
+                            Community
+                        
+                        
+                            
+                            Ranking
+                        
+                        
+                        
+                        
+                            
+                            Movies
+                        
+                        
+                            
+                            Collections
+                        
+                        
+                        
+                        
+                        
+                            
+                                
+                                People
+                                
+                            
+                            
+                                
+                                    
+                                        
+                                            
+                                        
+                                        All People
+                                    
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Actors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Directors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Writers
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Producers
+                                    
+                                
+                            
+                        
+                        
+                            
+                            Studios
+                        
+                
+            
+
+            
+            
+                
+                    
+                    
+                        
+                            
+                            
+
+                        
+                    
+                    
+                    
+                    
+                        
+                            
+                                    U
+                            
+                            UpdatedName
+                            
+                        
+
+                        
+                            
+                                
+                                    
+ U                                     
+                                    
+                                        UpdatedName User
+                                        user@film.de
+                                    
+                                
+                                
+                                
+                                    
+                                        
+                                    
+                                    Settings & Profile
+                                
+                                
+                                    
+                                        
+                                    
+                                    Appearance & Settings
+                                
+                                
+                                    
+                                        
+                                    
+                                    My Communities
+                                
+
+
+                                
+                                
+                                    
+                                        
+                                            
+                                        
+                                        Sign Out
+                                    
+                                
+                            
+                        
+                    
+
+                
+                
+                    
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+        
+
+
+    
+        
+            
+                
+                Inventory
+            
+            Movie Catalog
+            Browse our curated collection of top-tier film productions.
+        
+        
+        
+            
+                
+                
+                    
+                
+                    
+                        
+                    
+            
+        
+
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+        
+            
+                
+                    
+                
+                COUCHDB
+            
+            
+            
+                
+                
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                
+
+                
+                
+                        
+                            
+                                DE
+                            
+                        
+                        
+                            
+                                EN
+                            
+                        
+                        
+                            
+                                PT
+                            
+                        
+                        
+                            
+                                RU
+                            
+                        
+                        
+                            
+                                AR
+                            
+                        
+                        
+                            
+                                TR
+                            
+                        
+                
+            
+            
+            
+                
+                     Repository
+                
+            
+        
+        
+        
+            
+                Couch DB was coded by Tobias Boyke with loads of 
+            
+            
+                Made with  for NE4 Excellence
+            
+            
+            
+                Legal Notice
+                Privacy Policy
+            
+        
+    
+
+
+    
+
+
+
+
+
+
+
+    
+
+    
+        
+        
+        
+
+        
+            
+                
+                    
+                
+                CookieTitle
+            
+            
+            
+                CookieText
+            
+
+            
+                
+                    CookieAccept
+                
+                
+                    CookiePolicy
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+    
+    
+
+
+
+' 
+Call log:
+  - Expect "ToContainTextAsync" with timeout 5000ms
+  - waiting for Locator("body")
+    9 ├ù locator resolved to <body class="h-full flex flex-col bg-brand-bg dark:bg-dark-surface text-text-main dark:text-dark-text-main font-sans antialiased transition-colors duration-300">ÔÇª</body>
+      - unexpected value "
+    
+        Skip to content
+    
+    
+    
+
+    
+        
+            
+            
+            
+                
+                    
+                        
+                    
+                    
+                        COUCHDB
+                        Premium Edition
+                    
+                
+
+                
+                
+                        
+                        
+                            
+                            Dashboard
+                        
+                        
+                            
+                            Community
+                        
+                        
+                            
+                            Ranking
+                        
+                        
+                        
+                        
+                            
+                            Movies
+                        
+                        
+                            
+                            Collections
+                        
+                        
+                        
+                        
+                        
+                            
+                                
+                                People
+                                
+                            
+                            
+                                
+                                    
+                                        
+                                            
+                                        
+                                        All People
+                                    
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Actors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Directors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Writers
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Producers
+                                    
+                                
+                            
+                        
+                        
+                            
+                            Studios
+                        
+                
+            
+
+            
+            
+                
+                    
+                    
+                        
+                            
+                            
+
+                        
+                    
+                    
+                    
+                    
+                        
+                            
+                                    U
+                            
+                            UpdatedName
+                            
+                        
+
+                        
+                            
+                                
+                                    
+ U                                     
+                                    
+                                        UpdatedName User
+                                        user@film.de
+                                    
+                                
+                                
+                                
+                                    
+                                        
+                                    
+                                    Settings & Profile
+                                
+                                
+                                    
+                                        
+                                    
+                                    Appearance & Settings
+                                
+                                
+                                    
+                                        
+                                    
+                                    My Communities
+                                
+
+
+                                
+                                
+                                    
+                                        
+                                            
+                                        
+                                        Sign Out
+                                    
+                                
+                            
+                        
+                    
+
+                
+                
+                    
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+        
+
+
+    
+        
+            
+                
+                Inventory
+            
+            Movie Catalog
+            Browse our curated collection of top-tier film productions.
+        
+        
+        
+            
+                
+                
+                    
+                
+                    
+                        
+                    
+            
+        
+
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+        
+            
+                
+                    
+                
+                COUCHDB
+            
+            
+            
+                
+                
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                
+
+                
+                
+                        
+                            
+                                DE
+                            
+                        
+                        
+                            
+                                EN
+                            
+                        
+                        
+                            
+                                PT
+                            
+                        
+                        
+                            
+                                RU
+                            
+                        
+                        
+                            
+                                AR
+                            
+                        
+                        
+                            
+                                TR
+                            
+                        
+                
+            
+            
+            
+                
+                     Repository
+                
+            
+        
+        
+        
+            
+                Couch DB was coded by Tobias Boyke with loads of 
+            
+            
+                Made with  for NE4 Excellence
+            
+            
+            
+                Legal Notice
+                Privacy Policy
+            
+        
+    
+
+
+    
+
+
+
+
+
+
+
+    
+
+    
+        
+        
+        
+
+        
+            
+                
+                    
+                
+                CookieTitle
+            
+            
+            
+                CookieText
+            
+
+            
+                
+                    CookieAccept
+                
+                
+                    CookiePolicy
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+    
+    
+
+
+
+"
+[xUnit.net 00:00:16.81]       Stack Trace:
+[xUnit.net 00:00:16.81]         /_/src/Playwright/Core/AssertionsBase.cs(92,0): at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, FrameExpectOptions expectOptions, Object expected, String message, String title)
+[xUnit.net 00:00:16.81]         /_/src/Playwright/Core/AssertionsBase.cs(66,0): at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue[] expectedText, Object expected, String message, String title, FrameExpectOptions options)
+[xUnit.net 00:00:16.81]         /_/src/Playwright/Core/AssertionsBase.cs(58,0): at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue textValue, Object expected, String message, String title, FrameExpectOptions options)
+[xUnit.net 00:00:16.81]         D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\MovieE2ETests.cs(56,0): at _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Search_Multiple_Movies(String searchQuery, String expectedTitle)
+[xUnit.net 00:00:16.81]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:16.85]   Finished:    _10_Filmdatenbank.PlaywrightTests
+  Fehler _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Search_Multiple_Movies(searchQuery: "Christopher Nolan", expectedTitle: "Inception") [5 s]
+  Fehlermeldung:
+   Microsoft.Playwright.PlaywrightException : Locator expected to contain text 'Inception'
+But was: '
+    
+        Skip to content
+    
+    
+    
+
+    
+        
+            
+            
+            
+                
+                    
+                        
+                    
+                    
+                        COUCHDB
+                        Premium Edition
+                    
+                
+
+                
+                
+                        
+                        
+                            
+                            Dashboard
+                        
+                        
+                            
+                            Community
+                        
+                        
+                            
+                            Ranking
+                        
+                        
+                        
+                        
+                            
+                            Movies
+                        
+                        
+                            
+                            Collections
+                        
+                        
+                        
+                        
+                        
+                            
+                                
+                                People
+                                
+                            
+                            
+                                
+                                    
+                                        
+                                            
+                                        
+                                        All People
+                                    
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Actors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Directors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Writers
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Producers
+                                    
+                                
+                            
+                        
+                        
+                            
+                            Studios
+                        
+                
+            
+
+            
+            
+                
+                    
+                    
+                        
+                            
+                            
+
+                        
+                    
+                    
+                    
+                    
+                        
+                            
+                                    U
+                            
+                            UpdatedName
+                            
+                        
+
+                        
+                            
+                                
+                                    
+ U                                     
+                                    
+                                        UpdatedName User
+                                        user@film.de
+                                    
+                                
+                                
+                                
+                                    
+                                        
+                                    
+                                    Settings & Profile
+                                
+                                
+                                    
+                                        
+                                    
+                                    Appearance & Settings
+                                
+                                
+                                    
+                                        
+                                    
+                                    My Communities
+                                
+
+
+                                
+                                
+                                    
+                                        
+                                            
+                                        
+                                        Sign Out
+                                    
+                                
+                            
+                        
+                    
+
+                
+                
+                    
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+        
+
+
+    
+        
+            
+                
+                Inventory
+            
+            Movie Catalog
+            Browse our curated collection of top-tier film productions.
+        
+        
+        
+            
+                
+                
+                    
+                
+                    
+                        
+                    
+            
+        
+
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+        
+            
+                
+                    
+                
+                COUCHDB
+            
+            
+            
+                
+                
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                
+
+                
+                
+                        
+                            
+                                DE
+                            
+                        
+                        
+                            
+                                EN
+                            
+                        
+                        
+                            
+                                PT
+                            
+                        
+                        
+                            
+                                RU
+                            
+                        
+                        
+                            
+                                AR
+                            
+                        
+                        
+                            
+                                TR
+                            
+                        
+                
+            
+            
+            
+                
+                     Repository
+                
+            
+        
+        
+        
+            
+                Couch DB was coded by Tobias Boyke with loads of 
+            
+            
+                Made with  for NE4 Excellence
+            
+            
+            
+                Legal Notice
+                Privacy Policy
+            
+        
+    
+
+
+    
+
+
+
+
+
+
+
+    
+
+    
+        
+        
+        
+
+        
+            
+                
+                    
+                
+                CookieTitle
+            
+            
+            
+                CookieText
+            
+
+            
+                
+                    CookieAccept
+                
+                
+                    CookiePolicy
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+    
+    
+
+
+
+' 
+Call log:
+  - Expect "ToContainTextAsync" with timeout 5000ms
+  - waiting for Locator("body")
+    9 ├ù locator resolved to <body class="h-full flex flex-col bg-brand-bg dark:bg-dark-surface text-text-main dark:text-dark-text-main font-sans antialiased transition-colors duration-300">ÔÇª</body>
+      - unexpected value "
+    
+        Skip to content
+    
+    
+    
+
+    
+        
+            
+            
+            
+                
+                    
+                        
+                    
+                    
+                        COUCHDB
+                        Premium Edition
+                    
+                
+
+                
+                
+                        
+                        
+                            
+                            Dashboard
+                        
+                        
+                            
+                            Community
+                        
+                        
+                            
+                            Ranking
+                        
+                        
+                        
+                        
+                            
+                            Movies
+                        
+                        
+                            
+                            Collections
+                        
+                        
+                        
+                        
+                        
+                            
+                                
+                                People
+                                
+                            
+                            
+                                
+                                    
+                                        
+                                            
+                                        
+                                        All People
+                                    
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Actors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Directors
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Writers
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        Producers
+                                    
+                                
+                            
+                        
+                        
+                            
+                            Studios
+                        
+                
+            
+
+            
+            
+                
+                    
+                    
+                        
+                            
+                            
+
+                        
+                    
+                    
+                    
+                    
+                        
+                            
+                                    U
+                            
+                            UpdatedName
+                            
+                        
+
+                        
+                            
+                                
+                                    
+ U                                     
+                                    
+                                        UpdatedName User
+                                        user@film.de
+                                    
+                                
+                                
+                                
+                                    
+                                        
+                                    
+                                    Settings & Profile
+                                
+                                
+                                    
+                                        
+                                    
+                                    Appearance & Settings
+                                
+                                
+                                    
+                                        
+                                    
+                                    My Communities
+                                
+
+
+                                
+                                
+                                    
+                                        
+                                            
+                                        
+                                        Sign Out
+                                    
+                                
+                            
+                        
+                    
+
+                
+                
+                    
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+        
+
+
+    
+        
+            
+                
+                Inventory
+            
+            Movie Catalog
+            Browse our curated collection of top-tier film productions.
+        
+        
+        
+            
+                
+                
+                    
+                
+                    
+                        
+                    
+            
+        
+
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+        
+            
+                
+                    
+                
+                COUCHDB
+            
+            
+            
+                
+                
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                    
+                        
+                        
+                    
+                
+
+                
+                
+                        
+                            
+                                DE
+                            
+                        
+                        
+                            
+                                EN
+                            
+                        
+                        
+                            
+                                PT
+                            
+                        
+                        
+                            
+                                RU
+                            
+                        
+                        
+                            
+                                AR
+                            
+                        
+                        
+                            
+                                TR
+                            
+                        
+                
+            
+            
+            
+                
+                     Repository
+                
+            
+        
+        
+        
+            
+                Couch DB was coded by Tobias Boyke with loads of 
+            
+            
+                Made with  for NE4 Excellence
+            
+            
+            
+                Legal Notice
+                Privacy Policy
+            
+        
+    
+
+
+    
+
+
+
+
+
+
+
+    
+
+    
+        
+        
+        
+
+        
+            
+                
+                    
+                
+                CookieTitle
+            
+            
+            
+                CookieText
+            
+
+            
+                
+                    CookieAccept
+                
+                
+                    CookiePolicy
+                
+            
+        
+    
+
+
+
+
+
+
+
+    
+    
+    
+
+
+
+"
+  Stapelverfolgung:
+     at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, FrameExpectOptions expectOptions, Object expected, String message, String title) in /_/src/Playwright/Core/AssertionsBase.cs:line 92
+   at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue[] expectedText, Object expected, String message, String title, FrameExpectOptions options) in /_/src/Playwright/Core/AssertionsBase.cs:line 66
+   at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue textValue, Object expected, String message, String title, FrameExpectOptions options) in /_/src/Playwright/Core/AssertionsBase.cs:line 58
+   at _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Search_Multiple_Movies(String searchQuery, String expectedTitle) in D:\DEV\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\MovieE2ETests.cs:line 56
+--- End of stack trace from previous location ---
+
+Fehler beim Testlauf.
+Gesamtzahl Tests: 2
+     Bestanden: 1
+     Nicht bestanden: 1
+ Gesamtzeit: 17,4117 Sekunden

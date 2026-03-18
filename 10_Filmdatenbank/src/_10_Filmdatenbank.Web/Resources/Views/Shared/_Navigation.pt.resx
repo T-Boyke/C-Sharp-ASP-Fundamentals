@@ -12,18 +12,29 @@
   <data name="Logout" xml:space="preserve"><value>Sair</value></data>
   <data name="Register" xml:space="preserve"><value>Registrar</value></data>
   <data name="Login" xml:space="preserve"><value>Entrar</value></data>
-  <data name="AdminSettings" xml:space="preserve"><value>Admin Settings</value></data>
-  <data name="EditProfile" xml:space="preserve"><value>Edit Profile</value></data>
-  <data name="UserManagement" xml:space="preserve"><value>User Management</value></data>
-  <data name="PremiumEdition" xml:space="preserve"><value>Premium Edition</value></data>
-  <data name="Dashboard" xml:space="preserve"><value>Dashboard</value></data>
-  <data name="Community" xml:space="preserve"><value>Community</value></data>
-  <data name="More" xml:space="preserve"><value>More</value></data>
-  <data name="SettingsProfile" xml:space="preserve"><value>Settings &amp; Profile</value></data>
-  <data name="MyCommunities" xml:space="preserve"><value>My Communities</value></data>
-  <data name="SignOut" xml:space="preserve"><value>Sign Out</value></data>
-  <data name="JoinNow" xml:space="preserve"><value>Join Now</value></data>
+  <data name="AdminSettings" xml:space="preserve"><value>Configurações de Administrador</value></data>
+  <data name="EditProfile" xml:space="preserve"><value>Editar Perfil</value></data>
+  <data name="UserManagement" xml:space="preserve"><value>Gerenciamento de Usuários</value></data>
+  <data name="PremiumEdition" xml:space="preserve"><value>Edição Premium</value></data>
+  <data name="Dashboard" xml:space="preserve"><value>Painel de Controle</value></data>
+  <data name="Community" xml:space="preserve"><value>Comunidade</value></data>
+  <data name="More" xml:space="preserve"><value>Mais</value></data>
+  <data name="SettingsProfile" xml:space="preserve"><value>Configurações &amp; Perfil</value></data>
+  <data name="MyCommunities" xml:space="preserve"><value>Minhas Comunidades</value></data>
+  <data name="SignOut" xml:space="preserve"><value>Sair</value></data>
+  <data name="JoinNow" xml:space="preserve"><value>Entrar Agora</value></data>
   <data name="Menu" xml:space="preserve"><value>Menu</value></data>
-  <data name="Notifications" xml:space="preserve"><value>Notifications</value></data>
+  <data name="Notifications" xml:space="preserve"><value>Notificações</value></data>
+  <data name="People" xml:space="preserve"><value>Pessoas</value></data>
+  <data name="AllPeople" xml:space="preserve"><value>Todas as Pessoas</value></data>
+  <data name="Actors" xml:space="preserve"><value>Atores</value></data>
+  <data name="Directors" xml:space="preserve"><value>Diretores</value></data>
+  <data name="Writers" xml:space="preserve"><value>Escritores</value></data>
+  <data name="Producers" xml:space="preserve"><value>Produtores</value></data>
+  <data name="Ranking" xml:space="preserve"><value>Classificação</value></data>
+  <data name="SystemSettings" xml:space="preserve"><value>Configurações do Sistema</value></data>
+  <data name="AppearanceAndSettings" xml:space="preserve"><value>Aparência &amp; Configurações</value></data>
+  <data name="Movies" xml:space="preserve"><value>Filmes</value></data>
+  <data name="Collections" xml:space="preserve"><value>Coleções</value></data>
+  <data name="Studios" xml:space="preserve"><value>Estúdios</value></data>
 </root>
-

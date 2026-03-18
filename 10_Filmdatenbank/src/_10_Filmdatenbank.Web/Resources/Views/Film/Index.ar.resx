@@ -16,4 +16,5 @@
   <data name="Delete" xml:space="preserve"><value>حذف</value></data>
   <data name="MinSuffix" xml:space="preserve"><value>دقيقة</value></data>
   <data name="RentalPrice" xml:space="preserve"><value>سعر الإيجار</value></data>
+  <data name="SearchPlaceholder" xml:space="preserve"><value>البحث عن أفلام...</value></data>
 </root>

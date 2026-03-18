@@ -18,4 +18,6 @@
   <data name="TestAccessAdmin" xml:space="preserve"><value>Acesso de Teste (Admin)</value></data>
   <data name="HidePassword" xml:space="preserve"><value>Esconder senha</value></data>
   <data name="ShowPassword" xml:space="preserve"><value>Mostrar senha</value></data>
+  <data name="Admin" xml:space="preserve"><value>Administrador</value></data>
+  <data name="User" xml:space="preserve"><value>Usuário Padrão</value></data>
 </root>
