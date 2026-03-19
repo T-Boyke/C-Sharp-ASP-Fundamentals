@@ -109,21 +109,30 @@ app.MapControllerRoute(
     .WithStaticAssets();
 
 // Seeding
-if (!app.Environment.IsEnvironment("Testing"))
+if (!app.Environment.IsProduction() && !app.Environment.IsEnvironment("Testing"))
 {
+    Console.WriteLine($"[Seed] Starting Seeding for Environment: {app.Environment.EnvironmentName}");
     using (var scope = app.Services.CreateScope())
     {
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        if (context.Database.IsSqlServer())
+        try 
         {
-            await context.Database.MigrateAsync();
+            if (context.Database.IsSqlServer())
+            {
+                await context.Database.MigrateAsync();
+            }
+            else
+            {
+                await context.Database.EnsureCreatedAsync();
+            }
         }
-        else
+        catch (Exception ex)
         {
-            await context.Database.EnsureCreatedAsync();
+            Console.WriteLine($"[Seed] Database setup failed: {ex.Message}");
         }
         
         await DbSeeder.SeedAsync(context);
+        Console.WriteLine("[Seed] Standard Seeder finished.");
 
         // Seed Admin/Member roles if needed
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -145,6 +154,7 @@ if (!app.Environment.IsEnvironment("Testing"))
             };
             await userManager.CreateAsync(admin, "Admin123!");
             await userManager.AddToRoleAsync(admin, "Admin");
+            Console.WriteLine("[Seed] Admin user created.");
         }
 
         if (await userManager.FindByEmailAsync("user@film.de") == null)
@@ -161,6 +171,7 @@ if (!app.Environment.IsEnvironment("Testing"))
             };
             await userManager.CreateAsync(user, "User123!");
             await userManager.AddToRoleAsync(user, "Member");
+            Console.WriteLine("[Seed] Standard user created.");
         }
     }
 }

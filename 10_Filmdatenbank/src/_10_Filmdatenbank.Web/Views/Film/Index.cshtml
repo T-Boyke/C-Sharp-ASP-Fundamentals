@@ -13,7 +13,7 @@
                 <i aria-hidden="true" class="fa-solid fa-rectangle-list text-brand-primary"></i>
                 <span class="text-xs font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest leading-none">@Localizer["Inventory"]</span>
             </div>
-            <h1 class="text-4xl font-extrabold tracking-tight text-text-main dark:text-white transition-colors">@Localizer["CatalogHeader"]</h1>
+            <h1 id="movie-catalog-header" class="text-4xl font-extrabold tracking-tight text-text-main dark:text-white transition-colors">@Localizer["CatalogHeader"]</h1>
             <p class="mt-3 text-lg text-text-description dark:text-dark-text-muted max-w-2xl font-medium transition-colors">@Localizer["CatalogDescription"]</p>
         </div>
         
@@ -125,7 +125,7 @@
                                 @(string.Join(", ", item.Genres?.Select(g => g.Name).Where(n => !string.IsNullOrEmpty(n)) ?? Array.Empty<string>()))
                             </span>
                         </div>
-                        <h2 class="text-lg font-black text-text-main dark:text-white leading-tight line-clamp-1 transition-colors">@item.Titel</h2>
+                        <h2 id="movie-title-@item.FilmID" class="text-lg font-black text-text-main dark:text-white leading-tight line-clamp-1 transition-colors">@item.Titel</h2>
                         <p class="text-[10px] font-bold text-text-muted dark:text-dark-text-muted uppercase tracking-widest mt-1 italic transition-colors">
                             @item.Erscheinungsjahr &bull; @item.Spieldauer @Localizer["MinSuffix"]
                         </p>

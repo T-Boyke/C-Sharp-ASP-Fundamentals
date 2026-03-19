@@ -6,6 +6,9 @@ using Xunit;
 namespace _10_Filmdatenbank.PlaywrightTests
 {
     [Collection("SystemTestCollection")]
+    /// <summary>
+    /// End-to-end tests for movie search, navigation, and administrative workflows.
+    /// </summary>
     public class MovieE2ETests : PageTest
     {
         private readonly string BaseUrl;
@@ -20,10 +23,26 @@ namespace _10_Filmdatenbank.PlaywrightTests
             await Page.GotoAsync($"{BaseUrl}/Account/Login");
             await Page.Locator("input[type='email']").FillAsync("user@film.de");
             await Page.Locator("input[type='password']").FillAsync("User123!");
-            await Page.GetByRole(AriaRole.Button, new() { Name = "Anmelden" }).Or(Page.Locator("button[type='submit']")).First.ClickAsync();
-            await Expect(Page).Not.ToHaveURLAsync(new System.Text.RegularExpressions.Regex(".*/Account/Login.*"));
+            
+            // Use a more specific locator to avoid multi-element matches (like language buttons)
+            var loginButton = Page.Locator("button[type='submit'].btn-primary");
+            await loginButton.ClickAsync();
+
+            try 
+            {
+                await Expect(Page).Not.ToHaveURLAsync(new System.Text.RegularExpressions.Regex(".*/Account/Login.*"), new() { Timeout = 10000 });
+            }
+            catch (System.Exception ex)
+            {
+                var content = await Page.ContentAsync();
+                var url = Page.Url;
+                throw new Microsoft.Playwright.PlaywrightException($"Login failed. Still on {url}. Page content snippet: {content.Substring(0, System.Math.Min(1000, content.Length))}. Error: {ex.Message}");
+            }
         }
 
+        /// <summary>
+        /// Testet den Workflow von der Suche bis zur Detailansicht eines Films.
+        /// </summary>
         [Fact]
         public async Task Search_And_Details_Workflow()
         {
@@ -33,13 +52,22 @@ namespace _10_Filmdatenbank.PlaywrightTests
             var searchInput = Page.Locator("input[name='searchString']");
             await searchInput.FillAsync("Inception");
             await searchInput.PressAsync("Enter");
+            await Expect(Page).ToHaveURLAsync(new System.Text.RegularExpressions.Regex(".*/Movies(/Index)?\\?searchString=.*Inception.*", System.Text.RegularExpressions.RegexOptions.IgnoreCase));
 
-            var detailsLink = Page.GetByLabel(new System.Text.RegularExpressions.Regex("DetailsOf.*|Details von.*", System.Text.RegularExpressions.RegexOptions.IgnoreCase)).First;
-            await detailsLink.ClickAsync(new() { Force = true });
+
+            var movieCard = Page.Locator(".card-premium").Filter(new() { HasText = "Inception" }).First;
+            await movieCard.HoverAsync();
+            var detailsLink = movieCard.Locator("a[href*='/Details/']").Filter(new() { HasText = "Details" }).First;
+            await detailsLink.ClickAsync();
             await Page.WaitForURLAsync("**/Details/**");
             await Expect(Page.Locator("h1")).ToContainTextAsync("Inception");
         }
 
+        /// <summary>
+        /// Testet die Suche mit verschiedenen Begriffen und validiert das Ergebnis.
+        /// </summary>
+        /// <param name="searchQuery">Der Suchbegriff.</param>
+        /// <param name="expectedTitle">Der erwartete Titel im Ergebnis.</param>
         [Theory]
         [InlineData("Inception", "Inception")]
         [InlineData("Christopher Nolan", "Inception")]
@@ -51,10 +79,16 @@ namespace _10_Filmdatenbank.PlaywrightTests
             var searchInput = Page.Locator("input[name='searchString']");
             await searchInput.FillAsync(searchQuery);
             await searchInput.PressAsync("Enter");
+            await Expect(Page).ToHaveURLAsync(new System.Text.RegularExpressions.Regex(".*/Movies(/Index)?\\?searchString=.*", System.Text.RegularExpressions.RegexOptions.IgnoreCase));
 
-            await Expect(Page.Locator("body")).ToContainTextAsync(expectedTitle);
+
+            // Assert inside main content to avoid false positives in nav/footer
+            await Expect(Page.Locator("main")).ToContainTextAsync(expectedTitle);
         }
 
+        /// <summary>
+        /// Überprüft, ob die Ranking-Seite geladen werden kann.
+        /// </summary>
         [Fact]
         public async Task Ranking_Page_Loads()
         {
@@ -63,6 +97,9 @@ namespace _10_Filmdatenbank.PlaywrightTests
             await Expect(Page.Locator("h1")).ToContainTextAsync(new System.Text.RegularExpressions.Regex("Top Filme|Ranking", System.Text.RegularExpressions.RegexOptions.IgnoreCase));
         }
 
+        /// <summary>
+        /// Administrativer Test: Hinzufügen und anschließendes Löschen eines Testfilms.
+        /// </summary>
         [Fact]
         public async Task Admin_Add_And_Delete_Movie()
         {
@@ -79,11 +116,11 @@ namespace _10_Filmdatenbank.PlaywrightTests
             string movieTitle = $"Playwright Test Movie {uniqueId}";
 
             await Page.GotoAsync($"{BaseUrl}/Movies/Create");
-            await Page.Locator("#Titel").FillAsync(movieTitle);
-            await Page.Locator("#Erscheinungsjahr").FillAsync("2024");
-            await Page.Locator("#Handlung").FillAsync("This movie was created by an automated Playwright test.");
-            await Page.Locator("#Spieldauer").FillAsync("120");
-            await Page.Locator("#Preis").FillAsync("15.99");
+            await Page.Locator("#inputTitel").FillAsync(movieTitle);
+            await Page.Locator("#inputYear").FillAsync("2024");
+            await Page.Locator("#inputPlot").FillAsync("This movie was created by an automated Playwright test.");
+            await Page.Locator("#inputRuntime").FillAsync("120");
+            await Page.Locator("#inputPrice").FillAsync("15.99");
 
             // Click Create
             await Page.Locator("#createForm button[type='submit']").ClickAsync();
@@ -115,8 +152,11 @@ namespace _10_Filmdatenbank.PlaywrightTests
             // Ensure we are back on the movies list
             await Expect(Page).ToHaveURLAsync(new System.Text.RegularExpressions.Regex($".*/Movies(/Index)?$"));
 
-            // Verify movie is gone from the list
-            await Expect(Page.Locator("body")).Not.ToContainTextAsync(movieTitle);
+            // Verify success toast appears
+            await Expect(Page.Locator(".toast-item")).ToContainTextAsync(movieTitle);
+
+            // Verify movie is gone from the list (check that no card contains this specific unique title)
+            await Expect(Page.Locator(".card-premium").Filter(new() { HasText = movieTitle })).ToHaveCountAsync(0);
         }
     }
 }

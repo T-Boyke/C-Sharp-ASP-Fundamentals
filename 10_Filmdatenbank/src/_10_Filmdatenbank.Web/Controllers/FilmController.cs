@@ -12,29 +12,44 @@ namespace _10_Filmdatenbank.Web.Controllers;
 /// <summary>
 /// Verwalte die Filme in der Datenbank.
 /// </summary>
+/// <param name="context">Der Datenbankkontext.</param>
+/// <param name="tmdbService">Der TMDB-Service.</param>
+/// <param name="tvdbService">Der TVDB-Service.</param>
+/// <param name="rtService">Der RottenTomatoes-Service.</param>
+/// <param name="imdbService">Der IMDb-Service.</param>
+/// <param name="metacriticService">Der Metacritic-Service.</param>
+/// <param name="wikidataService">Der Wikidata-Service.</param>
+/// <param name="userManager">Die Identity Benutzerverwaltung.</param>
+/// <param name="logger">Logger für Fehler und Informationen.</param>
 [Authorize]
 [Route("Movies")]
 public class FilmController(ApplicationDbContext context, ITmdbService tmdbService, ITvdbService tvdbService, IRottenTomatoesService rtService, IImdbService imdbService, IMetacriticService metacriticService, IWikidataService wikidataService, UserManager<ApplicationUser> userManager, ILogger<FilmController> logger) : Controller
 {
     /// <summary>
-    /// Zeigt eine Liste aller Filme an.
+    /// Zeigt eine Liste von Filmen an, optional gefiltert nach einem Suchbegriff.
     /// </summary>
-    /// <param name="searchString">Optionaler Suchbegriff.</param>
-    /// <returns>Die Index-View mit einer Liste von Filmen.</returns>
-    [HttpGet("")]
-    [HttpGet("Index")]
+    /// <param name="searchString">Der Suchbegriff für Titel, Handlung oder Personen.</param>
+    /// <returns>Die Index-View mit der Filmliste.</returns>
+    [HttpGet]
     public async Task<IActionResult> Index(string? searchString = null)
     {
-        var query = context.Filme.AsQueryable();
+        var query = context.Filme
+            .Include(f => f.Genres)
+            .Include(f => f.PersonEigenschaftFilme)
+                .ThenInclude(pef => pef.Person)
+            .AsQueryable();
 
         if (!string.IsNullOrEmpty(searchString))
         {
             var searchTerms = searchString.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
             foreach (var term in searchTerms)
             {
+                // JEDER Begriff muss in einem der Felder (Titel, Handlung) ODER bei MINDESTENS EINER Person (Vorname ODER Nachname) vorkommen
                 query = query.Where(f => f.Titel.ToLower().Contains(term) 
                                     || (f.Handlung != null && f.Handlung.ToLower().Contains(term))
-                                    || f.PersonEigenschaftFilme.Any(pef => pef.Person != null && (pef.Person.Vorname + " " + pef.Person.Nachname).ToLower().Contains(term)));
+                                    || f.PersonEigenschaftFilme.Any(pef => pef.Person != null && 
+                                        ((pef.Person.Vorname != null && pef.Person.Vorname.ToLower().Contains(term)) || 
+                                         (pef.Person.Nachname != null && pef.Person.Nachname.ToLower().Contains(term)))));
             }
             ViewData["CurrentFilter"] = searchString;
         }
@@ -47,13 +62,21 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         ViewBag.FavoriteFilmIds = favoriteFilmIds;
 
         var filme = await query
-            .Include(f => f.Genres)
-            .Include(f => f.PersonEigenschaftFilme)
-                .ThenInclude(pef => pef.Person)
-            .Include(f => f.PersonEigenschaftFilme)
-                .ThenInclude(pef => pef.Eigenschaft)
             .OrderBy(f => f.Titel)
             .ToListAsync();
+
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            Console.WriteLine($"🔍 Search String: {searchString}");
+            foreach (var f in filme)
+            {
+                var persons = string.Join(", ", f.PersonEigenschaftFilme?
+                    .Where(p => p.Person != null)
+                    .Select(p => $"{p.Person!.Vorname} {p.Person!.Nachname}") ?? []);
+                Console.WriteLine($"🎥 Found: {f.Titel} (Persons: {persons})");
+            }
+        }
+
         return View(filme);
     }
 
@@ -114,6 +137,9 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     /// <summary>
     /// Ermöglicht es einem Benutzer, einen Film zu bewerten (0-10 Punkte).
     /// </summary>
+    /// <param name="id">Die ID des Films.</param>
+    /// <param name="rating">Die Bewertungswertung (0-10).</param>
+    /// <returns>Redirect zur Details-View.</returns>
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Rate(int id, double rating)
@@ -176,6 +202,8 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     /// <summary>
     /// Synchronisiert externe Bewertungen (RT, IMDb Metascore) für einen Film.
     /// </summary>
+    /// <param name="id">ID des Films.</param>
+    /// <returns>Redirect zur Details-View.</returns>
     [HttpPost]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> SyncExternalScores(int id)
@@ -810,7 +838,6 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
                         ReviewUrl = r.ReviewUrl
                     });
                 }
-                Console.WriteLine($"Metacritic Deep Enrichment Success: {film.Titel} -> {film.MetacriticReviews.Count} reviews");
             }
         }
         catch (Exception ex)
@@ -1323,6 +1350,11 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         return RedirectToAction(nameof(Index));
     }
 
+    /// <summary>
+    /// Fügt einen Film zum Merkzettel (Favoriten) hinzu oder entfernt ihn.
+    /// </summary>
+    /// <param name="filmId">ID des Films.</param>
+    /// <returns>JSON-Ergebnis für AJAX oder Redirect.</returns>
     [HttpPost]
     public async Task<IActionResult> ToggleFavorite(int filmId)
     {
