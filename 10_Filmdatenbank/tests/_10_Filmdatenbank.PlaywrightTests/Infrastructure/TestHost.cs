@@ -26,6 +26,7 @@ namespace _10_Filmdatenbank.PlaywrightTests.Infrastructure
 
                 var projectDir = Path.Combine(rootDir, "src", "_10_Filmdatenbank.Web");
                 
+                var dbName = $"E2E_Db_{Guid.NewGuid()}";
                 _process = new Process
                 {
                     StartInfo = new ProcessStartInfo
@@ -33,11 +34,19 @@ namespace _10_Filmdatenbank.PlaywrightTests.Infrastructure
                         FileName = "dotnet",
                         Arguments = $"run --project \"{projectDir}\" --environment E2ETesting --urls {BaseUrl}",
                         UseShellExecute = false,
-                        CreateNoWindow = true
+                        CreateNoWindow = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
                     }
                 };
+                _process.StartInfo.EnvironmentVariables["E2E_DB_NAME"] = dbName;
+
+                _process.OutputDataReceived += (s, e) => { if (e.Data != null) Console.WriteLine($"[WebProcess] {e.Data}"); };
+                _process.ErrorDataReceived += (s, e) => { if (e.Data != null) Console.WriteLine($"[WebError] {e.Data}"); };
 
                 _process.Start();
+                _process.BeginOutputReadLine();
+                _process.BeginErrorReadLine();
                 Console.WriteLine($"[TestHost] Starting background process in {projectDir}");
                 
                 // Wait for port 5018 to be open

@@ -188,5 +188,72 @@ namespace _10_Filmdatenbank.IntegrationTests.Web
             Assert.Equal(8.8, updatedFilm.ImdbRating);
             Assert.Equal(74, updatedFilm.MetacriticRating);
         }
+        [Fact]
+        public async Task Index_Search_By_Person_Returns_Correct_Movie_With_Fresh_Context()
+        {
+            // Arrange
+            string dbName = Guid.NewGuid().ToString();
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: dbName)
+                .Options;
+
+            using (var seedContext = new ApplicationDbContext(options))
+            {
+                var nolan = new Person { Vorname = "Christopher", Nachname = "Nolan" };
+                seedContext.Personen.Add(nolan);
+                var inception = new Film { Titel = "Inception", Erscheinungsjahr = 2010, Preis = 9.99m };
+                seedContext.Filme.Add(inception);
+                var directorTag = new Eigenschaft { Bezeichnung = "Director" };
+                seedContext.Eigenschaften.Add(directorTag);
+                await seedContext.SaveChangesAsync();
+
+                seedContext.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm
+                {
+                    Film = inception,
+                    Person = nolan,
+                    Eigenschaft = directorTag
+                });
+                await seedContext.SaveChangesAsync();
+            }
+
+            // Act - USE FRESH CONTEXT
+            using (var context = new ApplicationDbContext(options))
+            {
+                var controller = GetController(context);
+                var result = await controller.Index("Christopher Nolan");
+
+                // Assert
+                var viewResult = Assert.IsType<ViewResult>(result);
+                var model = Assert.IsAssignableFrom<IEnumerable<Film>>(viewResult.ViewData.Model);
+                Assert.Single(model);
+                Assert.Equal("Inception", model.First().Titel);
+            }
+        }
+        [Fact]
+        public async Task Index_Search_After_DbSeeder_Returns_Correct_Movie()
+        {
+            // Arrange
+            string dbName = Guid.NewGuid().ToString();
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: dbName)
+                .Options;
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                await DbSeeder.SeedAsync(context);
+            }
+
+            // Act
+            using (var context = new ApplicationDbContext(options))
+            {
+                var controller = GetController(context);
+                var result = await controller.Index("Christopher Nolan");
+
+                // Assert
+                var viewResult = Assert.IsType<ViewResult>(result);
+                var model = Assert.IsAssignableFrom<IEnumerable<Film>>(viewResult.ViewData.Model);
+                Assert.Contains(model, f => f.Titel == "Inception");
+            }
+        }
     }
 }

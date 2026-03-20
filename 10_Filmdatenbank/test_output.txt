@@ -1,0 +1,93 @@
+  Wiederherzustellende Projekte werden ermittelt...
+  Alle Projekte sind für die Wiederherstellung auf dem neuesten Stand.
+  _10_Filmdatenbank.Domain -> C:\Users\Tobia\Desktop\cSharpRepo\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Domain\bin\Debug\net10.0\_10_Filmdatenbank.Domain.dll
+  _10_Filmdatenbank.Application -> C:\Users\Tobia\Desktop\cSharpRepo\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Application\bin\Debug\net10.0\_10_Filmdatenbank.Application.dll
+  _10_Filmdatenbank.Infrastructure -> C:\Users\Tobia\Desktop\cSharpRepo\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Infrastructure\bin\Debug\net10.0\_10_Filmdatenbank.Infrastructure.dll
+  _10_Filmdatenbank.Web -> C:\Users\Tobia\Desktop\cSharpRepo\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\src\_10_Filmdatenbank.Web\bin\Debug\net10.0\_10_Filmdatenbank.Web.dll
+  _10_Filmdatenbank.PlaywrightTests -> C:\Users\Tobia\Desktop\cSharpRepo\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\bin\Debug\net10.0\_10_Filmdatenbank.PlaywrightTests.dll
+Testlauf für "C:\Users\Tobia\Desktop\cSharpRepo\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\bin\Debug\net10.0\_10_Filmdatenbank.PlaywrightTests.dll" (.NETCoreApp,Version=v10.0)
+Insgesamt 1 Testdateien stimmten mit dem angegebenen Muster überein.
+[xUnit.net 00:05:43.81]     _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Search_Multiple_Movies(searchQuery: "Christopher Nolan", expectedTitle: "Inception") [FAIL]
+  Fehler _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Search_Multiple_Movies(searchQuery: "Christopher Nolan", expectedTitle: "Inception") [18 s]
+  Fehlermeldung:
+   Microsoft.Playwright.PlaywrightException : Locator expected to contain text 'Inception'
+But was: '
+        
+
+
+    
+        
+            
+                
+                Inventory
+            
+            Movie Catalog
+            Browse our curated collection of top-tier film productions.
+        
+        
+        
+            
+                
+                
+                    
+                
+                    
+                        
+                    
+            
+        
+
+    
+
+    
+    
+
+
+
+    ' 
+Call log:
+  - Expect "ToContainTextAsync" with timeout 5000ms
+  - waiting for Locator("main")
+    7 × locator resolved to <main role="main" tabindex="-1" id="main-content" class="flex-grow">…</main>
+      - unexpected value "
+        
+
+
+    
+        
+            
+                
+                Inventory
+            
+            Movie Catalog
+            Browse our curated collection of top-tier film productions.
+        
+        
+        
+            
+                
+                
+                    
+                
+                    
+                        
+                    
+            
+        
+
+    
+
+    
+    
+
+
+
+    "
+  Stapelverfolgung:
+     at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, FrameExpectOptions expectOptions, Object expected, String message, String title) in /_/src/Playwright/Core/AssertionsBase.cs:line 92
+   at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue[] expectedText, Object expected, String message, String title, FrameExpectOptions options) in /_/src/Playwright/Core/AssertionsBase.cs:line 66
+   at Microsoft.Playwright.Core.AssertionsBase.ExpectImplAsync(String expression, ExpectedTextValue textValue, Object expected, String message, String title, FrameExpectOptions options) in /_/src/Playwright/Core/AssertionsBase.cs:line 58
+   at _10_Filmdatenbank.PlaywrightTests.MovieE2ETests.Search_Multiple_Movies(String searchQuery, String expectedTitle) in C:\Users\Tobia\Desktop\cSharpRepo\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\tests\_10_Filmdatenbank.PlaywrightTests\MovieE2ETests.cs:line 86
+--- End of stack trace from previous location ---
+
+Fehler!      : Fehler:     1, erfolgreich:     1, übersprungen:     0, gesamt:     2, Dauer: 4 m 9 s - _10_Filmdatenbank.PlaywrightTests.dll (net10.0)

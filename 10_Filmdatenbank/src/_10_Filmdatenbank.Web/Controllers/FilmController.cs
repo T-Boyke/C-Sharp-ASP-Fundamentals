@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TMDbLib.Objects.Search;
+using System.IO;
 
 namespace _10_Filmdatenbank.Web.Controllers;
 
@@ -33,6 +34,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
     [HttpGet]
     public async Task<IActionResult> Index(string? searchString = null)
     {
+        File.AppendAllText(@"C:\Users\Tobia\Desktop\cSharpRepo\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\e2e_debug.log", $"[{DateTime.Now}] [DEBUG] Index action called with searchString: '{searchString}'{Environment.NewLine}");
         var query = context.Filme
             .Include(f => f.Genres)
             .Include(f => f.PersonEigenschaftFilme)
@@ -42,6 +44,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         if (!string.IsNullOrEmpty(searchString))
         {
             var searchTerms = searchString.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            File.AppendAllText(@"C:\Users\Tobia\Desktop\cSharpRepo\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\e2e_debug.log", $"[{DateTime.Now}] [DEBUG] Search terms: {string.Join(", ", searchTerms)}{Environment.NewLine}");
             foreach (var term in searchTerms)
             {
                 // JEDER Begriff muss in einem der Felder (Titel, Handlung) ODER bei MINDESTENS EINER Person (Vorname ODER Nachname) vorkommen
@@ -64,6 +67,7 @@ public class FilmController(ApplicationDbContext context, ITmdbService tmdbServi
         var filme = await query
             .OrderBy(f => f.Titel)
             .ToListAsync();
+        File.AppendAllText(@"C:\Users\Tobia\Desktop\cSharpRepo\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\e2e_debug.log", $"[{DateTime.Now}] [DEBUG] Returning {filme.Count} results{Environment.NewLine}");
 
         if (!string.IsNullOrEmpty(searchString))
         {

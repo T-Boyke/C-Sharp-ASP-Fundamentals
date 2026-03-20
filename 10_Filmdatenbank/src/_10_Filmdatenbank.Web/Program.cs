@@ -39,8 +39,9 @@ if (!builder.Environment.IsEnvironment("Testing") && !builder.Environment.IsEnvi
 }
 else
 {
+    var dbName = Environment.GetEnvironmentVariable("E2E_DB_NAME") ?? "InMemoryDbForTesting";
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseInMemoryDatabase("InMemoryDbForTesting"));
+        options.UseInMemoryDatabase(dbName));
 }
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>

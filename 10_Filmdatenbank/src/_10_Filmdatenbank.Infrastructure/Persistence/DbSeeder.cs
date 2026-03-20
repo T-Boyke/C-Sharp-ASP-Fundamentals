@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace _10_Filmdatenbank.Infrastructure.Persistence;
 
@@ -18,86 +19,95 @@ public static class DbSeeder
     /// <returns>Ein Task-Objekt.</returns>
     public static async Task SeedAsync(ApplicationDbContext context)
     {
+        var logPath = @"C:\Users\Tobia\Desktop\cSharpRepo\C-Sharp-ASP-Fundamentals\10_Filmdatenbank\e2e_debug.log";
+        File.AppendAllText(logPath, $"[{DateTime.Now}] [DEBUG] Seeding database...{Environment.NewLine}");
+
         // 1. Tags / Eigenschaften
-        if (!await context.Eigenschaften.AnyAsync())
+        var directorTag = await context.Eigenschaften.FirstOrDefaultAsync(t => t.Bezeichnung == "Director");
+        if (directorTag == null)
         {
-            var tags = new List<Eigenschaft>
-            {
-                new Eigenschaft { Bezeichnung = "Actor" },
-                new Eigenschaft { Bezeichnung = "Director" },
-                new Eigenschaft { Bezeichnung = "Producer" }
-            };
-            context.Eigenschaften.AddRange(tags);
-            await context.SaveChangesAsync();
+            directorTag = new Eigenschaft { Bezeichnung = "Director" };
+            context.Eigenschaften.Add(directorTag);
         }
+        var actorTag = await context.Eigenschaften.FirstOrDefaultAsync(t => t.Bezeichnung == "Actor");
+        if (actorTag == null)
+        {
+            actorTag = new Eigenschaft { Bezeichnung = "Actor" };
+            context.Eigenschaften.Add(actorTag);
+        }
+        await context.SaveChangesAsync();
 
         // 2. Genres
-        if (!await context.Genres.AnyAsync())
+        var actionGenre = await context.Genres.FirstOrDefaultAsync(g => g.Name == "Action");
+        if (actionGenre == null)
         {
-            var genres = new List<Genre>
-            {
-                new Genre { Name = "Action" },
-                new Genre { Name = "Sci-Fi" },
-                new Genre { Name = "Drama" }
-            };
-            context.Genres.AddRange(genres);
-            await context.SaveChangesAsync();
+            actionGenre = new Genre { Name = "Action" };
+            context.Genres.Add(actionGenre);
         }
+        var sciFiGenre = await context.Genres.FirstOrDefaultAsync(g => g.Name == "Sci-Fi");
+        if (sciFiGenre == null)
+        {
+            sciFiGenre = new Genre { Name = "Sci-Fi" };
+            context.Genres.Add(sciFiGenre);
+        }
+        await context.SaveChangesAsync();
 
         // 3. Personen
-        if (!await context.Personen.AnyAsync())
+        var nolan = await context.Personen.FirstOrDefaultAsync(p => p.Nachname == "Nolan");
+        if (nolan == null)
         {
-            var nolan = new Person { Vorname = "Christopher", Nachname = "Nolan" };
-            var bale = new Person { Vorname = "Christian", Nachname = "Bale" };
-            context.Personen.AddRange(nolan, bale);
-            await context.SaveChangesAsync();
+            nolan = new Person { Vorname = "Christopher", Nachname = "Nolan" };
+            context.Personen.Add(nolan);
         }
+        var bale = await context.Personen.FirstOrDefaultAsync(p => p.Nachname == "Bale");
+        if (bale == null)
+        {
+            bale = new Person { Vorname = "Christian", Nachname = "Bale" };
+            context.Personen.Add(bale);
+        }
+        await context.SaveChangesAsync();
 
         // 4. Filme
-        if (!await context.Filme.AnyAsync())
+        var inception = await context.Filme.Include(f => f.Genres).Include(f => f.PersonEigenschaftFilme).FirstOrDefaultAsync(f => f.Titel == "Inception");
+        if (inception == null)
         {
-            var genres = await context.Genres.ToListAsync();
-            var tags = await context.Eigenschaften.ToListAsync();
-            var persons = await context.Personen.ToListAsync();
-
-            var inception = new Film
+            inception = new Film
             {
                 Titel = "Inception",
                 Handlung = "Ein Dieb, der Geheimnisse steuert.",
                 Erscheinungsjahr = 2010,
                 Preis = 9.99m,
-                Genres = new List<Genre> { genres[0], genres[1] }
+                Genres = new List<Genre> { actionGenre, sciFiGenre }
             };
             context.Filme.Add(inception);
             await context.SaveChangesAsync();
-
-            // 5. Verbindungen (Reload to get IDs if needed, though Add should set them)
-            var nolanRel = await context.Personen.FirstOrDefaultAsync(p => p.Nachname == "Nolan");
-            var baleRel = await context.Personen.FirstOrDefaultAsync(p => p.Nachname == "Bale");
-            var directorTagRel = await context.Eigenschaften.FirstOrDefaultAsync(t => t.Bezeichnung == "Director");
-            var actorTagRel = await context.Eigenschaften.FirstOrDefaultAsync(t => t.Bezeichnung == "Actor");
-
-            if (nolanRel != null && directorTagRel != null)
-            {
-                context.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm
-                {
-                    FilmID = inception.FilmID,
-                    PersonID = nolanRel.PersonID,
-                    EigenschaftID = directorTagRel.EigenschaftID
-                });
-            }
-
-            if (baleRel != null && actorTagRel != null)
-            {
-                context.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm
-                {
-                    FilmID = inception.FilmID,
-                    PersonID = baleRel.PersonID,
-                    EigenschaftID = actorTagRel.EigenschaftID
-                });
-            }
-
-            await context.SaveChangesAsync();
         }
+
+        // 5. Verbindungen sicherstellen
+        if (!context.PersonEigenschaftFilme.Any(pef => pef.FilmId == inception.Id && pef.PersonId == nolan.Id))
+        {
+            File.AppendAllText(logPath, $"[{DateTime.Now}] [DEBUG] Linking '{inception.Titel}' to Person '{nolan.Vorname} {nolan.Nachname}' as '{directorTag.Bezeichnung}'{Environment.NewLine}");
+            context.PersonEigenschaftFilme.Add(new PersonEigenschaftFilm
+            {
+                Film = inception,
+                Person = nolan,
+                Eigenschaft = directorTag
+            });
+        }
+
+        if (!context.PersonEigenschaftFilme.Any(pef => pef.FilmId == inception.Id && pef.PersonId == bale.Id))
+        {
+            File.AppendAllText(logPath, $"[{DateTime.Now}] [DEBUG] Linking '{inception.Titel}' to Person '{bale.Vorname} {bale.Nachname}' as '{actorTag.Bezeichnung}'{Environment.NewLine}");
+            context.PersonEigenschaftFilm entry = new PersonEigenschaftFilm
+            {
+                Film = inception,
+                Person = bale,
+                Eigenschaft = actorTag
+            };
+            context.PersonEigenschaftFilme.Add(entry);
+        }
+
+        await context.SaveChangesAsync();
+        File.AppendAllText(logPath, $"[{DateTime.Now}] [DEBUG] Seeding completed.{Environment.NewLine}");
     }
 }
